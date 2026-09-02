@@ -28,11 +28,6 @@ const montserrat = Montserrat({
 import { ApplyModalProvider } from "./context/ApplyModalContext";
 import ScrollRevealProvider from "./components/ScrollRevealProvider";
 
-export const metadata: Metadata = {
-  title: "Grofi - Smart Financial Growth Partner",
-  description: "Explore the best credit cards, loans and financial products tailored to your needs.",
-};
-
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
