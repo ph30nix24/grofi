@@ -65,12 +65,12 @@ export default function CreditCardShowcase() {
   });
 
   return (
-    <section id="credit-cards" className="py-22 px-6 relative bg-gradient-to-b from-[#F3F0DF]/40 via-white to-[#F3F0DF]/30 overflow-hidden">
+    <section id="credit-cards" className="py-22 px-6 relative bg-linear-to-b from-[#F3F0DF]/40 via-white to-[#F3F0DF]/30 overflow-hidden">
 
       {/* Decorative background glows */}
-      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-to-br from-[#B6CC9A]/20 via-primary/5 to-transparent rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-200 h-125 bg-linear-to-br from-[#B6CC9A]/20 via-primary/5 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-[1280px] mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10">
 
         {/* ── Section Header ───────────────────────────────────────────── */}
         <div className="text-center max-w-3xl mx-auto mb-12 reveal-on-scroll">
@@ -89,9 +89,9 @@ export default function CreditCardShowcase() {
 
           {/* Decorative diamond line */}
           <div className="flex items-center justify-center gap-3 my-4">
-            <div className="w-16 h-px bg-gradient-to-r from-transparent to-primary/30" />
+            <div className="w-16 h-px bg-linear-to-r from-transparent to-primary/30" />
             <div className="w-2 h-2 rotate-45 bg-primary/60 rounded-xs" />
-            <div className="w-16 h-px bg-gradient-to-l from-transparent to-primary/30" />
+            <div className="w-16 h-px bg-linear-to-l from-transparent to-primary/30" />
           </div>
 
           <p className="text-sm md:text-base text-black/60 leading-relaxed font-montserrat max-w-2xl mx-auto">
@@ -138,10 +138,10 @@ export default function CreditCardShowcase() {
                     className={`relative w-full aspect-[1.586/1] rounded-2xl p-5 ${card.cardTheme.bgStyle} ${card.cardTheme.textColor} border ${card.cardTheme.borderStyle} shadow-xl flex flex-col justify-between overflow-hidden transition-transform duration-500 group-hover:scale-[1.02]`}
                   >
                     {card.cardTheme.artElement === "infinia-facets" && (
-                      <div className="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-400 via-indigo-600 to-transparent" />
+                      <div className="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(ellipse_at_top_right,var(--tw-gradient-stops))] from-blue-400 via-indigo-600 to-transparent" />
                     )}
                     {card.cardTheme.artElement === "feather" && (
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2 w-28 h-28 opacity-40 pointer-events-none bg-gradient-to-tr from-pink-500 to-purple-500 rounded-full blur-xl" />
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 w-28 h-28 opacity-40 pointer-events-none bg-linear-to-tr from-pink-500 to-purple-500 rounded-full blur-xl" />
                     )}
                     {card.cardTheme.artElement === "centurion" && (
                       <div className="absolute right-3 top-1/2 -translate-y-1/2 w-20 h-20 rounded-full border border-gray-500/30 flex items-center justify-center opacity-30">
@@ -149,13 +149,13 @@ export default function CreditCardShowcase() {
                       </div>
                     )}
                     {card.cardTheme.artElement === "emerald-cut" && (
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-emerald-400/20 via-transparent to-transparent opacity-40" />
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,var(--tw-gradient-stops))] from-emerald-400/20 via-transparent to-transparent opacity-40" />
                     )}
                     {card.cardTheme.artElement === "chevron" && (
                       <div className="absolute right-0 top-0 bottom-0 w-16 bg-yellow-400/20 clip-path-chevron pointer-events-none" />
                     )}
                     {card.cardTheme.artElement === "gold-leaf" && (
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_var(--tw-gradient-stops))] from-yellow-200/30 via-transparent to-transparent opacity-50" />
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,var(--tw-gradient-stops))] from-yellow-200/30 via-transparent to-transparent opacity-50" />
                     )}
                     {card.cardTheme.artElement === "globe" && (
                       <div className="absolute right-2 bottom-2 w-24 h-24 rounded-full border border-white/10 opacity-30 flex items-center justify-center">
@@ -277,7 +277,7 @@ export default function CreditCardShowcase() {
         </div>
 
         {/* ── Bottom Value Banner: Card Eligibility & Pre-Approval ──────── */}
-        <div className="mt-16 bg-gradient-to-r from-primary via-[#04363a] to-primary rounded-3xl p-8 sm:p-10 text-white shadow-xl flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden reveal-scale delay-150">
+        <div className="mt-16 bg-linear-to-r from-primary via-[#04363a] to-primary rounded-3xl p-8 sm:p-10 text-white shadow-xl flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden reveal-scale delay-150">
           <div className="absolute right-0 top-0 w-80 h-80 bg-gold/15 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 max-w-2xl">

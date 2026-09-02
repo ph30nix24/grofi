@@ -3,11 +3,9 @@
 import React, { useState, useMemo } from "react";
 import {
   CreditCard,
-  Wallet,
   Coins,
   Briefcase,
   Home,
-  TrendingUp,
   Clock,
   Building2,
   RefreshCw,
@@ -20,15 +18,11 @@ import {
   ShieldCheck,
   Search,
   X,
-  Percent,
-  IndianRupee,
   FileText,
   UserCheck,
   Zap,
-  Info,
   ChevronRight,
-  ExternalLink,
-  Layers,
+
 } from "lucide-react";
 import { useApplyModal } from "../context/ApplyModalContext";
 
@@ -476,13 +470,13 @@ export default function ProductsSection() {
   }, [selectedCategory, searchQuery]);
 
   return (
-    <section id="products" className="py-22 px-6 relative bg-gradient-to-b from-[#F3F0DF]/40 via-white to-[#F3F0DF]/30 overflow-hidden">
+    <section id="products" className="py-22 px-6 relative bg-linear-to-b from-[#F3F0DF]/40 via-white to-[#F3F0DF]/30 overflow-hidden">
       
       {/* Decorative background glows */}
-      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[900px] h-[550px] bg-gradient-to-br from-[#B6CC9A]/20 via-primary/5 to-transparent rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-225 h-137.5 bg-linear-to-br from-[#B6CC9A]/20 via-primary/5 to-transparent rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-[1280px] mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10">
         
         {/* ── Section Header ───────────────────────────────────────────── */}
         <div className="text-center max-w-3xl mx-auto mb-12 reveal-on-scroll">
@@ -503,9 +497,9 @@ export default function ProductsSection() {
 
           {/* Decorative diamond line */}
           <div className="flex items-center justify-center gap-3 my-4">
-            <div className="w-16 h-px bg-gradient-to-r from-transparent to-primary/30" />
+            <div className="w-16 h-px bg-linear-to-r from-transparent to-primary/30" />
             <div className="w-2 h-2 rotate-45 bg-primary/60 rounded-xs" />
-            <div className="w-16 h-px bg-gradient-to-l from-transparent to-primary/30" />
+            <div className="w-16 h-px bg-linear-to-l from-transparent to-primary/30" />
           </div>
 
           <p className="text-sm md:text-base text-black/60 leading-relaxed font-montserrat max-w-2xl mx-auto">
@@ -595,7 +589,7 @@ export default function ProductsSection() {
                 }`}
               >
                 {/* Ambient hover gradient glow */}
-                <div className="absolute top-0 right-0 w-36 h-36 bg-gradient-to-br from-primary/[0.04] to-gold/[0.04] rounded-bl-full pointer-events-none transition-opacity group-hover:opacity-100 opacity-40" />
+                <div className="absolute top-0 right-0 w-36 h-36 bg-linear-to-br from-primary/4 to-gold/4 rounded-bl-full pointer-events-none transition-opacity group-hover:opacity-100 opacity-40" />
 
                 {/* Top Section */}
                 <div>
@@ -691,7 +685,7 @@ export default function ProductsSection() {
         )}
 
         {/* ── Bottom Value & Trust Banner ──────────────────────────────── */}
-        <div className="bg-gradient-to-r from-primary via-[#03363b] to-primary rounded-3xl p-8 sm:p-10 text-white shadow-xl flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden reveal-scale delay-150">
+        <div className="bg-linear-to-r from-primary via-[#03363b] to-primary rounded-3xl p-8 sm:p-10 text-white shadow-xl flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden reveal-scale delay-150">
           <div className="absolute right-0 top-0 w-80 h-80 bg-gold/15 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 max-w-2xl text-center lg:text-left">

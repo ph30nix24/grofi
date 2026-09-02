@@ -68,7 +68,7 @@ export default function Footer() {
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-[1280px] mx-auto px-6 sm:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
         
         {/* ── Top Newsletter / Rate Alert Bar ──────────────────────────── */}
         <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 sm:p-10 border border-white/10 mb-16 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8 reveal-scale">
@@ -206,7 +206,7 @@ export default function Footer() {
 
           {/* Column 2: Lending Products (2 cols) */}
           <div className="lg:col-span-2">
-            <h4 className="font-bricolage font-bold text-base text-white mb-5 uppercase tracking-wider text-xs">
+            <h4 className="font-bricolage font-bold text-white mb-5 uppercase tracking-wider text-xs">
               Loans &amp; Credit
             </h4>
             <ul className="flex flex-col gap-2.5 text-xs text-white/70">
@@ -225,7 +225,7 @@ export default function Footer() {
 
           {/* Column 3: Credit Cards (2 cols) */}
           <div className="lg:col-span-2">
-            <h4 className="font-bricolage font-bold text-base text-white mb-5 uppercase tracking-wider text-xs">
+            <h4 className="font-bricolage font-bold text-white mb-5 uppercase tracking-wider text-xs">
               Credit Cards
             </h4>
             <ul className="flex flex-col gap-2.5 text-xs text-white/70">
@@ -244,7 +244,7 @@ export default function Footer() {
 
           {/* Column 4: Calculators & Tools (2 cols) */}
           <div className="lg:col-span-2">
-            <h4 className="font-bricolage font-bold text-base text-white mb-5 uppercase tracking-wider text-xs">
+            <h4 className="font-bricolage font-bold text-white mb-5 uppercase tracking-wider text-xs">
               Financial Tools
             </h4>
             <ul className="flex flex-col gap-2.5 text-xs text-white/70">
@@ -263,7 +263,7 @@ export default function Footer() {
 
           {/* Column 5: Company & Support (2 cols) */}
           <div className="lg:col-span-2">
-            <h4 className="font-bricolage font-bold text-base text-white mb-5 uppercase tracking-wider text-xs">
+            <h4 className="font-bricolage font-bold text-white mb-5 uppercase tracking-wider text-xs">
               Grofi Company
             </h4>
             <ul className="flex flex-col gap-2.5 text-xs text-white/70">

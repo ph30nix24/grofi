@@ -221,8 +221,8 @@ export default function EmiCalculator() {
   const interestStroke = (interestPercent / 100) * circumference;
 
   return (
-    <section id="emi-calculator" className="py-20 px-6 relative bg-gradient-to-b from-[#F3F0DF]/30 via-white to-[#F3F0DF]/50">
-      <div className="max-w-[1280px] mx-auto">
+    <section id="emi-calculator" className="py-20 px-6 relative bg-linear-to-b from-[#F3F0DF]/30 via-white to-[#F3F0DF]/50">
+      <div className="max-w-7xl mx-auto">
         
         {/* ── Section Header ───────────────────────────────────────────── */}
         <div className="text-center max-w-3xl mx-auto mb-12 reveal-on-scroll">
@@ -242,9 +242,9 @@ export default function EmiCalculator() {
 
           {/* Decorative diamond line */}
           <div className="flex items-center justify-center gap-3 my-4">
-            <div className="w-16 h-px bg-gradient-to-r from-transparent to-primary/30" />
+            <div className="w-16 h-px bg-linear-to-r from-transparent to-primary/30" />
             <div className="w-2 h-2 rotate-45 bg-primary/60 rounded-xs" />
-            <div className="w-16 h-px bg-gradient-to-l from-transparent to-primary/30" />
+            <div className="w-16 h-px bg-linear-to-l from-transparent to-primary/30" />
           </div>
 
           <p className="text-sm md:text-base text-black/60 leading-relaxed font-montserrat max-w-2xl mx-auto">
@@ -283,7 +283,7 @@ export default function EmiCalculator() {
           <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 shadow-md border border-gray-100 flex flex-col gap-8 reveal-slide-left delay-150">
             
             {/* Active Loan Subtitle Banner */}
-            <div className="flex items-center justify-between bg-primary/[0.04] border border-primary/10 rounded-2xl p-4">
+            <div className="flex items-center justify-between bg-primary/4 border border-primary/10 rounded-2xl p-4">
               <div>
                 <p className="text-xs font-bold text-primary uppercase tracking-wider">{activeConfig.label}</p>
                 <p className="text-xs text-gray-500 mt-0.5">{activeConfig.subtitle}</p>
