@@ -115,7 +115,7 @@ export default function WhyChooseUs() {
       <div className="max-w-[1280px] mx-auto relative z-10">
         
         {/* ── Section Header ───────────────────────────────────────────── */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 bg-[#EBF4ED] text-primary text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-primary/20 mb-4">
             <Sparkles className="w-3.5 h-3.5 text-gold" />
             The Grofi Advantage
@@ -144,10 +144,12 @@ export default function WhyChooseUs() {
 
         {/* ── 6 Core Benefits Grid ─────────────────────────────────────── */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {benefits.map((b) => (
+          {benefits.map((b, idx) => (
             <div
               key={b.id}
-              className="bg-white rounded-3xl p-8 border border-gray-100 shadow-md hover:shadow-2xl hover:border-primary/25 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5 relative overflow-hidden"
+              className={`bg-white rounded-3xl p-8 border border-gray-100 shadow-md hover:shadow-2xl hover:border-primary/25 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5 relative overflow-hidden reveal-on-scroll ${
+                idx % 3 === 1 ? "delay-100" : idx % 3 === 2 ? "delay-200" : ""
+              }`}
             >
               {/* Subtle card corner accent */}
               <div className="absolute top-0 right-0 w-24 h-24 bg-primary/[0.02] rounded-bl-full pointer-events-none transition-colors group-hover:bg-primary/[0.05]" />
@@ -188,7 +190,7 @@ export default function WhyChooseUs() {
         </div>
 
         {/* ── Stats Strip ──────────────────────────────────────────────── */}
-        <div className="bg-primary text-white rounded-3xl p-8 sm:p-10 shadow-xl mb-16 relative overflow-hidden">
+        <div className="bg-primary text-white rounded-3xl p-8 sm:p-10 shadow-xl mb-16 relative overflow-hidden reveal-scale delay-150">
           <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-60 h-60 bg-gold/15 rounded-full blur-3xl pointer-events-none" />
 
@@ -210,7 +212,7 @@ export default function WhyChooseUs() {
         </div>
 
         {/* ── Comparison: Traditional Banks vs Grofi ───────────────────── */}
-        <div className="bg-white rounded-3xl p-6 sm:p-10 border border-gray-100 shadow-lg mb-16">
+        <div className="bg-white rounded-3xl p-6 sm:p-10 border border-gray-100 shadow-lg mb-16 reveal-on-scroll delay-200">
           <div className="text-center max-w-2xl mx-auto mb-8">
             <h3 className="font-bricolage font-bold text-2xl sm:text-3xl text-primary">
               How Grofi Compares
@@ -252,7 +254,7 @@ export default function WhyChooseUs() {
         </div>
 
         {/* ── Bottom Call To Action ────────────────────────────────────── */}
-        <div className="text-center bg-gradient-to-r from-[#F3F0DF] via-[#ECE9CF] to-[#DDE3C1] rounded-3xl p-8 sm:p-12 border border-[#a5c490]/40 shadow-md">
+        <div className="text-center bg-gradient-to-r from-[#F3F0DF] via-[#ECE9CF] to-[#DDE3C1] rounded-3xl p-8 sm:p-12 border border-[#a5c490]/40 shadow-md reveal-scale delay-150">
           <h3 className="font-bricolage font-bold text-2xl sm:text-3xl xl:text-4xl text-primary">
             Ready to Find Your Ideal Financial Product?
           </h3>

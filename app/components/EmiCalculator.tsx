@@ -225,7 +225,7 @@ export default function EmiCalculator() {
       <div className="max-w-[1280px] mx-auto">
         
         {/* ── Section Header ───────────────────────────────────────────── */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-12 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 bg-[#EBF4ED] text-primary text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-primary/20 mb-4">
             <Sparkles className="w-3.5 h-3.5 text-gold" />
             Financial Planning Tool
@@ -253,7 +253,7 @@ export default function EmiCalculator() {
         </div>
 
         {/* ── Loan Type Switcher Tabs ──────────────────────────────────── */}
-        <div className="flex justify-center mb-10">
+        <div className="flex justify-center mb-10 reveal-on-scroll delay-100">
           <div className="bg-white p-1.5 rounded-2xl shadow-sm border border-gray-200/80 inline-flex gap-2 max-w-full overflow-x-auto">
             {(Object.keys(loanConfigs) as LoanType[]).map((type) => {
               const cfg = loanConfigs[type];
@@ -280,7 +280,7 @@ export default function EmiCalculator() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* ── Left Column: Sliders & Controls (7 Cols) ───────────────── */}
-          <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 shadow-md border border-gray-100 flex flex-col gap-8">
+          <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 shadow-md border border-gray-100 flex flex-col gap-8 reveal-slide-left delay-150">
             
             {/* Active Loan Subtitle Banner */}
             <div className="flex items-center justify-between bg-primary/[0.04] border border-primary/10 rounded-2xl p-4">
@@ -352,16 +352,16 @@ export default function EmiCalculator() {
             </div>
 
             {/* Control 2: Interest Rate */}
-            <div className="flex flex-col gap-3 pt-2 border-t border-gray-100">
+            <div className="flex flex-col gap-3 pt-4 border-t border-gray-100">
               <div className="flex items-center justify-between">
                 <label className="text-sm font-bold text-gray-700 font-montserrat flex items-center gap-1.5">
                   <Percent className="w-4 h-4 text-primary" />
-                  Interest Rate (% p.a.)
+                  Interest Rate (p.a.)
                 </label>
                 <div className="relative flex items-center">
                   <input
                     type="number"
-                    step="0.05"
+                    step={activeConfig.stepRate}
                     min={activeConfig.minRate}
                     max={activeConfig.maxRate}
                     value={interestRate}
@@ -369,7 +369,7 @@ export default function EmiCalculator() {
                       const val = parseFloat(e.target.value);
                       if (!isNaN(val)) setInterestRate(val);
                     }}
-                    className="w-28 sm:w-32 pr-7 pl-3 py-2 bg-gray-50 border border-gray-200 rounded-xl text-right font-montserrat font-bold text-primary text-base focus:outline-none focus:border-primary focus:bg-white transition-all"
+                    className="w-28 pl-3 pr-7 py-2 bg-gray-50 border border-gray-200 rounded-xl text-right font-montserrat font-bold text-primary text-base focus:outline-none focus:border-primary focus:bg-white transition-all"
                   />
                   <span className="absolute right-3 text-gray-400 font-bold text-sm">%</span>
                 </div>
@@ -394,55 +394,50 @@ export default function EmiCalculator() {
             </div>
 
             {/* Control 3: Loan Tenure */}
-            <div className="flex flex-col gap-3 pt-2 border-t border-gray-100">
-              <div className="flex items-center justify-between flex-wrap gap-2">
+            <div className="flex flex-col gap-3 pt-4 border-t border-gray-100">
+              <div className="flex items-center justify-between">
                 <label className="text-sm font-bold text-gray-700 font-montserrat flex items-center gap-1.5">
                   <Calendar className="w-4 h-4 text-primary" />
                   Loan Tenure
                 </label>
-
-                {/* Years / Months Unit Switcher & Input */}
+                
+                {/* Years / Months Unit Toggle */}
                 <div className="flex items-center gap-2">
-                  <div className="bg-gray-100 p-1 rounded-lg flex text-xs font-semibold">
+                  <div className="bg-gray-100 p-1 rounded-xl flex items-center text-xs font-semibold">
                     <button
-                      onClick={() => {
-                        if (tenureUnit === "months") {
-                          setTenureUnit("years");
-                          setTenureYears(Math.max(1, Math.round(tenureYears / 12)));
-                        }
-                      }}
-                      className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
-                        tenureUnit === "years" ? "bg-white text-primary shadow-xs" : "text-gray-500 hover:text-gray-900"
+                      onClick={() => setTenureUnit("years")}
+                      className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
+                        tenureUnit === "years" ? "bg-white text-primary shadow-2xs" : "text-gray-500 hover:text-gray-800"
                       }`}
                     >
                       Years
                     </button>
                     <button
-                      onClick={() => {
-                        if (tenureUnit === "years") {
-                          setTenureUnit("months");
-                          setTenureYears(tenureYears * 12);
-                        }
-                      }}
-                      className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
-                        tenureUnit === "months" ? "bg-white text-primary shadow-xs" : "text-gray-500 hover:text-gray-900"
+                      onClick={() => setTenureUnit("months")}
+                      className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
+                        tenureUnit === "months" ? "bg-white text-primary shadow-2xs" : "text-gray-500 hover:text-gray-800"
                       }`}
                     >
                       Months
                     </button>
                   </div>
 
-                  <input
-                    type="number"
-                    min={tenureUnit === "years" ? activeConfig.minTenureYears : activeConfig.minTenureYears * 12}
-                    max={tenureUnit === "years" ? activeConfig.maxTenureYears : activeConfig.maxTenureYears * 12}
-                    value={tenureYears}
-                    onChange={(e) => {
-                      const val = parseInt(e.target.value);
-                      if (!isNaN(val)) setTenureYears(val);
-                    }}
-                    className="w-20 pr-2 pl-3 py-2 bg-gray-50 border border-gray-200 rounded-xl text-center font-montserrat font-bold text-primary text-base focus:outline-none focus:border-primary focus:bg-white transition-all"
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type="number"
+                      min={tenureUnit === "years" ? activeConfig.minTenureYears : activeConfig.minTenureYears * 12}
+                      max={tenureUnit === "years" ? activeConfig.maxTenureYears : activeConfig.maxTenureYears * 12}
+                      value={tenureYears}
+                      onChange={(e) => {
+                        const val = parseInt(e.target.value, 10);
+                        if (!isNaN(val)) setTenureYears(val);
+                      }}
+                      className="w-24 pl-3 pr-8 py-2 bg-gray-50 border border-gray-200 rounded-xl text-right font-montserrat font-bold text-primary text-base focus:outline-none focus:border-primary focus:bg-white transition-all"
+                    />
+                    <span className="absolute right-2.5 text-gray-400 font-bold text-xs">
+                      {tenureUnit === "years" ? "Yr" : "Mo"}
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -499,7 +494,7 @@ export default function EmiCalculator() {
           </div>
 
           {/* ── Right Column: EMI Summary & Visual Ring Chart (5 Cols) ─── */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
+          <div className="lg:col-span-5 flex flex-col gap-6 reveal-slide-right delay-200">
             
             {/* Primary Result Card */}
             <div className="bg-primary text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden flex flex-col justify-between">
@@ -619,7 +614,7 @@ export default function EmiCalculator() {
             </div>
 
             {/* Value Props Strip */}
-            <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm flex flex-col gap-3">
+            <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm flex flex-col gap-3 reveal-on-scroll delay-300">
               <div className="flex items-center gap-2.5 text-xs font-semibold text-gray-700">
                 <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span>Zero hidden charges • 100% transparent comparison</span>

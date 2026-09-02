@@ -76,7 +76,7 @@ export default function Footer() {
       <div className="max-w-[1280px] mx-auto px-6 sm:px-8 relative z-10">
         
         {/* ── Top Newsletter / Rate Alert Bar ──────────────────────────── */}
-        <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 sm:p-10 border border-white/10 mb-16 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 sm:p-10 border border-white/10 mb-16 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8 reveal-scale">
           <div className="max-w-xl text-center lg:text-left">
             <div className="inline-flex items-center gap-2 bg-[#B6CC9A]/15 text-[#B6CC9A] text-xs font-bold uppercase tracking-widest px-3.5 py-1 rounded-full border border-[#B6CC9A]/20 mb-3">
               <Sparkles className="w-3.5 h-3.5 text-gold" />
@@ -122,13 +122,13 @@ export default function Footer() {
         </div>
 
         {/* ── Main Footer Columns ──────────────────────────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-14 border-b border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-14 border-b border-white/10 reveal-on-scroll delay-100">
           
           {/* Column 1: Brand & Contact Info (4 cols) */}
           <div className="lg:col-span-4 flex flex-col gap-6">
             <a href="#" className="inline-block">
               <Image
-                src="/grofi.png"
+                src="/Grofi.png"
                 alt="Grofi Logo"
                 width={140}
                 height={50}
@@ -142,15 +142,7 @@ export default function Footer() {
 
             {/* Contact Details */}
             <div className="flex flex-col gap-3 text-xs text-white/80">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-[#B6CC9A] shrink-0">
-                  <Phone className="w-4 h-4" />
-                </div>
-                <div>
-                  <p className="text-[10px] text-white/40 uppercase font-semibold">Toll-Free Helpline</p>
-                  <p className="font-bold text-white text-xs sm:text-sm">1800-419-4763 (9 AM - 8 PM)</p>
-                </div>
-              </div>
+              
 
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-[#B6CC9A] shrink-0">
@@ -168,22 +160,13 @@ export default function Footer() {
                 </div>
                 <div>
                   <p className="text-[10px] text-white/40 uppercase font-semibold">Corporate Office</p>
-                  <p className="text-white/80 text-xs">Indiranagar 100ft Rd, Bengaluru, Karnataka 560038</p>
+                  <p className="text-white/80 text-xs">B - 113 Ganesh Nagar, Tilak Nage Near Janakpuri East Metro, Delhi India</p>
                 </div>
               </div>
             </div>
 
             {/* Social Links */}
             <div className="flex items-center gap-3 pt-2">
-              <a
-                href="#"
-                aria-label="X / Twitter"
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-gold text-white/80 hover:text-white flex items-center justify-center transition-all duration-200"
-              >
-                <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
-              </a>
               <a
                 href="#"
                 aria-label="LinkedIn"
@@ -194,8 +177,9 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/grofi_"
                 aria-label="Instagram"
+                target="_blank"
                 className="w-9 h-9 rounded-xl bg-white/10 hover:bg-gold text-white/80 hover:text-white flex items-center justify-center transition-all duration-200"
               >
                 <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">
@@ -203,8 +187,9 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://www.facebook.com/people/GROFI/61585844205496/"
                 aria-label="Facebook"
+                target="_blank"
                 className="w-9 h-9 rounded-xl bg-white/10 hover:bg-gold text-white/80 hover:text-white flex items-center justify-center transition-all duration-200"
               >
                 <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">
@@ -212,8 +197,9 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://www.youtube.com/@Grofinance"
                 aria-label="YouTube"
+                target="_blank"
                 className="w-9 h-9 rounded-xl bg-white/10 hover:bg-gold text-white/80 hover:text-white flex items-center justify-center transition-all duration-200"
               >
                 <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">
@@ -302,7 +288,7 @@ export default function Footer() {
         </div>
 
         {/* ── Trust, Security & Regulatory Badges Strip ────────────────── */}
-        <div className="py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 border-b border-white/10 text-xs text-white/70">
+        <div className="py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 border-b border-white/10 text-xs text-white/70 reveal-on-scroll delay-200">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#B6CC9A] shrink-0">
               <ShieldCheck className="w-5 h-5" />
@@ -345,7 +331,7 @@ export default function Footer() {
         </div>
 
         {/* ── Regulatory Disclaimer ────────────────────────────────────── */}
-        <div className="py-6 text-[11px] text-white/50 leading-relaxed">
+        <div className="py-6 text-[11px] text-white/50 leading-relaxed reveal-fade delay-300">
           <p>
             <strong>Disclaimer:</strong> Grofi (Grofi Financial Technologies Pvt. Ltd.) operates as a digital aggregator and marketing partner for RBI-regulated commercial banks, NBFCs, and financial institutions. Grofi does not directly lend money or issue credit cards. Loan approval, credit limits, interest rates, and disbursal timelines are determined solely at the discretion of the lending partner based on their respective credit underwriting policies. Grofi does not charge any upfront application or advisory fees from customers.
           </p>

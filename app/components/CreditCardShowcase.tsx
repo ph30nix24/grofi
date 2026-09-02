@@ -8,6 +8,7 @@ import {
   CreditCard as CreditCardIcon,
   ShieldCheck,
   Check,
+  CheckCircle2,
   ArrowRight,
   ExternalLink,
   Crown,
@@ -76,7 +77,7 @@ export default function CreditCardShowcase() {
       <div className="max-w-[1280px] mx-auto relative z-10">
 
         {/* ── Section Header ───────────────────────────────────────────── */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        <div className="text-center max-w-3xl mx-auto mb-12 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 bg-[#EBF4ED] text-primary text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-primary/20 mb-4">
             <Sparkles className="w-3.5 h-3.5 text-gold" />
             Curated Elite Portfolio
@@ -103,7 +104,7 @@ export default function CreditCardShowcase() {
         </div>
 
         {/* ── Category Filter Tabs ─────────────────────────────────────── */}
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-center mb-12 reveal-on-scroll delay-100">
           <div className="bg-white p-1.5 rounded-2xl shadow-sm border border-gray-200/80 inline-flex gap-2 max-w-full overflow-x-auto">
             {categoryTabs.map((tab) => {
               const isActive = selectedCategory === tab.id;
@@ -126,10 +127,12 @@ export default function CreditCardShowcase() {
 
         {/* ── Cards Showcase Grid ──────────────────────────────────────── */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredCards.map((card) => (
+          {filteredCards.map((card, idx) => (
             <div
               key={card.id}
-              className="bg-white rounded-3xl border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1.5"
+              className={`bg-white rounded-3xl border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1.5 reveal-on-scroll ${
+                idx % 3 === 1 ? "delay-100" : idx % 3 === 2 ? "delay-200" : ""
+              }`}
             >
 
               {/* ── Card Graphic & Header ── */}
@@ -242,21 +245,17 @@ export default function CreditCardShowcase() {
                   </div>
                 </div>
 
-                {/* Lounge Access Highlight */}
-                <div className="flex items-center gap-2 mt-3 text-xs text-gray-700 font-medium bg-primary/[0.03] p-2.5 rounded-xl border border-primary/10">
-                  <Plane className="w-3.5 h-3.5 text-primary shrink-0" />
-                  <span className="truncate">{card.loungeAccess}</span>
+                {/* Top Perks Bullet */}
+                <div className="mt-4 pt-3 border-t border-gray-100">
+                  <ul className="space-y-1.5">
+                    {card.keyPerks.map((perk, i) => (
+                      <li key={i} className="flex items-center gap-2 text-xs text-gray-600 font-montserrat">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                        <span className="line-clamp-1">{perk}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-
-                {/* Key Bullet Perks */}
-                <ul className="mt-4 flex flex-col gap-2">
-                  {card.keyPerks.map((perk, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-xs text-gray-600 font-montserrat leading-relaxed">
-                      <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                      <span>{perk}</span>
-                    </li>
-                  ))}
-                </ul>
 
               </div>
 
@@ -282,7 +281,7 @@ export default function CreditCardShowcase() {
         </div>
 
         {/* ── Bottom Value Banner: Card Eligibility & Pre-Approval ──────── */}
-        <div className="mt-16 bg-gradient-to-r from-primary via-[#04363a] to-primary rounded-3xl p-8 sm:p-10 text-white shadow-xl flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden">
+        <div className="mt-16 bg-gradient-to-r from-primary via-[#04363a] to-primary rounded-3xl p-8 sm:p-10 text-white shadow-xl flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden reveal-scale delay-150">
           <div className="absolute right-0 top-0 w-80 h-80 bg-gold/15 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 max-w-2xl">

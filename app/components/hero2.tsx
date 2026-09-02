@@ -1,7 +1,19 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { ArrowRight, Search, Home, Car, Briefcase, CreditCard, Wallet } from "lucide-react";
+import {
+  ArrowRight,
+  Search,
+  Home,
+  Car,
+  Briefcase,
+  CreditCard,
+  Wallet,
+  Menu,
+  X,
+  ChevronRight,
+} from "lucide-react";
 import { banksImgs, imageUrls } from "../utils";
 import { useApplyModal } from "../context/ApplyModalContext";
 
@@ -50,61 +62,153 @@ const stats = [
 ];
 
 const navLinks = [
-  { label: "Credit Cards", href: "#credit-cards", dropdown: false },
-  { label: "Loans", href: "#products", dropdown: false },
-  { label: "EMI Calculator", href: "#emi-calculator", dropdown: false },
-  { label: "Offers", href: "#products", dropdown: false },
-  { label: "Resources", href: "#", dropdown: true },
-  { label: "Why Choose Us", href: "#why-choose-us", dropdown: false },
+  { label: "Credit Cards", href: "#credit-cards" },
+  { label: "Loans", href: "#products" },
+  { label: "EMI Calculator", href: "#emi-calculator" },
+  { label: "Why Choose Us", href: "#why-choose-us" },
+  { label: "Reviews", href: "#testimonials" },
 ];
 
 /* ═══════════════════════════════════════════════════════════════════════════ */
 export default function Hero2() {
   const { openApplyModal } = useApplyModal();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Prevent scrolling when mobile drawer is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <div className="flex flex-col min-h-screen font-montserrat bg-gradient-to-br from-[#F3F0DF] via-[#ECE9CF] to-[#DDE3C1]">
 
       {/* ── NAVBAR ──────────────────────────────────────────────────────── */}
-      <nav className="sticky top-0 z-50 bg-[#F3F0DF]/95 backdrop-blur-sm border-b border-[#DDE3C1] py-3">
-        <div className="max-w-[1280px] mx-auto px-8 h-16 flex items-center justify-between">
+      <nav className="sticky top-0 z-50 bg-[#F3F0DF]/95 backdrop-blur-md border-b border-[#DDE3C1] py-2.5 sm:py-3 transition-all">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 h-14 sm:h-16 flex items-center justify-between gap-3">
 
-          {/* Logo */}
-          <a href="#">
+          {/* Dynamic Responsive Logo */}
+          <a href="#" className="flex items-center shrink-0">
             <Image 
-              src={'/Grofi.png'}
-              width={80}
-              height={40}
-              className="w-40 h-15 object-cover"
-              alt="logo"
+              src="/Grofi.png"
+              width={160}
+              height={52}
+              className="w-28 sm:w-32 md:w-36 lg:w-40 xl:w-44 h-auto object-contain transition-all"
+              alt="Grofi - Smart Financial Growth Partner"
+              priority
             />
           </a>
 
-          {/* Nav links */}
-          <ul className="hidden lg:flex items-center gap-8 text-sm font-semibold text-gray-700">
+          {/* Desktop Navigation Links */}
+          <ul className="hidden lg:flex items-center gap-6 xl:gap-8 text-xs xl:text-sm font-semibold text-gray-700">
             {navLinks.map((l) => (
               <li key={l.label}>
-                <a href={l.href} className="flex items-center gap-1 hover:text-primary transition-colors duration-150">
+                <a
+                  href={l.href}
+                  className="flex items-center gap-1 hover:text-primary transition-colors duration-150 py-1"
+                >
                   {l.label}
-                  {l.dropdown && (
-                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="m19 9-7 7-7-7" />
-                    </svg>
-                  )}
                 </a>
               </li>
             ))}
           </ul>
 
-          {/* CTA */}
-          <button
-            onClick={() => openApplyModal("General Pre-Approved Offers", "Instant eligibility check across 50+ partner banks.")}
-            className="bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-xl flex items-center gap-2 hover:bg-primary/90 transition-colors duration-200 shadow-md cursor-pointer"
-          >
-            Check Eligibility <ArrowRight className="w-4 h-4" />
-          </button>
+          {/* Right-Side Desktop & Tablet Actions */}
+          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+            {/* CTA Button (Visible on Tablet & Desktop, styled responsively) */}
+            <button
+              onClick={() => openApplyModal("General Pre-Approved Offers", "Instant eligibility check across 50+ partner banks.")}
+              className="hidden sm:inline-flex bg-primary text-white text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl items-center gap-1.5 sm:gap-2 hover:bg-primary/90 transition-all duration-200 shadow-md cursor-pointer whitespace-nowrap"
+            >
+              <span>Check Eligibility</span>
+              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            </button>
+
+            {/* Hamburger Button (Visible on Tablet & Mobile: < lg) */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden w-10 h-10 rounded-xl bg-white/90 hover:bg-white text-gray-700 hover:text-primary flex items-center justify-center border border-[#DDE3C1] shadow-2xs transition-colors cursor-pointer"
+              aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            >
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+
         </div>
       </nav>
+
+      {/* ── Minimalist Mobile & Tablet Drawer Menu (< lg) ── */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-[99] lg:hidden">
+          {/* Subtle backdrop */}
+          <div
+            className="fixed inset-0 bg-black/40 backdrop-blur-xs animate-fadeIn transition-opacity"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+
+          {/* Clean Minimalist Slide-in Drawer */}
+          <div className="fixed top-0 right-0 w-full max-w-[290px] sm:max-w-xs h-full bg-[#F3F0DF] shadow-2xl z-[100] flex flex-col p-6 overflow-y-auto border-l border-[#DDE3C1] animate-slideInRight font-montserrat">
+            
+            {/* Minimal Header */}
+            <div className="flex items-center justify-between pb-5 border-b border-[#DDE3C1]">
+              <Image 
+                src="/Grofi.png"
+                width={120}
+                height={40}
+                className="w-28 h-auto object-contain"
+                alt="Grofi logo"
+              />
+              <button
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-8 h-8 rounded-full bg-white hover:bg-gray-100 text-gray-700 flex items-center justify-center border border-[#DDE3C1] shadow-2xs transition-colors cursor-pointer"
+                aria-label="Close navigation menu"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Clean Minimalist Nav Links */}
+            <nav className="py-6 flex-1 flex flex-col gap-1.5">
+              {navLinks.map((l) => (
+                <a
+                  key={l.label}
+                  href={l.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between py-3 px-3.5 rounded-xl hover:bg-white/80 text-gray-800 hover:text-primary font-semibold text-sm transition-all group cursor-pointer"
+                >
+                  <span>{l.label}</span>
+                  <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                </a>
+              ))}
+            </nav>
+
+            {/* Minimal Bottom Action */}
+            <div className="pt-4 border-t border-[#DDE3C1] space-y-3">
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  openApplyModal("General Pre-Approved Offers", "Instant eligibility check across 50+ partner banks.");
+                }}
+                className="w-full bg-primary hover:bg-primary/90 text-white font-montserrat font-bold text-xs sm:text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer"
+              >
+                <span>Check Eligibility</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+              
+              <p className="text-center text-[11px] text-gray-500 font-medium">
+                100% Free • Soft Bureau Inquiry
+              </p>
+            </div>
+
+          </div>
+        </div>
+      )}
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <section className="relative flex-1 overflow-hidden">
@@ -123,7 +227,7 @@ export default function Hero2() {
         <div className="max-w-[1280px] mx-auto px-8 flex flex-wrap xl:flex-nowrap items-center gap-4 pt-8 pb-0 relative">
 
           {/* ── Column 1: left text ──────────────────────────────────────── */}
-          <div className="w-full xl:w-[38%] shrink-0 flex flex-col gap-4 pb-8 z-10">
+          <div className="w-full xl:w-[38%] shrink-0 flex flex-col gap-4 pb-8 z-10 reveal-slide-left">
 
             <div className="w-fit text-[10px] font-bold uppercase tracking-widest text-primary bg-[#b0cca65a] rounded-full px-5 py-1.5 border border-[#a5c490]/30">
               Your Financial Growth Partner
@@ -200,7 +304,7 @@ export default function Hero2() {
           </div>
 
           {/* ── Column 2: big hero image + ALL floating cards ─────────────── */}
-          <div className="w-full xl:w-[62%] shrink-0 relative flex items-center justify-center z-10" style={{ minHeight: 640 }}>
+          <div className="w-full xl:w-[62%] shrink-0 relative flex items-center justify-center z-10 reveal-scale delay-100" style={{ minHeight: 640 }}>
 
             {/* Glow circle behind image */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] rounded-full bg-primary/[0.07]" />
@@ -213,7 +317,7 @@ export default function Hero2() {
             {/* ════ Floating cards ════ */}
 
             {/* TOP-LEFT card */}
-            <div className="absolute top-8 left-0 z-30 flex flex-col items-end gap-1">
+            <div className="absolute top-8 left-0 z-30 flex flex-col items-end gap-1 reveal-scale delay-150">
               <div 
                 onClick={() => openApplyModal("Credit Card", "Exclusive offers on top credit cards with airport lounge and cashback.")}
                 className="bg-white rounded-2xl shadow-lg border border-gray-100 px-4 py-3 flex items-center gap-3 group cursor-pointer hover:shadow-xl transition-all duration-200 w-52 hover:-translate-y-1"
@@ -234,7 +338,7 @@ export default function Hero2() {
             </div>
 
             {/* BOTTOM-LEFT card */}
-            <div className="absolute bottom-16 left-0 z-30 flex flex-col items-end gap-1">
+            <div className="absolute bottom-16 left-0 z-30 flex flex-col items-end gap-1 reveal-scale delay-200">
               {/* arrow SVG pointing right+up toward image */}
               <svg width="80" height="60" viewBox="0 0 80 60" fill="none" className="mr-4 opacity-50">
                 <path d="M10 52 Q60 52 72 8" stroke="#02474D" strokeWidth="1.8" strokeDasharray="4 3" strokeLinecap="round" fill="none"/>
@@ -255,7 +359,7 @@ export default function Hero2() {
             </div>
 
             {/* TOP-RIGHT card */}
-            <div className="absolute top-6 right-0 z-30 flex flex-col items-start gap-1">
+            <div className="absolute top-6 right-0 z-30 flex flex-col items-start gap-1 reveal-scale delay-150">
               <div 
                 onClick={() => openApplyModal("Home Loan", "Lowest rates starting from 8.40% p.a. up to ₹5Cr.")}
                 className="bg-white rounded-2xl shadow-lg border border-gray-100 px-4 py-3 flex items-center gap-3 group cursor-pointer hover:shadow-xl transition-all duration-200 w-52 hover:-translate-y-1"
@@ -276,7 +380,7 @@ export default function Hero2() {
             </div>
 
             {/* MID-RIGHT card */}
-            <div className="absolute top-1/2 -translate-y-1/2 right-0 z-30 flex items-center gap-2">
+            <div className="absolute top-1/2 -translate-y-1/2 right-0 z-30 flex items-center gap-2 reveal-scale delay-200">
               {/* arrow pointing left toward image */}
               <svg width="60" height="30" viewBox="0 0 60 30" fill="none" className="opacity-50">
                 <path d="M58 15 Q30 15 8 15" stroke="#02474D" strokeWidth="1.8" strokeDasharray="4 3" strokeLinecap="round" fill="none"/>
@@ -297,7 +401,7 @@ export default function Hero2() {
             </div>
 
             {/* BOTTOM-RIGHT card */}
-            <div className="absolute bottom-12 right-0 z-30 flex flex-col items-start gap-1">
+            <div className="absolute bottom-12 right-0 z-30 flex flex-col items-start gap-1 reveal-scale delay-250">
               {/* arrow pointing left+up toward image */}
               <svg width="80" height="60" viewBox="0 0 80 60" fill="none" className="ml-4 opacity-50">
                 <path d="M70 52 Q20 52 8 8" stroke="#02474D" strokeWidth="1.8" strokeDasharray="4 3" strokeLinecap="round" fill="none"/>
@@ -321,10 +425,10 @@ export default function Hero2() {
         </div>
 
         {/* ── Stats strip ──────────────────────────────────────────────── */}
-        <div className="max-w-[1280px] mx-auto px-8 pb-5 relative z-10">
+        <div className="max-w-[1280px] mx-auto px-8 pb-5 relative z-10 reveal-on-scroll delay-150">
           <div className="bg-white/75 backdrop-blur rounded-2xl shadow-md border border-white/90 px-8 py-5 flex flex-wrap md:flex-nowrap gap-6">
-            {stats.map((s) => (
-              <div key={s.value} className="flex items-start gap-3.5 w-[calc(50%-12px)] md:flex-1">
+            {stats.map((s, idx) => (
+              <div key={s.value} className={`flex items-start gap-3.5 w-[calc(50%-12px)] md:flex-1 reveal-on-scroll delay-${(idx + 1) * 100}`}>
                 <div className="w-11 h-11 bg-[#EBF4ED] rounded-xl flex items-center justify-center shrink-0">{s.icon}</div>
                 <div>
                   <p className="font-bricolage font-bold text-2xl text-primary leading-none">{s.value}</p>
@@ -338,7 +442,7 @@ export default function Hero2() {
       </section>
 
       {/* ── Trusted Banking Partners ───────────────────────────────────── */}
-      <div className="relative bg-primary/[0.06] border-t border-primary/10 overflow-hidden py-5">
+      <div className="relative bg-primary/[0.06] border-t border-primary/10 overflow-hidden py-5 reveal-on-scroll delay-100">
 
         {/* Section label */}
         <p className="text-center text-[10px] font-bold uppercase tracking-[0.22em] text-primary/40 mb-4">

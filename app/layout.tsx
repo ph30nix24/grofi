@@ -26,6 +26,7 @@ const montserrat = Montserrat({
 });
 
 import { ApplyModalProvider } from "./context/ApplyModalContext";
+import ScrollRevealProvider from "./components/ScrollRevealProvider";
 
 export const metadata: Metadata = {
   title: "Grofi - Smart Financial Growth Partner",
@@ -39,9 +40,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} ${montserrat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <ApplyModalProvider>
-          {children}
-        </ApplyModalProvider>
+        <ScrollRevealProvider>
+          <ApplyModalProvider>
+            {children}
+          </ApplyModalProvider>
+        </ScrollRevealProvider>
       </body>
     </html>
   );

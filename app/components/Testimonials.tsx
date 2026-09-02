@@ -151,7 +151,7 @@ export default function Testimonials() {
       <div className="max-w-[1280px] mx-auto relative z-10">
         
         {/* ── Section Header ───────────────────────────────────────────── */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        <div className="text-center max-w-3xl mx-auto mb-14 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 bg-[#EBF4ED] text-primary text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-primary/20 mb-4">
             <Sparkles className="w-3.5 h-3.5 text-gold" />
             Verified Customer Stories
@@ -179,7 +179,7 @@ export default function Testimonials() {
         </div>
 
         {/* ── Overall Rating & Trust Summary Badge ─────────────────────── */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100 mb-12 flex flex-col md:flex-row items-center justify-between gap-6 max-w-4xl mx-auto">
+        <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100 mb-12 flex flex-col md:flex-row items-center justify-between gap-6 max-w-4xl mx-auto reveal-scale delay-100">
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 rounded-2xl bg-primary text-white flex flex-col items-center justify-center font-bricolage font-bold text-2xl shadow-md">
               4.9
@@ -209,7 +209,7 @@ export default function Testimonials() {
         </div>
 
         {/* ── Category Filter Tabs ─────────────────────────────────────── */}
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-center mb-12 reveal-on-scroll delay-150">
           <div className="bg-white p-1.5 rounded-2xl shadow-sm border border-gray-200/80 inline-flex gap-2 max-w-full overflow-x-auto">
             {categoryTabs.map((tab) => {
               const isActive = selectedTab === tab.id;
@@ -233,10 +233,12 @@ export default function Testimonials() {
 
         {/* ── Testimonials Grid ────────────────────────────────────────── */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredTestimonials.map((t) => (
+          {filteredTestimonials.map((t, idx) => (
             <div
               key={t.id}
-              className="bg-white rounded-3xl p-7 border border-gray-100 shadow-md hover:shadow-2xl hover:border-primary/25 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5 relative"
+              className={`bg-white rounded-3xl p-7 border border-gray-100 shadow-md hover:shadow-2xl hover:border-primary/25 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5 relative reveal-on-scroll ${
+                idx % 3 === 1 ? "delay-100" : idx % 3 === 2 ? "delay-200" : ""
+              }`}
             >
               {/* Top Quote Icon Accent */}
               <div className="absolute top-6 right-6 text-primary/10 group-hover:text-primary/20 transition-colors">
@@ -302,7 +304,7 @@ export default function Testimonials() {
         </div>
 
         {/* ── Trust Verification Banner ─────────────────────────────────── */}
-        <div className="mt-16 bg-white/80 backdrop-blur border border-primary/15 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+        <div className="mt-16 bg-white/80 backdrop-blur border border-primary/15 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left reveal-scale delay-150">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-2xl bg-[#EBF4ED] flex items-center justify-center text-primary shrink-0">
               <MessageSquareHeart className="w-6 h-6" />

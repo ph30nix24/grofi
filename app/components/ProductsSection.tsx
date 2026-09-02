@@ -576,7 +576,7 @@ export default function ProductsSection() {
       <div className="max-w-[1280px] mx-auto relative z-10">
         
         {/* ── Section Header ───────────────────────────────────────────── */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-12 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 bg-[#EBF4ED] text-primary text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-primary/20 mb-4">
             <Sparkles className="w-3.5 h-3.5 text-gold" />
             Comprehensive Financial Suite
@@ -605,7 +605,7 @@ export default function ProductsSection() {
         </div>
 
         {/* ── Filter Controls: Category Tabs & Search Bar ──────────────── */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-10 reveal-on-scroll delay-100">
           
           {/* Category Tabs */}
           <div className="bg-white/90 backdrop-blur-md p-1.5 rounded-2xl shadow-sm border border-gray-200/80 inline-flex gap-1.5 max-w-full overflow-x-auto w-full md:w-auto">
@@ -648,6 +648,7 @@ export default function ProductsSection() {
               <button
                 onClick={() => setSearchQuery("")}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                aria-label="Clear search"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -657,7 +658,7 @@ export default function ProductsSection() {
 
         {/* ── Products Grid ────────────────────────────────────────────── */}
         {filteredProducts.length === 0 ? (
-          <div className="bg-white rounded-3xl p-12 text-center border border-gray-100 shadow-sm my-8">
+          <div className="bg-white rounded-3xl p-12 text-center border border-gray-100 shadow-sm my-8 reveal-scale">
             <div className="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
               <Search className="w-6 h-6" />
             </div>
@@ -677,10 +678,12 @@ export default function ProductsSection() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 mb-14">
-            {filteredProducts.map((p) => (
+            {filteredProducts.map((p, idx) => (
               <div
                 key={p.id}
-                className="group relative bg-white/95 backdrop-blur-sm rounded-3xl p-6 sm:p-7 border border-gray-200/70 shadow-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1.5 overflow-hidden"
+                className={`group relative bg-white/95 backdrop-blur-sm rounded-3xl p-6 sm:p-7 border border-gray-200/70 shadow-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1.5 overflow-hidden reveal-on-scroll ${
+                  idx % 3 === 1 ? "delay-100" : idx % 3 === 2 ? "delay-200" : ""
+                }`}
               >
                 {/* Ambient hover gradient glow */}
                 <div className="absolute top-0 right-0 w-36 h-36 bg-gradient-to-br from-primary/[0.04] to-gold/[0.04] rounded-bl-full pointer-events-none transition-opacity group-hover:opacity-100 opacity-40" />
@@ -748,25 +751,24 @@ export default function ProductsSection() {
 
                   {/* Top Partners Snippet */}
                   <div className="flex items-center gap-1.5 text-[11px] font-medium text-gray-400 font-montserrat pt-1 pb-2">
-                    <Landmark className="w-3.5 h-3.5 text-primary/60 shrink-0" />
-                    <span className="truncate">
-                      Partners: {p.partnerBanks.slice(0, 3).join(", ")} +{p.partnerBanks.length - 3} more
-                    </span>
+                    <span className="text-gray-500 font-semibold">Lenders:</span>
+                    <span className="truncate">{p.partnerBanks.slice(0, 3).join(", ")} &amp; more</span>
                   </div>
 
                 </div>
 
-                {/* Bottom Action Footer */}
-                <div className="mt-5 pt-4 border-t border-gray-100 flex items-center gap-2.5">
+                {/* Bottom Action Area (Dual CTAs) */}
+                <div className="flex items-center gap-2 pt-4 border-t border-gray-100 mt-2 relative z-10">
                   <button
                     onClick={() => setActiveModalProduct(p)}
-                    className="flex-1 text-xs font-bold text-primary bg-[#EBF4ED] hover:bg-primary hover:text-white py-2.5 px-3 rounded-xl transition-all duration-200 text-center cursor-pointer font-montserrat"
+                    className="flex-1 text-xs font-semibold text-gray-700 bg-gray-100/90 hover:bg-gray-200/80 hover:text-primary py-2.5 px-3 rounded-xl transition-colors flex items-center justify-center gap-1 cursor-pointer font-montserrat"
                   >
-                    View Details
+                    Details
+                    <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
                   </button>
 
                   <button
-                    onClick={() => openApplyModal(p.title, p.subtitle)}
+                    onClick={() => openApplyModal(p.title, `Fast-track application for ${p.title}`)}
                     className="flex-1 text-xs font-bold text-white bg-primary hover:bg-primary/90 py-2.5 px-3 rounded-xl shadow-md transition-all duration-200 flex items-center justify-center gap-1.5 group/btn cursor-pointer font-montserrat"
                   >
                     Apply Now
@@ -780,7 +782,7 @@ export default function ProductsSection() {
         )}
 
         {/* ── Bottom Value & Trust Banner ──────────────────────────────── */}
-        <div className="bg-gradient-to-r from-primary via-[#03363b] to-primary rounded-3xl p-8 sm:p-10 text-white shadow-xl flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden">
+        <div className="bg-gradient-to-r from-primary via-[#03363b] to-primary rounded-3xl p-8 sm:p-10 text-white shadow-xl flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden reveal-scale delay-150">
           <div className="absolute right-0 top-0 w-80 h-80 bg-gold/15 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 max-w-2xl text-center lg:text-left">
