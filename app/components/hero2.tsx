@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { ArrowRight, Search, Home, Car, Briefcase, CreditCard, Wallet } from "lucide-react";
@@ -69,7 +69,7 @@ export default function Hero2() {
           {/* Logo */}
           <a href="#">
             <Image 
-              src={'/grofi.png'}
+              src={'/Grofi.png'}
               width={80}
               height={40}
               className="w-40 h-15 object-cover"
