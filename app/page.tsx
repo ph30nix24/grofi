@@ -1,9 +1,26 @@
-import Image from "next/image";
+import Hero2 from "./components/hero2";
+import ProductsSection from "./components/ProductsSection";
+import CreditCardShowcase from "./components/CreditCardShowcase";
+import EmiCalculator from "./components/EmiCalculator";
+import WhyChooseUs from "./components/WhyChooseUs";
+import Testimonials from "./components/Testimonials";
+import Footer from "./components/Footer";
 
 export default function Home() {
   return (
-    <main className="flex flex-1 w-full max-w-7xl mx-auto">
-      <h1 className="text-3xl font-semibold">Welcome to Next.js!</h1>
+    <main className="flex flex-col min-h-screen">
+      <Hero2 />
+      <ProductsSection />
+      <CreditCardShowcase />
+      <EmiCalculator />
+      <WhyChooseUs />
+      <Testimonials />
+      <Footer />
     </main>
   );
 }
+
+
+
+
+
