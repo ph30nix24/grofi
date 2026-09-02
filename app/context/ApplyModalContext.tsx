@@ -80,7 +80,6 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [selectedProduct, setSelectedProduct] = useState("Personal Loan");
-  const [refId, setRefId] = useState("GRF-84920");
   const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -108,7 +107,6 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
     setProductName(finalName);
     setSelectedProduct(finalName);
     setProductSubtitle(prodSubtitle);
-    setRefId(`GRF-${Math.floor(100000 + Math.random() * 900000)}`);
     setName("");
     setPhone("");
     setErrors({});
@@ -200,7 +198,7 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
 
       {/* ── Popup Form Modal ── */}
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/65 backdrop-blur-sm animate-fadeIn">
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-6 bg-black/65 backdrop-blur-sm animate-fadeIn">
           
           {/* Backdrop click dismiss */}
           <div
@@ -211,7 +209,7 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
           <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative border border-gray-100 z-10 animate-scaleUp overflow-hidden">
             
             {/* Background decorative glow */}
-            <div className="absolute -top-16 -right-16 w-44 h-44 bg-gradient-to-br from-primary/10 to-gold/15 rounded-full blur-2xl pointer-events-none" />
+            <div className="absolute -top-16 -right-16 w-44 h-44 bg-linear-to-br from-primary/10 to-gold/15 rounded-full blur-2xl pointer-events-none" />
 
             {/* Close button */}
             <button
@@ -372,9 +370,9 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
                 {/* Multi-ring pulsating luxury checkmark badge */}
                 <div className="relative flex items-center justify-center my-3">
                   <div className="absolute w-18 h-18 rounded-full bg-emerald-500/15 animate-ping duration-1000 pointer-events-none" />
-                  <div className="relative w-18 h-18 rounded-full bg-gradient-to-tr from-emerald-500 via-teal-400 to-[#C9AA3C] p-0.5 shadow-xl shadow-emerald-500/25 flex items-center justify-center">
+                  <div className="relative w-18 h-18 rounded-full bg-linear-to-tr from-emerald-500 via-teal-400 to-[#C9AA3C] p-0.5 shadow-xl shadow-emerald-500/25 flex items-center justify-center">
                     <div className="w-full h-full bg-white rounded-full flex items-center justify-center p-1">
-                      <div className="w-full h-full bg-gradient-to-br from-primary to-[#035259] rounded-full flex items-center justify-center text-white shadow-inner">
+                      <div className="w-full h-full bg-linear-to-br from-primary to-[#035259] rounded-full flex items-center justify-center text-white shadow-inner">
                         <CheckCircle2 className="w-7 h-7 text-emerald-300 stroke-[2.5]" />
                       </div>
                     </div>
@@ -393,8 +391,8 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
                 </h3>
 
                 {/* Prominent Callback Callout Box */}
-                <div className="bg-gradient-to-r from-[#EBF4ED] via-emerald-50 to-[#EBF4ED] border border-emerald-300/80 rounded-2xl p-3.5 my-3.5 shadow-xs flex items-center gap-3 text-left">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-emerald-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+                <div className="bg-linear-to-r from-[#EBF4ED] via-emerald-50 to-[#EBF4ED] border border-emerald-300/80 rounded-2xl p-3.5 my-3.5 shadow-xs flex items-center gap-3 text-left">
+                  <div className="w-10 h-10 rounded-xl bg-linear-to-tr from-primary to-emerald-600 text-white flex items-center justify-center shrink-0 shadow-sm">
                     <Headphones className="w-5 h-5 text-white" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -447,7 +445,7 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
                 {/* Done Action Button */}
                 <button
                   onClick={closeApplyModal}
-                  className="w-full bg-gradient-to-r from-primary to-[#035259] hover:from-primary/95 hover:to-primary text-white font-montserrat font-bold text-xs sm:text-sm py-3.5 px-6 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer"
+                  className="w-full bg-linear-to-r from-primary to-[#035259] hover:from-primary/95 hover:to-primary text-white font-montserrat font-bold text-xs sm:text-sm py-3.5 px-6 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer"
                 >
                   Done
                 </button>
