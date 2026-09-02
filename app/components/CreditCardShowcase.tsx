@@ -18,6 +18,7 @@ import {
   Filter,
 } from "lucide-react";
 import { cardsData } from "../utils";
+import { useApplyModal } from "../context/ApplyModalContext";
 
 type CardCategory = "all" | "luxury" | "travel" | "cashback" | "rewards";
 
@@ -57,6 +58,7 @@ const categoryTabs: { id: CardCategory; label: string; icon: React.ReactNode }[]
 ];
 
 export default function CreditCardShowcase() {
+  const { openApplyModal } = useApplyModal();
   const [selectedCategory, setSelectedCategory] = useState<CardCategory>("all");
   const [selectedCardModal, setSelectedCardModal] = useState<CreditCardItem | null>(null);
 
@@ -132,72 +134,6 @@ export default function CreditCardShowcase() {
 
               {/* ── Card Graphic & Header ── */}
               <div className="p-6 pb-4">
-
-                {/* <div
-                  className={`relative w-full aspect-[1.586/1] rounded-2xl p-5 ${card.cardTheme.bgStyle} ${card.cardTheme.textColor} border ${card.cardTheme.borderStyle} shadow-xl flex flex-col justify-between overflow-hidden transition-transform duration-500 group-hover:scale-[1.02]`}
-                >
-                  {card.cardTheme.artElement === "infinia-facets" && (
-                    <div className="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-400 via-indigo-600 to-transparent" />
-                  )}
-                  {card.cardTheme.artElement === "feather" && (
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 w-28 h-28 opacity-40 pointer-events-none bg-gradient-to-tr from-pink-500 to-purple-500 rounded-full blur-xl" />
-                  )}
-                  {card.cardTheme.artElement === "centurion" && (
-                    <div className="absolute right-3 top-1/2 -translate-y-1/2 w-20 h-20 rounded-full border border-gray-500/30 flex items-center justify-center opacity-30">
-                      <div className="w-14 h-14 rounded-full border border-dashed border-gray-400" />
-                    </div>
-                  )}
-                  {card.cardTheme.artElement === "emerald-cut" && (
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-emerald-400/20 via-transparent to-transparent opacity-40" />
-                  )}
-                  {card.cardTheme.artElement === "chevron" && (
-                    <div className="absolute right-0 top-0 bottom-0 w-16 bg-yellow-400/20 clip-path-chevron pointer-events-none" />
-                  )}
-                  {card.cardTheme.artElement === "gold-leaf" && (
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_var(--tw-gradient-stops))] from-yellow-200/30 via-transparent to-transparent opacity-50" />
-                  )}
-                  {card.cardTheme.artElement === "globe" && (
-                    <div className="absolute right-2 bottom-2 w-24 h-24 rounded-full border border-white/10 opacity-30 flex items-center justify-center">
-                      <div className="w-16 h-16 rounded-full border border-white/15" />
-                    </div>
-                  )}
-
-                  <div className="flex items-center justify-between relative z-10">
-                    <span className="font-montserrat font-bold text-xs tracking-wider uppercase opacity-90">
-                      {card.bank}
-                    </span>
-                    <span className="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-white/15 backdrop-blur-xs border border-white/20">
-                      {card.cardType}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-3 relative z-10 my-auto">
-                    <div
-                      className={`w-9 h-7 rounded-md ${card.cardTheme.chipColor} shadow-inner border border-white/30 flex items-center justify-around px-1`}
-                    >
-                      <div className="w-px h-full bg-black/20" />
-                      <div className="w-px h-full bg-black/20" />
-                    </div>
-                    <svg className="w-4 h-4 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                      <path d="M8.5 16.5a5 5 0 0 1 0-9M12 19a8.5 8.5 0 0 0 0-14M15.5 21.5a12 12 0 0 0 0-19" strokeLinecap="round" />
-                    </svg>
-                  </div>
-                  <div className="flex items-end justify-between relative z-10">
-                    <div>
-                      <p className="font-bricolage font-bold text-sm tracking-wide leading-tight">
-                        {card.name}
-                      </p>
-                      <p className="text-[10px] font-mono tracking-widest opacity-60 mt-0.5">
-                        •••• •••• •••• 8824
-                      </p>
-                    </div>
-                    <span className="font-bricolage font-extrabold text-sm tracking-wider uppercase opacity-90">
-                      {card.cardTheme.network}
-                    </span>
-                  </div>
-
-                </div> */}
-
                 {card.imgSrc?.length === 0 ? (
                   <div
                     className={`relative w-full aspect-[1.586/1] rounded-2xl p-5 ${card.cardTheme.bgStyle} ${card.cardTheme.textColor} border ${card.cardTheme.borderStyle} shadow-xl flex flex-col justify-between overflow-hidden transition-transform duration-500 group-hover:scale-[1.02]`}
@@ -332,13 +268,13 @@ export default function CreditCardShowcase() {
                 >
                   View Details
                 </button>
-                <a
-                  href={card.applyLink}
+                <button
+                  onClick={() => openApplyModal(card.name, `${card.bank} • ${card.badge}`)}
                   className="flex-1 text-xs font-bold text-white bg-primary hover:bg-primary/90 py-3 px-4 rounded-xl shadow-md transition-all duration-200 flex items-center justify-center gap-1.5 group/btn cursor-pointer"
                 >
                   Apply Now
                   <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1" />
-                </a>
+                </button>
               </div>
 
             </div>
@@ -363,13 +299,13 @@ export default function CreditCardShowcase() {
           </div>
 
           <div className="relative z-10 flex sm:flex-row flex-col gap-3 w-full lg:w-auto">
-            <a
-              href="#eligibility"
-              className="bg-gold hover:bg-gold/90 text-white text-sm font-bold px-7 py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer whitespace-nowrap"
+            <button
+              onClick={() => openApplyModal("Credit Card Pre-Approved Offers", "Check pre-approved luxury, travel and cashback credit cards tailored for you.")}
+              className="bg-gold hover:bg-gold/90 text-white text-sm font-bold px-7 py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer whitespace-nowrap font-montserrat"
             >
               Check Pre-Approved Offers
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </button>
           </div>
         </div>
 
@@ -450,12 +386,16 @@ export default function CreditCardShowcase() {
               >
                 Close
               </button>
-              <a
-                href={selectedCardModal.applyLink}
-                className="flex-1 bg-primary hover:bg-primary/90 text-white text-xs font-bold py-3.5 rounded-xl text-center shadow-md transition-colors flex items-center justify-center gap-1 cursor-pointer"
+              <button
+                onClick={() => {
+                  const card = selectedCardModal;
+                  setSelectedCardModal(null);
+                  openApplyModal(card.name, `${card.bank} • ${card.badge}`);
+                }}
+                className="flex-1 bg-primary hover:bg-primary/90 text-white text-xs font-bold py-3.5 rounded-xl text-center shadow-md transition-colors flex items-center justify-center gap-1 cursor-pointer font-montserrat"
               >
                 Apply Online <ArrowRight className="w-3.5 h-3.5" />
-              </a>
+              </button>
             </div>
 
           </div>

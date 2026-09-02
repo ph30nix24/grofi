@@ -1,8 +1,9 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
 import { ArrowRight, Search, Home, Car, Briefcase, CreditCard, Wallet } from "lucide-react";
 import { banksImgs, imageUrls } from "../utils";
+import { useApplyModal } from "../context/ApplyModalContext";
 
 
 const stats = [
@@ -59,6 +60,8 @@ const navLinks = [
 
 /* ═══════════════════════════════════════════════════════════════════════════ */
 export default function Hero2() {
+  const { openApplyModal } = useApplyModal();
+
   return (
     <div className="flex flex-col min-h-screen font-montserrat bg-gradient-to-br from-[#F3F0DF] via-[#ECE9CF] to-[#DDE3C1]">
 
@@ -94,12 +97,12 @@ export default function Hero2() {
           </ul>
 
           {/* CTA */}
-          <a
-            href="#eligibility"
-            className="bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-xl flex items-center gap-2 hover:bg-primary/90 transition-colors duration-200 shadow-md"
+          <button
+            onClick={() => openApplyModal("General Pre-Approved Offers", "Instant eligibility check across 50+ partner banks.")}
+            className="bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-xl flex items-center gap-2 hover:bg-primary/90 transition-colors duration-200 shadow-md cursor-pointer"
           >
             Check Eligibility <ArrowRight className="w-4 h-4" />
-          </a>
+          </button>
         </div>
       </nav>
 
@@ -141,16 +144,16 @@ export default function Hero2() {
             <div className="flex flex-wrap gap-3 items-center">
               <a
                 href="#products"
-                className="bg-primary text-white text-sm font-semibold px-6 py-3 rounded-xl inline-flex items-center gap-2 hover:bg-primary/90 shadow-md transition-all"
+                className="bg-primary text-white text-sm font-semibold px-6 py-3 rounded-xl inline-flex items-center gap-2 hover:bg-primary/90 shadow-md transition-all cursor-pointer"
               >
                 Explore Products <ArrowRight className="w-4 h-4" />
               </a>
-              <a
-                href="#eligibility"
-                className="border-2 border-gold text-gold text-sm font-semibold px-6 py-3 rounded-xl inline-flex items-center gap-2 hover:bg-gold/10 transition-all"
+              <button
+                onClick={() => openApplyModal("General Pre-Approved Offers", "Instant eligibility check across 50+ partner banks.")}
+                className="border-2 border-gold text-gold text-sm font-semibold px-6 py-3 rounded-xl inline-flex items-center gap-2 hover:bg-gold/10 transition-all cursor-pointer"
               >
                 Check Eligibility <ArrowRight className="w-4 h-4" />
-              </a>
+              </button>
             </div>
 
             {/* Avatars */}
@@ -211,7 +214,10 @@ export default function Hero2() {
 
             {/* TOP-LEFT card */}
             <div className="absolute top-8 left-0 z-30 flex flex-col items-end gap-1">
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 px-4 py-3 flex items-center gap-3 group cursor-pointer hover:shadow-xl transition-all duration-200 w-52">
+              <div 
+                onClick={() => openApplyModal("Credit Card", "Exclusive offers on top credit cards with airport lounge and cashback.")}
+                className="bg-white rounded-2xl shadow-lg border border-gray-100 px-4 py-3 flex items-center gap-3 group cursor-pointer hover:shadow-xl transition-all duration-200 w-52 hover:-translate-y-1"
+              >
                 <div className="w-9 h-9 bg-[#EBF4ED] rounded-xl flex items-center justify-center shrink-0">
                   <CreditCard className="w-4 h-4 text-primary" />
                 </div>
@@ -234,7 +240,10 @@ export default function Hero2() {
                 <path d="M10 52 Q60 52 72 8" stroke="#02474D" strokeWidth="1.8" strokeDasharray="4 3" strokeLinecap="round" fill="none"/>
                 <polygon points="68,2 76,12 64,12" fill="#02474D"/>
               </svg>
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 px-4 py-3 flex items-center gap-3 group cursor-pointer hover:shadow-xl transition-all duration-200 w-52">
+              <div 
+                onClick={() => openApplyModal("Personal Loan", "Instant funds up to ₹50L from 10.49% p.a.")}
+                className="bg-white rounded-2xl shadow-lg border border-gray-100 px-4 py-3 flex items-center gap-3 group cursor-pointer hover:shadow-xl transition-all duration-200 w-52 hover:-translate-y-1"
+              >
                 <div className="w-9 h-9 bg-[#EBF4ED] rounded-xl flex items-center justify-center shrink-0">
                   <Wallet className="w-4 h-4 text-primary" />
                 </div>
@@ -247,7 +256,10 @@ export default function Hero2() {
 
             {/* TOP-RIGHT card */}
             <div className="absolute top-6 right-0 z-30 flex flex-col items-start gap-1">
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 px-4 py-3 flex items-center gap-3 group cursor-pointer hover:shadow-xl transition-all duration-200 w-52">
+              <div 
+                onClick={() => openApplyModal("Home Loan", "Lowest rates starting from 8.40% p.a. up to ₹5Cr.")}
+                className="bg-white rounded-2xl shadow-lg border border-gray-100 px-4 py-3 flex items-center gap-3 group cursor-pointer hover:shadow-xl transition-all duration-200 w-52 hover:-translate-y-1"
+              >
                 <div className="w-9 h-9 bg-[#EBF4ED] rounded-xl flex items-center justify-center shrink-0">
                   <Home className="w-4 h-4 text-primary" />
                 </div>
@@ -270,7 +282,10 @@ export default function Hero2() {
                 <path d="M58 15 Q30 15 8 15" stroke="#02474D" strokeWidth="1.8" strokeDasharray="4 3" strokeLinecap="round" fill="none"/>
                 <polygon points="4,15 14,9 14,21" fill="#02474D"/>
               </svg>
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 px-4 py-3 flex items-center gap-3 group cursor-pointer hover:shadow-xl transition-all duration-200 w-52">
+              <div 
+                onClick={() => openApplyModal("Used Car Loan", "Instant approval up to ₹50L from 9.25% p.a.")}
+                className="bg-white rounded-2xl shadow-lg border border-gray-100 px-4 py-3 flex items-center gap-3 group cursor-pointer hover:shadow-xl transition-all duration-200 w-52 hover:-translate-y-1"
+              >
                 <div className="w-9 h-9 bg-[#EBF4ED] rounded-xl flex items-center justify-center shrink-0">
                   <Car className="w-4 h-4 text-primary" />
                 </div>
@@ -288,7 +303,10 @@ export default function Hero2() {
                 <path d="M70 52 Q20 52 8 8" stroke="#02474D" strokeWidth="1.8" strokeDasharray="4 3" strokeLinecap="round" fill="none"/>
                 <polygon points="12,2 4,12 16,12" fill="#02474D"/>
               </svg>
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 px-4 py-3 flex items-center gap-3 group cursor-pointer hover:shadow-xl transition-all duration-200 w-52">
+              <div 
+                onClick={() => openApplyModal("Business Loan", "Unsecured business loan up to ₹2Cr from 11.25% p.a.")}
+                className="bg-white rounded-2xl shadow-lg border border-gray-100 px-4 py-3 flex items-center gap-3 group cursor-pointer hover:shadow-xl transition-all duration-200 w-52 hover:-translate-y-1"
+              >
                 <div className="w-9 h-9 bg-[#EBF4ED] rounded-xl flex items-center justify-center shrink-0">
                   <Briefcase className="w-4 h-4 text-primary" />
                 </div>

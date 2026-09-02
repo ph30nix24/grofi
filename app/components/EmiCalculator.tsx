@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   CheckCircle2,
 } from "lucide-react";
+import { useApplyModal } from "../context/ApplyModalContext";
 
 type LoanType = "personal" | "business" | "home";
 
@@ -137,6 +138,7 @@ const loanConfigs: Record<LoanType, LoanConfig> = {
 };
 
 export default function EmiCalculator() {
+  const { openApplyModal } = useApplyModal();
   const [loanType, setLoanType] = useState<LoanType>("personal");
 
   const activeConfig = loanConfigs[loanType];
@@ -605,13 +607,13 @@ export default function EmiCalculator() {
 
               {/* Apply CTA Button */}
               <div className="mt-6 relative z-10">
-                <a
-                  href="#apply"
+                <button
+                  onClick={() => openApplyModal(activeConfig.label, `Loan Amount: ₹${formatINR(amount)} • Rate: ${interestRate}% p.a. • Tenure: ${tenureYears} Yrs`)}
                   className="w-full bg-gold hover:bg-gold/90 text-white font-montserrat font-bold text-sm py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 transition-all duration-200 shadow-lg hover:shadow-xl group cursor-pointer"
                 >
                   Apply for {activeConfig.label}
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </a>
+                </button>
               </div>
 
             </div>
