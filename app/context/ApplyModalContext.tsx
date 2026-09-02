@@ -15,8 +15,6 @@ import {
   Clock,
   Headphones,
   Lock,
-  BadgeCheck,
-  Check,
 } from "lucide-react";
 
 interface ApplyModalContextType {
@@ -63,7 +61,6 @@ export const productCategories: ProductCategoryGroup[] = [
       "Loan Against Property",
       "Home Loan Balance Transfer",
       "Loan Against Mutual Fund",
-      "Used Car Loan",
     ],
   },
   {

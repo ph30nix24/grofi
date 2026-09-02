@@ -10,13 +10,9 @@ import {
   Check,
   CheckCircle2,
   ArrowRight,
-  ExternalLink,
   Crown,
   Percent,
   Gift,
-  Coffee,
-  Zap,
-  Filter,
 } from "lucide-react";
 import { cardsData } from "../utils";
 import { useApplyModal } from "../context/ApplyModalContext";

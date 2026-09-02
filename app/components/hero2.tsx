@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
@@ -380,25 +380,7 @@ export default function Hero2() {
             </div>
 
             {/* MID-RIGHT card */}
-            <div className="absolute top-1/2 -translate-y-1/2 right-0 z-30 flex items-center gap-2 reveal-scale delay-200">
-              {/* arrow pointing left toward image */}
-              <svg width="60" height="30" viewBox="0 0 60 30" fill="none" className="opacity-50">
-                <path d="M58 15 Q30 15 8 15" stroke="#02474D" strokeWidth="1.8" strokeDasharray="4 3" strokeLinecap="round" fill="none"/>
-                <polygon points="4,15 14,9 14,21" fill="#02474D"/>
-              </svg>
-              <div 
-                onClick={() => openApplyModal("Used Car Loan", "Instant approval up to ₹50L from 9.25% p.a.")}
-                className="bg-white rounded-2xl shadow-lg border border-gray-100 px-4 py-3 flex items-center gap-3 group cursor-pointer hover:shadow-xl transition-all duration-200 w-52 hover:-translate-y-1"
-              >
-                <div className="w-9 h-9 bg-[#EBF4ED] rounded-xl flex items-center justify-center shrink-0">
-                  <Car className="w-4 h-4 text-primary" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-bold text-gray-800 truncate">Used Car Loan</p>
-                  <p className="text-[10px] text-gray-500 leading-snug mt-0.5">Up to ₹50L · From 9.25% p.a.</p>
-                </div>
-              </div>
-            </div>
+            
 
             {/* BOTTOM-RIGHT card */}
             <div className="absolute bottom-12 right-0 z-30 flex flex-col items-start gap-1 reveal-scale delay-250">

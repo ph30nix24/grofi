@@ -4,9 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import {
   Mail,
-  Phone,
   MapPin,
-  ArrowRight,
   ShieldCheck,
   Lock,
   Landmark,
@@ -19,7 +17,6 @@ const loanLinks = [
   { label: "Personal Loan", href: "#products" },
   { label: "Business Loan", href: "#products" },
   { label: "Home Loan", href: "#products" },
-  { label: "Used Car Loan", href: "#products" },
   { label: "Loan Against Property", href: "#products" },
   { label: "Loan Against Mutual Funds", href: "#products" },
   { label: "Short Term Personal Loan", href: "#products" },
@@ -40,18 +37,16 @@ const toolLinks = [
   { label: "Home Loan EMI Calculator", href: "#emi-calculator" },
   { label: "Personal Loan Eligibility", href: "#eligibility" },
   { label: "Credit Card Comparison", href: "#credit-cards" },
-  { label: "Balance Transfer Savings", href: "#emi-calculator" },
-  { label: "Free Credit Score Check", href: "#eligibility" },
 ];
 
 const companyLinks = [
   { label: "Why Choose Grofi", href: "#why-choose-us" },
   { label: "Our Banking Partners", href: "#products" },
   { label: "Verified Reviews", href: "#testimonials" },
-  { label: "Careers", href: "#" },
-  { label: "Press & Media", href: "#" },
-  { label: "Partner with Us", href: "#" },
-  { label: "Contact Us", href: "#" },
+  // { label: "Careers", href: "#" },
+  // { label: "Press & Media", href: "#" },
+  // { label: "Partner with Us", href: "#" },
+  // { label: "Contact Us", href: "#" },
 ];
 
 export default function Footer() {
