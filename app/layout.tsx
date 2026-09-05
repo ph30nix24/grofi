@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Geist, Geist_Mono, Bricolage_Grotesque, Montserrat } from "next/font/google";
 import "./globals.css";
 
