@@ -9,8 +9,10 @@ import Navbar from "./components/Navbar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.grofi.in"),
   title: "Grofi - Smart Financial Growth Partner",
   description: "Grofi helps you compare & apply for the best personal loans, credit cards, business loans, & home loans with a hassle-free process and fast approval.",
+  alternates: { canonical: "/" },
   keywords: [
     "credit cards",
     "personal loans",
@@ -28,6 +30,14 @@ export const metadata: Metadata = {
     "Money Mitra",
     "Money Mitra the reward club",
   ],
+  openGraph: {
+    title: "Grofi - Smart Financial Growth Partner",
+    description: "Compare & apply for the best credit cards and loans.",
+    url: "https://www.grofi.in",
+    siteName: "Grofi",
+    locale: "en_IN",
+    type: "website",
+  },
   authors: [{ name: "Grofi" }],
   creator: "Grofi",
   publisher: "Grofi",
