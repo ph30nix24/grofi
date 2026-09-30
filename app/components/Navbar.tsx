@@ -5,11 +5,11 @@ import { Menu, X, ArrowRight, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
 const navLinks = [
-    { label: "Credit Cards", href: "#credit-cards" },
-    { label: "Loans", href: "#products" },
-    { label: "EMI Calculator", href: "#emi-calculator" },
-    { label: "Why Choose Us", href: "#why-choose-us" },
-    { label: "Reviews", href: "#testimonials" },
+    { label: "Credit Cards", href: "/credit-cards" },
+    { label: "Loans", href: "/#products" },
+    { label: "EMI Calculator", href: "/#emi-calculator" },
+    { label: "Why Choose Us", href: "/#why-choose-us" },
+    { label: "Reviews", href: "/#testimonials" },
 ];
 
 export default function Navbar() {
@@ -36,7 +36,7 @@ export default function Navbar() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 h-14 sm:h-16 flex items-center justify-between gap-3">
 
                     {/* Dynamic Responsive Logo */}
-                    <a href="#" className="flex items-center shrink-0">
+                    <a href="/" className="flex items-center shrink-0">
                         <Image
                             src="/Grofi.png"
                             width={160}

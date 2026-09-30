@@ -25,12 +25,49 @@
     --foreground: #0a0a0a;
   }
 }
+
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+::-webkit-scrollbar-track {
+  background: #02282c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--golden);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c9a52f;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox only */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--golden) #02282c;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
 }
 
@@ -48,6 +85,10 @@ body {
 
 .animate-marquee:hover {
   animation-play-state: paused;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
 }
 
 @keyframes fadeIn {

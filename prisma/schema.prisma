@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model CreditCard {
+  id          String   @id 
+  name        String
+  issuer      String
+  logo        String
+  cardImage   String?
+  network     String
+  category    String[]   // e.g. ["cashback", "travel"]
+  description String
+  categoryLabel String
+  badge       String
+  popularRank Int?
+
+  joiningFee  String
+  annualFee   String
+  feeWaiver   String
+  forexMarkup String
+
+  rewardRate  Json     // { headline, base, accelerated, rewardCurrency, pointValue }
+  loungeAccess Json    // { domestic, international, spendCondition? }
+  eligibility Json     // { minIncome, minCreditScore, employmentType }
+
+  welcomeBenefits String[]
+  keyHighlights   String[]
+  pros            String[]
+  cons            String[]
+
+  bestFor           String
+  editorialVerdict  String
+
+  cardMetaData      cardMetaData?  
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+
+model cardMetaData {
+  id                  String     @id @default(cuid())
+  creditCardId        String     @unique    
+  title               String
+  creditCard          CreditCard @relation(fields: [creditCardId], references: [id])
+  description         String
+  keywords            String[]
+
+  openGraphTitle      String
+  openGraphDesc       String
+  imageUrl            String
+  imageAlt            String
+
+  twitterTitle        String
+  twitterDesc         String
+}
