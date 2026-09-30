@@ -3,6 +3,7 @@ import prisma from "@/libs/db";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import CreditCardExplorer from "./components/CreditCardExplorer";
+import AllBanksFeaturesExplorer from "./components/AllBanksFeaturesExplorer";
 import { CardStructure } from "./components/type";
 
 export const metadata: Metadata = {
@@ -63,6 +64,7 @@ export default async function CreditCardsPage() {
     <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
       <Navbar />
       <CreditCardExplorer initialCards={cards} />
+      <AllBanksFeaturesExplorer />
       <Footer />
     </main>
   );

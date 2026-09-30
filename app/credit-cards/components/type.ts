@@ -38,3 +38,9 @@ export interface CardStructure {
   bestFor?: string;
   editorialVerdict?: string;
 }
+
+export interface BankFAQS {
+    question: string,
+    answer: string,
+    bank: string,
+}

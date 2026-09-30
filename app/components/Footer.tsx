@@ -117,10 +117,10 @@ export default function Footer() {
         </div>
 
         {/* ── Main Footer Columns ──────────────────────────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-14 border-b border-white/10 reveal-on-scroll delay-100">
+        <div className="flex flex-wrap gap-10 lg:gap-8 pb-14 border-b border-white/10 reveal-on-scroll delay-100">
           
-          {/* Column 1: Brand & Contact Info (4 cols) */}
-          <div className="lg:col-span-4 flex flex-col gap-6">
+          {/* Column 1: Brand & Contact Info (4 cols equivalent) */}
+          <div className="w-full lg:w-[calc(33.333%-1.334rem)] flex flex-col gap-6">
             <a href="#" className="inline-block">
               <Image
                 src="/Grofi.png"
@@ -205,7 +205,7 @@ export default function Footer() {
           </div>
 
           {/* Column 2: Lending Products (2 cols) */}
-          <div className="lg:col-span-2">
+          <div className="w-[calc(50%-1.25rem)] sm:w-[calc(25%-1.5rem)] lg:flex-1">
             <h4 className="font-bricolage font-bold text-white mb-5 uppercase tracking-wider text-xs">
               Loans &amp; Credit
             </h4>
@@ -224,7 +224,7 @@ export default function Footer() {
           </div>
 
           {/* Column 3: Credit Cards (2 cols) */}
-          <div className="lg:col-span-2">
+          <div className="w-[calc(50%-1.25rem)] sm:w-[calc(25%-1.5rem)] lg:flex-1">
             <h4 className="font-bricolage font-bold text-white mb-5 uppercase tracking-wider text-xs">
               Credit Cards
             </h4>
@@ -243,7 +243,7 @@ export default function Footer() {
           </div>
 
           {/* Column 4: Calculators & Tools (2 cols) */}
-          <div className="lg:col-span-2">
+          <div className="w-[calc(50%-1.25rem)] sm:w-[calc(25%-1.5rem)] lg:flex-1">
             <h4 className="font-bricolage font-bold text-white mb-5 uppercase tracking-wider text-xs">
               Financial Tools
             </h4>
@@ -262,7 +262,7 @@ export default function Footer() {
           </div>
 
           {/* Column 5: Company & Support (2 cols) */}
-          <div className="lg:col-span-2">
+          <div className="w-[calc(50%-1.25rem)] sm:w-[calc(25%-1.5rem)] lg:flex-1">
             <h4 className="font-bricolage font-bold text-white mb-5 uppercase tracking-wider text-xs">
               Grofi Company
             </h4>
@@ -283,8 +283,8 @@ export default function Footer() {
         </div>
 
         {/* ── Trust, Security & Regulatory Badges Strip ────────────────── */}
-        <div className="py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 border-b border-white/10 text-xs text-white/70 reveal-on-scroll delay-200">
-          <div className="flex items-center gap-3">
+        <div className="py-8 flex flex-wrap gap-6 border-b border-white/10 text-xs text-white/70 reveal-on-scroll delay-200">
+          <div className="w-full sm:w-[calc(50%-0.75rem)] lg:flex-1 flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#B6CC9A] shrink-0">
               <ShieldCheck className="w-5 h-5" />
             </div>
@@ -294,7 +294,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="w-full sm:w-[calc(50%-0.75rem)] lg:flex-1 flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#B6CC9A] shrink-0">
               <Lock className="w-5 h-5" />
             </div>
@@ -304,7 +304,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="w-full sm:w-[calc(50%-0.75rem)] lg:flex-1 flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#B6CC9A] shrink-0">
               <Landmark className="w-5 h-5" />
             </div>
@@ -314,7 +314,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="w-full sm:w-[calc(50%-0.75rem)] lg:flex-1 flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#B6CC9A] shrink-0">
               <CheckCircle2 className="w-5 h-5" />
             </div>

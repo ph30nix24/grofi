@@ -232,11 +232,11 @@ export default function Testimonials() {
         </div>
 
         {/* ── Testimonials Grid ────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="flex flex-wrap gap-8">
           {filteredTestimonials.map((t, idx) => (
             <div
               key={t.id}
-              className={`bg-white rounded-3xl p-7 border border-gray-100 shadow-md hover:shadow-2xl hover:border-primary/25 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5 relative reveal-on-scroll ${
+              className={`w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.334rem)] bg-white rounded-3xl p-7 border border-gray-100 shadow-md hover:shadow-2xl hover:border-primary/25 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5 relative reveal-on-scroll ${
                 idx % 3 === 1 ? "delay-100" : idx % 3 === 2 ? "delay-200" : ""
               }`}
             >

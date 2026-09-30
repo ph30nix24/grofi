@@ -25,11 +25,13 @@ import {
 
 } from "lucide-react";
 import { useApplyModal } from "../context/ApplyModalContext";
+import Link from "next/link";
 
 type ProductCategory = "all" | "personal" | "home" | "business" | "cards-insurance";
 
 interface Product {
   id: string;
+  slug: string;
   title: string;
   subtitle: string;
   category: "personal" | "home" | "business" | "cards-insurance";
@@ -73,7 +75,8 @@ const categoryTabs: { id: ProductCategory; label: string; count: number }[] = [
 
 const products: Product[] = [
   {
-    id: "personal-loan",
+    id: "personal-loans",
+    slug: "/personal-loans",
     title: "Personal Loan",
     subtitle: "Collateral-free instant cash for any emergency or milestone",
     category: "personal",
@@ -120,7 +123,8 @@ const products: Product[] = [
     applyHref: "#eligibility",
   },
   {
-    id: "credit-card",
+    id: "credit-cards",
+    slug: "/credit-cards",
     title: "Credit Card",
     subtitle: "Curated premium cards with cashback, lounge & reward points",
     category: "cards-insurance",
@@ -166,7 +170,8 @@ const products: Product[] = [
     applyHref: "#credit-cards",
   },
   {
-    id: "business-loan",
+    id: "business-loans",
+    slug: "/business-loans",
     title: "Business Loan",
     subtitle: "Fuel enterprise expansion, new inventory & working capital needs",
     category: "business",
@@ -213,7 +218,8 @@ const products: Product[] = [
     applyHref: "#eligibility",
   },
   {
-    id: "home-loan",
+    id: "home-loans",
+    slug: "/home-loans",
     title: "Home Loan",
     subtitle: "Turn your dream home into reality with India’s lowest interest rates",
     category: "home",
@@ -260,7 +266,8 @@ const products: Product[] = [
     applyHref: "#emi-calculator",
   },
   {
-    id: "short-term-personal-loan",
+    id: "short-term-personal-loans",
+    slug: "/personal-loans/short-term-personal-loans",
     title: "Short Term Personal Loan",
     subtitle: "Instant micro-loans and salary advance for emergency month-end needs",
     category: "personal",
@@ -307,6 +314,7 @@ const products: Product[] = [
   },
   {
     id: "loan-against-property",
+    slug: "/home-loans/loan-against-property",
     title: "Loan Against Property",
     subtitle: "Unlock substantial funding by pledging residential or commercial property",
     category: "home",
@@ -354,6 +362,7 @@ const products: Product[] = [
   },
   {
     id: "home-loan-balance-transfer",
+    slug: "/home-loans/home-loan-balance-transfer",
     title: "Home Loan Balance Transfer",
     subtitle: "Switch your existing high-EMI home loan to lower interest rates & save lakhs",
     category: "home",
@@ -401,6 +410,7 @@ const products: Product[] = [
   },
   {
     id: "health-insurance",
+    slug: "/health-insurance",
     title: "Health Insurance",
     subtitle: "Comprehensive cashless hospitalization protection for your entire family",
     category: "cards-insurance",
@@ -580,11 +590,11 @@ export default function ProductsSection() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 mb-14">
+          <div className="flex flex-wrap gap-7 mb-14">
             {filteredProducts.map((p, idx) => (
               <div
                 key={p.id}
-                className={`group relative bg-white/95 backdrop-blur-sm rounded-3xl p-6 sm:p-7 border border-gray-200/70 shadow-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1.5 overflow-hidden reveal-on-scroll ${
+                className={`w-full md:w-[calc(50%-0.875rem)] lg:w-[calc(33.333%-1.167rem)] group relative bg-white/95 backdrop-blur-sm rounded-3xl p-6 sm:p-7 border border-gray-200/70 shadow-sm hover:shadow-2xl hover:border-primary/30 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1.5 overflow-hidden reveal-on-scroll ${
                   idx % 3 === 1 ? "delay-100" : idx % 3 === 2 ? "delay-200" : ""
                 }`}
               >
@@ -592,73 +602,75 @@ export default function ProductsSection() {
                 <div className="absolute top-0 right-0 w-36 h-36 bg-linear-to-br from-primary/4 to-gold/4 rounded-bl-full pointer-events-none transition-opacity group-hover:opacity-100 opacity-40" />
 
                 {/* Top Section */}
-                <div>
-                  
-                  {/* Top Bar: Icon & Badge */}
-                  <div className="flex items-start justify-between gap-3 mb-4 relative z-10">
-                    <div
-                      className={`w-13 h-13 rounded-2xl ${p.iconBg} ${p.iconColor} flex items-center justify-center shadow-sm transition-transform duration-300 group-hover:scale-110 shrink-0`}
-                    >
-                      {p.icon}
+                <Link href={`/`}>
+                  <div>
+                    
+                    {/* Top Bar: Icon & Badge */}
+                    <div className="flex items-start justify-between gap-3 mb-4 relative z-10">
+                      <div
+                        className={`w-13 h-13 rounded-2xl ${p.iconBg} ${p.iconColor} flex items-center justify-center shadow-sm transition-transform duration-300 group-hover:scale-110 shrink-0`}
+                      >
+                        {p.icon}
+                      </div>
+
+                      <div
+                        className={`text-[11px] font-bold tracking-tight px-3 py-1 rounded-full border ${p.badgeBg} ${p.badgeText} ${p.badgeBorder} shadow-2xs whitespace-nowrap`}
+                      >
+                        {p.badge}
+                      </div>
                     </div>
 
-                    <div
-                      className={`text-[11px] font-bold tracking-tight px-3 py-1 rounded-full border ${p.badgeBg} ${p.badgeText} ${p.badgeBorder} shadow-2xs whitespace-nowrap`}
-                    >
-                      {p.badge}
-                    </div>
-                  </div>
-
-                  {/* Title & Subtitle */}
-                  <div className="mb-4">
-                    <h3 className="font-bricolage font-bold text-xl text-gray-900 group-hover:text-primary transition-colors leading-snug">
-                      {p.title}
-                    </h3>
-                    <p className="text-xs text-gray-500 font-montserrat mt-1 leading-relaxed line-clamp-2">
-                      {p.subtitle}
-                    </p>
-                  </div>
-
-                  {/* Key Financial Metrics Grid (Dual Tiles) */}
-                  <div className="grid grid-cols-2 gap-2.5 my-4">
-                    <div className="bg-[#EBF4ED]/60 rounded-2xl p-3 border border-primary/10">
-                      <span className="text-[10px] font-bold text-primary/70 uppercase tracking-wider block">
-                        {p.metrics.rateLabel}
-                      </span>
-                      <span className="text-xs sm:text-sm font-extrabold text-primary font-montserrat block mt-0.5 truncate">
-                        {p.metrics.rate}
-                      </span>
+                    {/* Title & Subtitle */}
+                    <div className="mb-4">
+                      <h3 className="font-bricolage font-bold text-xl text-gray-900 group-hover:text-primary transition-colors leading-snug">
+                        {p.title}
+                      </h3>
+                      <p className="text-xs text-gray-500 font-montserrat mt-1 leading-relaxed line-clamp-2">
+                        {p.subtitle}
+                      </p>
                     </div>
 
-                    <div className="bg-gray-50 rounded-2xl p-3 border border-gray-100">
-                      <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">
-                        {p.metrics.amountLabel}
-                      </span>
-                      <span className="text-xs sm:text-sm font-bold text-gray-800 font-montserrat block mt-0.5 truncate">
-                        {p.metrics.maxAmount}
-                      </span>
+                    {/* Key Financial Metrics Grid (Dual Tiles) */}
+                    <div className="flex gap-2.5 my-4">
+                      <div className="flex-1 bg-[#EBF4ED]/60 rounded-2xl p-3 border border-primary/10">
+                        <span className="text-[10px] font-bold text-primary/70 uppercase tracking-wider block">
+                          {p.metrics.rateLabel}
+                        </span>
+                        <span className="text-xs sm:text-sm font-extrabold text-primary font-montserrat block mt-0.5 truncate">
+                          {p.metrics.rate}
+                        </span>
+                      </div>
+
+                      <div className="flex-1 bg-gray-50 rounded-2xl p-3 border border-gray-100">
+                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">
+                          {p.metrics.amountLabel}
+                        </span>
+                        <span className="text-xs sm:text-sm font-bold text-gray-800 font-montserrat block mt-0.5 truncate">
+                          {p.metrics.maxAmount}
+                        </span>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Key Bullet Perks Checklist */}
-                  <div className="my-4 pt-3 border-t border-gray-100">
-                    <ul className="flex flex-col gap-2">
-                      {p.keyPerks.map((perk, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-xs text-gray-600 font-montserrat leading-tight">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                          <span className="line-clamp-1">{perk}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                    {/* Key Bullet Perks Checklist */}
+                    <div className="my-4 pt-3 border-t border-gray-100">
+                      <ul className="flex flex-col gap-2">
+                        {p.keyPerks.map((perk, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-xs text-gray-600 font-montserrat leading-tight">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                            <span className="line-clamp-1">{perk}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
 
-                  {/* Top Partners Snippet */}
-                  <div className="flex items-center gap-1.5 text-[11px] font-medium text-gray-400 font-montserrat pt-1 pb-2">
-                    <span className="text-gray-500 font-semibold">Lenders:</span>
-                    <span className="truncate">{p.partnerBanks.slice(0, 3).join(", ")} &amp; more</span>
-                  </div>
+                    {/* Top Partners Snippet */}
+                    <div className="flex items-center gap-1.5 text-[11px] font-medium text-gray-400 font-montserrat pt-1 pb-2">
+                      <span className="text-gray-500 font-semibold">Lenders:</span>
+                      <span className="truncate">{p.partnerBanks.slice(0, 3).join(", ")} &amp; more</span>
+                    </div>
 
-                </div>
+                  </div>
+                </Link>
 
                 {/* Bottom Action Area (Dual CTAs) */}
                 <div className="flex items-center gap-2 pt-4 border-t border-gray-100 mt-2 relative z-10">
@@ -756,8 +768,8 @@ export default function ProductsSection() {
             </div>
 
             {/* Key Metrics Strip (4 metrics) */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 bg-gray-50/80 border border-gray-100 rounded-2xl p-3.5 mb-6">
-              <div>
+            <div className="flex flex-wrap gap-2.5 bg-gray-50/80 border border-gray-100 rounded-2xl p-3.5 mb-6">
+              <div className="w-[calc(50%-0.35rem)] sm:flex-1">
                 <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">
                   {activeModalProduct.metrics.rateLabel}
                 </span>
@@ -765,7 +777,7 @@ export default function ProductsSection() {
                   {activeModalProduct.metrics.rate}
                 </span>
               </div>
-              <div>
+              <div className="w-[calc(50%-0.35rem)] sm:flex-1">
                 <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">
                   {activeModalProduct.metrics.amountLabel}
                 </span>
@@ -773,7 +785,7 @@ export default function ProductsSection() {
                   {activeModalProduct.metrics.maxAmount}
                 </span>
               </div>
-              <div>
+              <div className="w-[calc(50%-0.35rem)] sm:flex-1">
                 <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">
                   {activeModalProduct.metrics.speedLabel}
                 </span>
@@ -781,7 +793,7 @@ export default function ProductsSection() {
                   {activeModalProduct.metrics.speed}
                 </span>
               </div>
-              <div>
+              <div className="w-[calc(50%-0.35rem)] sm:flex-1">
                 <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">
                   Lenders
                 </span>
@@ -797,26 +809,26 @@ export default function ProductsSection() {
                 <UserCheck className="w-4 h-4 text-primary" />
                 Eligibility Criteria
               </h4>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                <div className="bg-[#EBF4ED]/40 p-3 rounded-xl border border-primary/10">
+              <div className="flex flex-wrap gap-2">
+                <div className="w-[calc(50%-0.25rem)] sm:flex-1 bg-[#EBF4ED]/40 p-3 rounded-xl border border-primary/10">
                   <span className="text-[10px] text-gray-500 block font-medium">Age Group</span>
                   <span className="text-xs font-bold text-gray-800 block mt-0.5">
                     {activeModalProduct.eligibility.minAge}
                   </span>
                 </div>
-                <div className="bg-[#EBF4ED]/40 p-3 rounded-xl border border-primary/10">
+                <div className="w-[calc(50%-0.25rem)] sm:flex-1 bg-[#EBF4ED]/40 p-3 rounded-xl border border-primary/10">
                   <span className="text-[10px] text-gray-500 block font-medium">Min Income</span>
                   <span className="text-xs font-bold text-gray-800 block mt-0.5">
                     {activeModalProduct.eligibility.minIncome}
                   </span>
                 </div>
-                <div className="bg-[#EBF4ED]/40 p-3 rounded-xl border border-primary/10">
+                <div className="w-[calc(50%-0.25rem)] sm:flex-1 bg-[#EBF4ED]/40 p-3 rounded-xl border border-primary/10">
                   <span className="text-[10px] text-gray-500 block font-medium">Credit Score</span>
                   <span className="text-xs font-bold text-emerald-700 block mt-0.5">
                     {activeModalProduct.eligibility.minCibil}
                   </span>
                 </div>
-                <div className="bg-[#EBF4ED]/40 p-3 rounded-xl border border-primary/10">
+                <div className="w-[calc(50%-0.25rem)] sm:flex-1 bg-[#EBF4ED]/40 p-3 rounded-xl border border-primary/10">
                   <span className="text-[10px] text-gray-500 block font-medium">Profile</span>
                   <span className="text-xs font-bold text-gray-800 block mt-0.5 truncate">
                     {activeModalProduct.eligibility.employmentType}
@@ -831,9 +843,9 @@ export default function ProductsSection() {
                 <FileText className="w-4 h-4 text-primary" />
                 Required Documents (100% Digital)
               </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div className="flex flex-wrap gap-2">
                 {activeModalProduct.requiredDocs.map((doc, idx) => (
-                  <div key={idx} className="flex items-center gap-2 bg-gray-50 p-2.5 rounded-xl border border-gray-100 text-xs text-gray-700 font-montserrat">
+                  <div key={idx} className="w-full sm:w-[calc(50%-0.25rem)] flex items-center gap-2 bg-gray-50 p-2.5 rounded-xl border border-gray-100 text-xs text-gray-700 font-montserrat">
                     <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                     <span>{doc}</span>
                   </div>

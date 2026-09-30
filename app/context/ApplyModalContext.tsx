@@ -412,15 +412,15 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
                     <span>Application Summary</span>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2">
-                    <div className="bg-white p-2.5 rounded-xl border border-gray-100 shadow-2xs">
+                  <div className="flex gap-2">
+                    <div className="flex-1 bg-white p-2.5 rounded-xl border border-gray-100 shadow-2xs">
                       <span className="text-[10px] text-gray-400 font-medium block font-montserrat">Selected Product</span>
                       <span className="text-xs font-bold text-gray-900 block mt-0.5 truncate font-montserrat" title={selectedProduct}>
                         {selectedProduct}
                       </span>
                     </div>
 
-                    <div className="bg-white p-2.5 rounded-xl border border-gray-100 shadow-2xs">
+                    <div className="flex-1 bg-white p-2.5 rounded-xl border border-gray-100 shadow-2xs">
                       <span className="text-[10px] text-gray-400 font-medium block font-montserrat">Registered Mobile</span>
                       <span className="text-xs font-bold text-gray-900 block mt-0.5 font-mono tracking-wide">
                         +91 {phone}

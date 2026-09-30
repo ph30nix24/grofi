@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import { useApplyModal } from "../context/ApplyModalContext";
 import { Menu, X, ArrowRight, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const navLinks = [
     { label: "Credit Cards", href: "/credit-cards" },
+    { label: "Bank Features", href: "/credit-cards/features" },
     { label: "Loans", href: "/#products" },
     { label: "EMI Calculator", href: "/#emi-calculator" },
     { label: "Why Choose Us", href: "/#why-choose-us" },
@@ -36,7 +38,7 @@ export default function Navbar() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 h-14 sm:h-16 flex items-center justify-between gap-3">
 
                     {/* Dynamic Responsive Logo */}
-                    <a href="/" className="flex items-center shrink-0">
+                    <Link href="/" className="flex items-center shrink-0">
                         <Image
                             src="/Grofi.png"
                             width={160}
@@ -45,7 +47,7 @@ export default function Navbar() {
                             alt="Grofi - Smart Financial Growth Partner"
                             priority
                         />
-                    </a>
+                    </Link>
 
                     {/* Desktop Navigation Links */}
                     <ul className="hidden lg:flex items-center gap-6 xl:gap-8 text-xs xl:text-sm font-semibold text-gray-700">

@@ -10,7 +10,6 @@ import {
   Sparkles,
   ArrowRight,
   Landmark,
-  FileCheck2,
   TrendingDown,
   Award,
   Users2,
@@ -143,11 +142,11 @@ export default function WhyChooseUs() {
         </div>
 
         {/* ── 6 Core Benefits Grid ─────────────────────────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="flex flex-wrap gap-8 mb-16">
           {benefits.map((b, idx) => (
             <div
               key={b.id}
-              className={`bg-white rounded-3xl p-8 border border-gray-100 shadow-md hover:shadow-2xl hover:border-primary/25 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5 relative overflow-hidden reveal-on-scroll ${
+              className={`w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.334rem)] bg-white rounded-3xl p-8 border border-gray-100 shadow-md hover:shadow-2xl hover:border-primary/25 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5 relative overflow-hidden reveal-on-scroll ${
                 idx % 3 === 1 ? "delay-100" : idx % 3 === 2 ? "delay-200" : ""
               }`}
             >
@@ -194,9 +193,9 @@ export default function WhyChooseUs() {
           <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-60 h-60 bg-gold/15 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 relative z-10">
+          <div className="flex flex-wrap gap-8 relative z-10">
             {stats.map((s, idx) => (
-              <div key={idx} className="flex flex-col items-center text-center">
+              <div key={idx} className="w-[calc(50%-1rem)] md:flex-1 flex flex-col items-center text-center">
                 <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center mb-3">
                   {s.icon}
                 </div>

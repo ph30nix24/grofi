@@ -122,11 +122,11 @@ export default function CreditCardShowcase() {
         </div>
 
         {/* ── Cards Showcase Grid ──────────────────────────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="flex flex-wrap gap-8">
           {filteredCards.map((card, idx) => (
             <div
               key={card.id}
-              className={`bg-white rounded-3xl border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1.5 reveal-on-scroll ${
+              className={`w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.334rem)] bg-white rounded-3xl border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1.5 reveal-on-scroll ${
                 idx % 3 === 1 ? "delay-100" : idx % 3 === 2 ? "delay-200" : ""
               }`}
             >
@@ -222,8 +222,8 @@ export default function CreditCardShowcase() {
                 </div>
 
                 {/* Key Metrics Grid */}
-                <div className="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-gray-100">
-                  <div className="bg-gray-50/80 rounded-xl p-3 border border-gray-100">
+                <div className="flex gap-3 mt-4 pt-4 border-t border-gray-100">
+                  <div className="flex-1 bg-gray-50/80 rounded-xl p-3 border border-gray-100">
                     <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block">
                       Joining / Annual Fee
                     </span>
@@ -231,7 +231,7 @@ export default function CreditCardShowcase() {
                       {card.annualFee}
                     </span>
                   </div>
-                  <div className="bg-gray-50/80 rounded-xl p-3 border border-gray-100">
+                  <div className="flex-1 bg-gray-50/80 rounded-xl p-3 border border-gray-100">
                     <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block">
                       Reward Rate
                     </span>

@@ -277,10 +277,10 @@ export default function EmiCalculator() {
         </div>
 
         {/* ── Main Calculator Grid ─────────────────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="flex flex-col lg:flex-row gap-8 items-start">
           
           {/* ── Left Column: Sliders & Controls (7 Cols) ───────────────── */}
-          <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 shadow-md border border-gray-100 flex flex-col gap-8 reveal-slide-left delay-150">
+          <div className="w-full lg:w-[58%] bg-white rounded-3xl p-6 sm:p-8 shadow-md border border-gray-100 flex flex-col gap-8 reveal-slide-left delay-150">
             
             {/* Active Loan Subtitle Banner */}
             <div className="flex items-center justify-between bg-primary/4 border border-primary/10 rounded-2xl p-4">
@@ -494,7 +494,7 @@ export default function EmiCalculator() {
           </div>
 
           {/* ── Right Column: EMI Summary & Visual Ring Chart (5 Cols) ─── */}
-          <div className="lg:col-span-5 flex flex-col gap-6 reveal-slide-right delay-200">
+          <div className="w-full lg:w-[42%] flex flex-col gap-6 reveal-slide-right delay-200">
             
             {/* Primary Result Card */}
             <div className="bg-primary text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden flex flex-col justify-between">

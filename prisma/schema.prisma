@@ -60,3 +60,12 @@ model cardMetaData {
   twitterTitle        String
   twitterDesc         String
 }
+
+model BankFAQS {
+  id  String   @id @default(cuid())
+  question  String
+  answer   String
+  bank   String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

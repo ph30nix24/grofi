@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -15,7 +15,6 @@ import {
   Percent,
   Gift,
   Search,
-  Filter,
   X,
   ChevronDown,
   ChevronRight,
@@ -23,22 +22,14 @@ import {
   Tag,
   Briefcase,
   Utensils,
-  Layers,
   LayoutGrid,
   List,
-  SlidersHorizontal,
-  Info,
   Scale,
-  ExternalLink,
-  HelpCircle,
-  TrendingUp,
-  Award,
   AlertCircle,
-  Building2,
-  CheckCheck,
 } from "lucide-react";
 import { CardStructure } from "./type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
+import CreditCardFAQSection from "./CreditCardFAQSection";
 
 
 
@@ -207,11 +198,6 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
     });
   }, [filteredCards, sortBy]);
 
-  // Reset pagination when filters change
-  useEffect(() => {
-    setVisibleCount(12);
-  }, [searchQuery, selectedCategory, selectedBank, selectedFee, selectedNetwork, sortBy]);
-
   // Visible cards slice
   const visibleCards = sortedCards.slice(0, visibleCount);
 
@@ -242,6 +228,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
     setSelectedFee("all");
     setSelectedNetwork("all");
     setSortBy("popular");
+    setVisibleCount(12);
   };
 
   return (
@@ -294,8 +281,8 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
           </p>
 
           {/* Quick stats pill strip */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto mt-8">
-            <div className="bg-white/80 backdrop-blur-xs p-3 sm:p-4 rounded-2xl border border-[#DDE3C1] shadow-2xs">
+          <div className="flex flex-wrap gap-3 sm:gap-4 max-w-3xl mx-auto mt-8">
+            <div className="w-[calc(50%-0.5rem)] sm:flex-1 bg-white/80 backdrop-blur-xs p-3 sm:p-4 rounded-2xl border border-[#DDE3C1] shadow-2xs">
               <span className="font-bricolage font-bold text-xl sm:text-2xl text-primary block">
                 {initialCards.length}+
               </span>
@@ -303,7 +290,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                 Verified Cards
               </span>
             </div>
-            <div className="bg-white/80 backdrop-blur-xs p-3 sm:p-4 rounded-2xl border border-[#DDE3C1] shadow-2xs">
+            <div className="w-[calc(50%-0.5rem)] sm:flex-1 bg-white/80 backdrop-blur-xs p-3 sm:p-4 rounded-2xl border border-[#DDE3C1] shadow-2xs">
               <span className="font-bricolage font-bold text-xl sm:text-2xl text-gold block">
                 10+
               </span>
@@ -311,7 +298,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                 Top Partner Banks
               </span>
             </div>
-            <div className="bg-white/80 backdrop-blur-xs p-3 sm:p-4 rounded-2xl border border-[#DDE3C1] shadow-2xs">
+            <div className="w-[calc(50%-0.5rem)] sm:flex-1 bg-white/80 backdrop-blur-xs p-3 sm:p-4 rounded-2xl border border-[#DDE3C1] shadow-2xs">
               <span className="font-bricolage font-bold text-xl sm:text-2xl text-emerald-700 block">
                 33.3%
               </span>
@@ -319,7 +306,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                 Max Reward Rate
               </span>
             </div>
-            <div className="bg-white/80 backdrop-blur-xs p-3 sm:p-4 rounded-2xl border border-[#DDE3C1] shadow-2xs">
+            <div className="w-[calc(50%-0.5rem)] sm:flex-1 bg-white/80 backdrop-blur-xs p-3 sm:p-4 rounded-2xl border border-[#DDE3C1] shadow-2xs">
               <span className="font-bricolage font-bold text-xl sm:text-2xl text-primary block">
                 ₹0
               </span>
@@ -336,13 +323,19 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setVisibleCount(12);
+                }}
                 placeholder="Search by card name, bank (e.g. HDFC, SBI, Axis), or perk (e.g. lounge, cashback)..."
                 className="w-full px-3 py-2.5 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none font-montserrat"
               />
               {searchQuery && (
                 <button
-                  onClick={() => setSearchQuery("")}
+                  onClick={() => {
+                    setSearchQuery("");
+                    setVisibleCount(12);
+                  }}
                   className="p-1.5 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 mr-1"
                 >
                   <X className="w-4 h-4" />
@@ -366,7 +359,10 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
             return (
               <button
                 key={tab.id}
-                onClick={() => setSelectedCategory(tab.id)}
+                onClick={() => {
+                  setSelectedCategory(tab.id);
+                  setVisibleCount(12);
+                }}
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-montserrat text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap cursor-pointer shrink-0 shadow-2xs ${isActive
                   ? "bg-primary text-white shadow-md shadow-primary/20"
                   : "bg-white text-gray-700 hover:text-primary hover:bg-gray-50 border border-gray-200"
@@ -389,17 +385,20 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
         <div className="bg-white rounded-2xl border border-gray-200 p-4 mt-6 shadow-xs flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
 
           {/* Dropdown Filters Group */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 flex-1">
+          <div className="flex flex-col sm:flex-row gap-3 flex-1">
 
             {/* Bank Filter */}
-            <div className="relative">
+            <div className="relative flex-1">
               <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1 font-montserrat">
                 Issuing Bank
               </label>
               <div className="relative">
                 <select
                   value={selectedBank}
-                  onChange={(e) => setSelectedBank(e.target.value)}
+                  onChange={(e) => {
+                    setSelectedBank(e.target.value);
+                    setVisibleCount(12);
+                  }}
                   className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat"
                 >
                   <option value="all">All Banks ({initialCards.length})</option>
@@ -414,14 +413,17 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
             </div>
 
             {/* Annual Fee Filter */}
-            <div className="relative">
+            <div className="relative flex-1">
               <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1 font-montserrat">
                 Annual Fee Range
               </label>
               <div className="relative">
                 <select
                   value={selectedFee}
-                  onChange={(e) => setSelectedFee(e.target.value)}
+                  onChange={(e) => {
+                    setSelectedFee(e.target.value);
+                    setVisibleCount(12);
+                  }}
                   className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat"
                 >
                   {FEE_FILTERS.map((f) => (
@@ -435,14 +437,17 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
             </div>
 
             {/* Network Filter */}
-            <div className="relative">
+            <div className="relative flex-1">
               <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1 font-montserrat">
                 Card Network
               </label>
               <div className="relative">
                 <select
                   value={selectedNetwork}
-                  onChange={(e) => setSelectedNetwork(e.target.value)}
+                  onChange={(e) => {
+                    setSelectedNetwork(e.target.value);
+                    setVisibleCount(12);
+                  }}
                   className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat"
                 >
                   {NETWORK_FILTERS.map((n) => (
@@ -468,7 +473,10 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
               <div className="relative">
                 <select
                   value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as any)}
+                  onChange={(e) => {
+                    setSortBy(e.target.value as "popular" | "fee-asc" | "fee-desc" | "name-asc");
+                    setVisibleCount(12);
+                  }}
                   className="bg-gray-50 border border-gray-200 rounded-xl pl-3 pr-8 py-2.5 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat"
                 >
                   <option value="popular">Most Popular</option>
@@ -545,14 +553,14 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
 
         {/* ── CARDS DISPLAY: GRID VIEW ───────────────────────────────── */}
         {viewMode === "grid" && sortedCards.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-6">
-            {visibleCards.map((card, idx) => {
+          <div className="flex flex-wrap gap-6 sm:gap-8 mt-6">
+            {visibleCards.map((card) => {
               const isCompared = compareList.some((c) => c.id === card.id);
 
               return (
                 <div
                   key={card.id}
-                  className="bg-white rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1 relative"
+                  className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.334rem)] bg-white rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1 relative"
                 >
                   {/* Top Graphic Section */}
                   <div className="p-5 pb-3">
@@ -611,8 +619,8 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                     </div>
 
                     {/* Key Metrics Grid */}
-                    <div className="grid grid-cols-2 gap-2 mt-3.5 pt-3 border-t border-gray-100">
-                      <div className="bg-gray-50/90 rounded-xl p-2.5 border border-gray-100">
+                    <div className="flex gap-2 mt-3.5 pt-3 border-t border-gray-100">
+                      <div className="flex-1 bg-gray-50/90 rounded-xl p-2.5 border border-gray-100">
                         <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
                           Annual Fee
                         </span>
@@ -620,7 +628,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                           {card.annualFee || "Nil"}
                         </span>
                       </div>
-                      <div className="bg-gray-50/90 rounded-xl p-2.5 border border-gray-100">
+                      <div className="flex-1 bg-gray-50/90 rounded-xl p-2.5 border border-gray-100">
                         <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
                           Reward Rate
                         </span>
@@ -713,8 +721,8 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                   </div>
 
                   {/* Center: Key Perks & Fee Metrics */}
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full md:w-5/12 text-left border-y md:border-y-0 md:border-x border-gray-100 py-3 md:py-0 md:px-4">
-                    <div>
+                  <div className="flex flex-wrap sm:flex-nowrap gap-3 w-full md:w-5/12 text-left border-y md:border-y-0 md:border-x border-gray-100 py-3 md:py-0 md:px-4">
+                    <div className="w-[calc(50%-0.5rem)] sm:flex-1">
                       <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
                         Annual Fee
                       </span>
@@ -722,7 +730,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                         {card.annualFee || "Nil"}
                       </span>
                     </div>
-                    <div>
+                    <div className="w-[calc(50%-0.5rem)] sm:flex-1">
                       <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
                         Joining Fee
                       </span>
@@ -730,7 +738,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                         {card.joiningFee || "Nil"}
                       </span>
                     </div>
-                    <div className="col-span-2 sm:col-span-1">
+                    <div className="w-full sm:flex-1">
                       <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
                         Reward Headline
                       </span>
@@ -821,55 +829,15 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
           </div>
         </div>
 
-        {/* ── CREDIT CARD GUIDE & FAQ SECTION ──────────────────────────── */}
-        <div className="mt-16 pt-12 border-t border-gray-200">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <h3 className="font-bricolage font-bold text-2xl sm:text-3xl text-primary">
-              Frequently Asked Questions About Credit Cards
-            </h3>
-            <p className="text-xs sm:text-sm text-gray-500 font-montserrat mt-2">
-              Everything you need to know before applying for a credit card in India.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-2xs">
-              <h4 className="font-bricolage font-bold text-base text-gray-900 mb-2">
-                What minimum credit score is needed for credit card approval?
-              </h4>
-              <p className="text-xs sm:text-sm text-gray-600 font-montserrat leading-relaxed">
-                Most top banks prefer a CIBIL score of 720 or higher for standard and entry-level cards, while super-premium metal cards typically require 750+. However, if you are new to credit (score &lt; 0), you can start with a fixed-deposit backed credit card.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-2xs">
-              <h4 className="font-bricolage font-bold text-base text-gray-900 mb-2">
-                What does &quot;Lifetime Free&quot; (LTF) credit card mean?
-              </h4>
-              <p className="text-xs sm:text-sm text-gray-600 font-montserrat leading-relaxed">
-                A Lifetime Free credit card has ₹0 joining fee and ₹0 annual maintenance fee forever, with no spend conditions attached. You only pay for what you purchase or if you carry forward a balance.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-2xs">
-              <h4 className="font-bricolage font-bold text-base text-gray-900 mb-2">
-                How does RuPay UPI credit card integration work?
-              </h4>
-              <p className="text-xs sm:text-sm text-gray-600 font-montserrat leading-relaxed">
-                RuPay credit cards can be linked directly to your favorite UPI apps (GPay, PhonePe, Paytm). You can scan any merchant QR code to pay using credit with up to 50 days of interest-free credit and earn reward points on merchant spends.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-2xs">
-              <h4 className="font-bricolage font-bold text-base text-gray-900 mb-2">
-                Does checking eligibility on Grofi affect my credit score?
-              </h4>
-              <p className="text-xs sm:text-sm text-gray-600 font-montserrat leading-relaxed">
-                No. Grofi performs a soft inquiry which has zero impact on your CIBIL score. A hard inquiry is only initiated when you officially proceed with a formal application through the partner bank.
-              </p>
-            </div>
-          </div>
-        </div>
+        {/* ── REIMAGINED CREDIT CARD GUIDE & FAQ SECTION ───────────────── */}
+        <CreditCardFAQSection
+          onCheckOffers={() =>
+            openApplyModal(
+              "Credit Card Pre-Approved Offers",
+              "Check pre-approved luxury, travel, and cashback credit cards tailored for you."
+            )
+          }
+        />
 
       </section>
 
@@ -962,8 +930,8 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
             )}
 
             {/* Fee & Charges Matrix */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-              <div className="bg-gray-50 p-3 rounded-xl border border-gray-100">
+            <div className="flex flex-wrap gap-3 mb-6">
+              <div className="w-[calc(50%-0.375rem)] sm:flex-1 bg-gray-50 p-3 rounded-xl border border-gray-100">
                 <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
                   Joining Fee
                 </span>
@@ -971,7 +939,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                   {selectedCardForModal.joiningFee}
                 </span>
               </div>
-              <div className="bg-gray-50 p-3 rounded-xl border border-gray-100">
+              <div className="w-[calc(50%-0.375rem)] sm:flex-1 bg-gray-50 p-3 rounded-xl border border-gray-100">
                 <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
                   Annual Fee
                 </span>
@@ -979,7 +947,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                   {selectedCardForModal.annualFee}
                 </span>
               </div>
-              <div className="bg-gray-50 p-3 rounded-xl border border-gray-100">
+              <div className="w-[calc(50%-0.375rem)] sm:flex-1 bg-gray-50 p-3 rounded-xl border border-gray-100">
                 <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
                   Fee Waiver
                 </span>
@@ -987,7 +955,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                   {selectedCardForModal.feeWaiver || "Not applicable"}
                 </span>
               </div>
-              <div className="bg-gray-50 p-3 rounded-xl border border-gray-100">
+              <div className="w-[calc(50%-0.375rem)] sm:flex-1 bg-gray-50 p-3 rounded-xl border border-gray-100">
                 <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
                   Forex Markup
                 </span>
@@ -1036,17 +1004,17 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                   <Plane className="w-4 h-4 text-sky-600" />
                   Airport Lounge Privileges
                 </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-montserrat text-sky-900">
-                  <div>
+                <div className="flex flex-wrap gap-3 text-xs font-montserrat text-sky-900">
+                  <div className="w-full sm:w-[calc(50%-0.375rem)]">
                     <span className="font-bold block text-sky-950">Domestic Lounges:</span>
                     <p className="mt-0.5">{selectedCardForModal.loungeAccess.domestic || "Not available"}</p>
                   </div>
-                  <div>
+                  <div className="w-full sm:w-[calc(50%-0.375rem)]">
                     <span className="font-bold block text-sky-950">International Lounges:</span>
                     <p className="mt-0.5">{selectedCardForModal.loungeAccess.international || "Not available"}</p>
                   </div>
                   {selectedCardForModal.loungeAccess.spendCondition && (
-                    <div className="col-span-1 sm:col-span-2 text-[11px] text-sky-700 bg-white/70 p-2 rounded-lg">
+                    <div className="w-full text-[11px] text-sky-700 bg-white/70 p-2 rounded-lg">
                       <strong>Spend Condition:</strong> {selectedCardForModal.loungeAccess.spendCondition}
                     </div>
                   )}
@@ -1074,9 +1042,9 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
             {/* Pros & Cons */}
             {((selectedCardForModal.pros && selectedCardForModal.pros.length > 0) ||
               (selectedCardForModal.cons && selectedCardForModal.cons.length > 0)) && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                <div className="flex flex-col sm:flex-row gap-4 mb-6">
                   {selectedCardForModal.pros && selectedCardForModal.pros.length > 0 && (
-                    <div className="bg-emerald-50/50 p-3.5 rounded-2xl border border-emerald-200">
+                    <div className="flex-1 bg-emerald-50/50 p-3.5 rounded-2xl border border-emerald-200">
                       <span className="text-[11px] font-bold text-emerald-800 uppercase tracking-wider block mb-2 font-montserrat">
                         Pros
                       </span>
@@ -1091,7 +1059,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                     </div>
                   )}
                   {selectedCardForModal.cons && selectedCardForModal.cons.length > 0 && (
-                    <div className="bg-rose-50/50 p-3.5 rounded-2xl border border-rose-200">
+                    <div className="flex-1 bg-rose-50/50 p-3.5 rounded-2xl border border-rose-200">
                       <span className="text-[11px] font-bold text-rose-800 uppercase tracking-wider block mb-2 font-montserrat">
                         Cons &amp; Limitations
                       </span>
