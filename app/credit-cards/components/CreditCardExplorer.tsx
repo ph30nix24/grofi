@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
   Sparkles,
   Plane,
@@ -77,15 +78,31 @@ const NETWORK_FILTERS = [
 
 export default function CreditCardExplorer({ initialCards }: { initialCards: CardStructure[] }) {
   const { openApplyModal } = useApplyModal();
+  const searchParams = useSearchParams();
+  const initialSearchParam = searchParams?.get("search") || searchParams?.get("q") || "";
 
   // Filter & Search states
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(initialSearchParam);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedBank, setSelectedBank] = useState("all");
   const [selectedFee, setSelectedFee] = useState("all");
   const [selectedNetwork, setSelectedNetwork] = useState("all");
   const [sortBy, setSortBy] = useState<"popular" | "fee-asc" | "fee-desc" | "name-asc">("popular");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+
+  // Sync searchQuery when URL search params change
+  useEffect(() => {
+    const q = searchParams?.get("search") || searchParams?.get("q");
+    if (q !== null && q !== undefined) {
+      setSearchQuery(q);
+      if (q) {
+        const el = document.getElementById("cards-explorer-section");
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    }
+  }, [searchParams]);
 
   // Pagination / Load more
   const [visibleCount, setVisibleCount] = useState(12);
@@ -348,7 +365,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
       </section>
 
       {/* ── FILTER & EXPLORER SECTION ─────────────────────────────────── */}
-      <section className="py-10 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
+      <section id="cards-explorer-section" className="py-10 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
 
         {/* ── Category Filter Tabs ───────────────────────────────────── */}
         <div className="flex items-center justify-start sm:justify-center overflow-x-auto pb-3 gap-2 scrollbar-hidden">

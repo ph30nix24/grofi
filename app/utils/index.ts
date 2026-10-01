@@ -226,22 +226,19 @@ export const navLinks = [
   {
     label: 'Personal Loan',
     href: '/personal-loans',
-    // dropdown: [
-    //   {
-    //     label: 'Popular Personal Loan', href: '/personal-loans/popular',
-    //     subItems: [
-    //       { label: 'Instant Personal Loan', href: '/personal-loans/instant-loans' },
-    //       { label: 'Short Term Personal Loan', href: '/personal-loans/short-term-loans' },
-    //       { label: 'Low Interest Personal Loan', href: '/personal-loans/popular/low-interest-rate' },
-    //       { label: 'Personal Loan for Salaried', href: '/personal-loans/popular/salaried' },
-    //       { label: 'Personal Loan for Self Employed', href: '/personal-loans/popular/self-employed' },
-    //     ],
-    //   },
+    dropdown: [
+      {
+        label: 'Popular Personal Loan', href: '#',
+        subItems: [
+          { label: 'Instant Personal Loan', href: '/personal-loans/instant-loans' },
+          { label: 'Short Term Personal Loan', href: '/personal-loans/short-term-loans' },
+        ],
+      },
     //   { label: 'HDFC Bank Personal Loan', href: '/personal-loans/hdfc-bank', subItems: [] },
     //   { label: 'SBI Personal Loan', href: '/personal-loans/sbi-xpress-credit', subItems: [] },
     //   { label: 'Axis Bank Personal Loan', href: '/personal-loans/axis-bank', subItems: [] },
     //   { label: 'ICICI Personal Loan', href: '/personal-loans/icici-bank', subItems: [] },
-    // ],
+    ],
   },
   {
     label: 'Business Loan',

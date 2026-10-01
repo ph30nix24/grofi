@@ -94,7 +94,7 @@ export default function CardHero({ card, bankSlug }: CardHeroProps) {
               <div className="absolute -inset-2 bg-linear-to-r from-primary/20 via-gold/25 to-primary/20 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
 
               {/* Physical Card Representation */}
-              <div className="relative w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/20 bg-linear-to-br from-[#0c2226] via-[#02474D] to-[#011d20] flex flex-col justify-between p-5 sm:p-6 text-white select-none">
+              <div className="relative w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden drop-shadow-2xl drop-shadow-white/20 flex flex-col justify-between p-5 sm:p-0 text-white select-none">
                 
                 {card.cardImage ? (
                   <Image
@@ -103,7 +103,7 @@ export default function CardHero({ card, bankSlug }: CardHeroProps) {
                     fill
                     sizes="(max-width: 768px) 100vw, 420px"
                     priority
-                    className="object-contain p-1 drop-shadow-xl"
+                    className="object-contain drop-shadow-xl rounded-xl"
                   />
                 ) : (
                   <>

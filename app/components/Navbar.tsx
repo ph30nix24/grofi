@@ -183,14 +183,13 @@ export default function Navbar() {
   return (
     <header
       ref={dropdownRef}
-      className={`sticky top-0 z-50 transition-all duration-300 font-montserrat ${
-        isScrolled
+      className={`sticky top-0 z-50 transition-all duration-300 font-montserrat ${isScrolled
           ? "bg-[#F3F0DF]/95 backdrop-blur-xl border-b border-[#DDE3C1] shadow-[0_4px_25px_-5px_rgba(2,71,77,0.08)] py-2 sm:py-2.5"
           : "bg-[#F3F0DF]/90 backdrop-blur-md border-b border-[#DDE3C1]/80 py-2.5 sm:py-3"
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4 h-14 sm:h-16 relative">
-        
+
         {/* ── 1. Brand Logo ────────────────────────────────────────────── */}
         <div className="flex items-center shrink-0">
           <Link
@@ -225,16 +224,9 @@ export default function Navbar() {
                   onMouseEnter={() => handleMouseEnterDropdown(link.label)}
                   onMouseLeave={handleMouseLeaveDropdown}
                 >
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (isDropdownOpen) {
-                        setActiveDropdown(null);
-                      } else {
-                        handleMouseEnterDropdown(link.label);
-                      }
-                    }}
+                  <Link
+                    href={link.href}
+                    onClick={() => setActiveDropdown(null)}
                     className={`inline-flex items-center gap-1 px-2.5 xl:px-3.5 py-2 rounded-xl text-[13px] xl:text-sm font-semibold whitespace-nowrap shrink-0 transition-all duration-200 cursor-pointer ${
                       isDropdownOpen || isActivePath
                         ? "text-primary bg-white/80 shadow-2xs font-bold"
@@ -249,236 +241,234 @@ export default function Navbar() {
                         isDropdownOpen ? "rotate-180 text-primary" : ""
                       }`}
                     />
-                  </button>
+                  </Link>
 
-                  {/* ── Desktop Mega Menu Dropdown ───────────────────────── */}
-                  {isDropdownOpen && link.dropdown && (
-                    <div
-                      className="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-full max-w-5xl z-50 animate-slideDown before:absolute before:-top-6 before:left-0 before:w-full before:h-8 before:content-['']"
-                      onMouseEnter={() => handleMouseEnterDropdown(link.label)}
-                      onMouseLeave={handleMouseLeaveDropdown}
-                    >
-                      <div className="bg-white/95 backdrop-blur-2xl rounded-3xl border border-[#DDE3C1] shadow-2xl shadow-primary/15 p-6 overflow-hidden">
-                        
-                        {/* Mega Menu Top Highlight Bar */}
-                        <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-100">
-                          <div className="flex items-center gap-2.5">
-                            <div className="w-8 h-8 rounded-xl bg-[#EBF4ED] flex items-center justify-center text-primary">
-                              <CreditCard className="w-4 h-4" />
+                    {/* ── Desktop Mega Menu Dropdown ───────────────────────── */}
+                    {isDropdownOpen && link.dropdown && (
+                      <div
+                        className="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-full max-w-5xl z-50 animate-slideDown before:absolute before:-top-6 before:left-0 before:w-full before:h-8 before:content-['']"
+                        onMouseEnter={() => handleMouseEnterDropdown(link.label)}
+                        onMouseLeave={handleMouseLeaveDropdown}
+                      >
+                        <div className="bg-white/95 backdrop-blur-2xl rounded-3xl border border-[#DDE3C1] shadow-2xl shadow-primary/15 p-6 overflow-hidden">
+
+                          {/* Mega Menu Top Highlight Bar */}
+                          <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-100">
+                            <div className="flex items-center gap-2.5">
+                              <div className="w-8 h-8 rounded-xl bg-[#EBF4ED] flex items-center justify-center text-primary">
+                                <CreditCard className="w-4 h-4" />
+                              </div>
+                              <div>
+                                <h4 className="font-bricolage font-bold text-gray-900 text-sm">
+                                  Explore India&apos;s Best Credit Cards
+                                </h4>
+                                <p className="text-[11px] text-gray-500">
+                                  80+ curated credit cards across 10 top partner banks
+                                </p>
+                              </div>
                             </div>
-                            <div>
-                              <h4 className="font-bricolage font-bold text-gray-900 text-sm">
-                                Explore India&apos;s Best Credit Cards
-                              </h4>
-                              <p className="text-[11px] text-gray-500">
-                                80+ curated credit cards across 10 top partner banks
+
+                            <Link
+                              href={link.href}
+                              onClick={() => setActiveDropdown(null)}
+                              className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-gold transition-colors group/all"
+                            >
+                              <span>Browse All Cards</span>
+                              <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/all:translate-x-1" />
+                            </Link>
+                          </div>
+
+                          {/* Mega Menu 3-Column Content Layout */}
+                          <div className="grid grid-cols-12 gap-5">
+
+                            {/* Column 1: Bank Selector List (4 cols) */}
+                            <div className="col-span-4 bg-gray-50/70 rounded-2xl p-2 border border-gray-100 max-h-[380px] overflow-y-auto scrollbar-hidden space-y-1">
+                              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 py-1.5">
+                                Partner Banks ({link.dropdown.length})
                               </p>
-                            </div>
-                          </div>
-
-                          <Link
-                            href={link.href}
-                            onClick={() => setActiveDropdown(null)}
-                            className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-gold transition-colors group/all"
-                          >
-                            <span>Browse All Cards</span>
-                            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/all:translate-x-1" />
-                          </Link>
-                        </div>
-
-                        {/* Mega Menu 3-Column Content Layout */}
-                        <div className="grid grid-cols-12 gap-5">
-                          
-                          {/* Column 1: Bank Selector List (4 cols) */}
-                          <div className="col-span-4 bg-gray-50/70 rounded-2xl p-2 border border-gray-100 max-h-[380px] overflow-y-auto scrollbar-hidden space-y-1">
-                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 py-1.5">
-                              Partner Banks ({link.dropdown.length})
-                            </p>
-                            {link.dropdown.map((bank, idx) => {
-                              const isSelected = selectedBankIdx === idx;
-                              const logo = getBankLogo(bank.label);
-                              const displayName = formatBankDisplayName(bank.label);
-                              const subCount = bank.subItems?.length || 0;
-
-                              return (
-                                <div
-                                  key={bank.label}
-                                  onMouseEnter={() => setSelectedBankIdx(idx)}
-                                  className={`group/bank flex items-center justify-between p-2 rounded-xl transition-all duration-150 cursor-pointer ${
-                                    isSelected
-                                      ? "bg-white text-primary shadow-sm border border-[#DDE3C1]"
-                                      : "hover:bg-white/60 text-gray-700"
-                                  }`}
-                                >
-                                  <Link
-                                    href={bank.href}
-                                    onClick={() => setActiveDropdown(null)}
-                                    className="flex items-center gap-2.5 flex-1 min-w-0"
-                                  >
-                                    <div className="w-7 h-7 rounded-lg bg-white border border-gray-100 flex items-center justify-center p-1 shrink-0 shadow-2xs">
-                                      <Image
-                                        src={logo}
-                                        alt={displayName}
-                                        width={24}
-                                        height={24}
-                                        className="w-full h-full object-contain"
-                                      />
-                                    </div>
-                                    <div className="truncate">
-                                      <p className="text-xs font-bold truncate group-hover/bank:text-primary">
-                                        {displayName}
-                                      </p>
-                                      <span className="text-[10px] text-gray-400">
-                                        {subCount} Popular Cards
-                                      </span>
-                                    </div>
-                                  </Link>
-                                  <ChevronRight
-                                    className={`w-3.5 h-3.5 transition-transform shrink-0 ${
-                                      isSelected ? "text-primary translate-x-0.5" : "text-gray-300"
-                                    }`}
-                                  />
-                                </div>
-                              );
-                            })}
-                          </div>
-
-                          {/* Column 2: Cards for Selected Bank (5 cols) */}
-                          <div className="col-span-5 flex flex-col justify-between p-1">
-                            <div>
-                              {(() => {
-                                const currentBank = link.dropdown[selectedBankIdx] || link.dropdown[0];
-                                const currentDisplayName = formatBankDisplayName(currentBank.label);
-                                const cards = currentBank.subItems || [];
+                              {link.dropdown.map((bank, idx) => {
+                                const isSelected = selectedBankIdx === idx;
+                                const logo = getBankLogo(bank.label);
+                                const displayName = formatBankDisplayName(bank.label);
+                                const subCount = bank.subItems?.length || 0;
 
                                 return (
-                                  <>
-                                    <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-gray-100">
-                                      <div className="flex items-center gap-2">
-                                        <div className="w-6 h-6 rounded-md bg-white border border-gray-100 flex items-center justify-center p-0.5">
-                                          <Image
-                                            src={getBankLogo(currentBank.label)}
-                                            alt={currentDisplayName}
-                                            width={20}
-                                            height={20}
-                                            className="w-full h-full object-contain"
-                                          />
-                                        </div>
-                                        <p className="font-bricolage font-bold text-sm text-gray-900">
-                                          {currentDisplayName} Cards
-                                        </p>
-                                      </div>
-                                      <Link
-                                        href={currentBank.href}
-                                        onClick={() => setActiveDropdown(null)}
-                                        className="text-[11px] font-bold text-primary hover:text-gold transition-colors inline-flex items-center gap-1"
-                                      >
-                                        <span>View all</span>
-                                        <ChevronRight className="w-3 h-3" />
-                                      </Link>
-                                    </div>
-
-                                    {/* Sub-items grid */}
-                                    <div className="grid grid-cols-2 gap-2 max-h-[300px] overflow-y-auto scrollbar-hidden pr-1">
-                                      {cards.length > 0 ? (
-                                        cards.map((card) => (
-                                          <Link
-                                            key={card.label}
-                                            href={card.href}
-                                            onClick={() => setActiveDropdown(null)}
-                                            className="p-2.5 rounded-xl border border-gray-100 bg-gray-50/50 hover:bg-[#EBF4ED]/60 hover:border-primary/20 hover:shadow-2xs transition-all duration-150 flex flex-col gap-1 group/card"
-                                          >
-                                            <div className="flex items-center justify-between">
-                                              <CreditCard className="w-3.5 h-3.5 text-gray-400 group-hover/card:text-primary transition-colors" />
-                                              <ChevronRight className="w-3 h-3 text-gray-300 group-hover/card:text-primary group-hover/card:translate-x-0.5 transition-all" />
-                                            </div>
-                                            <p className="text-xs font-semibold text-gray-800 group-hover/card:text-primary truncate">
-                                              {card.label}
-                                            </p>
-                                          </Link>
-                                        ))
-                                      ) : (
-                                        <div className="col-span-2 text-center py-8 text-gray-400 text-xs">
-                                          No cards listed for this bank.
-                                        </div>
-                                      )}
-                                    </div>
-                                  </>
-                                );
-                              })()}
-                            </div>
-                          </div>
-
-                          {/* Column 3: Curated Categories & Pre-Approved Promo Box (3 cols) */}
-                          <div className="col-span-3 flex flex-col justify-between gap-3 border-l border-gray-100 pl-4">
-                            <div>
-                              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">
-                                Curated Categories
-                              </p>
-                              <div className="space-y-1.5">
-                                {CURATED_CATEGORIES.map((cat) => {
-                                  const Icon = cat.icon;
-                                  return (
+                                  <div
+                                    key={bank.label}
+                                    onMouseEnter={() => setSelectedBankIdx(idx)}
+                                    className={`group/bank flex items-center justify-between p-2 rounded-xl transition-all duration-150 cursor-pointer ${isSelected
+                                        ? "bg-white text-primary shadow-sm border border-[#DDE3C1]"
+                                        : "hover:bg-white/60 text-gray-700"
+                                      }`}
+                                  >
                                     <Link
-                                      key={cat.title}
-                                      href={cat.href}
+                                      href={bank.href}
                                       onClick={() => setActiveDropdown(null)}
-                                      className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-gray-50 transition-colors group/cat"
+                                      className="flex items-center gap-2.5 flex-1 min-w-0"
                                     >
-                                      <div className="w-6 h-6 rounded-lg bg-[#EBF4ED] flex items-center justify-center text-primary shrink-0 mt-0.5 group-hover/cat:bg-primary group-hover/cat:text-white transition-colors">
-                                        <Icon className="w-3 h-3" />
+                                      <div className="w-7 h-7 rounded-lg bg-white border border-gray-100 flex items-center justify-center p-1 shrink-0 shadow-2xs">
+                                        <Image
+                                          src={logo}
+                                          alt={displayName}
+                                          width={24}
+                                          height={24}
+                                          className="w-full h-full object-contain"
+                                        />
                                       </div>
-                                      <div className="min-w-0 flex-1">
-                                        <p className="text-xs font-bold text-gray-800 group-hover/cat:text-primary truncate">
-                                          {cat.title}
+                                      <div className="truncate">
+                                        <p className="text-xs font-bold truncate group-hover/bank:text-primary">
+                                          {displayName}
                                         </p>
-                                        <p className="text-[10px] text-gray-400 truncate">
-                                          {cat.desc}
-                                        </p>
+                                        <span className="text-[10px] text-gray-400">
+                                          {subCount} Popular Cards
+                                        </span>
                                       </div>
                                     </Link>
+                                    <ChevronRight
+                                      className={`w-3.5 h-3.5 transition-transform shrink-0 ${isSelected ? "text-primary translate-x-0.5" : "text-gray-300"
+                                        }`}
+                                    />
+                                  </div>
+                                );
+                              })}
+                            </div>
+
+                            {/* Column 2: Cards for Selected Bank (5 cols) */}
+                            <div className="col-span-5 flex flex-col justify-between p-1">
+                              <div>
+                                {(() => {
+                                  const currentBank = link.dropdown[selectedBankIdx] || link.dropdown[0];
+                                  const currentDisplayName = formatBankDisplayName(currentBank.label);
+                                  const cards = currentBank.subItems || [];
+
+                                  return (
+                                    <>
+                                      <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-gray-100">
+                                        <div className="flex items-center gap-2">
+                                          <div className="w-6 h-6 rounded-md bg-white border border-gray-100 flex items-center justify-center p-0.5">
+                                            <Image
+                                              src={getBankLogo(currentBank.label)}
+                                              alt={currentDisplayName}
+                                              width={20}
+                                              height={20}
+                                              className="w-full h-full object-contain"
+                                            />
+                                          </div>
+                                          <p className="font-bricolage font-bold text-sm text-gray-900">
+                                            {currentDisplayName} Cards
+                                          </p>
+                                        </div>
+                                        <Link
+                                          href={currentBank.href}
+                                          onClick={() => setActiveDropdown(null)}
+                                          className="text-[11px] font-bold text-primary hover:text-gold transition-colors inline-flex items-center gap-1"
+                                        >
+                                          <span>View all</span>
+                                          <ChevronRight className="w-3 h-3" />
+                                        </Link>
+                                      </div>
+
+                                      {/* Sub-items grid */}
+                                      <div className="grid grid-cols-2 gap-2 max-h-[300px] overflow-y-auto scrollbar-hidden pr-1">
+                                        {cards.length > 0 ? (
+                                          cards.map((card) => (
+                                            <Link
+                                              key={card.label}
+                                              href={card.href}
+                                              onClick={() => setActiveDropdown(null)}
+                                              className="p-2.5 rounded-xl border border-gray-100 bg-gray-50/50 hover:bg-[#EBF4ED]/60 hover:border-primary/20 hover:shadow-2xs transition-all duration-150 flex flex-col gap-1 group/card"
+                                            >
+                                              <div className="flex items-center justify-between">
+                                                <CreditCard className="w-3.5 h-3.5 text-gray-400 group-hover/card:text-primary transition-colors" />
+                                                <ChevronRight className="w-3 h-3 text-gray-300 group-hover/card:text-primary group-hover/card:translate-x-0.5 transition-all" />
+                                              </div>
+                                              <p className="text-xs font-semibold text-gray-800 group-hover/card:text-primary truncate">
+                                                {card.label}
+                                              </p>
+                                            </Link>
+                                          ))
+                                        ) : (
+                                          <div className="col-span-2 text-center py-8 text-gray-400 text-xs">
+                                            No cards listed for this bank.
+                                          </div>
+                                        )}
+                                      </div>
+                                    </>
                                   );
-                                })}
+                                })()}
                               </div>
                             </div>
 
-                            {/* Mini Pre-approved Promo Card */}
-                            <div className="bg-linear-to-br from-[#02474D] via-[#03363b] to-[#012f33] rounded-2xl p-3.5 text-white shadow-md relative overflow-hidden">
-                              <div className="absolute top-0 right-0 w-20 h-20 bg-gold/15 rounded-full blur-xl pointer-events-none" />
-                              <div className="relative z-10">
-                                <div className="inline-flex items-center gap-1 bg-white/10 px-2 py-0.5 rounded-full text-[9px] font-bold text-[#B6CC9A] mb-1.5">
-                                  <Sparkles className="w-2.5 h-2.5 text-gold" />
-                                  Zero CIBIL Impact
-                                </div>
-                                <h5 className="font-bricolage font-bold text-xs text-white leading-tight">
-                                  Pre-Approved Card Offers
-                                </h5>
-                                <p className="text-[10px] text-white/70 mt-0.5 leading-snug">
-                                  Instant eligibility check across 10+ partner banks.
+                            {/* Column 3: Curated Categories & Pre-Approved Promo Box (3 cols) */}
+                            <div className="col-span-3 flex flex-col justify-between gap-3 border-l border-gray-100 pl-4">
+                              <div>
+                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">
+                                  Curated Categories
                                 </p>
-                                <button
-                                  onClick={() => {
-                                    setActiveDropdown(null);
-                                    openApplyModal(
-                                      "Credit Card",
-                                      "Instant pre-approved credit card offers across top partner banks."
+                                <div className="space-y-1.5">
+                                  {CURATED_CATEGORIES.map((cat) => {
+                                    const Icon = cat.icon;
+                                    return (
+                                      <Link
+                                        key={cat.title}
+                                        href={cat.href}
+                                        onClick={() => setActiveDropdown(null)}
+                                        className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-gray-50 transition-colors group/cat"
+                                      >
+                                        <div className="w-6 h-6 rounded-lg bg-[#EBF4ED] flex items-center justify-center text-primary shrink-0 mt-0.5 group-hover/cat:bg-primary group-hover/cat:text-white transition-colors">
+                                          <Icon className="w-3 h-3" />
+                                        </div>
+                                        <div className="min-w-0 flex-1">
+                                          <p className="text-xs font-bold text-gray-800 group-hover/cat:text-primary truncate">
+                                            {cat.title}
+                                          </p>
+                                          <p className="text-[10px] text-gray-400 truncate">
+                                            {cat.desc}
+                                          </p>
+                                        </div>
+                                      </Link>
                                     );
-                                  }}
-                                  className="w-full mt-2.5 bg-gold hover:bg-gold/90 text-white font-bold text-[11px] py-1.5 px-3 rounded-lg shadow-xs transition-all flex items-center justify-center gap-1 cursor-pointer"
-                                >
-                                  <span>Check Now</span>
-                                  <ArrowRight className="w-3 h-3" />
-                                </button>
+                                  })}
+                                </div>
                               </div>
+
+                              {/* Mini Pre-approved Promo Card */}
+                              <div className="bg-linear-to-br from-[#02474D] via-[#03363b] to-[#012f33] rounded-2xl p-3.5 text-white shadow-md relative overflow-hidden">
+                                <div className="absolute top-0 right-0 w-20 h-20 bg-gold/15 rounded-full blur-xl pointer-events-none" />
+                                <div className="relative z-10">
+                                  <div className="inline-flex items-center gap-1 bg-white/10 px-2 py-0.5 rounded-full text-[9px] font-bold text-[#B6CC9A] mb-1.5">
+                                    <Sparkles className="w-2.5 h-2.5 text-gold" />
+                                    Zero CIBIL Impact
+                                  </div>
+                                  <h5 className="font-bricolage font-bold text-xs text-white leading-tight">
+                                    Pre-Approved Card Offers
+                                  </h5>
+                                  <p className="text-[10px] text-white/70 mt-0.5 leading-snug">
+                                    Instant eligibility check across 10+ partner banks.
+                                  </p>
+                                  <button
+                                    onClick={() => {
+                                      setActiveDropdown(null);
+                                      openApplyModal(
+                                        "Credit Card",
+                                        "Instant pre-approved credit card offers across top partner banks."
+                                      );
+                                    }}
+                                    className="w-full mt-2.5 bg-gold hover:bg-gold/90 text-white font-bold text-[11px] py-1.5 px-3 rounded-lg shadow-xs transition-all flex items-center justify-center gap-1 cursor-pointer"
+                                  >
+                                    <span>Check Now</span>
+                                    <ArrowRight className="w-3 h-3" />
+                                  </button>
+                                </div>
+                              </div>
+
                             </div>
 
                           </div>
-
                         </div>
                       </div>
-                    </div>
-                  )}
-                </div>
+                    )}
+                  </div>
               );
             }
 
@@ -487,11 +477,10 @@ export default function Navbar() {
               <Link
                 key={link.label}
                 href={link.href}
-                className={`px-2.5 xl:px-3.5 py-2 rounded-xl text-[13px] xl:text-sm font-semibold whitespace-nowrap shrink-0 transition-all duration-200 ${
-                  isActivePath
+                className={`px-2.5 xl:px-3.5 py-2 rounded-xl text-[13px] xl:text-sm font-semibold whitespace-nowrap shrink-0 transition-all duration-200 ${isActivePath
                     ? "text-primary bg-white/80 shadow-2xs font-bold"
                     : "text-gray-700 hover:text-primary hover:bg-white/50"
-                }`}
+                  }`}
               >
                 {link.label}
               </Link>
@@ -501,7 +490,7 @@ export default function Navbar() {
 
         {/* ── 3. Right-Side Actions: CTA & Hamburger Toggle ─────────────── */}
         <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
-          
+
           {/* Primary CTA: Check Eligibility Button */}
           <button
             onClick={() =>
@@ -532,7 +521,7 @@ export default function Navbar() {
       {/* ── 4. Mobile & Tablet Drawer Menu (< lg) ────────────────────── */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-100 lg:hidden">
-          
+
           {/* Dark frosted backdrop */}
           <div
             className="fixed inset-0 bg-black/50 backdrop-blur-xs animate-fadeIn transition-opacity"
@@ -541,7 +530,7 @@ export default function Navbar() {
 
           {/* Slide-in Drawer Container */}
           <div className="fixed top-0 right-0 w-full max-w-xs sm:max-w-sm h-full bg-[#F3F0DF] shadow-2xl z-100 flex flex-col border-l border-[#DDE3C1] animate-slideInRight font-montserrat">
-            
+
             {/* Drawer Header */}
             <div className="p-5 flex items-center justify-between border-b border-[#DDE3C1] bg-white/40">
               <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
@@ -564,7 +553,7 @@ export default function Navbar() {
 
             {/* Drawer Scrollable Body */}
             <div className="flex-1 overflow-y-auto p-4 space-y-2">
-              
+
               <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-gray-400">
                 Menu Navigation
               </div>
@@ -594,16 +583,15 @@ export default function Navbar() {
                           <span>{link.label}</span>
                         </div>
                         <ChevronDown
-                          className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${
-                            isNavExpanded ? "rotate-180 text-primary" : ""
-                          }`}
+                          className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${isNavExpanded ? "rotate-180 text-primary" : ""
+                            }`}
                         />
                       </button>
 
                       {/* Expanded Banks List */}
                       {isNavExpanded && link.dropdown && (
                         <div className="px-3 pb-3 pt-1 border-t border-gray-100/80 space-y-1.5 animate-fadeIn">
-                          
+
                           {/* Quick link: All Cards */}
                           <Link
                             href={link.href}
@@ -658,9 +646,8 @@ export default function Navbar() {
                                       aria-label={`Toggle ${displayName} cards`}
                                     >
                                       <ChevronDown
-                                        className={`w-3.5 h-3.5 transition-transform ${
-                                          isBankExpanded ? "rotate-180 text-primary" : ""
-                                        }`}
+                                        className={`w-3.5 h-3.5 transition-transform ${isBankExpanded ? "rotate-180 text-primary" : ""
+                                          }`}
                                       />
                                     </button>
                                   )}

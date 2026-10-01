@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import Image from "next/image";
 import {
   ArrowRight,
@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { banksImgs, imageUrls } from "../utils";
 import { useApplyModal } from "../context/ApplyModalContext";
+import SearchBox from "./SearchBox";
 
 
 const stats = [
@@ -69,10 +70,10 @@ export default function Hero2() {
       
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
-      <section className="relative flex-1 overflow-hidden">
+      <section className="relative flex-1">
 
         {/* Decorative blobs */}
-        <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {/* Large green blob top-center */}
           <div className="absolute -top-20 left-1/2 -translate-x-1/4 w-175 h-175 rounded-full bg-[#B6CC9A]/25 blur-3xl" />
           {/* Gold arc bottom-left */}
@@ -85,7 +86,7 @@ export default function Hero2() {
         <div className="max-w-7xl mx-auto px-8 flex flex-wrap xl:flex-nowrap items-center gap-4 pt-8 pb-0 relative">
 
           {/* ── Column 1: left text ──────────────────────────────────────── */}
-          <div className="w-full xl:w-[38%] shrink-0 flex flex-col gap-4 pb-8 z-10 reveal-slide-left">
+          <div className="w-full xl:w-[38%] shrink-0 flex flex-col gap-4 pb-8 z-30 reveal-slide-left relative">
 
             <div className="w-fit text-[10px] font-bold uppercase tracking-widest text-primary bg-[#b0cca65a] rounded-full px-5 py-1.5 border border-[#a5c490]/30">
               Your Financial Growth Partner
@@ -148,17 +149,10 @@ export default function Hero2() {
             </div>
 
             {/* Search */}
-            <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2.5 shadow max-w-xs">
-              <Search className="w-4 h-4 text-gray-400 shrink-0" />
-              <input
-                type="text"
-                placeholder="Search for cards, loans and more..."
-                className="flex-1 text-xs text-gray-500 placeholder-gray-400 bg-transparent outline-none"
-              />
-              <button className="w-7 h-7 bg-primary hover:bg-gold rounded-full flex items-center justify-center transition-colors duration-300 shrink-0 cursor-pointer">
-                <ArrowRight className="w-3.5 h-3.5 text-white" />
-              </button>
-            </div>
+            <SearchBox
+              placeholder="Hdfc, SBI, Axis or card name..."
+              className="w-full max-w-md sm:max-w-lg"
+            />
           </div>
 
           {/* ── Column 2: big hero image + ALL floating cards ─────────────── */}

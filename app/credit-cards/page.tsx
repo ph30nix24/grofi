@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import prisma from "@/libs/db";
 import Navbar from "../components/Navbar";
@@ -63,7 +64,9 @@ export default async function CreditCardsPage() {
   return (
     <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
       <Navbar />
-      <CreditCardExplorer initialCards={cards} />
+      <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center text-sm text-gray-400">Loading cards...</div>}>
+        <CreditCardExplorer initialCards={cards} />
+      </Suspense>
       <AllBanksFeaturesExplorer />
       
       <Footer />
