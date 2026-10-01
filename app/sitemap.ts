@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 import prisma from "@/libs/db";
 import { PARTNER_BANKS } from "./credit-cards/[bank]/components/constants";
-import { cardsData } from "@/app/utils/index";
 
 const BASE_URL = "https://www.grofi.in";
 
@@ -88,17 +87,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.8,
       };
     });
-  } else {
-    // Fallback: Populate from cardsData in app/utils/index.ts
-    cardRoutes = cardsData.map((card) => {
-      const bankSlug = getBankSlug(card.bank);
-      return {
-        url: `${BASE_URL}/credit-cards/${bankSlug}/${card.id}`,
-        lastModified: now,
-        changeFrequency: "weekly",
-        priority: 0.8,
-      };
-    });
+
   }
 
   return [...staticRoutes, ...bankRoutes, ...cardRoutes];
