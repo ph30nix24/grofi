@@ -35,258 +35,6 @@ export const banksImgs = [
 ]
 
 
-interface CreditCardItem {
-  id: string;
-  name: string;
-  imgSrc?: string;
-  bank: string;
-  category: "luxury" | "travel" | "cashback" | "rewards";
-  badge: string;
-  annualFee: string;
-  feeWaiver?: string;
-  rewardRate: string;
-  loungeAccess: string;
-  cardType: "Metal" | "Plastic" | "RuPay";
-  keyPerks: string[];
-  welcomeBenefit: string;
-  // Card Visual Styling details
-  cardTheme: {
-    bgStyle: string;
-    borderStyle: string;
-    textColor: string;
-    chipColor: string;
-    network: "VISA" | "Mastercard" | "AMEX" | "Diners Club" | "RuPay";
-    artElement?: "centurion" | "feather" | "infinia-facets" | "emerald-cut" | "globe" | "chevron" | "silk" | "neu-dots" | "gold-leaf";
-  };
-  applyLink: string;
-}
-
-export const cardsData: CreditCardItem[] = [
-  {
-    id: "hdfc-infinia",
-    imgSrc: '/cards/hdfc-bank-infinia-metal-edition-credit-card.png',
-    name: "Infinia Metal Edition",
-    bank: "HDFC Bank",
-    category: "luxury",
-    badge: "Highest Reward Rate (33.3%)",
-    annualFee: "₹12,500 + GST",
-    feeWaiver: "Waived on spends of ₹10L in a year",
-    rewardRate: "Up to 33.3% on SmartBuy",
-    loungeAccess: "Unlimited Domestic & Global + Guests",
-    cardType: "Metal",
-    keyPerks: [
-      "5X Reward Points on flights, hotels & Apple on SmartBuy",
-      "1:1 Points redemption for air miles & luxury hotel bookings",
-      "Complimentary golf games and global 24/7 concierge",
-    ],
-    welcomeBenefit: "12,500 Reward Points + Club Marriott membership",
-    cardTheme: {
-      bgStyle: "bg-gradient-to-br from-[#0a192f] via-[#102a43] to-[#040e1a]",
-      borderStyle: "border-[#1e3a8a]/40 shadow-blue-900/30",
-      textColor: "text-white",
-      chipColor: "bg-[#d4af37]",
-      network: "VISA",
-      artElement: "infinia-facets",
-    },
-    applyLink: "#apply-infinia",
-  },
-  {
-    id: "axis-magnus",
-    imgSrc: '/cards/Axis-Magnus.png',
-    name: "Magnus Credit Card",
-    bank: "Axis Bank",
-    category: "luxury",
-    badge: "Ultra Luxury Travel & Dining",
-    annualFee: "₹12,500 + GST",
-    feeWaiver: "Waived on spends of ₹25L in a year",
-    rewardRate: "Up to 12% on Travel EDGE",
-    loungeAccess: "Unlimited Domestic + 8 Guest Visits",
-    cardType: "Metal",
-    keyPerks: [
-      "35 EDGE Reward points per ₹200 on Travel EDGE portal",
-      "1:0.8 miles transfer ratio across 15+ international airlines",
-      "Complimentary airport VIP meet & greet assistance 8 times/yr",
-    ],
-    welcomeBenefit: "Domestic flight voucher or luxury stay worth ₹12,500",
-    cardTheme: {
-      bgStyle: "bg-gradient-to-br from-[#121214] via-[#1a1820] to-[#09080d]",
-      borderStyle: "border-pink-900/40 shadow-pink-950/20",
-      textColor: "text-white",
-      chipColor: "bg-[#e5c158]",
-      network: "VISA",
-      artElement: "feather",
-    },
-    applyLink: "#apply-magnus",
-  },
-  {
-    id: "icici-emeralde",
-    imgSrc: '/cards/emeralde-private-metal.png',
-    name: "Emeralde Private Metal",
-    bank: "ICICI Bank",
-    category: "luxury",
-    badge: "Exclusive Emerald Gemstone Tier",
-    annualFee: "₹12,499 + GST",
-    feeWaiver: "Waived on spends of ₹10L",
-    rewardRate: "3% uncapped on all spends",
-    loungeAccess: "Unlimited Domestic & International + Spa",
-    cardType: "Metal",
-    keyPerks: [
-      "6 Reward points per ₹200 on all retail and online spends",
-      "Zero cancellation charges on travel bookings up to ₹12,000/yr",
-      "Unlimited international airport lounge access + free spa sessions",
-    ],
-    welcomeBenefit: "12,500 reward points + Taj Epicure membership",
-    cardTheme: {
-      bgStyle: "bg-gradient-to-br from-[#064e3b] via-[#042f2e] to-[#022c22]",
-      borderStyle: "border-emerald-500/30 shadow-emerald-950/30",
-      textColor: "text-white",
-      chipColor: "bg-[#f59e0b]",
-      network: "Mastercard",
-      artElement: "emerald-cut",
-    },
-    applyLink: "#apply-emeralde",
-  },
-  {
-    id: "axis-atlas",
-    imgSrc: '/cards/Atlas-credit-card.png',
-    name: "Atlas Credit Card",
-    bank: "Axis Bank",
-    category: "travel",
-    badge: "Best Frequent Flyer Card",
-    annualFee: "₹5,000 + GST",
-    feeWaiver: "Milestone-based waiver",
-    rewardRate: "5 EDGE Miles per ₹100 on Travel",
-    loungeAccess: "Up to 18 Domestic & 12 Intl Visits",
-    cardType: "Plastic",
-    keyPerks: [
-      "1:2 conversion ratio to leading airline miles (Singapore, Qatar, etc.)",
-      "Tiered milestone bonuses up to 10,000 EDGE Miles every year",
-      "International airport lounge access for primary & guest holders",
-    ],
-    welcomeBenefit: "5,000 EDGE Miles on 1st transaction within 30 days",
-    cardTheme: {
-      bgStyle: "bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-[#020617]",
-      borderStyle: "border-rose-900/30 shadow-red-950/20",
-      textColor: "text-white",
-      chipColor: "bg-[#e5c158]",
-      network: "VISA",
-      artElement: "globe",
-    },
-    applyLink: "#apply-atlas",
-  },
-  {
-    id: "sbi-cashback",
-    imgSrc: '/cards/SBI-Cashback.png',
-    name: "Cashback Credit Card",
-    bank: "SBI Card",
-    category: "cashback",
-    badge: "Best Overall 5% Online Cashback",
-    annualFee: "₹999 + GST",
-    feeWaiver: "Waived on ₹2L annual spends",
-    rewardRate: "Flat 5% Direct Statement Cashback",
-    loungeAccess: "4 Domestic Lounges/Year",
-    cardType: "Plastic",
-    keyPerks: [
-      "Flat 5% direct cashback on Amazon, Flipkart, Myntra, Swiggy & all online",
-      "1% cashback on offline retail spends with zero minimum threshold",
-      "Cashback automatically credited directly to next monthly card statement",
-    ],
-    welcomeBenefit: "First year fee reversal on achieving spend milestones",
-    cardTheme: {
-      bgStyle: "bg-gradient-to-br from-[#1d4ed8] via-[#1e40af] to-[#172554]",
-      borderStyle: "border-blue-400/40 shadow-blue-800/20",
-      textColor: "text-white",
-      chipColor: "bg-[#f59e0b]",
-      network: "VISA",
-      artElement: "chevron",
-    },
-    applyLink: "#apply-sbicb",
-  },
-  {
-    id: "hdfc-diners-black",
-    imgSrc: '/cards/Diners-club-black-metal.png',
-    name: "Diners Club Black (Metal)",
-    bank: "HDFC Bank",
-    category: "travel",
-    badge: "10X SmartBuy Partner Rewards",
-    annualFee: "₹10,000 + GST",
-    feeWaiver: "Waived on spends of ₹8L in a year",
-    rewardRate: "Up to 33.3% on SmartBuy 10X",
-    loungeAccess: "Unlimited Domestic & Global Lounges",
-    cardType: "Metal",
-    keyPerks: [
-      "10,000 bonus reward points on annual spend milestones",
-      "Unlimited lounge access worldwide for both Primary and Add-on users",
-      "Complimentary annual memberships to Club Marriott & Forbes",
-    ],
-    welcomeBenefit: "10,000 Reward Points on paying joining fee",
-    cardTheme: {
-      bgStyle: "bg-gradient-to-br from-[#18181b] via-[#27272a] to-[#09090b]",
-      borderStyle: "border-gray-700/60 shadow-black/40",
-      textColor: "text-white",
-      chipColor: "bg-[#d4af37]",
-      network: "Diners Club",
-      artElement: "globe",
-    },
-    applyLink: "#apply-dcb",
-  },
-  {
-    id: "yes-marquee",
-    imgSrc: '/cards/Marquee-credit-card.png',
-    name: "Marquée Credit Card",
-    bank: "Yes Bank",
-    category: "rewards",
-    badge: "High-Yield Online Points",
-    annualFee: "₹9,999 + GST",
-    feeWaiver: "Waived on spends of ₹10L",
-    rewardRate: "4.5% net return on online spends",
-    loungeAccess: "Unlimited Domestic & International + Guests",
-    cardType: "Metal",
-    keyPerks: [
-      "36 Reward points per ₹200 on all online purchases",
-      "1:1 Air Mile conversion to Air India, Singapore Airlines, and Vistara",
-      "Unlimited airport lounge access for primary and up to 4 guest visits/yr",
-    ],
-    welcomeBenefit: "60,000 Reward Points on card activation",
-    cardTheme: {
-      bgStyle: "bg-gradient-to-br from-[#090d16] via-[#111827] to-[#030712]",
-      borderStyle: "border-indigo-900/40 shadow-indigo-950/30",
-      textColor: "text-white",
-      chipColor: "bg-[#e5c158]",
-      network: "VISA",
-      artElement: "silk",
-    },
-    applyLink: "#apply-marquee",
-  },
-  {
-    id: "tata-neu-infinity",
-    imgSrc: '/cards/Tata-neu-infinity-HDFC.png',
-    name: "Tata Neu Infinity HDFC",
-    bank: "HDFC Bank",
-    category: "cashback",
-    badge: "Best UPI & Tata Ecosystem Card",
-    annualFee: "₹1,499 + GST",
-    feeWaiver: "Waived on spends of ₹3L in a year",
-    rewardRate: "Up to 10% NeuCoins on Tata Apps",
-    loungeAccess: "8 Domestic & 4 International Lounges",
-    cardType: "RuPay",
-    keyPerks: [
-      "10% NeuCoins on Tata Neu (Air India Express, BigBasket, Croma, Tata 1mg)",
-      "1.5% NeuCoins on all UPI transactions using RuPay variant",
-      "1 NeuCoin = ₹1 direct redemption value across all Tata brands",
-    ],
-    welcomeBenefit: "1,499 NeuCoins on 1st transaction within 30 days",
-    cardTheme: {
-      bgStyle: "bg-gradient-to-br from-[#3b0764] via-[#2e1065] to-[#1e1b4b]",
-      borderStyle: "border-purple-500/40 shadow-purple-950/20",
-      textColor: "text-white",
-      chipColor: "bg-[#f59e0b]",
-      network: "RuPay",
-      artElement: "neu-dots",
-    },
-    applyLink: "#apply-tataneu",
-  },
-];
 
 
 export interface CardStructure {
@@ -329,3 +77,207 @@ export interface CardStructure {
   bestFor?: string;
   editorialVerdict?: string;
 }
+
+
+export const navLinks = [
+  {
+    label: 'Credit Cards',
+    href: '/credit-cards',
+    dropdown: [
+      {
+        label: 'HDFC Credit Card', href: '/credit-cards/hdfc-bank',
+        subItems: [
+          { label: 'HDFC Millennia', href: '/credit-cards/hdfc-bank/hdfc-millennia' },
+          { label: 'HDFC Regalia Gold', href: '/credit-cards/hdfc-bank/hdfc-regalia-gold' },
+          { label: 'HDFC Diners Club Black', href: '/credit-cards/hdfc-bank/hdfc-diners-club-black-metal' },
+          { label: 'HDFC Infinia Metal', href: '/credit-cards/hdfc-bank/hdfc-infinia-metal' },
+          { label: 'Swiggy HDFC Card', href: '/credit-cards/hdfc-bank/swiggy-hdfc' },
+          { label: 'Tata Neu Infinity HDFC', href: '/credit-cards/hdfc-bank/tata-neu-infinity-hdfc' },
+          { label: 'HDFC MoneyBack+', href: '/credit-cards/hdfc-bank/hdfc-moneyback-plus' },
+          { label: 'Marriott Bonvoy HDFC', href: '/credit-cards/hdfc-bank/marriott-bonvoy-hdfc' },
+        ],
+      },
+      {
+        label: 'ICICI Credit Card',
+        href: '/credit-cards/icici-bank',
+        subItems: [
+          { label: 'Amazon Pay ICICI', href: '/credit-cards/icici-bank/icici-amazon-pay' },
+          { label: 'ICICI Coral RuPay', href: '/credit-cards/icici-bank/icici-coral-rupay' },
+          { label: 'ICICI Sapphiro', href: '/credit-cards/icici-bank/icici-sapphiro' },
+          { label: 'ICICI Emeralde Private Metal', href: '/credit-cards/icici-bank/icici-emeralde-private-metal' },
+          { label: 'ICICI Rubyx', href: '/credit-cards/icici-bank/icici-rubyx' },
+          { label: 'MakeMyTrip ICICI Signature', href: '/credit-cards/icici-bank/icici-makemytrip-signature' },
+          { label: 'ICICI HPCL Super Saver', href: '/credit-cards/icici-bank/icici-hpcl-super-saver' },
+          { label: 'ICICI Platinum Chip Card', href: '/credit-cards/icici-bank/icici-platinum-chip' },
+        ],
+      },
+      {
+        label: 'SBI Credit Card', href: '/credit-cards/sbi-bank',
+        subItems: [
+          { label: 'CASHBACK SBI Card', href: '/credit-cards/sbi-bank/sbi-cashback' },
+          { label: 'SBI SimplyCLICK Card', href: '/credit-cards/sbi-bank/sbi-simplyclick' },
+          { label: 'SimplySAVE SBI Card', href: '/credit-cards/sbi-bank/sbi-simplysave-rupay' },
+          { label: 'BPCL SBI Card Octane', href: '/credit-cards/sbi-bank/sbi-bpcl-octane' },
+          { label: 'SBI Prime Credit Card', href: '/credit-cards/sbi-bank/sbi-card-prime' },
+          { label: 'SBI Credit Card ELITE', href: '/credit-cards/sbi-bank/sbi-card-elite' },
+          { label: 'IRCTC SBI Credit Card', href: '/credit-cards/sbi-bank/sbi-irctc-rupay' },
+          { label: 'BPCL SBI Card (Standard)', href: '/credit-cards/sbi-bank/bpcl-sbi-card-standard' },
+        ],
+      },
+      {
+        label: 'Axis Credit Card',
+        href: '/credit-cards/axis-bank',
+        subItems: [
+          { label: 'Flipkart Axis Bank', href: '/credit-cards/axis-bank/axis-flipkart' },
+          { label: 'Airtel Axis Bank', href: '/credit-cards/axis-bank/axis-airtel' },
+          { label: 'Axis Bank ACE', href: '/credit-cards/axis-bank/axis-ace' },
+          { label: 'Axis Bank ATLAS', href: '/credit-cards/axis-bank/axis-atlas' },
+          { label: 'Axis Bank My Zone', href: '/credit-cards/axis-bank/axis-my-zone' },
+          { label: 'Axis Bank Magnus', href: '/credit-cards/axis-bank/axis-magnus' },
+          { label: 'Axis Bank Neo', href: '/credit-cards/axis-bank/axis-neo' },
+          { label: 'IndianOil Axis Bank', href: '/credit-cards/axis-bank/axis-indianoil' },
+        ],
+      },
+      {
+        label: 'BOBCARD',
+        href: '/credit-cards/bob-bank',
+        subItems: [
+          { label: 'BOBCARD Eterna', href: '/credit-cards/bob-bank/bob-eterna' },
+          { label: 'BOBCARD Cashback', href: '/credit-cards/bob-bank/bob-cashback' },
+          { label: 'BOBCARD Premier', href: '/credit-cards/bob-bank/bob-premier' },
+          { label: 'BOBCARD Select', href: '/credit-cards/bob-bank/bob-select' },
+          { label: 'BOBCARD Easy RuPay', href: '/credit-cards/bob-bank/bob-easy-rupay' },
+          { label: 'HPCL BOBCARD Energie', href: '/credit-cards/bob-bank/hpcl-bob-energie' },
+          { label: 'BOBCARD Etihad Guest Premium', href: '/credit-cards/bob-bank/bob-etihad-guest-premium' },
+          { label: 'BOBCARD Prime Secured', href: '/credit-cards/bob-bank/bob-prime-secured' },
+        ],
+      },
+      {
+        label: 'AU Credit Card',
+        href: '/credit-cards/au-bank',
+        subItems: [
+          { label: 'AU LIT Credit Card', href: '/credit-cards/au-bank/au-lit' },
+          { label: 'ixigo AU Credit Card', href: '/credit-cards/au-bank/au-ixigo' },
+          { label: 'AU Altura Plus', href: '/credit-cards/au-bank/au-altura-plus' },
+          { label: 'AU Zenith+ Metal', href: '/credit-cards/au-bank/au-zenith-plus' },
+          { label: 'AU Vetta Credit Card', href: '/credit-cards/au-bank/au-vetta' },
+          { label: 'AU Spont Credit Card', href: '/credit-cards/au-bank/au-spont' },
+          { label: 'AU Tejas Credit Card', href: '/credit-cards/au-bank/au-tejas' },
+          { label: 'AU Altura Credit Card', href: '/credit-cards/au-bank/au-altura' },
+        ],
+      },
+      {
+        label: 'IndusInd Credit Card',
+        href: '/credit-cards/indusind-bank',
+        subItems: [
+          { label: 'IndusInd Legend', href: '/credit-cards/indusind-bank/indusind-legend' },
+          { label: 'IndusInd Platinum RuPay', href: '/credit-cards/indusind-bank#indusind-platinum-rupay' },
+          { label: 'EazyDiner IndusInd', href: '/credit-cards/indusind-bank/indusind-eazydiner' },
+          { label: 'IndusInd Avios Infinite', href: '/credit-cards/indusind-bank#indusind-avios-visa-infinite' },
+          { label: 'IndusInd Pinnacle', href: '/credit-cards/indusind-bank/indusind-pinnacle' },
+          { label: 'IndusInd Tiger Card', href: '/credit-cards/indusind-bank/indusind-tiger' },
+          { label: 'IndusInd Nexxt Card', href: '/credit-cards/indusind-bank/indusind-nexxt' },
+          { label: 'IndusInd Platinum Aura Edge', href: '/credit-cards/indusind-bank/indusind-platinum-aura-edge' },
+        ],
+      },
+      {
+        label: 'Federal Credit Card',
+        href: '/credit-cards/federal-bank',
+        subItems: [
+          { label: 'Scapia Federal (0% Forex)', href: '/credit-cards/federal-bank/federal-scapia' },
+          { label: 'Federal OneCard Metal', href: '/credit-cards/federal-bank/federal-onecard' },
+          { label: 'Federal RuPay Wave (UPI)', href: '/credit-cards/federal-bank/federal-rupay-wave' },
+          { label: 'Federal Celesta', href: '/credit-cards/federal-bank/federal-celesta' },
+          { label: 'Fi-Federal AmpliFi', href: '/credit-cards/federal-bank/federal-fi-amplifi' },
+          { label: 'Federal Signet', href: '/credit-cards/federal-bank/federal-signet' },
+          { label: 'Federal Imperio', href: '/credit-cards/federal-bank/federal-imperio' },
+        ],
+      },
+      {
+        label: 'IDFC First Credit Card',
+        href: '/credit-cards/idfc-bank',
+        subItems: [
+          { label: 'IDFC FIRST Millennia', href: '/credit-cards/idfc-bank/idfc-first-millennia' },
+          { label: 'IDFC FIRST WOW! (FD-Backed)', href: '/credit-cards/idfc-bank/idfc-first-wow' },
+          { label: 'IDFC FIRST Select', href: '/credit-cards/idfc-bank/idfc-first-select' },
+          { label: 'FIRST SWYP Credit Card', href: '/credit-cards/idfc-bank/idfc-first-swyp' },
+          { label: 'IDFC FIRST Classic', href: '/credit-cards/idfc-bank/idfc-first-classic' },
+          { label: 'IDFC FIRST Ashva Metal', href: '/credit-cards/idfc-bank/idfc-first-ashva' },
+          { label: 'IDFC FIRST Wealth', href: '/credit-cards/idfc-bank/idfc-first-wealth' },
+          { label: 'IDFC FIRST Mayura Metal', href: '/credit-cards/idfc-bank/idfc-first-mayura' },
+        ],
+      },
+      {
+        label: 'YES Bank Credit Card',
+        href: '/credit-cards/yes-bank',
+        subItems: [
+          { label: 'YES Bank Klick RuPay', href: '/credit-cards/yes-bank/yes-bank-klick-kiwi' },
+          { label: 'YES SELECT Credit Card', href: '/credit-cards/yes-bank/yes-bank-select' },
+          { label: 'YES BANK MARQUÉE', href: '/credit-cards/yes-bank/yes-bank-marquee' },
+          { label: 'YES ELITE+ Credit Card', href: '/credit-cards/yes-bank/yes-bank-elite-plus' },
+          { label: 'POP-CLUB YES Bank', href: '/credit-cards/yes-bank/yes-bank-pop-club' },
+          { label: 'Paisabazaar PaisaSave', href: '/credit-cards/yes-bank/yes-bank-paisasave' },
+          { label: 'Uni YES Bank RuPay', href: '/credit-cards/yes-bank/yes-bank-uni-rupay' },
+          { label: 'YES Bank Virtual RuPay', href: '/credit-cards/yes-bank#yes-bank-virtual-rupay' },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Personal Loan',
+    href: '/personal-loans',
+    // dropdown: [
+    //   {
+    //     label: 'Popular Personal Loan', href: '/personal-loans/popular',
+    //     subItems: [
+    //       { label: 'Instant Personal Loan', href: '/personal-loans/instant-loans' },
+    //       { label: 'Short Term Personal Loan', href: '/personal-loans/short-term-loans' },
+    //       { label: 'Low Interest Personal Loan', href: '/personal-loans/popular/low-interest-rate' },
+    //       { label: 'Personal Loan for Salaried', href: '/personal-loans/popular/salaried' },
+    //       { label: 'Personal Loan for Self Employed', href: '/personal-loans/popular/self-employed' },
+    //     ],
+    //   },
+    //   { label: 'HDFC Bank Personal Loan', href: '/personal-loans/hdfc-bank', subItems: [] },
+    //   { label: 'SBI Personal Loan', href: '/personal-loans/sbi-xpress-credit', subItems: [] },
+    //   { label: 'Axis Bank Personal Loan', href: '/personal-loans/axis-bank', subItems: [] },
+    //   { label: 'ICICI Personal Loan', href: '/personal-loans/icici-bank', subItems: [] },
+    // ],
+  },
+  {
+    label: 'Business Loan',
+    href: '/business-loans',
+    // dropdown: [
+    //   {
+    //     label: 'Best Business Loan Lenders', href: '/business-loans/best-loan-lenders',
+    //     subItems: [
+    //       { label: 'HDFC Business Loan', href: '/business-loans/hdfc-bank-business-growth' },
+    //       { label: 'SBI Business Loan', href: '/business-loans/sbi-simplified-small-business' },
+    //       { label: 'BOB Business Loan', href: '/business-loans/bank-of-baroda-sme' },
+    //     ],
+    //   },
+    //   { label: 'Govt Business Loan Schemes', href: '/business-loans#govt-schemes', subItems: [] },
+    //   { label: 'Business Loan EMI Calculator', href: '/business-loans#calculator', subItems: [] },
+    // ],
+  },
+  {
+    label: 'Home Loan',
+    href: '/home-loans',
+    // dropdown: [
+    //   {
+    //     label: 'Home Loan Provider', href: '/home-loans#compare-table',
+    //     subItems: [
+    //       { label: 'SBI Home Loan', href: '/home-loans/sbi-home-loan' },
+    //       { label: 'HDFC Home Loan', href: '/home-loans/hdfc-bank-home-loan' },
+    //       { label: 'LIC Housing Finance', href: '/home-loans/lic-housing-finance' },
+    //       { label: 'Axis Bank Home Loan', href: '/home-loans/axis-bank-home-loan' },
+    //     ],
+    //   },
+    //   { label: 'Home Loan By Amount', href: '/home-loans#calculator', subItems: [] },
+    //   { label: 'Home Loan EMI Calculator', href: '/home-loans#calculator', subItems: [] },
+    //   { label: 'Home Loan Balance Transfer', href: '/home-loans/balance-transfer', subItems: [] },
+    //   { label: 'Loan Against Property', href: '/home-loans/loan-against-property', subItems: [] },
+    // ],
+  },
+  { label: 'Blogs', href: '/blogs' },
+  { label: "Careers", href: '/careers '}
+];

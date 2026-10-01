@@ -5,9 +5,7 @@ import prisma from "@/libs/db";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import { CardMetaData, CardStructure } from "./components/type";
-import { PARTNER_BANKS, getBankLogoUrl } from "../components/constants";
-import { cardsData } from "@/app/utils/index";
-
+import { PARTNER_BANKS } from "../components/constants";
 import CardHero from "./components/CardHero";
 import CardStickyNav from "./components/CardStickyNav";
 import CardEditorialVerdict from "./components/CardEditorialVerdict";
@@ -52,65 +50,6 @@ function isBankMatch(bankSlug: string, issuer: string): boolean {
   );
 }
 
-// Helper: Fallback mapper for cardsData in app/utils/index.ts
-function mapUtilsCardToStructure(c: (typeof cardsData)[0]): CardStructure {
-  return {
-    id: c.id,
-    name: c.name,
-    issuer: c.bank,
-    logo: getBankLogoUrl(c.bank.toLowerCase().replace(/\s+/g, "-"), c.bank),
-    cardImage: c.imgSrc || null,
-    network: c.cardTheme.network || "VISA",
-    category: [c.category],
-    categoryLabel: c.badge || `${c.bank} ${c.category.toUpperCase()} Card`,
-    badge: c.badge || "Popular",
-    description: `Experience premier rewards and lifestyle privileges with ${c.name} from ${c.bank}.`,
-    joiningFee: c.annualFee,
-    annualFee: c.annualFee,
-    feeWaiver: c.feeWaiver || "Available on meeting annual spend criteria",
-    forexMarkup: "2.0% + GST",
-    popularRank: 1,
-    rewardRate: {
-      headline: c.rewardRate,
-      base: "Up to 5X reward points on retail transactions",
-      accelerated: c.rewardRate,
-      rewardCurrency: "Reward Points / Air Miles",
-      pointValue: "₹0.50 to ₹1.00 per point",
-    },
-    loungeAccess: {
-      domestic: c.loungeAccess,
-      international: "Complimentary Priority Pass / DreamFolks access",
-      spendCondition: "Valid on presenting physical card with minimal verification fee",
-    },
-    welcomeBenefits: [
-      c.welcomeBenefit || "Welcome gift voucher on first spend",
-      "Complimentary premium partner memberships",
-      "Bonus reward points credited within 60 days",
-    ],
-    keyHighlights: c.keyPerks || [
-      "Accelerated rewards across top online partners",
-      "Complimentary domestic and global airport lounge visits",
-      "Comprehensive fraud liability & travel insurance cover",
-    ],
-    pros: [
-      "Industry-leading reward return rate on category spends",
-      "Substantial milestone bonuses and fee waiver thresholds",
-      "Extensive complimentary airport lounge access worldwide",
-      "Seamless integration with digital banking and contactless payments",
-    ],
-    cons: [
-      "Annual fee applies if minimum spend target is not achieved",
-      "Reward redemption caps may apply to certain utility transactions",
-    ],
-    eligibility: {
-      minIncome: "₹50,000 / month",
-      minCreditScore: 750,
-      employmentType: "Salaried or Self-Employed",
-    },
-    bestFor: `${c.category.charAt(0).toUpperCase() + c.category.slice(1)} & High-Yield Spends`,
-    editorialVerdict: `The ${c.name} is one of ${c.bank}'s flagship credit cards, offering an exceptional combination of ${c.rewardRate.toLowerCase()} and luxury travel benefits. It is an outstanding pick for cardholders seeking maximum value on their everyday and premium spends.`,
-  };
-}
 
 // Cached fetcher for single card structure and metadata
 const fetchstructureData = cache(async (cardId: string): Promise<CardResult | null> => {
@@ -123,25 +62,12 @@ const fetchstructureData = cache(async (cardId: string): Promise<CardResult | nu
     if (rawData) {
       return {
         structure: JSON.parse(JSON.stringify(rawData)) as CardStructure,
-        metadata: metaData ? (JSON.parse(JSON.stringify(metaData)) as CardMetaData) : null,
+        metadata: metaData,
       };
     }
   } catch (error) {
     console.warn("Prisma fetch failed, falling back to local dataset:", error);
   }
-
-  // Fallback to cardsData in app/utils/index.ts
-  const localCard = cardsData.find(
-    (c) => c.id.toLowerCase() === cardId.toLowerCase()
-  );
-
-  if (localCard) {
-    return {
-      structure: mapUtilsCardToStructure(localCard),
-      metadata: null,
-    };
-  }
-
   return null;
 });
 
@@ -163,17 +89,10 @@ async function fetchSimilarCards(
     if (rawSimilar && rawSimilar.length > 0) {
       return JSON.parse(JSON.stringify(rawSimilar)) as CardStructure[];
     }
+    return []
   } catch {
-    // ignore
+    return []
   }
-
-  // Fallback to local cards
-  const localSimilar = cardsData
-    .filter((c) => c.id !== excludeId)
-    .slice(0, 3)
-    .map(mapUtilsCardToStructure);
-
-  return localSimilar;
 }
 
 // Fetch bank FAQs
