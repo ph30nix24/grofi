@@ -31,6 +31,7 @@ import {
   getPageNumbers,
   getBankLogoUrl,
 } from "./constants";
+import Link from "next/link";
 
 interface BankCardExplorerProps {
   initialCards: CardStructure[];
@@ -434,20 +435,24 @@ export default function BankCardExplorer({
                   {/* Card Graphic Mockup */}
                   <div className="relative w-full aspect-[1.586/1] rounded-2xl overflow-hidden drop-shadow-lg drop-shadow-gray-100">
                     {card.cardImage ? (
-                      <Image
-                        src={card.cardImage}
-                        alt={card.name}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="object-contain transition-transform duration-500 hover:scale-[1.03]"
-                      />
+                      <Link href={`/credit-cards/${card.issuer.split(" ")[0].toLocaleLowerCase()}-${card.issuer.split(" ")[1].toLocaleLowerCase()}/${card.id}`}>
+                        <Image
+                          src={card.cardImage}
+                          alt={card.name}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className="object-contain transition-transform duration-500 hover:scale-[1.03]"
+                        />
+                      </Link>
                     ) : (
-                      <div className="w-full h-full bg-linear-to-tr from-primary to-[#035259] flex items-center justify-center p-4 text-white text-center">
-                        <div>
-                          <CreditCardIcon className="w-10 h-10 mx-auto text-gold mb-2" />
-                          <p className="font-bricolage font-bold text-sm">{card.name}</p>
+                      <Link href={`/credit-cards/${card.issuer.split(" ")[0].toLocaleLowerCase()}-${card.issuer.split(" ")[1].toLocaleLowerCase()}/${card.id}`}>
+                        <div className="w-full h-full bg-linear-to-tr from-primary to-[#035259] flex items-center justify-center p-4 text-white text-center">
+                          <div>
+                            <CreditCardIcon className="w-10 h-10 mx-auto text-gold mb-2" />
+                            <p className="font-bricolage font-bold text-sm">{card.name}</p>
+                          </div>
                         </div>
-                      </div>
+                      </Link>
                     )}
                   </div>
 

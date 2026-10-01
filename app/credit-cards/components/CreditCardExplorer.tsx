@@ -594,13 +594,15 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
 
                     {/* Card Graphic Mockup */}
                     <div className={`relative w-full aspect-[1.586/1] rounded-2xl overflow-hidden drop-shadow-lg drop-shadow-gray-100`}>
-                      <Image
-                        src={card.cardImage || ""}
-                        alt={card.name}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="object-contain transition-transform duration-500 hover:scale-[1.03]"
-                      />
+                      <Link href={`/credit-cards/${card.issuer.split(" ")[0].toLocaleLowerCase()}-${card.issuer.split(" ")[1].toLocaleLowerCase()}/${card.id}`}>
+                        <Image
+                          src={card.cardImage || ""}
+                          alt={card.name}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className="object-contain transition-transform duration-500 hover:scale-[1.03]"
+                        />
+                      </Link>
                     </div>
 
                     {/* Badge & Title */}

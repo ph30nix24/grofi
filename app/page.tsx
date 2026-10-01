@@ -64,9 +64,33 @@ export const metadata: Metadata = {
 
 export default async function Home() {
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.grofi.in/#org",
+        name: "Grofi",
+        url: "https://www.grofi.in",
+        logo: "https://www.grofi.in/icon.png", // square, 112x112 or larger
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.grofi.in/#website",
+        url: "https://www.grofi.in",
+        name: "Grofi",
+        publisher: { "@id": "https://www.grofi.in/#org" },
+      },
+    ],
+  };
+
   const featuredCreditCards = await fetchCards()
   return (
     <main className="flex flex-col min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
       <Hero2 />
       <ProductsSection />
