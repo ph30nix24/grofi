@@ -829,16 +829,6 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
           </div>
         </div>
 
-        {/* ── REIMAGINED CREDIT CARD GUIDE & FAQ SECTION ───────────────── */}
-        <CreditCardFAQSection
-          onCheckOffers={() =>
-            openApplyModal(
-              "Credit Card Pre-Approved Offers",
-              "Check pre-approved luxury, travel, and cashback credit cards tailored for you."
-            )
-          }
-        />
-
       </section>
 
       {/* ── FLOATING COMPARISON TRAY ─────────────────────────────────── */}

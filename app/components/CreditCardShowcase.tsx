@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from 'next/image';
+import Image from "next/image";
+import Link from "next/link";
 import {
   Sparkles,
   Plane,
@@ -13,38 +14,12 @@ import {
   Crown,
   Percent,
   Gift,
+  X,
 } from "lucide-react";
-import { cardsData } from "../utils";
+import { CardStructure } from "../utils";
 import { useApplyModal } from "../context/ApplyModalContext";
 
 type CardCategory = "all" | "luxury" | "travel" | "cashback" | "rewards";
-
-interface CreditCardItem {
-  id: string;
-  name: string;
-  imgSrc?: string;
-  bank: string;
-  category: "luxury" | "travel" | "cashback" | "rewards";
-  badge: string;
-  annualFee: string;
-  feeWaiver?: string;
-  rewardRate: string;
-  loungeAccess: string;
-  cardType: "Metal" | "Plastic" | "RuPay";
-  keyPerks: string[];
-  welcomeBenefit: string;
-  // Card Visual Styling details
-  cardTheme: {
-    bgStyle: string;
-    borderStyle: string;
-    textColor: string;
-    chipColor: string;
-    network: "VISA" | "Mastercard" | "AMEX" | "Diners Club" | "RuPay";
-    artElement?: "centurion" | "feather" | "infinia-facets" | "emerald-cut" | "globe" | "chevron" | "silk" | "neu-dots" | "gold-leaf";
-  };
-  applyLink: string;
-}
-
 
 const categoryTabs: { id: CardCategory; label: string; icon: React.ReactNode }[] = [
   { id: "all", label: "All Premium Cards", icon: <CreditCardIcon className="w-4 h-4" /> },
@@ -54,14 +29,41 @@ const categoryTabs: { id: CardCategory; label: string; icon: React.ReactNode }[]
   { id: "rewards", label: "High Rewards & Lifestyle", icon: <Gift className="w-4 h-4" /> },
 ];
 
-export default function CreditCardShowcase() {
+interface Props {
+  creditCards: CardStructure[] | null;
+}
+
+export default function CreditCardShowcase({ creditCards }: Props) {
   const { openApplyModal } = useApplyModal();
   const [selectedCategory, setSelectedCategory] = useState<CardCategory>("all");
-  const [selectedCardModal, setSelectedCardModal] = useState<CreditCardItem | null>(null);
+  const [selectedCardModal, setSelectedCardModal] = useState<CardStructure | null>(null);
 
-  const filteredCards = cardsData.filter((card) => {
+  const cardsList = creditCards || [];
+
+  const filteredCards = cardsList.filter((card) => {
     if (selectedCategory === "all") return true;
-    return card.category === selectedCategory;
+    const categories = (card.category || []).map((c) => c.toLowerCase());
+    if (selectedCategory === "luxury") {
+      return categories.some((c) =>
+        ["luxury", "premium", "super-premium", "lifestyle"].includes(c)
+      );
+    }
+    if (selectedCategory === "travel") {
+      return categories.some((c) =>
+        ["travel", "lounge", "forex", "airlines", "flights"].includes(c)
+      );
+    }
+    if (selectedCategory === "cashback") {
+      return categories.some((c) =>
+        ["cashback", "shopping", "fuel", "groceries", "upi"].includes(c)
+      );
+    }
+    if (selectedCategory === "rewards") {
+      return categories.some((c) =>
+        ["rewards", "lifestyle", "dining", "entertainment"].includes(c)
+      );
+    }
+    return false;
   });
 
   return (
@@ -122,158 +124,202 @@ export default function CreditCardShowcase() {
         </div>
 
         {/* ── Cards Showcase Grid ──────────────────────────────────────── */}
-        <div className="flex flex-wrap gap-8">
-          {filteredCards.map((card, idx) => (
-            <div
-              key={card.id}
-              className={`w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.334rem)] bg-white rounded-3xl border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1.5 reveal-on-scroll ${
-                idx % 3 === 1 ? "delay-100" : idx % 3 === 2 ? "delay-200" : ""
-              }`}
-            >
+        {filteredCards.length > 0 ? (
+          <div className="flex flex-wrap gap-8">
+            {filteredCards.map((card, idx) => {
+              const perks = (card.keyHighlights && card.keyHighlights.length > 0)
+                ? card.keyHighlights.slice(0, 3)
+                : (card.welcomeBenefits && card.welcomeBenefits.length > 0)
+                ? card.welcomeBenefits.slice(0, 3)
+                : card.description ? [card.description] : [];
 
-              {/* ── Card Graphic & Header ── */}
-              <div className="p-6 pb-4">
-                {card.imgSrc?.length === 0 ? (
-                  <div
-                    className={`relative w-full aspect-[1.586/1] rounded-2xl p-5 ${card.cardTheme.bgStyle} ${card.cardTheme.textColor} border ${card.cardTheme.borderStyle} shadow-xl flex flex-col justify-between overflow-hidden transition-transform duration-500 group-hover:scale-[1.02]`}
-                  >
-                    {card.cardTheme.artElement === "infinia-facets" && (
-                      <div className="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(ellipse_at_top_right,var(--tw-gradient-stops))] from-blue-400 via-indigo-600 to-transparent" />
-                    )}
-                    {card.cardTheme.artElement === "feather" && (
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2 w-28 h-28 opacity-40 pointer-events-none bg-linear-to-tr from-pink-500 to-purple-500 rounded-full blur-xl" />
-                    )}
-                    {card.cardTheme.artElement === "centurion" && (
-                      <div className="absolute right-3 top-1/2 -translate-y-1/2 w-20 h-20 rounded-full border border-gray-500/30 flex items-center justify-center opacity-30">
-                        <div className="w-14 h-14 rounded-full border border-dashed border-gray-400" />
-                      </div>
-                    )}
-                    {card.cardTheme.artElement === "emerald-cut" && (
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,var(--tw-gradient-stops))] from-emerald-400/20 via-transparent to-transparent opacity-40" />
-                    )}
-                    {card.cardTheme.artElement === "chevron" && (
-                      <div className="absolute right-0 top-0 bottom-0 w-16 bg-yellow-400/20 clip-path-chevron pointer-events-none" />
-                    )}
-                    {card.cardTheme.artElement === "gold-leaf" && (
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,var(--tw-gradient-stops))] from-yellow-200/30 via-transparent to-transparent opacity-50" />
-                    )}
-                    {card.cardTheme.artElement === "globe" && (
-                      <div className="absolute right-2 bottom-2 w-24 h-24 rounded-full border border-white/10 opacity-30 flex items-center justify-center">
-                        <div className="w-16 h-16 rounded-full border border-white/15" />
-                      </div>
-                    )}
-
-                    <div className="flex items-center justify-between relative z-10">
-                      <span className="font-montserrat font-bold text-xs tracking-wider uppercase opacity-90">
-                        {card.bank}
-                      </span>
-                      <span className="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-white/15 backdrop-blur-xs border border-white/20">
-                        {card.cardType}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-3 relative z-10 my-auto">
-                      <div
-                        className={`w-9 h-7 rounded-md ${card.cardTheme.chipColor} shadow-inner border border-white/30 flex items-center justify-around px-1`}
-                      >
-                        <div className="w-px h-full bg-black/20" />
-                        <div className="w-px h-full bg-black/20" />
-                      </div>
-                      <svg className="w-4 h-4 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                        <path d="M8.5 16.5a5 5 0 0 1 0-9M12 19a8.5 8.5 0 0 0 0-14M15.5 21.5a12 12 0 0 0 0-19" strokeLinecap="round" />
-                      </svg>
-                    </div>
-                    <div className="flex items-end justify-between relative z-10">
-                      <div>
-                        <p className="font-bricolage font-bold text-sm tracking-wide leading-tight">
-                          {card.name}
-                        </p>
-                        <p className="text-[10px] font-mono tracking-widest opacity-60 mt-0.5">
-                          •••• •••• •••• 8824
-                        </p>
-                      </div>
-                      <span className="font-bricolage font-extrabold text-sm tracking-wider uppercase opacity-90">
-                        {card.cardTheme.network}
-                      </span>
-                    </div>
-
-                  </div>
-                ) : (
-                  <div className="w-full h-fit relative">
-                    <Image
-                      src={card.imgSrc ?? ''}
-                      alt={card.id}
-                      width={400}
-                      height={100}
-                      className="rounded-xl"
-                    />
-                  </div>
-                )}
-
-                {/* Card Title & Badge */}
-                <div className="mt-5">
-                  <div className="inline-block text-[11px] font-bold text-primary bg-[#EBF4ED] px-3 py-1 rounded-full border border-primary/15 mb-2">
-                    {card.badge}
-                  </div>
-                  <h3 className="font-bricolage font-bold text-xl text-gray-900 leading-snug">
-                    {card.name}
-                  </h3>
-                  <p className="text-xs text-gray-500 font-montserrat mt-0.5">{card.bank}</p>
-                </div>
-
-                {/* Key Metrics Grid */}
-                <div className="flex gap-3 mt-4 pt-4 border-t border-gray-100">
-                  <div className="flex-1 bg-gray-50/80 rounded-xl p-3 border border-gray-100">
-                    <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block">
-                      Joining / Annual Fee
-                    </span>
-                    <span className="text-xs font-bold text-gray-900 font-montserrat block mt-0.5">
-                      {card.annualFee}
-                    </span>
-                  </div>
-                  <div className="flex-1 bg-gray-50/80 rounded-xl p-3 border border-gray-100">
-                    <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block">
-                      Reward Rate
-                    </span>
-                    <span className="text-xs font-bold text-emerald-700 font-montserrat block mt-0.5">
-                      {card.rewardRate}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Top Perks Bullet */}
-                <div className="mt-4 pt-3 border-t border-gray-100">
-                  <ul className="space-y-1.5">
-                    {card.keyPerks.map((perk, i) => (
-                      <li key={i} className="flex items-center gap-2 text-xs text-gray-600 font-montserrat">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                        <span className="line-clamp-1">{perk}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-              </div>
-
-              {/* ── Card Footer & Actions ── */}
-              <div className="p-6 pt-4 bg-gray-50/60 border-t border-gray-100 flex items-center gap-3">
-                <button
-                  onClick={() => setSelectedCardModal(card)}
-                  className="flex-1 text-xs font-bold text-primary bg-white hover:bg-primary/5 py-3 px-4 rounded-xl border border-primary/20 transition-colors duration-200 text-center cursor-pointer"
+              return (
+                <div
+                  key={card.id}
+                  className={`w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.334rem)] bg-white rounded-3xl border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1.5 reveal-on-scroll ${
+                    idx % 3 === 1 ? "delay-100" : idx % 3 === 2 ? "delay-200" : ""
+                  }`}
                 >
-                  View Details
-                </button>
-                <button
-                  onClick={() => openApplyModal(card.name, `${card.bank} • ${card.badge}`)}
-                  className="flex-1 text-xs font-bold text-white bg-primary hover:bg-primary/90 py-3 px-4 rounded-xl shadow-md transition-all duration-200 flex items-center justify-center gap-1.5 group/btn cursor-pointer"
-                >
-                  Apply Now
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1" />
-                </button>
-              </div>
 
+                  {/* ── Card Graphic & Header ── */}
+                  <div className="p-6 pb-4">
+                    {/* Bank / Network Header */}
+                    <div className="flex items-center justify-between gap-2 mb-3.5">
+                      {card.logo ? (
+                        <div className="h-6 w-auto relative">
+                          <Image
+                            src={card.logo}
+                            alt={card.issuer}
+                            width={75}
+                            height={22}
+                            className="h-6 w-auto object-contain"
+                          />
+                        </div>
+                      ) : (
+                        <span className="font-montserrat font-bold text-xs uppercase tracking-wider text-primary">
+                          {card.issuer}
+                        </span>
+                      )}
+                      <span className="text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
+                        {card.network}
+                      </span>
+                    </div>
+
+                    {/* Card Graphic Mockup */}
+                    <div className="relative w-full aspect-[1.586/1] rounded-2xl overflow-hidden drop-shadow-md drop-shadow-gray-50 flex items-center justify-center">
+                      {card?.cardImage ? (
+                        <Image
+                          src={card?.cardImage}
+                          alt={card?.name}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className="object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-linear-to-br from-[#0a192f] via-[#102a43] to-[#040e1a] p-5 rounded-2xl flex flex-col justify-between text-white border border-blue-900/40 shadow-inner">
+                          <div className="flex justify-between items-center relative z-10">
+                            <span className="font-montserrat font-bold text-xs tracking-wider uppercase opacity-90">
+                              {card.issuer}
+                            </span>
+                            <span className="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-white/15 backdrop-blur-xs border border-white/20">
+                              {card.network}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-3 relative z-10 my-auto">
+                            <div className="w-9 h-7 rounded-md bg-[#d4af37] shadow-inner border border-white/30 flex items-center justify-around px-1">
+                              <div className="w-px h-full bg-black/20" />
+                              <div className="w-px h-full bg-black/20" />
+                            </div>
+                            <svg className="w-4 h-4 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                              <path d="M8.5 16.5a5 5 0 0 1 0-9M12 19a8.5 8.5 0 0 0 0-14M15.5 21.5a12 12 0 0 0 0-19" strokeLinecap="round" />
+                            </svg>
+                          </div>
+                          <div className="flex items-end justify-between relative z-10">
+                            <div>
+                              <p className="font-bricolage font-bold text-sm tracking-wide leading-tight">
+                                {card.name}
+                              </p>
+                              <p className="text-[10px] font-mono tracking-widest opacity-60 mt-0.5">
+                                •••• •••• •••• 8824
+                              </p>
+                            </div>
+                            <span className="font-bricolage font-extrabold text-xs tracking-wider uppercase opacity-90">
+                              {card.network}
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Card Title & Badge */}
+                    <div className="mt-4">
+                      {card.badge && (
+                        <div className="inline-block text-[11px] font-bold text-primary bg-[#EBF4ED] px-3 py-1 rounded-full border border-primary/15 mb-2 truncate max-w-full">
+                          {card.badge}
+                        </div>
+                      )}
+                      <h3 className="font-bricolage font-bold text-xl text-gray-900 leading-snug line-clamp-1 group-hover:text-primary transition-colors">
+                        {card.name}
+                      </h3>
+                      <p className="text-xs text-gray-500 font-montserrat mt-0.5">
+                        {card.issuer} • {card.categoryLabel || card.network}
+                      </p>
+                    </div>
+
+                    {/* Key Metrics Grid */}
+                    <div className="flex gap-3 mt-4 pt-4 border-t border-gray-100">
+                      <div className="flex-1 bg-gray-50/80 rounded-xl p-3 border border-gray-100">
+                        <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
+                          Joining / Annual Fee
+                        </span>
+                        <span className="text-xs font-bold text-gray-900 font-montserrat block mt-0.5 truncate">
+                          {card.annualFee || card.joiningFee || "Nil"}
+                        </span>
+                      </div>
+                      <div className="flex-1 bg-gray-50/80 rounded-xl p-3 border border-gray-100">
+                        <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
+                          Reward Rate
+                        </span>
+                        <span className="text-xs font-bold text-emerald-700 font-montserrat block mt-0.5 truncate">
+                          {card.rewardRate?.headline || card.rewardRate?.base || "Up to 5% Rewards"}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Top Perks Bullet */}
+                    {perks.length > 0 && (
+                      <div className="mt-4 pt-3 border-t border-gray-100">
+                        <ul className="space-y-1.5">
+                          {perks.map((perk, i) => (
+                            <li key={i} className="flex items-center gap-2 text-xs text-gray-600 font-montserrat">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                              <span className="line-clamp-1">{perk}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                  </div>
+
+                  {/* ── Card Footer & Actions ── */}
+                  <div className="p-6 pt-4 bg-gray-50/60 border-t border-gray-100 flex items-center gap-3">
+                    <button
+                      onClick={() => setSelectedCardModal(card)}
+                      className="flex-1 text-xs font-bold text-primary bg-white hover:bg-primary/5 py-3 px-4 rounded-xl border border-primary/20 transition-colors duration-200 text-center cursor-pointer font-montserrat"
+                    >
+                      View Details
+                    </button>
+                    <button
+                      onClick={() =>
+                        openApplyModal(card.name, `${card.issuer} • ${card.badge || card.categoryLabel || "Credit Card"}`)
+                      }
+                      className="flex-1 text-xs font-bold text-white bg-primary hover:bg-primary/90 py-3 px-4 rounded-xl shadow-md transition-all duration-200 flex items-center justify-center gap-1.5 group/btn cursor-pointer font-montserrat"
+                    >
+                      Apply Now
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1" />
+                    </button>
+                  </div>
+
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="w-full py-16 text-center bg-white rounded-3xl border border-dashed border-gray-200 shadow-sm max-w-lg mx-auto">
+            <CreditCardIcon className="w-10 h-10 text-gray-400 mx-auto mb-3" />
+            <h3 className="font-bricolage font-bold text-lg text-gray-800">
+              No cards found in this category
+            </h3>
+            <p className="text-xs text-gray-500 font-montserrat mt-1 max-w-sm mx-auto">
+              We couldn&apos;t find any featured cards matching this filter. Switch to all cards or explore our full collection.
+            </p>
+            <div className="mt-4 flex items-center justify-center gap-3">
+              <button
+                onClick={() => setSelectedCategory("all")}
+                className="bg-primary text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-primary/90 transition-all font-montserrat cursor-pointer"
+              >
+                Show All Featured Cards
+              </button>
+              <Link
+                href="/credit-cards"
+                className="bg-gray-100 text-gray-700 text-xs font-bold px-4 py-2 rounded-xl hover:bg-gray-200 transition-all font-montserrat"
+              >
+                Browse All Cards
+              </Link>
             </div>
-          ))}
+          </div>
+        )}
+
+        {/* ── View All Cards Link ────────────────────────────────────────── */}
+        <div className="text-center mt-12">
+          <Link
+            href="/credit-cards"
+            className="inline-flex items-center gap-2 bg-white text-primary border border-primary/30 hover:border-primary hover:bg-primary hover:text-white px-7 py-3.5 rounded-xl font-montserrat text-sm font-bold shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer"
+          >
+            <span>Explore All Credit Cards</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
 
         {/* ── Bottom Value Banner: Card Eligibility & Pre-Approval ──────── */}
@@ -309,75 +355,168 @@ export default function CreditCardShowcase() {
       {/* ── Detail Modal ──────────────────────────────────────────────── */}
       {selectedCardModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fadeIn">
-          <div className="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative border border-gray-100 animate-scaleUp">
+          <div className="fixed inset-0" onClick={() => setSelectedCardModal(null)} />
+          <div className="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative border border-gray-100 animate-scaleUp z-10">
 
             {/* Close Button */}
             <button
               onClick={() => setSelectedCardModal(null)}
               className="absolute top-5 right-5 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 transition-colors cursor-pointer"
             >
-              ✕
+              <X className="w-4 h-4" />
             </button>
 
             {/* Modal Header */}
-            <div className="mb-6">
-              <span className="text-xs font-bold uppercase tracking-wider text-primary bg-[#EBF4ED] px-3 py-1 rounded-full border border-primary/15">
-                {selectedCardModal.bank}
-              </span>
-              <h3 className="font-bricolage font-bold text-2xl text-gray-900 mt-2">
-                {selectedCardModal.name}
-              </h3>
-              <p className="text-xs text-gray-500 font-montserrat">{selectedCardModal.badge}</p>
-            </div>
-
-            {/* Welcome Bonus Box */}
-            <div className="bg-amber-50/80 border border-amber-200/80 rounded-2xl p-4 mb-6">
-              <div className="flex items-center gap-2 text-xs font-bold text-amber-900 uppercase tracking-wider">
-                <Gift className="w-4 h-4 text-amber-600" />
-                Welcome Benefit
-              </div>
-              <p className="text-xs font-semibold text-amber-950 mt-1 font-montserrat">
-                {selectedCardModal.welcomeBenefit}
-              </p>
-            </div>
-
-            {/* Fee & Perks Details */}
-            <div className="space-y-4 mb-6">
-              <div>
-                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Fee Structure</h4>
-                <p className="text-sm font-bold text-gray-800 mt-0.5">{selectedCardModal.annualFee}</p>
-                {selectedCardModal.feeWaiver && (
-                  <p className="text-xs text-gray-500 mt-0.5 font-montserrat">
-                    Fee Waiver: {selectedCardModal.feeWaiver}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Airport Lounge Access</h4>
-                <p className="text-xs text-gray-700 mt-0.5 font-montserrat font-medium">
-                  {selectedCardModal.loungeAccess}
+            <div className="mb-6 flex gap-4 items-start">
+              {selectedCardModal.cardImage && (
+                <div className="w-24 shrink-0">
+                  <div className="relative w-full aspect-[1.586/1] rounded-xl overflow-hidden drop-shadow-sm bg-gray-50">
+                    <Image
+                      src={selectedCardModal.cardImage}
+                      alt={selectedCardModal.name}
+                      fill
+                      sizes="100px"
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
+              )}
+              <div className="flex-1 min-w-0">
+                <span className="text-xs font-bold uppercase tracking-wider text-primary bg-[#EBF4ED] px-3 py-1 rounded-full border border-primary/15 inline-block">
+                  {selectedCardModal.issuer}
+                </span>
+                <h3 className="font-bricolage font-bold text-2xl text-gray-900 mt-2 leading-snug">
+                  {selectedCardModal.name}
+                </h3>
+                <p className="text-xs text-gray-500 font-montserrat mt-0.5">
+                  {selectedCardModal.badge || selectedCardModal.categoryLabel} • {selectedCardModal.network}
                 </p>
               </div>
+            </div>
 
-              <div>
-                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Key Highlights</h4>
-                <ul className="mt-2 space-y-2">
-                  {selectedCardModal.keyPerks.map((perk, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-xs text-gray-600 font-montserrat">
-                      <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                      <span>{perk}</span>
+            {/* Welcome Benefits Box */}
+            {selectedCardModal.welcomeBenefits && selectedCardModal.welcomeBenefits.length > 0 && (
+              <div className="bg-amber-50/80 border border-amber-200/80 rounded-2xl p-4 mb-6">
+                <div className="flex items-center gap-2 text-xs font-bold text-amber-900 uppercase tracking-wider font-montserrat">
+                  <Gift className="w-4 h-4 text-amber-600" />
+                  Welcome Benefits
+                </div>
+                <ul className="mt-2 space-y-1 text-xs font-semibold text-amber-950 font-montserrat">
+                  {selectedCardModal.welcomeBenefits.map((benefit, idx) => (
+                    <li key={idx} className="flex items-start gap-1.5">
+                      <span className="text-amber-600 font-bold">•</span>
+                      <span>{benefit}</span>
                     </li>
                   ))}
                 </ul>
               </div>
+            )}
+
+            {/* Fee & Perks Details */}
+            <div className="space-y-4 mb-6">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-gray-50 p-3 rounded-xl border border-gray-100">
+                  <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-wider font-montserrat">Annual Fee</h4>
+                  <p className="text-xs font-bold text-gray-900 mt-0.5 font-montserrat">{selectedCardModal.annualFee || "Nil"}</p>
+                  {selectedCardModal.feeWaiver && (
+                    <p className="text-[11px] text-gray-500 mt-0.5 font-montserrat truncate" title={selectedCardModal.feeWaiver}>
+                      Waiver: {selectedCardModal.feeWaiver}
+                    </p>
+                  )}
+                </div>
+                <div className="bg-gray-50 p-3 rounded-xl border border-gray-100">
+                  <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-wider font-montserrat">Joining Fee</h4>
+                  <p className="text-xs font-bold text-gray-900 mt-0.5 font-montserrat">{selectedCardModal.joiningFee || "Nil"}</p>
+                  {selectedCardModal.forexMarkup && (
+                    <p className="text-[11px] text-primary mt-0.5 font-montserrat truncate" title={selectedCardModal.forexMarkup}>
+                      Forex: {selectedCardModal.forexMarkup}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {selectedCardModal.rewardRate && (
+                <div className="bg-emerald-50/60 p-3.5 rounded-xl border border-emerald-200/80">
+                  <h4 className="text-[11px] font-bold text-emerald-950 uppercase tracking-wider font-montserrat flex items-center gap-1.5 mb-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                    Reward Structure
+                  </h4>
+                  {selectedCardModal.rewardRate.headline && (
+                    <p className="text-xs font-bold text-emerald-900 font-montserrat">
+                      {selectedCardModal.rewardRate.headline}
+                    </p>
+                  )}
+                  {selectedCardModal.rewardRate.base && (
+                    <p className="text-xs text-emerald-800 font-montserrat mt-1">
+                      <strong>Base:</strong> {selectedCardModal.rewardRate.base}
+                    </p>
+                  )}
+                  {selectedCardModal.rewardRate.accelerated && (
+                    <p className="text-xs text-emerald-800 font-montserrat mt-0.5">
+                      <strong>Accelerated:</strong> {selectedCardModal.rewardRate.accelerated}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {selectedCardModal.loungeAccess && (
+                <div className="bg-sky-50/60 p-3.5 rounded-xl border border-sky-200/80">
+                  <h4 className="text-[11px] font-bold text-sky-950 uppercase tracking-wider font-montserrat flex items-center gap-1.5 mb-1.5">
+                    <Plane className="w-3.5 h-3.5 text-sky-600" />
+                    Airport Lounge Access
+                  </h4>
+                  <div className="text-xs text-sky-900 font-montserrat space-y-1">
+                    {selectedCardModal.loungeAccess.domestic && (
+                      <p><strong>Domestic:</strong> {selectedCardModal.loungeAccess.domestic}</p>
+                    )}
+                    {selectedCardModal.loungeAccess.international && (
+                      <p><strong>International:</strong> {selectedCardModal.loungeAccess.international}</p>
+                    )}
+                    {selectedCardModal.loungeAccess.spendCondition && (
+                      <p className="text-[11px] text-sky-700 bg-white/70 p-1.5 rounded mt-1">
+                        <strong>Condition:</strong> {selectedCardModal.loungeAccess.spendCondition}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {selectedCardModal.keyHighlights && selectedCardModal.keyHighlights.length > 0 && (
+                <div>
+                  <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 font-montserrat">Key Highlights</h4>
+                  <ul className="space-y-2">
+                    {selectedCardModal.keyHighlights.map((perk, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-xs text-gray-600 font-montserrat">
+                        <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                        <span>{perk}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {selectedCardModal.editorialVerdict && (
+                <div className="p-3.5 rounded-xl bg-[#EBF4ED] border border-primary/20">
+                  <span className="text-[10px] font-bold text-primary uppercase tracking-widest block font-montserrat">
+                    Grofi Verdict
+                  </span>
+                  <p className="text-xs text-gray-800 font-montserrat mt-1 leading-relaxed">
+                    {selectedCardModal.editorialVerdict}
+                  </p>
+                  {selectedCardModal.bestFor && (
+                    <p className="text-[11px] text-gray-600 font-montserrat mt-2 font-semibold">
+                      Best For: <span className="text-primary font-bold">{selectedCardModal.bestFor}</span>
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Modal CTA */}
             <div className="flex gap-3">
               <button
                 onClick={() => setSelectedCardModal(null)}
-                className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold py-3.5 rounded-xl transition-colors cursor-pointer"
+                className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold py-3.5 rounded-xl transition-colors cursor-pointer font-montserrat"
               >
                 Close
               </button>
@@ -385,7 +524,7 @@ export default function CreditCardShowcase() {
                 onClick={() => {
                   const card = selectedCardModal;
                   setSelectedCardModal(null);
-                  openApplyModal(card.name, `${card.bank} • ${card.badge}`);
+                  openApplyModal(card.name, `${card.issuer} • ${card.badge || card.categoryLabel || "Credit Card"}`);
                 }}
                 className="flex-1 bg-primary hover:bg-primary/90 text-white text-xs font-bold py-3.5 rounded-xl text-center shadow-md transition-colors flex items-center justify-center gap-1 cursor-pointer font-montserrat"
               >

@@ -57,7 +57,7 @@ async function main() {
         distinct: ["issuer"],
         where: { joiningFee: { not: "Lifetime Free (₹0)" } },
         orderBy: { joiningFee: "asc" },
-        take: 5,
+        take: 9,
     });
 
     const data = JSON.parse(JSON.stringify(rawData)) as CardStructure[]

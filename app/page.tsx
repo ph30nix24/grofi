@@ -7,6 +7,25 @@ import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import { Metadata } from "next";
+import { CardStructure } from "./utils";
+import prisma from "@/libs/db";
+
+
+async function fetchCards(): Promise<CardStructure[] | null> {
+  try {
+    const rawData = await prisma.creditCard.findMany({
+      distinct: ["issuer"],
+      where: { joiningFee: { not: "Lifetime Free (₹0)" } },
+      orderBy: { joiningFee: "asc" },
+      take: 9,
+    });
+
+    return JSON.parse(JSON.stringify(rawData)) as CardStructure[]
+  } catch (error) {
+    console.warn("Error While fetching Card Information: ", error)
+    return null
+  }
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.grofi.in"),
@@ -43,13 +62,15 @@ export const metadata: Metadata = {
   publisher: "Grofi",
 };
 
-export default function Home() {
+export default async function Home() {
+
+  const featuredCreditCards = await fetchCards()
   return (
     <main className="flex flex-col min-h-screen">
       <Navbar />
       <Hero2 />
       <ProductsSection />
-      <CreditCardShowcase />
+      <CreditCardShowcase creditCards={featuredCreditCards} />
       <EmiCalculator />
       <WhyChooseUs />
       <Testimonials />

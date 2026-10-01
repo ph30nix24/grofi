@@ -26,12 +26,12 @@ export const heroDivs = [
 ]
 
 export const banksImgs = [
-    "/banks/SBI-Logo.png",
-    "/banks/HDFC-Logo.png",
-    "/banks/IDFC-Logo.png",
-    "/banks/ICICI-Logo.png",
-    "/banks/KOTAK-Logo.png",
-    "/banks/INDUS-Logo.png"
+    "/partners-logos/hdfc-logo.webp",
+    "/partners-logos/axis-logo.webp",
+    "/partners-logos/bob-logo.webp",
+    "/partners-logos/yes-bank-logo.webp",
+    "/partners-logos/idfc-logo.webp",
+    "/partners-logos/lic-logo.webp",
 ]
 
 
@@ -287,3 +287,45 @@ export const cardsData: CreditCardItem[] = [
     applyLink: "#apply-tataneu",
   },
 ];
+
+
+export interface CardStructure {
+  id: string;
+  name: string;
+  issuer: string;
+  logo: string;
+  cardImage?: string | null;
+  network: string;
+  category: string[];
+  categoryLabel?: string;
+  badge?: string;
+  description?: string;
+  joiningFee: string;
+  annualFee: string;
+  feeWaiver?: string;
+  forexMarkup?: string;
+  popularRank?: number | null;
+  rewardRate?: {
+    headline?: string;
+    base?: string;
+    accelerated?: string;
+    rewardCurrency?: string;
+    pointValue?: string;
+  } | null;
+  loungeAccess?: {
+    domestic?: string;
+    international?: string;
+    spendCondition?: string;
+  } | null;
+  welcomeBenefits?: string[];
+  keyHighlights?: string[];
+  pros?: string[];
+  cons?: string[];
+  eligibility?: {
+    minIncome?: string;
+    minCreditScore?: number | string;
+    employmentType?: string;
+  } | null;
+  bestFor?: string;
+  editorialVerdict?: string;
+}

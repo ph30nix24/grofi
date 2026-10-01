@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { getAllBankFeatures, BankFeaturesAndBenefits } from "@/libs/bankFeaturesData";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
+import CreditCardFAQSection from "./CreditCardFAQSection";
 
 export default function AllBanksFeaturesExplorer() {
   const { openApplyModal } = useApplyModal();
@@ -125,22 +126,20 @@ export default function AllBanksFeaturesExplorer() {
         <div className="inline-flex p-1 bg-gray-100 rounded-2xl border border-gray-200 shadow-inner">
           <button
             onClick={() => setActiveTab("detail")}
-            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold font-montserrat transition-all cursor-pointer ${
-              activeTab === "detail"
+            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold font-montserrat transition-all cursor-pointer ${activeTab === "detail"
                 ? "bg-white text-primary shadow-xs"
                 : "text-gray-600 hover:text-gray-900"
-            }`}
+              }`}
           >
             <Crown className="w-3.5 h-3.5" />
             <span>Bank-by-Bank Deep Dive</span>
           </button>
           <button
             onClick={() => setActiveTab("compare")}
-            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold font-montserrat transition-all cursor-pointer ${
-              activeTab === "compare"
+            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold font-montserrat transition-all cursor-pointer ${activeTab === "compare"
                 ? "bg-white text-primary shadow-xs"
                 : "text-gray-600 hover:text-gray-900"
-            }`}
+              }`}
           >
             <Scale className="w-3.5 h-3.5" />
             <span>10-Bank Comparison Matrix</span>
@@ -165,11 +164,10 @@ export default function AllBanksFeaturesExplorer() {
                       setSelectedBankSlug(b.slug);
                       setFeatureCategory("all");
                     }}
-                    className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl border transition-all cursor-pointer shrink-0 font-montserrat ${
-                      isSelected
+                    className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl border transition-all cursor-pointer shrink-0 font-montserrat ${isSelected
                         ? "bg-white border-primary shadow-md ring-2 ring-primary/20 text-primary font-bold"
                         : "bg-white/80 border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-white"
-                    }`}
+                      }`}
                   >
                     <div className="w-5 h-5 relative shrink-0">
                       <Image
@@ -317,11 +315,10 @@ export default function AllBanksFeaturesExplorer() {
                 <button
                   key={tab.id}
                   onClick={() => setFeatureCategory(tab.id)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold font-montserrat transition-all cursor-pointer whitespace-nowrap ${
-                    featureCategory === tab.id
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold font-montserrat transition-all cursor-pointer whitespace-nowrap ${featureCategory === tab.id
                       ? "bg-primary text-white shadow-2xs"
                       : "bg-white text-gray-600 hover:text-gray-900 border border-gray-200"
-                  }`}
+                    }`}
                 >
                   {tab.label}
                 </button>
@@ -675,6 +672,16 @@ export default function AllBanksFeaturesExplorer() {
           </div>
         </div>
       )}
+
+      {/* ── REIMAGINED CREDIT CARD GUIDE & FAQ SECTION ───────────────── */}
+      <CreditCardFAQSection
+        onCheckOffers={() =>
+          openApplyModal(
+            "Credit Card Pre-Approved Offers",
+            "Check pre-approved luxury, travel, and cashback credit cards tailored for you."
+          )
+        }
+      />
     </section>
   );
 }

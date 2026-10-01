@@ -65,6 +65,7 @@ export default async function CreditCardsPage() {
       <Navbar />
       <CreditCardExplorer initialCards={cards} />
       <AllBanksFeaturesExplorer />
+      
       <Footer />
     </main>
   );
