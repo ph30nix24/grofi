@@ -149,7 +149,7 @@ const fetchstructureData = cache(async (cardId: string): Promise<CardResult | nu
 async function fetchSimilarCards(
   issuer: string,
   excludeId: string,
-  category?: string[]
+  _category?: string[]
 ): Promise<CardStructure[]> {
   try {
     const rawSimilar = await prisma.creditCard.findMany({
