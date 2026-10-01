@@ -59,6 +59,7 @@ async function getCreditCards(): Promise<CardStructure[]> {
 
 export default async function CreditCardsPage() {
   const cards = await getCreditCards();
+  console.log(cards)
 
   return (
     <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
