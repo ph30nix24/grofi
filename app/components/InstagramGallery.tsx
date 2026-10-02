@@ -36,9 +36,9 @@ export function InstagramReelSkeleton({
     <div
       className={`${
         viewMode === "carousel"
-          ? "snap-start shrink-0 w-68.75 sm:w-72.5 md:w-75"
+          ? "snap-start shrink-0 w-[270px] sm:w-[290px] md:w-[310px]"
           : "w-full"
-      } aspect-9/16 rounded-3xl relative overflow-hidden bg-linear-to-b from-[#0e1e21] via-[#091517] to-[#040a0b] border border-gray-200/40 shadow-md p-5 flex flex-col justify-between select-none ${
+      } aspect-[9/16] aspect-reel min-h-[460px] rounded-3xl relative overflow-hidden bg-linear-to-b from-[#0e1e21] via-[#091517] to-[#040a0b] border border-gray-200/40 shadow-md p-5 flex flex-col justify-between select-none ${
         index % 4 === 1
           ? "delay-75"
           : index % 4 === 2
@@ -320,8 +320,11 @@ export default function InstagramGallery({
             const { title } = extractHook(reel.caption);
             const isCopied = copiedId === reel.id;
             const hasError = imageErrors[reel.id];
-            const fallbackImg = FALLBACK_REELS[index % FALLBACK_REELS.length].thumbnail_url;
-            const thumbSrc = hasError || !reel.thumbnail_url ? fallbackImg : reel.thumbnail_url;
+            // Always prioritize live thumbnail_url / media_url coming with data from Instagram Graph API
+            const rawThumbnail = reel.thumbnail_url || reel.media_url;
+            const fallbackImg = FALLBACK_REELS[index % FALLBACK_REELS.length].thumbnail_url || "/products/credit-cards.webp";
+            const thumbSrc = !hasError && rawThumbnail ? rawThumbnail : fallbackImg;
+            const isExternal = Boolean(thumbSrc?.startsWith("http"));
 
             return (
               <div
@@ -329,17 +332,19 @@ export default function InstagramGallery({
                 onClick={() => setActiveModalReel(reel)}
                 className={`${
                   viewMode === "carousel"
-                    ? "snap-start shrink-0 w-68.75 sm:w-72.5 md:w-75"
+                    ? "snap-start shrink-0 w-[270px] sm:w-[290px] md:w-[310px]"
                     : "w-full"
-                } aspect-9/16 rounded-3xl relative overflow-hidden group cursor-pointer border border-gray-200/90 shadow-md hover:shadow-2xl hover:border-primary/40 transition-all duration-300 hover:-translate-y-2 select-none`}
+                } aspect-[9/16] aspect-reel min-h-[460px] rounded-3xl relative overflow-hidden group cursor-pointer border border-gray-200/90 shadow-md hover:shadow-2xl hover:border-primary/40 transition-all duration-300 hover:-translate-y-2 select-none`}
               >
                 {/* ── Edge-to-Edge Video Thumbnail Poster ──────────────── */}
                 <div className="absolute inset-0 bg-[#0a181a]">
                   <Image
-                    src={thumbSrc || "/products/credit-cards.webp"}
+                    src={thumbSrc}
                     alt={title}
                     fill
-                    sizes="(max-width: 640px) 280px, 320px"
+                    unoptimized={isExternal}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    priority={index < 4}
                     className={`object-cover object-center group-hover:scale-105 transition-all duration-700 ease-out ${
                       loadedImages[reel.id] ? "opacity-100" : "opacity-0"
                     }`}
@@ -599,17 +604,27 @@ export default function InstagramGallery({
             </button>
 
             {/* ── Left Player: Clean Instagram Embed Frame with Skeleton ── */}
-            <div className="w-full md:w-87.5 lg:w-92.5 h-130 sm:h-145 bg-slate-950 relative flex items-center justify-center shrink-0 overflow-hidden">
+            <div className="w-full md:w-[350px] lg:w-[380px] h-[520px] sm:h-[580px] bg-slate-950 relative flex items-center justify-center shrink-0 overflow-hidden">
               {!modalIframeLoaded && (
                 <div className="absolute inset-0 z-10 bg-linear-to-b from-[#0e1e21] via-[#091517] to-[#040a0b] flex flex-col items-center justify-center p-6 text-center overflow-hidden">
+                  {/* Real Instagram poster preview behind shimmer while player loads */}
+                  {(activeModalReel.thumbnail_url || activeModalReel.media_url) && (
+                    <Image
+                      src={activeModalReel.thumbnail_url || activeModalReel.media_url || ""}
+                      alt={extractHook(activeModalReel.caption).title}
+                      fill
+                      unoptimized={Boolean((activeModalReel.thumbnail_url || activeModalReel.media_url)?.startsWith("http"))}
+                      className="object-cover opacity-25 blur-xs"
+                    />
+                  )}
                   <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent animate-shimmer pointer-events-none" />
-                  <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-3 animate-pulse">
+                  <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-3 animate-pulse relative z-10">
                     <Sparkles className="w-6 h-6 text-gold animate-spin" />
                   </div>
-                  <p className="font-bricolage font-bold text-sm text-white mb-1">
+                  <p className="font-bricolage font-bold text-sm text-white mb-1 relative z-10">
                     Loading Instagram Player...
                   </p>
-                  <p className="text-[11px] text-white/60 font-montserrat">
+                  <p className="text-[11px] text-white/60 font-montserrat relative z-10">
                     Connecting to @grofi_
                   </p>
                 </div>

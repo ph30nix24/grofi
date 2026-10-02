@@ -87,7 +87,7 @@ export default async function Home() {
   };
 
   // const featuredCreditCards = await fetchCards()
-  const instagramReels = await getReels(8);
+  const instagramReels = await getReels(12);
 
   return (
     <main className="flex flex-col min-h-screen max-lg:overflow-x-hidden">

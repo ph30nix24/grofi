@@ -140,6 +140,10 @@ body {
   animation: shimmer 1.8s infinite;
 }
 
+.aspect-reel {
+  aspect-ratio: 9 / 16;
+}
+
 /* ── Scroll Reveal Animations ─────────────────────────────────────── */
 .reveal-on-scroll {
   opacity: 0;

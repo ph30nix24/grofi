@@ -8,6 +8,7 @@ export interface InstagramReel {
   media_type: string;
   media_product_type?: string;
   thumbnail_url?: string;
+  media_url?: string;
   permalink: string;
   timestamp: string;
   like_count?: number;
@@ -93,7 +94,7 @@ export async function getReels(limit: number = 12): Promise<InstagramReel[]> {
   }
 
   try {
-    const fields = "id,caption,media_type,media_product_type,thumbnail_url,permalink,timestamp,like_count";
+    const fields = "id,caption,media_type,media_product_type,thumbnail_url,media_url,permalink,timestamp,like_count";
     const url = `${BASE_URL}/me/media?fields=${fields}&limit=50&access_token=${token}`;
 
     const res = await fetch(url, {
@@ -106,8 +107,22 @@ export async function getReels(limit: number = 12): Promise<InstagramReel[]> {
     }
 
     const data = await res.json();
-    const allItems: InstagramReel[] = data.data || [];
-    const reelsOnly = allItems.filter((item) => item.media_product_type === "REELS");
+    const allItems: any[] = data.data || [];
+    
+    // Filter for Reels & Video posts, ensuring thumbnail_url is populated from API data
+    const reelsOnly: InstagramReel[] = allItems
+      .filter((item) => item.media_product_type === "REELS" || item.media_type === "VIDEO")
+      .map((item) => ({
+        id: item.id,
+        caption: item.caption,
+        media_type: item.media_type,
+        media_product_type: item.media_product_type,
+        thumbnail_url: item.thumbnail_url || item.media_url,
+        media_url: item.media_url,
+        permalink: item.permalink,
+        timestamp: item.timestamp,
+        like_count: item.like_count,
+      }));
 
     if (reelsOnly.length === 0) {
       return FALLBACK_REELS;
