@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { banksImgs, imageUrls } from "../utils";
 import { useApplyModal } from "../context/ApplyModalContext";
 import SearchBox from "./SearchBox";
+import Link from "next/link";
 
 
 const stats = [
@@ -164,9 +165,7 @@ export default function Hero2() {
             {/* TOP-LEFT illustration: Top Credit Cards */}
             <div className="absolute top-1 -left-2 sm:top-2 sm:left-0 md:top-4 md:-left-4 xl:-left-8 z-30 reveal-scale delay-150">
               <div className="relative animate-hero-float">
-                <button
-                  type="button"
-                  onClick={() => openApplyModal("Credit Card", "Exclusive offers on top credit cards with airport lounge and cashback.")}
+                <Link href={`/credit-cards`}
                   className="group relative block w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 xl:w-48 xl:h-48 cursor-pointer transition-all duration-300 hover:scale-108 hover:-translate-y-2 active:scale-95 filter drop-shadow-md hover:drop-shadow-2xl focus:outline-none rounded-2xl"
                   aria-label="Apply for Top Credit Cards"
                 >
@@ -178,7 +177,7 @@ export default function Hero2() {
                     className="object-contain transition-transform duration-300 group-hover:scale-105"
                     priority
                   />
-                </button>
+                </Link>
                 {/* arrow SVG pointing right+down toward hero image */}
                 <svg
                   viewBox="0 0 100 50"
@@ -214,9 +213,7 @@ export default function Hero2() {
             {/* BOTTOM-LEFT illustration: Personal Loan */}
             <div className="absolute bottom-2 -left-2 sm:bottom-3 sm:left-0 md:bottom-5 md:-left-4 xl:-left-6 z-30 reveal-scale delay-200">
               <div className="relative animate-hero-float-delayed">
-                <button
-                  type="button"
-                  onClick={() => openApplyModal("Personal Loan", "Instant funds up to ₹50L from 10.49% p.a.")}
+                <Link href={`/personal-loans`}
                   className="group relative block w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 xl:w-48 xl:h-48 cursor-pointer transition-all duration-300 hover:scale-108 hover:-translate-y-2 active:scale-95 filter drop-shadow-md hover:drop-shadow-2xl focus:outline-none rounded-2xl"
                   aria-label="Apply for Personal Loan"
                 >
@@ -228,7 +225,7 @@ export default function Hero2() {
                     className="object-contain transition-transform duration-300 group-hover:scale-105"
                     priority
                   />
-                </button>
+                </Link>
                 {/* arrow SVG pointing right+up toward hero image */}
                 <svg
                   viewBox="0 0 100 50"
@@ -264,9 +261,7 @@ export default function Hero2() {
             {/* TOP-RIGHT illustration: Home Loan */}
             <div className="absolute top-1 -right-2 sm:top-2 sm:right-0 md:top-4 md:-right-4 xl:-right-8 z-30 reveal-scale delay-150">
               <div className="relative animate-hero-float-delayed">
-                <button
-                  type="button"
-                  onClick={() => openApplyModal("Home Loan", "Lowest rates starting from 8.40% p.a. up to ₹5Cr.")}
+                <Link href={`/home-loans`}
                   className="group relative block w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 xl:w-48 xl:h-48 cursor-pointer transition-all duration-300 hover:scale-108 hover:-translate-y-2 active:scale-95 filter drop-shadow-md hover:drop-shadow-2xl focus:outline-none rounded-2xl"
                   aria-label="Apply for Home Loan"
                 >
@@ -278,7 +273,7 @@ export default function Hero2() {
                     className="object-contain transition-transform duration-300 group-hover:scale-105"
                     priority
                   />
-                </button>
+                </Link>
                 {/* arrow SVG pointing left+down toward hero image */}
                 <svg
                   viewBox="0 0 100 50"
@@ -314,9 +309,7 @@ export default function Hero2() {
             {/* BOTTOM-RIGHT illustration: Business Loan */}
             <div className="absolute bottom-2 -right-2 sm:bottom-3 sm:right-0 md:bottom-5 md:-right-4 xl:-right-6 z-30 reveal-scale delay-250">
               <div className="relative animate-hero-float">
-                <button
-                  type="button"
-                  onClick={() => openApplyModal("Business Loan", "Unsecured business loan up to ₹2Cr from 11.25% p.a.")}
+                <Link href={`/business-loans`}
                   className="group relative block w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 xl:w-48 xl:h-48 cursor-pointer transition-all duration-300 hover:scale-108 hover:-translate-y-2 active:scale-95 filter drop-shadow-md hover:drop-shadow-2xl focus:outline-none rounded-2xl"
                   aria-label="Apply for Business Loan"
                 >
@@ -328,7 +321,7 @@ export default function Hero2() {
                     className="object-contain transition-transform duration-300 group-hover:scale-105"
                     priority
                   />
-                </button>
+                </Link>
                 {/* arrow pointing left+up toward hero image */}
                 <svg
                   viewBox="0 0 100 50"

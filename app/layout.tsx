@@ -26,6 +26,8 @@ const montserrat = Montserrat({
 
 import { ApplyModalProvider } from "./context/ApplyModalContext";
 import ScrollRevealProvider from "./components/ScrollRevealProvider";
+import ScrollToTop from "./components/ScrollToTop";
+import FloatingConnectButton from "./components/FloatingConnectButton";
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -37,6 +39,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <ScrollRevealProvider>
           <ApplyModalProvider>
             {children}
+            <FloatingConnectButton />
+            <ScrollToTop />
           </ApplyModalProvider>
         </ScrollRevealProvider>
       </body>

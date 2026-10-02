@@ -1,37 +1,37 @@
 export const imageUrls = [
-    "/customer/customer1.png",
-    "/customer/customer2.jpg",
-    "/customer/customer3.jpg",
-    "/customer/customer4.jpg",
+  "/customer/customer1.png",
+  "/customer/customer2.jpg",
+  "/customer/customer3.jpg",
+  "/customer/customer4.jpg",
 ]
 
 
 export const heroDivs = [
-    {
-        title: 'Credit Cards',
-        description: "Explore cards with great rewards"
-    },
-    {
-        title: 'Personal Loan',
-        description: "Quick approval & low interest rates"
-    },
-    {
-        title: 'Business Loan',
-        description: "Fuel your business growth"
-    },
-    {
-        title: 'Gold Loan',
-        description: "Unlock the value of your gold"
-    },
+  {
+    title: 'Credit Cards',
+    description: "Explore cards with great rewards"
+  },
+  {
+    title: 'Personal Loan',
+    description: "Quick approval & low interest rates"
+  },
+  {
+    title: 'Business Loan',
+    description: "Fuel your business growth"
+  },
+  {
+    title: 'Gold Loan',
+    description: "Unlock the value of your gold"
+  },
 ]
 
 export const banksImgs = [
-    "/partners-logos/hdfc-logo.webp",
-    "/partners-logos/axis-logo.webp",
-    "/partners-logos/bob-logo.webp",
-    "/partners-logos/yes-bank-logo.webp",
-    "/partners-logos/idfc-logo.webp",
-    "/partners-logos/lic-logo.webp",
+  "/partners-logos/hdfc-logo.webp",
+  "/partners-logos/axis-logo.webp",
+  "/partners-logos/bob-logo.webp",
+  "/partners-logos/yes-bank-logo.webp",
+  "/partners-logos/idfc-logo.webp",
+  "/partners-logos/lic-logo.webp",
 ]
 
 
@@ -224,57 +224,44 @@ export const navLinks = [
     ],
   },
   {
-    label: 'Personal Loan',
-    href: '/personal-loans',
+    label: 'Loans',
+    href: '#',
     dropdown: [
       {
-        label: 'Popular Personal Loan', href: '#',
+        label: 'Personal Loan', href: '/personal-laons',
         subItems: [
           { label: 'Instant Personal Loan', href: '/personal-loans/instant-loans' },
           { label: 'Short Term Personal Loan', href: '/personal-loans/short-term-loans' },
-        ],
+          { label: 'HDFC Bank Personal Loan', href: '/personal-loans/hdfc-bank' },
+          { label: 'SBI Personal Loan', href: '/personal-loans/sbi-xpress-credit' },
+          { label: 'Axis Bank Personal Loan', href: '/personal-loans/axis-bank' },
+          { label: 'ICICI Personal Loan', href: '/personal-loans/icici-bank' }
+        ]
       },
-    //   { label: 'HDFC Bank Personal Loan', href: '/personal-loans/hdfc-bank', subItems: [] },
-    //   { label: 'SBI Personal Loan', href: '/personal-loans/sbi-xpress-credit', subItems: [] },
-    //   { label: 'Axis Bank Personal Loan', href: '/personal-loans/axis-bank', subItems: [] },
-    //   { label: 'ICICI Personal Loan', href: '/personal-loans/icici-bank', subItems: [] },
+      {
+        label: 'Business Loan', href: '/business-loans',
+        subItems: [
+          { label: 'HDFC Business Loan', href: '/business-loans/hdfc-bank-business-growth' },
+          { label: 'SBI Business Loan', href: '/business-loans/sbi-simplified-small-business' },
+          { label: 'BOB Business Loan', href: '/business-loans/bank-of-baroda-sme' },
+          { label: 'Govt Business Loan Schemes', href: '/business-loans#govt-schemes' },
+          { label: 'Business Loan EMI Calculator', href: '/business-loans#calculator' }
+        ]
+      },
+      {
+        label: 'Home Loan', href: '/home-loans',
+        subItems: [
+          { label: 'Home Loan Balance Transfer', href: '/home-loans/balance-transfer', subItems: [] },
+          { label: 'Loan Against Property', href: '/home-loans/loan-against-property', subItems: [] },
+          { label: 'SBI Home Loan', href: '/home-loans/sbi-home-loan' },
+          { label: 'HDFC Home Loan', href: '/home-loans/hdfc-bank-home-loan' },
+          { label: 'LIC Housing Finance', href: '/home-loans/lic-housing-finance' },
+          { label: 'Axis Bank Home Loan', href: '/home-loans/axis-bank-home-loan' },
+        ]
+      }
     ],
   },
-  {
-    label: 'Business Loan',
-    href: '/business-loans',
-    // dropdown: [
-    //   {
-    //     label: 'Best Business Loan Lenders', href: '/business-loans/best-loan-lenders',
-    //     subItems: [
-    //       { label: 'HDFC Business Loan', href: '/business-loans/hdfc-bank-business-growth' },
-    //       { label: 'SBI Business Loan', href: '/business-loans/sbi-simplified-small-business' },
-    //       { label: 'BOB Business Loan', href: '/business-loans/bank-of-baroda-sme' },
-    //     ],
-    //   },
-    //   { label: 'Govt Business Loan Schemes', href: '/business-loans#govt-schemes', subItems: [] },
-    //   { label: 'Business Loan EMI Calculator', href: '/business-loans#calculator', subItems: [] },
-    // ],
-  },
-  {
-    label: 'Home Loan',
-    href: '/home-loans',
-    // dropdown: [
-    //   {
-    //     label: 'Home Loan Provider', href: '/home-loans#compare-table',
-    //     subItems: [
-    //       { label: 'SBI Home Loan', href: '/home-loans/sbi-home-loan' },
-    //       { label: 'HDFC Home Loan', href: '/home-loans/hdfc-bank-home-loan' },
-    //       { label: 'LIC Housing Finance', href: '/home-loans/lic-housing-finance' },
-    //       { label: 'Axis Bank Home Loan', href: '/home-loans/axis-bank-home-loan' },
-    //     ],
-    //   },
-    //   { label: 'Home Loan By Amount', href: '/home-loans#calculator', subItems: [] },
-    //   { label: 'Home Loan EMI Calculator', href: '/home-loans#calculator', subItems: [] },
-    //   { label: 'Home Loan Balance Transfer', href: '/home-loans/balance-transfer', subItems: [] },
-    //   { label: 'Loan Against Property', href: '/home-loans/loan-against-property', subItems: [] },
-    // ],
-  },
+  { label: 'Be Secure', href: '/secure-with-us'},
   { label: 'Blogs', href: '/blogs' },
-  { label: "Careers", href: '/careers '}
+  { label: "Careers", href: '/careers ' }
 ];
