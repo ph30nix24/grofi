@@ -207,9 +207,40 @@ body {
   .reveal-scale,
   .reveal-slide-left,
   .reveal-slide-right,
-  .reveal-fade {
+  .reveal-fade,
+  .animate-hero-float,
+  .animate-hero-float-delayed {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+    animation: none !important;
   }
 }
+
+/* ── Hero Illustration Floating Animations ── */
+@keyframes heroFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes heroFloatReverse {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+.animate-hero-float {
+  animation: heroFloat 5s ease-in-out infinite;
+}
+
+.animate-hero-float-delayed {
+  animation: heroFloatReverse 6s ease-in-out 1s infinite;
+}
+

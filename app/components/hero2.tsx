@@ -1,13 +1,6 @@
 "use client";
 import Image from "next/image";
-import {
-  ArrowRight,
-  Search,
-  Home,
-  Briefcase,
-  CreditCard,
-  Wallet,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { banksImgs, imageUrls } from "../utils";
 import { useApplyModal } from "../context/ApplyModalContext";
 import SearchBox from "./SearchBox";
@@ -155,103 +148,216 @@ export default function Hero2() {
             />
           </div>
 
-          {/* ── Column 2: big hero image + ALL floating cards ─────────────── */}
-          <div className="w-full xl:w-[62%] shrink-0 relative flex items-center justify-center z-10 reveal-scale delay-100" style={{ minHeight: 640 }}>
+          {/* ── Column 2: big hero image + ALL floating illustrations with arrows ─── */}
+          <div className="w-full xl:w-[62%] shrink-0 relative flex items-center justify-center z-10 reveal-scale delay-100 min-h-[520px] sm:min-h-[580px] md:min-h-[620px] xl:min-h-[640px]">
 
             {/* Glow circle behind image */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 size-130 rounded-full bg-primary/[0.07]" />
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 size-80 sm:size-110 xl:size-130 rounded-full bg-primary/[0.07]" />
 
             {/* ── Hero image ── */}
-            <div className="relative z-20" style={{ width: 560, height: 560 }}>
+            <div className="relative z-20 w-[300px] h-[300px] sm:w-[420px] sm:h-[420px] md:w-[480px] md:h-[480px] xl:w-[560px] xl:h-[560px] max-w-full">
               <Image src="/hero.png" alt="Grofi hero" fill className="object-contain" priority />
             </div>
 
-            {/* ════ Floating cards ════ */}
+            {/* ════ Floating Illustrations with Directional Arrows ════ */}
 
-            {/* TOP-LEFT card */}
-            <div className="absolute top-8 left-0 z-30 flex flex-col items-end gap-1 reveal-scale delay-150">
-              <div 
-                onClick={() => openApplyModal("Credit Card", "Exclusive offers on top credit cards with airport lounge and cashback.")}
-                className="bg-white rounded-2xl shadow-lg border border-gray-100 px-4 py-3 flex items-center gap-3 group cursor-pointer hover:shadow-xl transition-all duration-200 w-52 hover:-translate-y-1"
-              >
-                <div className="w-9 h-9 bg-[#EBF4ED] rounded-xl flex items-center justify-center shrink-0">
-                  <CreditCard className="w-4 h-4 text-primary" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-bold text-gray-800 truncate">Top Credit Cards</p>
-                  <p className="text-[10px] text-gray-500 leading-snug mt-0.5">Exclusive offers on top cards</p>
-                </div>
+            {/* TOP-LEFT illustration: Top Credit Cards */}
+            <div className="absolute top-1 -left-2 sm:top-2 sm:left-0 md:top-4 md:-left-4 xl:-left-8 z-30 reveal-scale delay-150">
+              <div className="relative animate-hero-float">
+                <button
+                  type="button"
+                  onClick={() => openApplyModal("Credit Card", "Exclusive offers on top credit cards with airport lounge and cashback.")}
+                  className="group relative block w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 xl:w-48 xl:h-48 cursor-pointer transition-all duration-300 hover:scale-108 hover:-translate-y-2 active:scale-95 filter drop-shadow-md hover:drop-shadow-2xl focus:outline-none rounded-2xl"
+                  aria-label="Apply for Top Credit Cards"
+                >
+                  <Image
+                    src="/hero/images/credit-cards-illustration.webp"
+                    alt="Top Credit Cards"
+                    fill
+                    sizes="(max-width: 640px) 112px, (max-width: 768px) 144px, (max-width: 1280px) 160px, 192px"
+                    className="object-contain transition-transform duration-300 group-hover:scale-105"
+                    priority
+                  />
+                </button>
+                {/* arrow SVG pointing right+down toward hero image */}
+                <svg
+                  viewBox="0 0 100 50"
+                  fill="none"
+                  className="hidden sm:block absolute left-[80%] top-[45%] w-20 h-10 sm:w-24 sm:h-12 md:w-28 md:h-14 xl:w-32 xl:h-16 pointer-events-none opacity-75"
+                  aria-hidden="true"
+                >
+                  <defs>
+                    <marker
+                      id="hero-arrow-tl"
+                      viewBox="0 0 12 12"
+                      refX="9"
+                      refY="6"
+                      markerWidth="7"
+                      markerHeight="7"
+                      orient="auto"
+                    >
+                      <path d="M 1 2 L 10 6 L 1 10 z" fill="#02474D" />
+                    </marker>
+                  </defs>
+                  <path
+                    d="M 6 12 Q 55 10 88 38"
+                    stroke="#02474D"
+                    strokeWidth="2.2"
+                    strokeDasharray="5 3.5"
+                    strokeLinecap="round"
+                    markerEnd="url(#hero-arrow-tl)"
+                  />
+                </svg>
               </div>
-              {/* arrow SVG pointing right+down toward image */}
-              <svg width="80" height="60" viewBox="0 0 80 60" fill="none" className="mr-4 opacity-50">
-                <path d="M10 8 Q60 8 72 52" stroke="#02474D" strokeWidth="1.8" strokeDasharray="4 3" strokeLinecap="round" fill="none"/>
-                <polygon points="68,58 76,48 64,48" fill="#02474D"/>
-              </svg>
             </div>
 
-            {/* BOTTOM-LEFT card */}
-            <div className="absolute bottom-16 left-0 z-30 flex flex-col items-end gap-1 reveal-scale delay-200">
-              {/* arrow SVG pointing right+up toward image */}
-              <svg width="80" height="60" viewBox="0 0 80 60" fill="none" className="mr-4 opacity-50">
-                <path d="M10 52 Q60 52 72 8" stroke="#02474D" strokeWidth="1.8" strokeDasharray="4 3" strokeLinecap="round" fill="none"/>
-                <polygon points="68,2 76,12 64,12" fill="#02474D"/>
-              </svg>
-              <div 
-                onClick={() => openApplyModal("Personal Loan", "Instant funds up to ₹50L from 10.49% p.a.")}
-                className="bg-white rounded-2xl shadow-lg border border-gray-100 px-4 py-3 flex items-center gap-3 group cursor-pointer hover:shadow-xl transition-all duration-200 w-52 hover:-translate-y-1"
-              >
-                <div className="w-9 h-9 bg-[#EBF4ED] rounded-xl flex items-center justify-center shrink-0">
-                  <Wallet className="w-4 h-4 text-primary" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-bold text-gray-800 truncate">Personal Loan</p>
-                  <p className="text-[10px] text-gray-500 leading-snug mt-0.5">Up to ₹50L · From 10.49% p.a.</p>
-                </div>
+            {/* BOTTOM-LEFT illustration: Personal Loan */}
+            <div className="absolute bottom-2 -left-2 sm:bottom-3 sm:left-0 md:bottom-5 md:-left-4 xl:-left-6 z-30 reveal-scale delay-200">
+              <div className="relative animate-hero-float-delayed">
+                <button
+                  type="button"
+                  onClick={() => openApplyModal("Personal Loan", "Instant funds up to ₹50L from 10.49% p.a.")}
+                  className="group relative block w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 xl:w-48 xl:h-48 cursor-pointer transition-all duration-300 hover:scale-108 hover:-translate-y-2 active:scale-95 filter drop-shadow-md hover:drop-shadow-2xl focus:outline-none rounded-2xl"
+                  aria-label="Apply for Personal Loan"
+                >
+                  <Image
+                    src="/hero/images/personal-loan-illustration.webp"
+                    alt="Personal Loan"
+                    fill
+                    sizes="(max-width: 640px) 112px, (max-width: 768px) 144px, (max-width: 1280px) 160px, 192px"
+                    className="object-contain transition-transform duration-300 group-hover:scale-105"
+                    priority
+                  />
+                </button>
+                {/* arrow SVG pointing right+up toward hero image */}
+                <svg
+                  viewBox="0 0 100 50"
+                  fill="none"
+                  className="hidden sm:block absolute left-[80%] top-[10%] w-20 h-10 sm:w-24 sm:h-12 md:w-28 md:h-14 xl:w-32 xl:h-16 pointer-events-none opacity-75"
+                  aria-hidden="true"
+                >
+                  <defs>
+                    <marker
+                      id="hero-arrow-bl"
+                      viewBox="0 0 12 12"
+                      refX="9"
+                      refY="6"
+                      markerWidth="7"
+                      markerHeight="7"
+                      orient="auto"
+                    >
+                      <path d="M 1 2 L 10 6 L 1 10 z" fill="#02474D" />
+                    </marker>
+                  </defs>
+                  <path
+                    d="M 6 38 Q 55 40 88 12"
+                    stroke="#02474D"
+                    strokeWidth="2.2"
+                    strokeDasharray="5 3.5"
+                    strokeLinecap="round"
+                    markerEnd="url(#hero-arrow-bl)"
+                  />
+                </svg>
               </div>
             </div>
 
-            {/* TOP-RIGHT card */}
-            <div className="absolute top-6 right-0 z-30 flex flex-col items-start gap-1 reveal-scale delay-150">
-              <div 
-                onClick={() => openApplyModal("Home Loan", "Lowest rates starting from 8.40% p.a. up to ₹5Cr.")}
-                className="bg-white rounded-2xl shadow-lg border border-gray-100 px-4 py-3 flex items-center gap-3 group cursor-pointer hover:shadow-xl transition-all duration-200 w-52 hover:-translate-y-1"
-              >
-                <div className="w-9 h-9 bg-[#EBF4ED] rounded-xl flex items-center justify-center shrink-0">
-                  <Home className="w-4 h-4 text-primary" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-bold text-gray-800 truncate">Home Loan</p>
-                  <p className="text-[10px] text-gray-500 leading-snug mt-0.5">Up to ₹5Cr · From 8.40% p.a.</p>
-                </div>
+            {/* TOP-RIGHT illustration: Home Loan */}
+            <div className="absolute top-1 -right-2 sm:top-2 sm:right-0 md:top-4 md:-right-4 xl:-right-8 z-30 reveal-scale delay-150">
+              <div className="relative animate-hero-float-delayed">
+                <button
+                  type="button"
+                  onClick={() => openApplyModal("Home Loan", "Lowest rates starting from 8.40% p.a. up to ₹5Cr.")}
+                  className="group relative block w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 xl:w-48 xl:h-48 cursor-pointer transition-all duration-300 hover:scale-108 hover:-translate-y-2 active:scale-95 filter drop-shadow-md hover:drop-shadow-2xl focus:outline-none rounded-2xl"
+                  aria-label="Apply for Home Loan"
+                >
+                  <Image
+                    src="/hero/images/home-illustration.webp"
+                    alt="Home Loan"
+                    fill
+                    sizes="(max-width: 640px) 112px, (max-width: 768px) 144px, (max-width: 1280px) 160px, 192px"
+                    className="object-contain transition-transform duration-300 group-hover:scale-105"
+                    priority
+                  />
+                </button>
+                {/* arrow SVG pointing left+down toward hero image */}
+                <svg
+                  viewBox="0 0 100 50"
+                  fill="none"
+                  className="hidden sm:block absolute right-[80%] top-[45%] w-20 h-10 sm:w-24 sm:h-12 md:w-28 md:h-14 xl:w-32 xl:h-16 pointer-events-none opacity-75"
+                  aria-hidden="true"
+                >
+                  <defs>
+                    <marker
+                      id="hero-arrow-tr"
+                      viewBox="0 0 12 12"
+                      refX="9"
+                      refY="6"
+                      markerWidth="7"
+                      markerHeight="7"
+                      orient="auto"
+                    >
+                      <path d="M 1 2 L 10 6 L 1 10 z" fill="#02474D" />
+                    </marker>
+                  </defs>
+                  <path
+                    d="M 94 12 Q 45 10 12 38"
+                    stroke="#02474D"
+                    strokeWidth="2.2"
+                    strokeDasharray="5 3.5"
+                    strokeLinecap="round"
+                    markerEnd="url(#hero-arrow-tr)"
+                  />
+                </svg>
               </div>
-              {/* arrow SVG pointing left+down toward image */}
-              <svg width="80" height="60" viewBox="0 0 80 60" fill="none" className="ml-4 opacity-50">
-                <path d="M70 8 Q20 8 8 52" stroke="#02474D" strokeWidth="1.8" strokeDasharray="4 3" strokeLinecap="round" fill="none"/>
-                <polygon points="12,58 4,48 16,48" fill="#02474D"/>
-              </svg>
             </div>
 
-            {/* MID-RIGHT card */}
-            
-
-            {/* BOTTOM-RIGHT card */}
-            <div className="absolute bottom-12 right-0 z-30 flex flex-col items-start gap-1 reveal-scale delay-250">
-              {/* arrow pointing left+up toward image */}
-              <svg width="80" height="60" viewBox="0 0 80 60" fill="none" className="ml-4 opacity-50">
-                <path d="M70 52 Q20 52 8 8" stroke="#02474D" strokeWidth="1.8" strokeDasharray="4 3" strokeLinecap="round" fill="none"/>
-                <polygon points="12,2 4,12 16,12" fill="#02474D"/>
-              </svg>
-              <div 
-                onClick={() => openApplyModal("Business Loan", "Unsecured business loan up to ₹2Cr from 11.25% p.a.")}
-                className="bg-white rounded-2xl shadow-lg border border-gray-100 px-4 py-3 flex items-center gap-3 group cursor-pointer hover:shadow-xl transition-all duration-200 w-52 hover:-translate-y-1"
-              >
-                <div className="w-9 h-9 bg-[#EBF4ED] rounded-xl flex items-center justify-center shrink-0">
-                  <Briefcase className="w-4 h-4 text-primary" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-bold text-gray-800 truncate">Business Loan</p>
-                  <p className="text-[10px] text-gray-500 leading-snug mt-0.5">Up to ₹2Cr · From 11.25% p.a.</p>
-                </div>
+            {/* BOTTOM-RIGHT illustration: Business Loan */}
+            <div className="absolute bottom-2 -right-2 sm:bottom-3 sm:right-0 md:bottom-5 md:-right-4 xl:-right-6 z-30 reveal-scale delay-250">
+              <div className="relative animate-hero-float">
+                <button
+                  type="button"
+                  onClick={() => openApplyModal("Business Loan", "Unsecured business loan up to ₹2Cr from 11.25% p.a.")}
+                  className="group relative block w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 xl:w-48 xl:h-48 cursor-pointer transition-all duration-300 hover:scale-108 hover:-translate-y-2 active:scale-95 filter drop-shadow-md hover:drop-shadow-2xl focus:outline-none rounded-2xl"
+                  aria-label="Apply for Business Loan"
+                >
+                  <Image
+                    src="/hero/images/business-loan-illustration.webp"
+                    alt="Business Loan"
+                    fill
+                    sizes="(max-width: 640px) 112px, (max-width: 768px) 144px, (max-width: 1280px) 160px, 192px"
+                    className="object-contain transition-transform duration-300 group-hover:scale-105"
+                    priority
+                  />
+                </button>
+                {/* arrow pointing left+up toward hero image */}
+                <svg
+                  viewBox="0 0 100 50"
+                  fill="none"
+                  className="hidden sm:block absolute right-[80%] top-[10%] w-20 h-10 sm:w-24 sm:h-12 md:w-28 md:h-14 xl:w-32 xl:h-16 pointer-events-none opacity-75"
+                  aria-hidden="true"
+                >
+                  <defs>
+                    <marker
+                      id="hero-arrow-br"
+                      viewBox="0 0 12 12"
+                      refX="9"
+                      refY="6"
+                      markerWidth="7"
+                      markerHeight="7"
+                      orient="auto"
+                    >
+                      <path d="M 1 2 L 10 6 L 1 10 z" fill="#02474D" />
+                    </marker>
+                  </defs>
+                  <path
+                    d="M 94 38 Q 45 40 12 12"
+                    stroke="#02474D"
+                    strokeWidth="2.2"
+                    strokeDasharray="5 3.5"
+                    strokeLinecap="round"
+                    markerEnd="url(#hero-arrow-br)"
+                  />
+                </svg>
               </div>
             </div>
 
