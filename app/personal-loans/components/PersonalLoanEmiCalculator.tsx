@@ -161,7 +161,10 @@ export default function PersonalLoanEmiCalculator() {
                   step={25000}
                   value={loanAmount}
                   onChange={(e) => setLoanAmount(Number(e.target.value))}
-                  className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                  style={{
+                    background: `linear-gradient(to right, #02474D 0%, #02474D ${((loanAmount - 50000) / (5000000 - 50000)) * 100}%, #E2E8F0 ${((loanAmount - 50000) / (5000000 - 50000)) * 100}%, #E2E8F0 100%)`,
+                  }}
+                  className="custom-range-slider"
                 />
 
                 <div className="flex justify-between text-[11px] font-semibold text-gray-400 font-montserrat mt-1">
@@ -207,7 +210,10 @@ export default function PersonalLoanEmiCalculator() {
                   step={0.1}
                   value={interestRate}
                   onChange={(e) => setInterestRate(Number(e.target.value))}
-                  className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#B69226]"
+                  style={{
+                    background: `linear-gradient(to right, #02474D 0%, #02474D ${((interestRate - 9.99) / (26.0 - 9.99)) * 100}%, #E2E8F0 ${((interestRate - 9.99) / (26.0 - 9.99)) * 100}%, #E2E8F0 100%)`,
+                  }}
+                  className="custom-range-slider"
                 />
 
                 <div className="flex justify-between text-[11px] font-semibold text-gray-400 font-montserrat mt-1">
@@ -253,7 +259,10 @@ export default function PersonalLoanEmiCalculator() {
                   step={1}
                   value={tenureYears}
                   onChange={(e) => setTenureYears(Number(e.target.value))}
-                  className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
+                  style={{
+                    background: `linear-gradient(to right, #02474D 0%, #02474D ${((tenureYears - 1) / (7 - 1)) * 100}%, #E2E8F0 ${((tenureYears - 1) / (7 - 1)) * 100}%, #E2E8F0 100%)`,
+                  }}
+                  className="custom-range-slider"
                 />
 
                 <div className="flex justify-between text-[11px] font-semibold text-gray-400 font-montserrat mt-1">

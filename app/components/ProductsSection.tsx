@@ -579,18 +579,7 @@ export default function ProductsSection() {
                     </div>
                   </div>
 
-                  {/* ── Pictorial Feature Micro-Tags ── */}
-                  <div className="flex flex-wrap gap-1.5 mb-3.5">
-                    {p.visualTags.map((tag, tagIdx) => (
-                      <span
-                        key={tagIdx}
-                        className="text-[10px] font-medium text-gray-600 bg-gray-100/80 px-2 py-0.5 rounded-md border border-gray-200/50 font-montserrat"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
+                  
                   {/* ── Pictorial Partner Logos Avatar Stack ── */}
                   <div className="flex items-center justify-between gap-2 pt-2 border-t border-gray-100 mb-2">
                     <div className="flex items-center -space-x-1.5 overflow-hidden">
