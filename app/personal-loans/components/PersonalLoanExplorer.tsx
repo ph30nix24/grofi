@@ -17,6 +17,8 @@ import {
   Star,
   ArrowRight,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   LayoutGrid,
   List,
   RotateCcw,
@@ -45,6 +47,8 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
   const [selectedLoanAmount, setSelectedLoanAmount] = useState<string>("all");
   const [sortBy, setSortBy] = useState<"rate-asc" | "amount-desc" | "emi-asc" | "speed-asc" | "rating-desc">("rate-asc");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const ITEMS_PER_PAGE = 6;
 
   // Comparison & Detail Modal states
   const [compareList, setCompareList] = useState<PersonalLoanLender[]>([]);
@@ -160,6 +164,25 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
     sortBy,
   ]);
 
+  // Pagination calculations (6 items per page)
+  const totalItems = filteredAndSortedLenders.length;
+  const totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
+  const safeCurrentPage = Math.min(Math.max(1, currentPage), totalPages);
+
+  const startIndex = (safeCurrentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, totalItems);
+  const paginatedLenders = useMemo(() => {
+    return filteredAndSortedLenders.slice(startIndex, endIndex);
+  }, [filteredAndSortedLenders, startIndex, endIndex]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    const el = document.getElementById("lenders-list-section");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   // Comparison toggle
   const toggleCompare = (lender: PersonalLoanLender) => {
     setCompareList((prev) => {
@@ -184,6 +207,7 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
     setSelectedMinCibil("all");
     setSelectedLoanAmount("all");
     setSortBy("rate-asc");
+    setCurrentPage(1);
   };
 
   const hasActiveFilters =
@@ -208,7 +232,8 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
               Compare & Apply for <span className="text-primary">Personal Loans</span>
             </h2>
             <p className="mt-1 text-xs sm:text-sm text-gray-600">
-              Showing {filteredAndSortedLenders.length} of {initialLenders.length} partner banks and NBFCs
+              Showing {totalItems > 0 ? `${startIndex + 1}–${endIndex} of ${totalItems}` : "0"} partner lenders
+              {totalPages > 1 && ` • Page ${safeCurrentPage} of ${totalPages}`}
             </p>
           </div>
 
@@ -254,7 +279,10 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
             return (
               <button
                 key={tab.id}
-                onClick={() => setSelectedCategory(tab.id)}
+                onClick={() => {
+                  setSelectedCategory(tab.id);
+                  setCurrentPage(1);
+                }}
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer shrink-0 ${
                   isActive
                     ? "bg-primary text-white shadow-md shadow-primary/20 scale-[1.02]"
@@ -278,13 +306,19 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setCurrentPage(1);
+                }}
                 placeholder="Search bank name, NBFC, or features..."
                 className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-10 pr-9 py-2.5 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/10 transition-all"
               />
               {searchQuery && (
                 <button
-                  onClick={() => setSearchQuery("")}
+                  onClick={() => {
+                    setSearchQuery("");
+                    setCurrentPage(1);
+                  }}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1 cursor-pointer"
                 >
                   <X className="w-3.5 h-3.5" />
@@ -296,7 +330,10 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
             <div className="lg:col-span-2 relative">
               <select
                 value={selectedBankType}
-                onChange={(e) => setSelectedBankType(e.target.value)}
+                onChange={(e) => {
+                  setSelectedBankType(e.target.value);
+                  setCurrentPage(1);
+                }}
                 className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white transition-all appearance-none cursor-pointer"
               >
                 <option value="all">All Bank Types</option>
@@ -311,7 +348,10 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
             <div className="lg:col-span-2 relative">
               <select
                 value={selectedLoanAmount}
-                onChange={(e) => setSelectedLoanAmount(e.target.value)}
+                onChange={(e) => {
+                  setSelectedLoanAmount(e.target.value);
+                  setCurrentPage(1);
+                }}
                 className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white transition-all appearance-none cursor-pointer"
               >
                 <option value="all">Any Loan Amount</option>
@@ -326,7 +366,10 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
             <div className="lg:col-span-2 relative">
               <select
                 value={selectedMinCibil}
-                onChange={(e) => setSelectedMinCibil(e.target.value)}
+                onChange={(e) => {
+                  setSelectedMinCibil(e.target.value);
+                  setCurrentPage(1);
+                }}
                 className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white transition-all appearance-none cursor-pointer"
               >
                 <option value="all">Any CIBIL Score</option>
@@ -342,7 +385,7 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
             <div className="lg:col-span-2 relative">
               <select
                 value={sortBy}
-                onChange={(e) =>
+                onChange={(e) => {
                   setSortBy(
                     e.target.value as
                       | "rate-asc"
@@ -350,8 +393,9 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                       | "emi-asc"
                       | "speed-asc"
                       | "rating-desc"
-                  )
-                }
+                  );
+                  setCurrentPage(1);
+                }}
                 className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-xs font-bold text-gray-800 focus:outline-none focus:border-primary focus:bg-white transition-all appearance-none cursor-pointer"
               >
                 <option value="rate-asc">Lowest Interest Rate</option>
@@ -405,10 +449,11 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
 
         {/* LENDERS LIST / GRID */}
         {filteredAndSortedLenders.length > 0 ? (
-          viewMode === "grid" ? (
-            /* ── GRID CARD VIEW ── */
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredAndSortedLenders.map((lender) => {
+          <>
+            {viewMode === "grid" ? (
+              /* ── GRID CARD VIEW ── */
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {paginatedLenders.map((lender) => {
                 const checked = isCompared(lender.id);
 
                 return (
@@ -568,7 +613,7 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
           ) : (
             /* ── HORIZONTAL LIST VIEW ── */
             <div className="space-y-4">
-              {filteredAndSortedLenders.map((lender) => {
+              {paginatedLenders.map((lender) => {
                 const checked = isCompared(lender.id);
 
                 return (
@@ -673,8 +718,68 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                 );
               })}
             </div>
-          )
-        ) : (
+          )}
+
+          {/* ── Pagination Controls ── */}
+          {totalPages > 1 && (
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-gray-200/80 font-montserrat">
+              <div className="text-xs text-gray-500 font-medium">
+                Showing <span className="font-bold text-gray-900">{startIndex + 1}</span>–<span className="font-bold text-gray-900">{endIndex}</span> of{" "}
+                <span className="font-bold text-gray-900">{totalItems}</span> lenders
+              </div>
+
+              <div className="flex items-center gap-1.5">
+                {/* Previous Button */}
+                <button
+                  type="button"
+                  onClick={() => handlePageChange(safeCurrentPage - 1)}
+                  disabled={safeCurrentPage === 1}
+                  className="flex items-center gap-1 px-3.5 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed bg-white text-gray-700 border-gray-200 hover:bg-gray-50 hover:border-gray-300 disabled:hover:bg-white disabled:hover:border-gray-200 shadow-2xs"
+                  aria-label="Previous page"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  <span className="hidden sm:inline">Previous</span>
+                </button>
+
+                {/* Page Numbers */}
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => {
+                    const isActive = pageNum === safeCurrentPage;
+                    return (
+                      <button
+                        key={pageNum}
+                        type="button"
+                        onClick={() => handlePageChange(pageNum)}
+                        className={`w-9 h-9 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center ${
+                          isActive
+                            ? "bg-primary text-white shadow-xs scale-105"
+                            : "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 hover:border-gray-300 shadow-2xs"
+                        }`}
+                        aria-label={`Page ${pageNum}`}
+                        aria-current={isActive ? "page" : undefined}
+                      >
+                        {pageNum}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Next Button */}
+                <button
+                  type="button"
+                  onClick={() => handlePageChange(safeCurrentPage + 1)}
+                  disabled={safeCurrentPage === totalPages}
+                  className="flex items-center gap-1 px-3.5 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed bg-white text-gray-700 border-gray-200 hover:bg-gray-50 hover:border-gray-300 disabled:hover:bg-white disabled:hover:border-gray-200 shadow-2xs"
+                  aria-label="Next page"
+                >
+                  <span className="hidden sm:inline">Next</span>
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          )}
+        </>
+      ) : (
           /* Empty State */
           <div className="text-center py-16 bg-white rounded-3xl border border-gray-200 p-8 shadow-xs">
             <div className="w-16 h-16 rounded-2xl bg-[#EBF4ED] text-primary flex items-center justify-center mx-auto mb-4">

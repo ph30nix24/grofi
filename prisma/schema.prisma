@@ -130,3 +130,40 @@ model PersonalLoanLender {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model BusinessLoanData {
+  id                String  @id
+  name              String
+  logo              String
+  tagline           String
+  bankType          String
+  interestRate      Json
+  startingEmiPerLakh      Int
+  maxAmount   String
+  maxAmountNum    Int
+  tenure    String
+  tenureMonths    Int
+  processingFee    String
+  processingFeePercent    Float
+  collateralType    String
+  disbursalTime   String
+  foreclosureCharges    String
+  minTurnover    String
+  minVintage    String
+  minCibilScore   Int
+  badge   String
+  badgeColor    String?
+  category    String[]
+  features    String[]
+  recommendedFor    String
+  rating    Float
+  reviewCount   String
+  faqs    Json[]
+  title   String
+  description   String
+  keywords    String[]
+  openGraphTitle    String
+  openGraphDesc   String
+  twitterTitle    String
+  twitterDesc   String
+}

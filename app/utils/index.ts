@@ -225,10 +225,11 @@ export const navLinks = [
   },
   {
     label: 'Loans',
-    href: '#',
+    href: '/personal-loans',
     dropdown: [
       {
-        label: 'Personal Loan', href: '/personal-laons',
+        label: 'Personal Loan',
+        href: '/personal-loans',
         subItems: [
           { label: 'Instant Personal Loan', href: '/personal-loans/instant-loans' },
           { label: 'Short Term Personal Loan', href: '/personal-loans/short-term-loans' },
@@ -239,7 +240,8 @@ export const navLinks = [
         ]
       },
       {
-        label: 'Business Loan', href: '/business-loans',
+        label: 'Business Loan',
+        href: '/business-loans',
         subItems: [
           { label: 'HDFC Business Loan', href: '/business-loans/hdfc-bank-business-growth' },
           { label: 'SBI Business Loan', href: '/business-loans/sbi-simplified-small-business' },
@@ -249,7 +251,8 @@ export const navLinks = [
         ]
       },
       {
-        label: 'Home Loan', href: '/home-loans',
+        label: 'Home Loan',
+        href: '/home-loans',
         subItems: [
           { label: 'Home Loan Balance Transfer', href: '/home-loans/balance-transfer', subItems: [] },
           { label: 'Loan Against Property', href: '/home-loans/loan-against-property', subItems: [] },
