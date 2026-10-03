@@ -514,27 +514,27 @@ export default function ProductsSection() {
 
                 <div>
                   {/* Card Top: Floating Badge */}
-                  <div className="flex items-center justify-between gap-2 mb-3 relative z-10">
+                  <div className="flex items-center justify-between gap-2 mb-3 relative z-10 min-w-0">
                     <span
-                      className={`text-[10px] font-bold tracking-tight px-2.5 py-1 rounded-full border shadow-2xs ${
+                      className={`text-[10px] font-bold tracking-tight px-2.5 py-1 rounded-full border shadow-2xs truncate min-w-0 ${
                         badgeColors[p.badgeTone]
                       }`}
                     >
                       {p.badge}
                     </span>
 
-                    <span className="text-[10px] font-semibold text-gray-400 font-montserrat flex items-center gap-1">
-                      <Clock className="w-3 h-3 text-emerald-600" />
+                    <span className="text-[10px] font-semibold text-gray-400 font-montserrat flex items-center gap-1 shrink-0 whitespace-nowrap">
+                      <Clock className="w-3 h-3 text-emerald-600 shrink-0" />
                       {p.metrics.speed}
                     </span>
                   </div>
 
                   {/* ── Visual 3D Illustration Pod (The Centerpiece) ── */}
-                  <div className="relative w-full aspect-square max-h-48 sm:max-h-52 bg-linear-to-b from-[#F3F0DF]/40 via-[#EBF4ED]/30 to-white rounded-2xl p-2.5 mb-3 flex items-center justify-center overflow-hidden border border-gray-100 group-hover:border-primary/20 transition-all">
+                  <div className="relative w-full h-48 sm:h-52 bg-linear-to-b from-[#F3F0DF]/40 via-[#EBF4ED]/30 to-white rounded-2xl p-2.5 mb-3 flex items-center justify-center overflow-hidden border border-gray-100 group-hover:border-primary/20 transition-all">
                     {/* Radial aura behind illustration */}
                     <div className="absolute inset-0 bg-radial from-[#B6CC9A]/20 via-transparent to-transparent opacity-80 group-hover:scale-110 transition-transform duration-500 pointer-events-none" />
 
-                    <div className="relative w-full h-full transition-transform duration-300 group-hover:scale-106">
+                    <div className="relative w-full h-full transition-transform duration-300 group-hover:scale-105">
                       <Image
                         src={p.illustration}
                         alt={p.title}

@@ -28,6 +28,7 @@ import { useApplyModal } from "@/app/context/ApplyModalContext";
 import BusinessLoanCompareDock from "./BusinessLoanCompareDock";
 import BusinessLoanCompareModal from "./BusinessLoanCompareModal";
 import BusinessLoanDetailModal from "./BusinessLoanDetailModal";
+import Link from "next/link";
 
 interface BusinessLoanExplorerProps {
   initialLenders: BusinessLoanLender[];
@@ -498,126 +499,128 @@ export default function BusinessLoanExplorer({ initialLenders }: BusinessLoanExp
                       {/* Top Accent Strip */}
                       <div className="h-1.5 w-full bg-linear-to-r from-primary via-emerald-600 to-[#B69226]" />
 
-                      <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
-                        <div>
-                          {/* Card Header: Logo, Badges, Compare Checkbox */}
-                          <div className="flex items-start justify-between gap-3 mb-4">
-                            <div className="w-14 h-14 rounded-2xl bg-white border border-gray-200 p-2 flex items-center justify-center shrink-0 shadow-2xs">
-                              <Image
-                                src={lender.logo}
-                                alt={lender.name}
-                                width={52}
-                                height={52}
-                                className="max-h-full max-w-full object-contain"
-                              />
-                            </div>
-
-                            <div className="flex flex-col items-end gap-1.5">
-                              {/* Compare Checkbox */}
-                              <label className="flex items-center gap-1.5 text-[11px] font-semibold text-gray-500 cursor-pointer select-none hover:text-primary">
-                                <input
-                                  type="checkbox"
-                                  checked={checked}
-                                  onChange={() => toggleCompare(lender)}
-                                  className="w-3.5 h-3.5 rounded text-primary focus:ring-primary accent-primary cursor-pointer"
+                      <Link href={`/business-loans/${lender.id}`}>
+                        <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+                          <div>
+                            {/* Card Header: Logo, Badges, Compare Checkbox */}
+                            <div className="flex items-start justify-between gap-3 mb-4">
+                              <div className="w-14 h-14 rounded-2xl bg-white border border-gray-200 p-2 flex items-center justify-center shrink-0 shadow-2xs">
+                                <Image
+                                  src={lender.logo}
+                                  alt={lender.name}
+                                  width={52}
+                                  height={52}
+                                  className="max-h-full max-w-full object-contain"
                                 />
-                                <span>Compare</span>
-                              </label>
-
-                              {/* Badge */}
-                              {lender.badge && (
-                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
-                                  {lender.badge}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-
-                          {/* Bank Name & Rating */}
-                          <div className="mb-4">
-                            <h3 className="font-bricolage font-bold text-lg sm:text-xl text-gray-900 group-hover:text-primary transition-colors leading-snug">
-                              {lender.name}
-                            </h3>
-
-                            <div className="flex items-center gap-2 mt-1 flex-wrap">
-                              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-gray-100 text-gray-700">
-                                {lender.bankType}
-                              </span>
-                              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-100">
-                                {lender.collateralType.split("(")[0].trim()}
-                              </span>
-                              {lender.rating && (
-                                <span className="flex items-center gap-1 text-xs font-bold text-gray-700 bg-amber-50/70 px-2 py-0.5 rounded-md">
-                                  <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                                  <span>{lender.rating}</span>
-                                  {lender.reviewCount && (
-                                    <span className="text-gray-400 font-normal">({lender.reviewCount})</span>
-                                  )}
-                                </span>
-                              )}
-                            </div>
-
-                            <p className="text-xs text-gray-500 mt-2 line-clamp-2 leading-relaxed">
-                              {lender.tagline}
-                            </p>
-                          </div>
-
-                          {/* Key Financial Metrics Matrix */}
-                          <div className="grid grid-cols-2 gap-2 bg-[#FDFBF7] p-3 rounded-2xl border border-gray-200/70 mb-4">
-                            <div className="p-1">
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
-                                Interest Rate
-                              </span>
-                              <span className="font-bricolage font-extrabold text-sm sm:text-base text-primary block mt-0.5">
-                                {lender.interestRate?.min}% - {lender.interestRate?.max}%
-                              </span>
-                            </div>
-
-                            <div className="p-1">
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
-                                Starting EMI
-                              </span>
-                              <span className="font-semibold text-xs sm:text-sm text-emerald-800 block mt-0.5">
-                                ₹{lender.startingEmiPerLakh} / Lakh
-                              </span>
-                            </div>
-
-                            <div className="p-1 border-t border-gray-200/60 pt-2">
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
-                                Max Sanction Limit
-                              </span>
-                              <span className="font-bricolage font-bold text-xs sm:text-sm text-gray-900 block mt-0.5">
-                                {lender.maxAmount}
-                              </span>
-                            </div>
-
-                            <div className="p-1 border-t border-gray-200/60 pt-2">
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
-                                Disbursal Time
-                              </span>
-                              <span className="font-bold text-xs text-amber-800 block mt-0.5">
-                                {lender.disbursalTime}
-                              </span>
-                            </div>
-                          </div>
-
-                          {/* Top Highlights */}
-                          <div className="space-y-1.5 mb-4">
-                            {lender.features.slice(0, 2).map((feat, idx) => (
-                              <div key={idx} className="flex items-start gap-2 text-xs text-gray-600 leading-tight">
-                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                                <span className="line-clamp-1">{feat}</span>
                               </div>
-                            ))}
+
+                              <div className="flex flex-col items-end gap-1.5">
+                                {/* Compare Checkbox */}
+                                <label className="flex items-center gap-1.5 text-[11px] font-semibold text-gray-500 cursor-pointer select-none hover:text-primary">
+                                  <input
+                                    type="checkbox"
+                                    checked={checked}
+                                    onChange={() => toggleCompare(lender)}
+                                    className="w-3.5 h-3.5 rounded text-primary focus:ring-primary accent-primary cursor-pointer"
+                                  />
+                                  <span>Compare</span>
+                                </label>
+
+                                {/* Badge */}
+                                {lender.badge && (
+                                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
+                                    {lender.badge}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Bank Name & Rating */}
+                            <div className="mb-4">
+                              <h3 className="font-bricolage font-bold text-lg sm:text-xl text-gray-900 group-hover:text-primary transition-colors leading-snug">
+                                {lender.name}
+                              </h3>
+
+                              <div className="flex items-center gap-2 mt-1 flex-wrap">
+                                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-gray-100 text-gray-700">
+                                  {lender.bankType}
+                                </span>
+                                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-100">
+                                  {lender.collateralType.split("(")[0].trim()}
+                                </span>
+                                {lender.rating && (
+                                  <span className="flex items-center gap-1 text-xs font-bold text-gray-700 bg-amber-50/70 px-2 py-0.5 rounded-md">
+                                    <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                                    <span>{lender.rating}</span>
+                                    {lender.reviewCount && (
+                                      <span className="text-gray-400 font-normal">({lender.reviewCount})</span>
+                                    )}
+                                  </span>
+                                )}
+                              </div>
+
+                              <p className="text-xs text-gray-500 mt-2 line-clamp-2 leading-relaxed">
+                                {lender.tagline}
+                              </p>
+                            </div>
+
+                            {/* Key Financial Metrics Matrix */}
+                            <div className="grid grid-cols-2 gap-2 bg-[#FDFBF7] p-3 rounded-2xl border border-gray-200/70 mb-4">
+                              <div className="p-1">
+                                <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
+                                  Interest Rate
+                                </span>
+                                <span className="font-bricolage font-extrabold text-sm sm:text-base text-primary block mt-0.5">
+                                  {lender.interestRate?.min}% - {lender.interestRate?.max}%
+                                </span>
+                              </div>
+
+                              <div className="p-1">
+                                <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
+                                  Starting EMI
+                                </span>
+                                <span className="font-semibold text-xs sm:text-sm text-emerald-800 block mt-0.5">
+                                  ₹{lender.startingEmiPerLakh} / Lakh
+                                </span>
+                              </div>
+
+                              <div className="p-1 border-t border-gray-200/60 pt-2">
+                                <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
+                                  Max Sanction Limit
+                                </span>
+                                <span className="font-bricolage font-bold text-xs sm:text-sm text-gray-900 block mt-0.5">
+                                  {lender.maxAmount}
+                                </span>
+                              </div>
+
+                              <div className="p-1 border-t border-gray-200/60 pt-2">
+                                <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
+                                  Disbursal Time
+                                </span>
+                                <span className="font-bold text-xs text-amber-800 block mt-0.5">
+                                  {lender.disbursalTime}
+                                </span>
+                              </div>
+                            </div>
+
+                            {/* Top Highlights */}
+                            <div className="space-y-1.5 mb-4">
+                              {lender.features.slice(0, 2).map((feat, idx) => (
+                                <div key={idx} className="flex items-start gap-2 text-xs text-gray-600 leading-tight">
+                                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                                  <span className="line-clamp-1">{feat}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Eligibility Pill */}
+                          <div className="bg-gray-50 px-3 py-2 rounded-xl border border-gray-100 flex items-center justify-between text-[11px] text-gray-500 mb-2">
+                            <span>Min Turnover: <strong className="text-gray-800 font-bold">{lender.minTurnover}</strong></span>
+                            <span>Vintage: <strong className="text-gray-800 font-bold">{lender.minVintage}</strong></span>
                           </div>
                         </div>
-
-                        {/* Eligibility Pill */}
-                        <div className="bg-gray-50 px-3 py-2 rounded-xl border border-gray-100 flex items-center justify-between text-[11px] text-gray-500 mb-2">
-                          <span>Min Turnover: <strong className="text-gray-800 font-bold">{lender.minTurnover}</strong></span>
-                          <span>Vintage: <strong className="text-gray-800 font-bold">{lender.minVintage}</strong></span>
-                        </div>
-                      </div>
+                      </Link>
 
                       {/* Card Actions Footer */}
                       <div className="p-4 bg-gray-50/80 border-t border-gray-100 flex items-center gap-2">
@@ -653,77 +656,80 @@ export default function BusinessLoanExplorer({ initialLenders }: BusinessLoanExp
                       key={lender.id}
                       className="bg-white rounded-3xl p-5 sm:p-6 border border-gray-200/90 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6"
                     >
-                      {/* Bank Info */}
-                      <div className="flex items-start gap-4 min-w-[280px] max-w-sm">
-                        <div className="w-14 h-14 rounded-2xl bg-white border border-gray-200 p-2 flex items-center justify-center shrink-0 shadow-2xs">
-                          <Image
-                            src={lender.logo}
-                            alt={lender.name}
-                            width={52}
-                            height={52}
-                            className="max-h-full max-w-full object-contain"
-                          />
-                        </div>
 
-                        <div>
-                          <div className="flex items-center gap-2 mb-1 flex-wrap">
-                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-gray-100 text-gray-700">
-                              {lender.bankType}
-                            </span>
-                            {lender.badge && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
-                                {lender.badge}
-                              </span>
-                            )}
+                      <Link href={`/business-loans/${lender.id}`}>
+                        {/* Bank Info */}
+                        <div className="flex items-start gap-4 min-w-70 max-w-sm">
+                          <div className="w-14 h-14 rounded-2xl bg-white border border-gray-200 p-2 flex items-center justify-center shrink-0 shadow-2xs">
+                            <Image
+                              src={lender.logo}
+                              alt={lender.name}
+                              width={52}
+                              height={52}
+                              className="max-h-full max-w-full object-contain"
+                            />
                           </div>
-                          <h3 className="font-bricolage font-bold text-base sm:text-lg text-gray-900 leading-tight">
-                            {lender.name}
-                          </h3>
-                          <p className="text-xs text-gray-500 mt-1 line-clamp-1">{lender.tagline}</p>
-                          <span className="inline-block mt-1 text-[11px] font-medium text-emerald-800">
-                            {lender.collateralType}
-                          </span>
-                        </div>
-                      </div>
 
-                      {/* Metrics Columns */}
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 flex-1 w-full lg:w-auto">
-                        <div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
-                            Interest Rate
-                          </span>
-                          <span className="font-bricolage font-extrabold text-sm sm:text-base text-primary block mt-0.5">
-                            {lender.interestRate?.min}% - {lender.interestRate?.max}%
-                          </span>
-                        </div>
-
-                        <div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
-                            Starting EMI
-                          </span>
-                          <span className="font-semibold text-xs sm:text-sm text-emerald-800 block mt-0.5">
-                            ₹{lender.startingEmiPerLakh} / Lakh
-                          </span>
+                          <div>
+                            <div className="flex items-center gap-2 mb-1 flex-wrap">
+                              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-gray-100 text-gray-700">
+                                {lender.bankType}
+                              </span>
+                              {lender.badge && (
+                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
+                                  {lender.badge}
+                                </span>
+                              )}
+                            </div>
+                            <h3 className="font-bricolage font-bold text-base sm:text-lg text-gray-900 leading-tight">
+                              {lender.name}
+                            </h3>
+                            <p className="text-xs text-gray-500 mt-1 line-clamp-1">{lender.tagline}</p>
+                            <span className="inline-block mt-1 text-[11px] font-medium text-emerald-800">
+                              {lender.collateralType}
+                            </span>
+                          </div>
                         </div>
 
-                        <div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
-                            Max Sanction
-                          </span>
-                          <span className="font-bricolage font-bold text-xs sm:text-sm text-gray-900 block mt-0.5">
-                            {lender.maxAmount}
-                          </span>
-                        </div>
+                        {/* Metrics Columns */}
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 flex-1 w-full lg:w-auto">
+                          <div>
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
+                              Interest Rate
+                            </span>
+                            <span className="font-bricolage font-extrabold text-sm sm:text-base text-primary block mt-0.5">
+                              {lender.interestRate?.min}% - {lender.interestRate?.max}%
+                            </span>
+                          </div>
 
-                        <div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
-                            Disbursal Time
-                          </span>
-                          <span className="font-bold text-xs text-amber-800 block mt-0.5">
-                            {lender.disbursalTime}
-                          </span>
+                          <div>
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
+                              Starting EMI
+                            </span>
+                            <span className="font-semibold text-xs sm:text-sm text-emerald-800 block mt-0.5">
+                              ₹{lender.startingEmiPerLakh} / Lakh
+                            </span>
+                          </div>
+
+                          <div>
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
+                              Max Sanction
+                            </span>
+                            <span className="font-bricolage font-bold text-xs sm:text-sm text-gray-900 block mt-0.5">
+                              {lender.maxAmount}
+                            </span>
+                          </div>
+
+                          <div>
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
+                              Disbursal Time
+                            </span>
+                            <span className="font-bold text-xs text-amber-800 block mt-0.5">
+                              {lender.disbursalTime}
+                            </span>
+                          </div>
                         </div>
-                      </div>
+                      </Link>
 
                       {/* Actions & Compare */}
                       <div className="flex flex-col sm:flex-row lg:flex-col items-end gap-2.5 w-full lg:w-auto shrink-0">

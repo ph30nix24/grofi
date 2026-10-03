@@ -80,7 +80,6 @@ async function fetchBusinessLoans(): Promise<BusinessLoanLender[]> {
 
 export default async function BusinessLoansPage() {
   const lenders = await fetchBusinessLoans();
-  console.log(lenders)
 
   // JSON-LD Structured Data for Search Engine Optimization
   const jsonLd = {
@@ -182,7 +181,7 @@ export default async function BusinessLoansPage() {
         {/* Interactive Marketplace Explorer (Category Pills, Filters, Cards, Comparison Dock, Modals) */}
         <Suspense
           fallback={
-            <div className="min-h-[400px] flex items-center justify-center text-sm text-gray-500 font-montserrat">
+            <div className="min-h-100 flex items-center justify-center text-sm text-gray-500 font-montserrat">
               <div className="flex flex-col items-center gap-2">
                 <div className="w-8 h-8 border-3 border-primary/20 border-t-primary rounded-full animate-spin" />
                 <span>Loading MSME & business loan lenders...</span>

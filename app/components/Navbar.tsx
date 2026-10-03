@@ -259,7 +259,7 @@ export default function Navbar() {
   return (
     <header
       ref={dropdownRef}
-      className={`sticky top-0 z-50 transition-all duration-300 font-montserrat ${isScrolled
+      className={`sticky top-0 z-50 w-full transition-all duration-300 font-montserrat ${isScrolled
           ? "bg-[#F3F0DF]/95 backdrop-blur-xl border-b border-[#DDE3C1] shadow-[0_4px_25px_-5px_rgba(2,71,77,0.08)] py-2 sm:py-2.5"
           : "bg-[#F3F0DF]/90 backdrop-blur-md border-b border-[#DDE3C1]/80 py-2.5 sm:py-3"
         }`}

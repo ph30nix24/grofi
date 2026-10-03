@@ -6,6 +6,7 @@ import { ArrowRight, TrendingDown, ShieldCheck, ChevronLeft, ChevronRight, Check
 import { BusinessLoanLender } from "./type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
 import BusinessLoanDetailModal from "./BusinessLoanDetailModal";
+import Link from "next/link";
 
 interface BusinessLoanComparisonTableProps {
   lenders: BusinessLoanLender[];
@@ -87,35 +88,38 @@ export default function BusinessLoanComparisonTable({
                     className="hover:bg-gray-50/80 transition-colors group cursor-pointer"
                     onClick={() => handleSelect(lender)}
                   >
-                    {/* Bank / Lender */}
-                    <td className="py-4 px-4 sm:px-6">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 p-1 flex items-center justify-center shrink-0 shadow-2xs">
-                          <Image
-                            src={lender.logo}
-                            alt={lender.name}
-                            width={40}
-                            height={40}
-                            className="max-h-full max-w-full object-contain"
-                          />
-                        </div>
-                        <div>
-                          <div className="font-bricolage font-bold text-sm text-gray-900 group-hover:text-primary transition-colors leading-snug">
-                            {lender.name}
+
+                    <Link href={`/business-loans/${lender.id}`}>
+                      {/* Bank / Lender */}
+                      <td className="py-4 px-4 sm:px-6">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 p-1 flex items-center justify-center shrink-0 shadow-2xs">
+                            <Image
+                              src={lender.logo}
+                              alt={lender.name}
+                              width={40}
+                              height={40}
+                              className="max-h-full max-w-full object-contain"
+                            />
                           </div>
-                          <div className="flex items-center gap-1.5 mt-0.5">
-                            <span className="text-[10px] font-bold uppercase text-gray-500">
-                              {lender.bankType}
-                            </span>
-                            {lender.badge && (
-                              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200">
-                                {lender.badge}
+                          <div>
+                            <div className="font-bricolage font-bold text-sm text-gray-900 group-hover:text-primary transition-colors leading-snug">
+                              {lender.name}
+                            </div>
+                            <div className="flex items-center gap-1.5 mt-0.5">
+                              <span className="text-[10px] font-bold uppercase text-gray-500">
+                                {lender.bankType}
                               </span>
-                            )}
+                              {lender.badge && (
+                                <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200">
+                                  {lender.badge}
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </td>
+                      </td>
+                    </Link>
 
                     {/* Interest Rate */}
                     <td className="py-4 px-3 sm:px-4 font-bricolage font-extrabold text-primary text-sm sm:text-base">

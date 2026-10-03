@@ -24,10 +24,17 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 });
 
+import type { Viewport } from "next";
 import { ApplyModalProvider } from "./context/ApplyModalContext";
 import ScrollRevealProvider from "./components/ScrollRevealProvider";
 import ScrollToTop from "./components/ScrollToTop";
 import FloatingConnectButton from "./components/FloatingConnectButton";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -35,7 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} ${montserrat.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col overflow-x-clip">
         <ScrollRevealProvider>
           <ApplyModalProvider>
             {children}

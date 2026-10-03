@@ -194,9 +194,9 @@ export default function BankCardExplorer({
   };
 
   return (
-    <section className="py-12 sm:py-16 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
+    <section className="py-8 sm:py-12 md:py-16 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto w-full overflow-hidden">
       {/* ── Category Filter Tabs ───────────────────────────────────── */}
-      <div className="flex items-center justify-start sm:justify-center overflow-x-auto pb-3 gap-2 scrollbar-hidden">
+      <div className="flex items-center justify-start sm:justify-center overflow-x-auto pb-3 gap-2 scrollbar-hidden -mx-4 px-4 sm:mx-0 sm:px-0">
         {CATEGORY_TABS.map((tab) => {
           const Icon = tab.icon;
           const isActive = selectedCategory === tab.id;
@@ -208,13 +208,13 @@ export default function BankCardExplorer({
                 setSelectedCategory(tab.id);
                 setCurrentPage(1);
               }}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-montserrat text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap cursor-pointer shrink-0 shadow-2xs ${
+              className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl font-montserrat text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap cursor-pointer shrink-0 shadow-2xs ${
                 isActive
                   ? "bg-primary text-white shadow-md shadow-primary/20"
                   : "bg-white text-gray-700 hover:text-primary hover:bg-gray-50 border border-gray-200"
               }`}
             >
-              <Icon className={`w-4 h-4 ${isActive ? "text-gold" : "text-gray-500"}`} />
+              <Icon className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isActive ? "text-gold" : "text-gray-500"} shrink-0`} />
               <span>{tab.label}</span>
               <span
                 className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono font-bold ${
@@ -229,9 +229,9 @@ export default function BankCardExplorer({
       </div>
 
       {/* ── Search, Filters & Controls Bar ─────────────────────────── */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-4 mt-6 shadow-xs flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+      <div className="bg-white rounded-2xl border border-gray-200 p-3.5 sm:p-4 mt-6 shadow-xs flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 sm:gap-4">
         {/* Search input inside toolbar */}
-        <div className="relative flex-1 min-w-[240px]">
+        <div className="relative flex-1 min-w-0 sm:min-w-[240px]">
           <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
@@ -258,9 +258,9 @@ export default function BankCardExplorer({
         </div>
 
         {/* Dropdown Filters Group */}
-        <div className="flex flex-col sm:flex-row gap-3 flex-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 w-full lg:flex-[2]">
           {/* Annual Fee Filter */}
-          <div className="relative flex-1">
+          <div className="relative w-full">
             <select
               value={selectedFee}
               onChange={(e) => {
@@ -279,7 +279,7 @@ export default function BankCardExplorer({
           </div>
 
           {/* Network Filter */}
-          <div className="relative flex-1">
+          <div className="relative w-full">
             <select
               value={selectedNetwork}
               onChange={(e) => {
@@ -298,7 +298,7 @@ export default function BankCardExplorer({
           </div>
 
           {/* Sort Dropdown */}
-          <div className="relative flex-1">
+          <div className="relative w-full">
             <select
               value={sortBy}
               onChange={(e) => {
@@ -317,8 +317,8 @@ export default function BankCardExplorer({
         </div>
 
         {/* Right Toolbar: View Toggle & Clear Filters */}
-        <div className="flex items-center justify-between sm:justify-end gap-3 pt-2 lg:pt-0 border-t lg:border-t-0 border-gray-100">
-          <div className="flex items-center bg-gray-100 p-1 rounded-xl">
+        <div className="flex items-center justify-between sm:justify-end gap-3 pt-2.5 lg:pt-0 border-t lg:border-t-0 border-gray-100">
+          <div className="flex items-center bg-gray-100 p-1 rounded-xl shrink-0">
             <button
               onClick={() => setViewMode("grid")}
               className={`p-2 rounded-lg transition-all cursor-pointer ${
@@ -348,7 +348,7 @@ export default function BankCardExplorer({
           {isFiltersActive && (
             <button
               onClick={clearAllFilters}
-              className="py-2 px-3 text-xs font-bold text-red-600 hover:bg-red-50 rounded-xl border border-red-200 transition-colors flex items-center gap-1 font-montserrat cursor-pointer whitespace-nowrap"
+              className="py-2 px-3 text-xs font-bold text-red-600 hover:bg-red-50 rounded-xl border border-red-200 transition-colors flex items-center gap-1 font-montserrat cursor-pointer whitespace-nowrap shrink-0"
             >
               <X className="w-3.5 h-3.5" />
               <span>Reset</span>
@@ -372,7 +372,7 @@ export default function BankCardExplorer({
         </p>
 
         {sortedCards.length === 0 && (
-          <div className="w-full py-16 text-center bg-white rounded-3xl border border-dashed border-gray-300 mt-6 shadow-xs">
+          <div className="w-full py-12 sm:py-16 px-4 text-center bg-white rounded-2xl sm:rounded-3xl border border-dashed border-gray-300 mt-6 shadow-xs">
             <AlertCircle className="w-10 h-10 text-gray-400 mx-auto mb-3" />
             <h3 className="font-bricolage font-bold text-xl text-gray-800">
               No {bankName} cards match your criteria
@@ -393,7 +393,7 @@ export default function BankCardExplorer({
 
       {/* ── CARDS DISPLAY: GRID VIEW ───────────────────────────────── */}
       {viewMode === "grid" && sortedCards.length > 0 && (
-        <div className="flex flex-wrap gap-6 sm:gap-8 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8 mt-6">
           {paginatedCards.map((card) => {
             const isCompared = compareList.some((c) => c.id === card.id);
             const isFree =
@@ -404,12 +404,12 @@ export default function BankCardExplorer({
             return (
               <div
                 key={card.id}
-                className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.334rem)] bg-white rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1 relative"
+                className="w-full bg-white rounded-2xl sm:rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1 relative"
               >
                 {/* Top Section */}
-                <div className="p-5 pb-3">
-                  <div className="flex items-center justify-between gap-2 mb-3.5">
-                    <div className="h-6 w-auto relative">
+                <div className="p-4 sm:p-5 pb-3">
+                  <div className="flex items-center justify-between gap-2 mb-3 sm:mb-3.5">
+                    <div className="h-6 w-auto relative shrink-0">
                       <Image
                         src={card.logo || bankLogoUrl}
                         alt={card.issuer}
@@ -421,35 +421,41 @@ export default function BankCardExplorer({
 
                     <button
                       onClick={() => toggleCompare(card)}
-                      className={`text-[11px] font-bold font-montserrat px-2.5 py-1 rounded-lg border transition-all flex items-center gap-1 cursor-pointer ${
+                      className={`text-[11px] font-bold font-montserrat px-2.5 py-1 rounded-lg border transition-all flex items-center gap-1 cursor-pointer shrink-0 ${
                         isCompared
                           ? "bg-primary text-white border-primary"
                           : "bg-gray-50 text-gray-600 border-gray-200 hover:border-primary/40 hover:text-primary"
                       }`}
                     >
-                      <Scale className="w-3 h-3" />
+                      <Scale className="w-3 h-3 shrink-0" />
                       <span>{isCompared ? "Compared" : "Compare"}</span>
                     </button>
                   </div>
 
                   {/* Card Graphic Mockup */}
-                  <div className="relative w-full aspect-[1.586/1] rounded-2xl overflow-hidden drop-shadow-lg drop-shadow-gray-100">
+                  <div className="relative w-full aspect-[1.586/1] rounded-xl sm:rounded-2xl overflow-hidden drop-shadow-md sm:drop-shadow-lg drop-shadow-gray-100">
                     {card.cardImage ? (
-                      <Link href={`/credit-cards/${card.issuer.split(" ")[0].toLocaleLowerCase()}-${card.issuer.split(" ")[1].toLocaleLowerCase()}/${card.id}`}>
+                      <Link
+                        href={`/credit-cards/${card.issuer.split(" ")[0].toLocaleLowerCase()}-${card.issuer.split(" ")[1].toLocaleLowerCase()}/${card.id}`}
+                        className="block relative w-full h-full"
+                      >
                         <Image
                           src={card.cardImage}
                           alt={card.name}
                           fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           className="object-contain transition-transform duration-500 hover:scale-[1.03]"
                         />
                       </Link>
                     ) : (
-                      <Link href={`/credit-cards/${card.issuer.split(" ")[0].toLocaleLowerCase()}-${card.issuer.split(" ")[1].toLocaleLowerCase()}/${card.id}`}>
+                      <Link
+                        href={`/credit-cards/${card.issuer.split(" ")[0].toLocaleLowerCase()}-${card.issuer.split(" ")[1].toLocaleLowerCase()}/${card.id}`}
+                        className="block relative w-full h-full"
+                      >
                         <div className="w-full h-full bg-linear-to-tr from-primary to-[#035259] flex items-center justify-center p-4 text-white text-center">
                           <div>
-                            <CreditCardIcon className="w-10 h-10 mx-auto text-gold mb-2" />
-                            <p className="font-bricolage font-bold text-sm">{card.name}</p>
+                            <CreditCardIcon className="w-9 h-9 sm:w-10 sm:h-10 mx-auto text-gold mb-2" />
+                            <p className="font-bricolage font-bold text-xs sm:text-sm">{card.name}</p>
                           </div>
                         </div>
                       </Link>
@@ -457,13 +463,13 @@ export default function BankCardExplorer({
                   </div>
 
                   {/* Badge & Title */}
-                  <div className="mt-4">
+                  <div className="mt-3.5 sm:mt-4 min-w-0">
                     {card.badge && (
-                      <div className="inline-block text-[10px] font-bold text-primary bg-[#EBF4ED] px-2.5 py-0.5 rounded-full border border-primary/15 mb-2 truncate max-w-full">
+                      <div className="inline-block text-[10px] font-bold text-primary bg-[#EBF4ED] px-2.5 py-0.5 rounded-full border border-primary/15 mb-1.5 sm:mb-2 truncate max-w-full">
                         {card.badge}
                       </div>
                     )}
-                    <h3 className="font-bricolage font-bold text-lg text-gray-900 leading-snug line-clamp-1 group-hover:text-primary transition-colors">
+                    <h3 className="font-bricolage font-bold text-base sm:text-lg text-gray-900 leading-snug line-clamp-1 group-hover:text-primary transition-colors">
                       {card.name}
                     </h3>
                     <p className="text-xs text-gray-500 font-montserrat mt-0.5 truncate">
@@ -472,9 +478,9 @@ export default function BankCardExplorer({
                   </div>
 
                   {/* Key Metrics Grid */}
-                  <div className="flex gap-2 mt-3.5 pt-3 border-t border-gray-100">
-                    <div className="flex-1 bg-gray-50/90 rounded-xl p-2.5 border border-gray-100">
-                      <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
+                  <div className="grid grid-cols-2 gap-2 mt-3 sm:mt-3.5 pt-3 border-t border-gray-100">
+                    <div className="bg-gray-50/90 rounded-xl p-2 sm:p-2.5 border border-gray-100 min-w-0">
+                      <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat truncate">
                         Annual Fee
                       </span>
                       <span
@@ -485,8 +491,8 @@ export default function BankCardExplorer({
                         {card.annualFee || "Nil"}
                       </span>
                     </div>
-                    <div className="flex-1 bg-gray-50/90 rounded-xl p-2.5 border border-gray-100">
-                      <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
+                    <div className="bg-gray-50/90 rounded-xl p-2 sm:p-2.5 border border-gray-100 min-w-0">
+                      <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat truncate">
                         Reward Rate
                       </span>
                       <span className="text-xs font-bold text-emerald-700 font-montserrat block mt-0.5 truncate">
@@ -509,7 +515,7 @@ export default function BankCardExplorer({
                           className="flex items-start gap-1.5 text-xs text-gray-600 font-montserrat"
                         >
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                          <span className="line-clamp-1 text-[11px] leading-tight">{perk}</span>
+                          <span className="line-clamp-1 text-[11px] leading-tight min-w-0 flex-1">{perk}</span>
                         </li>
                       ))}
                     </ul>
@@ -517,7 +523,7 @@ export default function BankCardExplorer({
                 </div>
 
                 {/* Footer Actions */}
-                <div className="p-4 bg-gray-50/80 border-t border-gray-100 flex items-center gap-2">
+                <div className="p-3 sm:p-4 bg-gray-50/80 border-t border-gray-100 flex items-center gap-2">
                   <button
                     onClick={() => setSelectedCardForModal(card)}
                     className="flex-1 text-xs font-bold text-primary bg-white hover:bg-primary/5 py-2.5 px-3 rounded-xl border border-primary/20 transition-all text-center cursor-pointer font-montserrat shadow-2xs"
@@ -556,35 +562,45 @@ export default function BankCardExplorer({
             return (
               <div
                 key={card.id}
-                className="bg-white rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-lg transition-all p-5 sm:p-6 flex flex-col md:flex-row items-center justify-between gap-6"
+                className="bg-white rounded-2xl sm:rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-lg transition-all p-4 sm:p-6 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 sm:gap-6"
               >
                 {/* Left: Thumbnail */}
                 <div className="w-full sm:w-48 md:w-56 shrink-0">
-                  <div className="relative w-full aspect-[1.586/1] rounded-2xl overflow-hidden drop-shadow-md">
+                  <div className="relative w-full aspect-[1.586/1] rounded-xl sm:rounded-2xl overflow-hidden drop-shadow-md">
                     {card.cardImage ? (
-                      <Image
-                        src={card.cardImage}
-                        alt={card.name}
-                        fill
-                        sizes="240px"
-                        className="object-contain"
-                      />
+                      <Link
+                        href={`/credit-cards/${card.issuer.split(" ")[0].toLocaleLowerCase()}-${card.issuer.split(" ")[1].toLocaleLowerCase()}/${card.id}`}
+                        className="block relative w-full h-full"
+                      >
+                        <Image
+                          src={card.cardImage}
+                          alt={card.name}
+                          fill
+                          sizes="(max-width: 640px) 100vw, 240px"
+                          className="object-contain"
+                        />
+                      </Link>
                     ) : (
-                      <div className="w-full h-full bg-linear-to-tr from-primary to-[#035259] flex items-center justify-center text-white p-3 text-center">
-                        <p className="font-bricolage font-bold text-xs">{card.name}</p>
-                      </div>
+                      <Link
+                        href={`/credit-cards/${card.issuer.split(" ")[0].toLocaleLowerCase()}-${card.issuer.split(" ")[1].toLocaleLowerCase()}/${card.id}`}
+                        className="block relative w-full h-full"
+                      >
+                        <div className="w-full h-full bg-linear-to-tr from-primary to-[#035259] flex items-center justify-center text-white p-3 text-center">
+                          <p className="font-bricolage font-bold text-xs">{card.name}</p>
+                        </div>
+                      </Link>
                     )}
                   </div>
                 </div>
 
                 {/* Middle: Details */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                  <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 flex-wrap">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-0.5 rounded-md font-montserrat">
                       {card.network}
                     </span>
                     {card.badge && (
-                      <span className="text-[10px] font-bold text-primary bg-[#EBF4ED] px-2.5 py-0.5 rounded-full border border-primary/15 font-montserrat">
+                      <span className="text-[10px] font-bold text-primary bg-[#EBF4ED] px-2.5 py-0.5 rounded-full border border-primary/15 font-montserrat truncate max-w-full">
                         {card.badge}
                       </span>
                     )}
@@ -595,21 +611,23 @@ export default function BankCardExplorer({
                     )}
                   </div>
 
-                  <h3 className="font-bricolage font-bold text-xl text-gray-900">{card.name}</h3>
+                  <h3 className="font-bricolage font-bold text-lg sm:text-xl text-gray-900 leading-snug">
+                    {card.name}
+                  </h3>
 
                   <p className="text-xs text-gray-600 font-montserrat mt-1 line-clamp-2 leading-relaxed">
                     {card.description ||
                       "Earn accelerated rewards, milestone privileges, and fuel surcharge waivers on all card transactions."}
                   </p>
 
-                  <div className="mt-3 flex flex-wrap gap-2">
+                  <div className="mt-3 flex flex-wrap gap-1.5 sm:gap-2">
                     {(card.keyHighlights || []).slice(0, 3).map((perk, i) => (
                       <span
                         key={i}
-                        className="inline-flex items-center gap-1 text-[11px] text-gray-700 bg-gray-50 border border-gray-100 px-2.5 py-1 rounded-lg font-montserrat"
+                        className="inline-flex items-center gap-1 text-[11px] text-gray-700 bg-gray-50 border border-gray-100 px-2 sm:px-2.5 py-1 rounded-lg font-montserrat max-w-full"
                       >
                         <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
-                        <span className="truncate max-w-[240px]">{perk}</span>
+                        <span className="truncate max-w-[180px] sm:max-w-[240px]">{perk}</span>
                       </span>
                     ))}
                   </div>
@@ -617,21 +635,21 @@ export default function BankCardExplorer({
 
                 {/* Right: Fees & Action Buttons */}
                 <div className="w-full md:w-64 shrink-0 flex flex-col justify-between pt-4 md:pt-0 border-t md:border-t-0 md:border-l border-gray-100 md:pl-6">
-                  <div className="flex gap-2 mb-4">
-                    <div className="flex-1">
-                      <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
+                  <div className="grid grid-cols-2 gap-2 mb-4">
+                    <div className="min-w-0">
+                      <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat truncate">
                         Annual Fee
                       </span>
                       <span
-                        className={`text-xs font-bold font-montserrat block mt-0.5 ${
+                        className={`text-xs font-bold font-montserrat block mt-0.5 truncate ${
                           isFree ? "text-emerald-700" : "text-gray-900"
                         }`}
                       >
                         {card.annualFee || "Nil"}
                       </span>
                     </div>
-                    <div className="flex-1">
-                      <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
+                    <div className="min-w-0">
+                      <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat truncate">
                         Reward Rate
                       </span>
                       <span className="text-xs font-bold text-emerald-700 font-montserrat block mt-0.5 truncate">
@@ -657,19 +675,20 @@ export default function BankCardExplorer({
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => setSelectedCardForModal(card)}
-                        className="flex-1 text-xs font-bold text-primary bg-white hover:bg-gray-50 py-2 px-3 rounded-xl border border-gray-200 transition-colors font-montserrat text-center cursor-pointer"
+                        className="flex-1 text-xs font-bold text-primary bg-white hover:bg-gray-50 py-2 px-3 rounded-xl border border-gray-200 transition-colors font-montserrat text-center cursor-pointer shadow-2xs"
                       >
                         View Details
                       </button>
 
                       <button
                         onClick={() => toggleCompare(card)}
-                        className={`p-2 rounded-xl border transition-colors cursor-pointer ${
+                        className={`p-2 rounded-xl border transition-colors cursor-pointer shrink-0 ${
                           isCompared
                             ? "bg-primary text-white border-primary"
                             : "bg-white text-gray-500 border-gray-200 hover:text-primary"
                         }`}
                         title="Compare"
+                        aria-label="Compare"
                       >
                         <Scale className="w-4 h-4" />
                       </button>
@@ -684,8 +703,8 @@ export default function BankCardExplorer({
 
       {/* ── PAGINATION CONTROLS (6 cards per page) ─────────────────── */}
       {totalPages > 1 && (
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-gray-200/90 shadow-2xs">
-          <div className="text-xs text-gray-500 font-montserrat">
+        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 bg-white p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-2xs">
+          <div className="text-xs text-gray-500 font-montserrat text-center sm:text-left">
             Showing{" "}
             <strong className="text-gray-900 font-bold">
               {startIndex + 1}–{Math.min(startIndex + CARDS_PER_PAGE, sortedCards.length)}
@@ -694,19 +713,19 @@ export default function BankCardExplorer({
             {" "}(Page {safePage} of {totalPages})
           </div>
 
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center justify-center gap-1 sm:gap-1.5 flex-wrap">
             {/* Previous Button */}
             <button
               onClick={() => handlePageChange(safePage - 1)}
               disabled={safePage <= 1}
-              className={`flex items-center gap-1 px-3 py-2 rounded-xl text-xs font-semibold font-montserrat transition-all ${
+              className={`flex items-center gap-1 px-2.5 sm:px-3 py-2 rounded-xl text-xs font-semibold font-montserrat transition-all ${
                 safePage <= 1
                   ? "bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200"
                   : "bg-white text-gray-700 hover:text-primary hover:bg-gray-50 border border-gray-200 shadow-2xs cursor-pointer active:scale-[0.98]"
               }`}
               aria-label="Previous Page"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-4 h-4 shrink-0" />
               <span className="hidden sm:inline">Previous</span>
             </button>
 
@@ -717,7 +736,7 @@ export default function BankCardExplorer({
                   return (
                     <span
                       key={`ellipsis-${idx}`}
-                      className="px-2 py-1 text-xs text-gray-400 font-montserrat select-none"
+                      className="px-1.5 sm:px-2 py-1 text-xs text-gray-400 font-montserrat select-none"
                     >
                       ...
                     </span>
@@ -729,7 +748,7 @@ export default function BankCardExplorer({
                   <button
                     key={pageNum}
                     onClick={() => handlePageChange(pageNum)}
-                    className={`min-w-9 h-9 px-2 rounded-xl text-xs font-bold font-montserrat transition-all cursor-pointer flex items-center justify-center ${
+                    className={`min-w-8 h-8 sm:min-w-9 sm:h-9 px-1.5 sm:px-2 rounded-lg sm:rounded-xl text-xs font-bold font-montserrat transition-all cursor-pointer flex items-center justify-center ${
                       isActive
                         ? "bg-primary text-white shadow-md shadow-primary/25 border border-primary"
                         : "bg-white text-gray-700 hover:text-primary hover:bg-gray-50 border border-gray-200 shadow-2xs"
@@ -746,7 +765,7 @@ export default function BankCardExplorer({
             <button
               onClick={() => handlePageChange(safePage + 1)}
               disabled={safePage >= totalPages}
-              className={`flex items-center gap-1 px-3 py-2 rounded-xl text-xs font-semibold font-montserrat transition-all ${
+              className={`flex items-center gap-1 px-2.5 sm:px-3 py-2 rounded-xl text-xs font-semibold font-montserrat transition-all ${
                 safePage >= totalPages
                   ? "bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200"
                   : "bg-white text-gray-700 hover:text-primary hover:bg-gray-50 border border-gray-200 shadow-2xs cursor-pointer active:scale-[0.98]"
@@ -754,7 +773,7 @@ export default function BankCardExplorer({
               aria-label="Next Page"
             >
               <span className="hidden sm:inline">Next</span>
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-4 h-4 shrink-0" />
             </button>
           </div>
         </div>

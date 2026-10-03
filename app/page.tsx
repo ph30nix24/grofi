@@ -90,20 +90,22 @@ export default async function Home() {
   const instagramReels = await getReels(12);
 
   return (
-    <main className="flex flex-col min-h-screen max-lg:overflow-x-hidden">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Navbar />
-      <Hero2 />
-      <ProductsSection />
-      <Testimonials />
-      <InstagramGallery reels={instagramReels} />
-      {/* <CreditCardShowcase creditCards={featuredCreditCards} /> */}
-      <EmiCalculator />
-      <WhyChooseUs />
-      <Footer />
-    </main>
+      <main className="flex flex-col min-h-screen overflow-x-clip">
+        <Hero2 />
+        <ProductsSection />
+        <Testimonials />
+        <InstagramGallery reels={instagramReels} />
+        {/* <CreditCardShowcase creditCards={featuredCreditCards} /> */}
+        <EmiCalculator />
+        <WhyChooseUs />
+        <Footer />
+      </main>
+    </>
   );
 }
