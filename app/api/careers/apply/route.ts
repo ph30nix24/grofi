@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
+import { sendFormNotification } from "@/libs/resend";
 
 export async function POST(request: Request) {
   try {
@@ -80,6 +81,29 @@ export async function POST(request: Request) {
     console.log("Resume Saved To:", `/uploads/resumes/${filename}`);
     console.log("Timestamp:", new Date().toISOString());
     console.log("=====================================");
+
+    // Send email notification to NOTIFICATION_EMAIL with attached resume PDF
+    await sendFormNotification({
+      formTitle: `Job Application: ${name} (${role || "Open Role"})`,
+      formType: "Careers Application Form",
+      fields: {
+        name,
+        number: cleanPhone,
+        role: role || "Not specified",
+        city,
+        currentlyWorking: currentlyWorking === "yes" ? "Yes" : "No",
+        currentSalary,
+        noticePeriod,
+        resumeFilename: resumeFile.name,
+      },
+      attachments: [
+        {
+          filename: resumeFile.name,
+          content: buffer,
+          contentType: "application/pdf",
+        },
+      ],
+    });
 
     return NextResponse.json({
       success: true,

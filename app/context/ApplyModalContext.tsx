@@ -171,17 +171,32 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setIsSubmitting(true);
 
-    // Simulate network submission
-    setTimeout(() => {
+    try {
+      await fetch("/api/forms/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "Instant Product Application",
+          formTitle: `Application for ${selectedProduct}: ${name.trim()}`,
+          name: name.trim(),
+          phone: phone.replace(/\D/g, ""),
+          selectedProduct,
+          productSubtitle: productSubtitle || undefined,
+          page: typeof window !== "undefined" ? window.location.pathname : undefined,
+        }),
+      });
+    } catch (err) {
+      console.warn("Failed to submit form to server:", err);
+    } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 700);
+    }
   };
 
   return (

@@ -151,12 +151,28 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
     setSortBy("newest");
   };
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newsletterEmail.trim()) {
+      const emailToSend = newsletterEmail.trim();
       setNewsletterSubmitted(true);
       setTimeout(() => setNewsletterSubmitted(false), 5000);
       setNewsletterEmail("");
+      try {
+        await fetch("/api/forms/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            formType: "Grofi Money Brief Subscription",
+            formTitle: `Blog Newsletter Subscription: ${emailToSend}`,
+            email: emailToSend,
+            replyTo: emailToSend,
+            page: typeof window !== "undefined" ? window.location.pathname : undefined,
+          }),
+        });
+      } catch (err) {
+        console.warn("Failed to submit newsletter subscription to server:", err);
+      }
     }
   };
 

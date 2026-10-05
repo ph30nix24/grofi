@@ -84,15 +84,29 @@ export default function CareersGeneralApplyModal({
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-    setTimeout(() => {
+    try {
+      await fetch("/api/forms/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "General Talent Application (Pitch to Grofi)",
+          formTitle: `Talent Pitch: ${formData.fullName.trim()} (${formData.domain})`,
+          replyTo: formData.email.trim(),
+          ...formData,
+          page: typeof window !== "undefined" ? window.location.pathname : undefined,
+        }),
+      });
+    } catch (err) {
+      console.warn("Failed to submit form to server:", err);
+    } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 850);
+    }
   };
 
   return (

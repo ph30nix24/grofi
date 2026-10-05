@@ -72,16 +72,33 @@ export default function PersonalLoanHeroForm() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-    // Simulate real-time automated underwriter match
-    setTimeout(() => {
+    try {
+      await fetch("/api/forms/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "Personal Loan Hero Form",
+          formTitle: `Personal Loan Request: ${name.trim()}`,
+          name: name.trim(),
+          phone: phone.replace(/\D/g, ""),
+          loanAmount: `₹${formatINR(loanAmount)}`,
+          employmentType,
+          cibilScore,
+          estimatedEmi: `₹${formatINR(estimatedEmi)}/mo`,
+          page: typeof window !== "undefined" ? window.location.pathname : undefined,
+        }),
+      });
+    } catch (err) {
+      console.warn("Failed to submit form to server:", err);
+    } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 750);
+    }
   };
 
   const handleReset = () => {

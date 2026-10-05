@@ -62,16 +62,31 @@ export default function HeroEligibilityForm({ bankName }: HeroEligibilityFormPro
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-    // Simulate real-time eligibility scan
-    setTimeout(() => {
+    try {
+      await fetch("/api/forms/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: `Credit Card Eligibility - ${bankName}`,
+          formTitle: `Credit Card Eligibility (${bankName}): ${name.trim()}`,
+          name: name.trim(),
+          phone: phone.replace(/\D/g, ""),
+          bank: bankName,
+          cibilScore: cibilScore === "Other" ? (customScore || "Custom") : cibilScore,
+          page: typeof window !== "undefined" ? window.location.pathname : undefined,
+        }),
+      });
+    } catch (err) {
+      console.warn("Failed to submit form to server:", err);
+    } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 750);
+    }
   };
 
   const handleReset = () => {

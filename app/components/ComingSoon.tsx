@@ -67,14 +67,33 @@ export default function ComingSoon({
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !email.includes("@") || !email.includes(".")) {
       setError("Please enter a valid email address");
       return;
     }
     setError("");
-    setIsSubmitted(true);
+
+    try {
+      await fetch("/api/forms/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "Coming Soon Early Access",
+          formTitle: `Early Access Request: ${title}`,
+          feature: title,
+          badge,
+          email: email.trim(),
+          replyTo: email.trim(),
+          page: typeof window !== "undefined" ? window.location.pathname : undefined,
+        }),
+      });
+    } catch (err) {
+      console.warn("Failed to submit form to server:", err);
+    } finally {
+      setIsSubmitted(true);
+    }
   };
 
   return (

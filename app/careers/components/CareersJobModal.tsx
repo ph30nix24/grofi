@@ -102,16 +102,31 @@ export default function CareersJobModal({
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-    // Simulate swift server submission
-    setTimeout(() => {
+    try {
+      await fetch("/api/forms/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: `Job Application - ${job?.title || "Role"}`,
+          formTitle: `Job Application (${job?.title}): ${formData.fullName.trim()}`,
+          jobTitle: job?.title,
+          department: job?.department,
+          replyTo: formData.email.trim(),
+          ...formData,
+          page: typeof window !== "undefined" ? window.location.pathname : undefined,
+        }),
+      });
+    } catch (err) {
+      console.warn("Failed to submit form to server:", err);
+    } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 900);
+    }
   };
 
   return (

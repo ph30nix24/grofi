@@ -53,11 +53,27 @@ export default function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
+      const emailToSend = email.trim();
       setSubscribed(true);
       setEmail("");
+      try {
+        await fetch("/api/forms/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            formType: "Newsletter & Rate Alerts Subscription",
+            formTitle: `Newsletter Subscription: ${emailToSend}`,
+            email: emailToSend,
+            replyTo: emailToSend,
+            page: typeof window !== "undefined" ? window.location.pathname : undefined,
+          }),
+        });
+      } catch (err) {
+        console.warn("Failed to submit subscription to server:", err);
+      }
     }
   };
 

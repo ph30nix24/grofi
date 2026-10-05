@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { sendFormNotification } from "@/libs/resend";
 
 export async function POST(request: Request) {
   try {
@@ -36,6 +37,18 @@ export async function POST(request: Request) {
     console.log("Selected Service:", service);
     console.log("Received At:", new Date().toISOString());
     console.log("========================");
+
+    // Send email notification via Resend to NOTIFICATION_EMAIL
+    await sendFormNotification({
+      formTitle: `Advisor Callback Request: ${name.trim()}`,
+      formType: "Connect With Our Advisors",
+      fields: {
+        name: name.trim(),
+        phone: cleanPhone,
+        service,
+        cibilScore: cibilScore || "Not provided",
+      },
+    });
 
     return NextResponse.json({
       success: true,
