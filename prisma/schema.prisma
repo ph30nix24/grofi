@@ -167,3 +167,44 @@ model BusinessLoanData {
   twitterTitle    String
   twitterDesc   String
 }
+
+model HomeLoanData {
+  id    String    @id
+  name    String
+  logo    String
+  tagline   String
+  bankType    String
+  interestRate    Json
+  startingEmiPerLakh20Yr    Int
+  startingEmiPerLakh30Yr    Int
+  maxAmount   String
+  maxAmountNum    Int
+  maxTenure    String
+  tenureYears   Int
+  processingFee   String
+  processingFeePercent    Float
+  maxLtv    String
+  womenConcession   String
+  overdraftScheme   String?
+  foreclosureCharges    String
+  category    String[]
+  minCreditScore    Int
+  minIncome   String
+  features    String[]
+  pros    String[]
+  recommendedFor    String
+  rating    Float
+  reviewCount   String
+  badge   String?
+  badgeColor    String?
+
+  title   String
+  description   String
+  keywords    String[]  
+  openGraphTitle    String
+  openGraphDesc   String
+  twitterTitle    String
+  twitterDesc   String
+
+  faqs    Json[]
+}

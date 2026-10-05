@@ -91,11 +91,13 @@ body {
   animation-play-state: paused;
 }
 
-.scrollbar-hidden {
+.scrollbar-hidden,
+.no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-.scrollbar-hidden::-webkit-scrollbar {
+.scrollbar-hidden::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
