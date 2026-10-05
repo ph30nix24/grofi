@@ -32,7 +32,7 @@ export default function LoanStickyNav({ lender }: LoanStickyNavProps) {
       // Toggle compact lender dock when scrolled past hero
       setIsScrolled(window.scrollY > 400);
 
-      const scrollPos = window.scrollY + 130;
+      const scrollPos = window.scrollY + 160;
       for (const item of NAV_ITEMS) {
         const el = document.getElementById(item.id);
         if (el) {
@@ -53,7 +53,7 @@ export default function LoanStickyNav({ lender }: LoanStickyNavProps) {
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      const navOffset = 80;
+      const navOffset = 140;
       const elementPosition = el.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - navOffset;
 
@@ -66,7 +66,7 @@ export default function LoanStickyNav({ lender }: LoanStickyNavProps) {
   };
 
   return (
-    <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200/90 shadow-2xs transition-all duration-300 font-montserrat">
+    <div className="sticky top-[72px] sm:top-[84px] z-40 bg-white/95 backdrop-blur-md border-b border-gray-200/90 shadow-2xs transition-all duration-300 font-montserrat">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-between gap-4">
         
         {/* Horizontal Scrollable Nav Links */}

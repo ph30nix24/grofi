@@ -1,55 +1,133 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
-import ComingSoon from "@/app/components/ComingSoon";
-import { BookOpen, Sparkles, TrendingUp } from "lucide-react";
+import prisma from "@/libs/db";
+import { BlogItem } from "./components/type";
+import BlogHero from "./components/BlogHero";
+import BlogExplorer from "./components/BlogExplorer";
+import BlogTrustBanner from "./components/BlogTrustBanner";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.grofi.in"),
   title: "Grofi Financial Insights & Blogs | Credit Cards, Loans & Wealth - Grofi",
   description:
-    "Expert articles, credit card reward hacks, CIBIL score optimization strategies, and smart personal finance guides curated by Grofi financial researchers.",
+    "In-depth credit card reward strategies, personal loan guides, CIBIL score optimization blueprints, and smart wealth roadmaps curated by Grofi financial analysts.",
+  alternates: { canonical: "/blogs" },
+  keywords: [
+    "Grofi blogs",
+    "financial insights",
+    "credit card guide",
+    "credit score guide",
+    "personal loan guide",
+    "cibil score improvement",
+    "best credit card rewards",
+    "smart money habits",
+    "financial planning India",
+  ],
+  openGraph: {
+    title: "Grofi Financial Insights & Guides | Credit Cards, Loans & Wealth",
+    description:
+      "Explore data-backed credit card hacks, loan interest comparisons, and credit score mastery from Grofi researchers.",
+    url: "https://www.grofi.in/blogs",
+    siteName: "Grofi",
+    locale: "en_IN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Grofi Financial Insights & Blogs | Credit Cards & Loans",
+    description:
+      "Expert articles, reward hacks, and actionable personal finance guides curated by Grofi.",
+  },
 };
 
-export default async function Blog() {
+export const revalidate = 3600;
+
+async function fetchBlogs(): Promise<BlogItem[]> {
+  try {
+    const rawData = await prisma.blogPost.findMany({
+      where: { published: true },
+      orderBy: { createdAt: "desc" },
+    });
+    return JSON.parse(JSON.stringify(rawData)) as BlogItem[];
+  } catch (error) {
+    console.error("Failed to fetch blogs from database:", error);
+    return [];
+  }
+}
+
+export default async function BlogPage() {
+  const blogs = await fetchBlogs();
+
+  // JSON-LD Structured Data
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.grofi.in",
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blogs & Insights",
+            "item": "https://www.grofi.in/blogs",
+          },
+        ],
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": "https://www.grofi.in/blogs/#collection",
+        "url": "https://www.grofi.in/blogs",
+        "name": "Grofi Financial Insights & Blogs",
+        "description":
+          "In-depth credit card reward strategies, personal loan guides, CIBIL score optimization blueprints, and smart wealth roadmaps.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Grofi",
+          "url": "https://www.grofi.in",
+        },
+        "mainEntity": {
+          "@type": "ItemList",
+          "itemListElement": blogs.map((post, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "url": `https://www.grofi.in/blogs/${post.slug}`,
+            "name": post.title,
+            "description": post.excerpt,
+          })),
+        },
+      },
+    ],
+  };
+
   return (
-    <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
-      <Navbar />
-      <div className="flex-1">
-        <ComingSoon
-          badge="Knowledge Hub"
-          title="Financial Insights & Expert Blogs"
-          highlightedWord="Publishing Soon"
-          description="We're assembling comprehensive guides, credit card maximization strategies, debt-reduction blueprints, and smart money habits to help you build financial freedom."
-          eta="Launching Weekly • Q2 2026"
-          perks={[
-            "In-depth credit card comparison analyses, lounge access hacks & reward rate breakdowns",
-            "Actionable step-by-step blueprints to boost your CIBIL score past 750+",
-            "Loan balance transfer guides to save lakhs in interest payments",
-            "Unbiased, data-backed financial wisdom with zero promotional bias",
-          ]}
-          features={[
-            {
-              title: "Credit Card Hacks & Guides",
-              description:
-                "Detailed walkthroughs to extract maximum travel points, free lounge visits, and cashback from your wallet.",
-              icon: <Sparkles className="w-5 h-5 text-[#B69226]" />,
-            },
-            {
-              title: "Credit Score Mastery",
-              description:
-                "Proven strategies on credit utilization, dispute resolution, and building an unshakeable financial profile.",
-              icon: <TrendingUp className="w-5 h-5 text-[#02474D]" />,
-            },
-            {
-              title: "Transparent Financial Research",
-              description:
-                "Data-backed product evaluations with full fee transparency, pros & cons, and hidden clause explanations.",
-              icon: <BookOpen className="w-5 h-5 text-[#B69226]" />,
-            },
-          ]}
-        />
-      </div>
-      <Footer />
-    </main>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
+        <Navbar />
+        <BlogHero totalBlogs={blogs.length} />
+        <Suspense
+          fallback={
+            <div className="min-h-[400px] flex items-center justify-center text-sm text-gray-500 font-montserrat">
+              Loading financial insights...
+            </div>
+          }
+        >
+          <BlogExplorer initialBlogs={blogs} />
+        </Suspense>
+        <BlogTrustBanner />
+        <Footer />
+      </main>
+    </>
   );
 }

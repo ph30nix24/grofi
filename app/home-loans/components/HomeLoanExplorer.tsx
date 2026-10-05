@@ -30,6 +30,7 @@ import { useApplyModal } from "@/app/context/ApplyModalContext";
 import HomeLoanCompareDock from "./HomeLoanCompareDock";
 import HomeLoanCompareModal from "./HomeLoanCompareModal";
 import HomeLoanDetailModal from "./HomeLoanDetailModal";
+import Link from "next/link";
 
 interface HomeLoanExplorerProps {
   initialLenders: HomeLoanLender[];
@@ -422,116 +423,118 @@ export default function HomeLoanExplorer({ initialLenders }: HomeLoanExplorerPro
                   className="bg-white rounded-3xl border border-gray-200/80 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:border-primary/30 relative"
                 >
                   {/* Top Header Card */}
-                  <div className="p-5">
-                    {/* Top Badges Row */}
-                    <div className="flex items-center justify-between mb-3.5">
-                      <div className="flex items-center gap-1.5 flex-wrap">
-                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                          {lender.bankType.toUpperCase()}
+                  <Link href={`/home-loans/${lender?.id}`}>
+                    <div className="p-5">
+                      {/* Top Badges Row */}
+                      <div className="flex items-center justify-between mb-3.5">
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
+                            {lender.bankType.toUpperCase()}
+                          </span>
+                          {lender.badge && (
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
+                              {lender.badge}
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Compare Checkbox */}
+                        <button
+                          type="button"
+                          onClick={() => handleToggleCompare(lender)}
+                          className={`text-[11px] font-bold px-2 py-0.5 rounded-lg border transition-all flex items-center gap-1 cursor-pointer ${
+                            isCompared
+                              ? "bg-primary text-white border-primary"
+                              : "bg-gray-50 text-gray-600 border-gray-200 hover:border-gray-300"
+                          }`}
+                        >
+                          <Scale className="w-3 h-3" />
+                          <span>{isCompared ? "Compared" : "Compare"}</span>
+                        </button>
+                      </div>
+
+                      {/* Bank Info */}
+                      <div className="flex items-start gap-3 mb-4">
+                        <div className="w-12 h-12 rounded-xl bg-white border border-gray-200 p-1.5 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
+                          <Image
+                            src={lender.logo}
+                            alt={lender.name}
+                            width={44}
+                            height={44}
+                            className="max-h-full max-w-full object-contain"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-bricolage font-bold text-base text-gray-900 group-hover:text-primary transition-colors leading-snug">
+                            {lender.name}
+                          </h3>
+                          <p className="text-[11px] text-gray-500 line-clamp-1 mt-0.5">
+                            {lender.tagline}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Interest Rate & EMI Box */}
+                      <div className="bg-[#FDFBF7] rounded-2xl p-3 border border-gray-200/90 mb-3.5">
+                        <div className="flex items-end justify-between mb-2">
+                          <div>
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500 block">
+                              Interest Rate
+                            </span>
+                            <span className="font-bricolage font-extrabold text-xl text-primary block leading-tight">
+                              {lender.interestRate?.text}
+                            </span>
+                          </div>
+                          <div className="text-right">
+                            <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60 block">
+                              EBLR Linked
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Starting EMI / Lakh display */}
+                        <div className="pt-2 border-t border-gray-200/60 grid grid-cols-2 gap-2 text-left">
+                          <div>
+                            <span className="text-[10px] text-gray-500 block">EMI / Lakh (20 Yr)</span>
+                            <span className="font-bricolage font-bold text-xs text-gray-900">
+                              ₹{lender.startingEmiPerLakh20Yr} <span className="text-[10px] text-gray-500 font-normal">/mo</span>
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-[10px] text-gray-500 block">EMI / Lakh (30 Yr)</span>
+                            <span className="font-bricolage font-bold text-xs text-emerald-700">
+                              ₹{lender.startingEmiPerLakh30Yr} <span className="text-[10px] text-gray-500 font-normal">/mo</span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Key Attributes Tags */}
+                      <div className="flex flex-wrap gap-1.5 mb-3.5">
+                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-blue-50 text-blue-800 border border-blue-200">
+                          {lender.maxLtv} Funding
                         </span>
-                        {lender.badge && (
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
-                            {lender.badge}
+                        {lender.overdraftScheme && (
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-purple-50 text-purple-800 border border-purple-200">
+                            {lender.overdraftScheme}
                           </span>
                         )}
-                      </div>
-
-                      {/* Compare Checkbox */}
-                      <button
-                        type="button"
-                        onClick={() => handleToggleCompare(lender)}
-                        className={`text-[11px] font-bold px-2 py-0.5 rounded-lg border transition-all flex items-center gap-1 cursor-pointer ${
-                          isCompared
-                            ? "bg-primary text-white border-primary"
-                            : "bg-gray-50 text-gray-600 border-gray-200 hover:border-gray-300"
-                        }`}
-                      >
-                        <Scale className="w-3 h-3" />
-                        <span>{isCompared ? "Compared" : "Compare"}</span>
-                      </button>
-                    </div>
-
-                    {/* Bank Info */}
-                    <div className="flex items-start gap-3 mb-4">
-                      <div className="w-12 h-12 rounded-xl bg-white border border-gray-200 p-1.5 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
-                        <Image
-                          src={lender.logo}
-                          alt={lender.name}
-                          width={44}
-                          height={44}
-                          className="max-h-full max-w-full object-contain"
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-bricolage font-bold text-base text-gray-900 group-hover:text-primary transition-colors leading-snug">
-                          {lender.name}
-                        </h3>
-                        <p className="text-[11px] text-gray-500 line-clamp-1 mt-0.5">
-                          {lender.tagline}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Interest Rate & EMI Box */}
-                    <div className="bg-[#FDFBF7] rounded-2xl p-3 border border-gray-200/90 mb-3.5">
-                      <div className="flex items-end justify-between mb-2">
-                        <div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500 block">
-                            Interest Rate
-                          </span>
-                          <span className="font-bricolage font-extrabold text-xl text-primary block leading-tight">
-                            {lender.interestRate?.text}
-                          </span>
-                        </div>
-                        <div className="text-right">
-                          <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60 block">
-                            EBLR Linked
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Starting EMI / Lakh display */}
-                      <div className="pt-2 border-t border-gray-200/60 grid grid-cols-2 gap-2 text-left">
-                        <div>
-                          <span className="text-[10px] text-gray-500 block">EMI / Lakh (20 Yr)</span>
-                          <span className="font-bricolage font-bold text-xs text-gray-900">
-                            ₹{lender.startingEmiPerLakh20Yr} <span className="text-[10px] text-gray-500 font-normal">/mo</span>
-                          </span>
-                        </div>
-                        <div>
-                          <span className="text-[10px] text-gray-500 block">EMI / Lakh (30 Yr)</span>
-                          <span className="font-bricolage font-bold text-xs text-emerald-700">
-                            ₹{lender.startingEmiPerLakh30Yr} <span className="text-[10px] text-gray-500 font-normal">/mo</span>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Key Attributes Tags */}
-                    <div className="flex flex-wrap gap-1.5 mb-3.5">
-                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-blue-50 text-blue-800 border border-blue-200">
-                        {lender.maxLtv} Funding
-                      </span>
-                      {lender.overdraftScheme && (
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-purple-50 text-purple-800 border border-purple-200">
-                          {lender.overdraftScheme}
+                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200">
+                          0.05% Women Rebate
                         </span>
-                      )}
-                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200">
-                        0.05% Women Rebate
-                      </span>
-                    </div>
+                      </div>
 
-                    {/* Features list */}
-                    <ul className="space-y-1.5 text-xs text-gray-600 mb-2">
-                      {lender.features.slice(0, 2).map((feat, i) => (
-                        <li key={i} className="flex items-start gap-1.5 line-clamp-1">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                          <span className="text-[11px] truncate">{feat}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                      {/* Features list */}
+                      <ul className="space-y-1.5 text-xs text-gray-600 mb-2">
+                        {lender.features.slice(0, 2).map((feat, i) => (
+                          <li key={i} className="flex items-start gap-1.5 line-clamp-1">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                            <span className="text-[11px] truncate">{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </Link>
 
                   {/* Card Bottom Actions */}
                   <div className="p-4 bg-gray-50/70 border-t border-gray-100 flex items-center gap-2">
@@ -565,34 +568,36 @@ export default function HomeLoanExplorer({ initialLenders }: HomeLoanExplorerPro
                   key={lender.id}
                   className="bg-white rounded-3xl border border-gray-200/80 p-5 shadow-xs hover:shadow-md transition-all flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 group"
                 >
-                  {/* Left: Bank logo & title */}
-                  <div className="flex items-start gap-3.5 w-full lg:w-1/3">
-                    <div className="w-14 h-14 rounded-2xl bg-white border border-gray-200 p-2 flex items-center justify-center shrink-0 shadow-2xs">
-                      <Image
-                        src={lender.logo}
-                        alt={lender.name}
-                        width={48}
-                        height={48}
-                        className="max-h-full max-w-full object-contain"
-                      />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-1.5 flex-wrap mb-1">
-                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                          {lender.bankType.toUpperCase()}
-                        </span>
-                        {lender.badge && (
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
-                            {lender.badge}
-                          </span>
-                        )}
+                  <Link href={`/home-loans/${lender?.id}`}>
+                    {/* Left: Bank logo & title */}
+                    <div className="flex items-start gap-3.5 w-full lg:w-1/3">
+                      <div className="w-14 h-14 rounded-2xl bg-white border border-gray-200 p-2 flex items-center justify-center shrink-0 shadow-2xs">
+                        <Image
+                          src={lender.logo}
+                          alt={lender.name}
+                          width={48}
+                          height={48}
+                          className="max-h-full max-w-full object-contain"
+                        />
                       </div>
-                      <h3 className="font-bricolage font-bold text-base text-gray-900 group-hover:text-primary transition-colors">
-                        {lender.name}
-                      </h3>
-                      <p className="text-[11px] text-gray-500 line-clamp-1">{lender.tagline}</p>
+                      <div>
+                        <div className="flex items-center gap-1.5 flex-wrap mb-1">
+                          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
+                            {lender.bankType.toUpperCase()}
+                          </span>
+                          {lender.badge && (
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
+                              {lender.badge}
+                            </span>
+                          )}
+                        </div>
+                        <h3 className="font-bricolage font-bold text-base text-gray-900 group-hover:text-primary transition-colors">
+                          {lender.name}
+                        </h3>
+                        <p className="text-[11px] text-gray-500 line-clamp-1">{lender.tagline}</p>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
 
                   {/* Center: Rates & EMI */}
                   <div className="grid grid-cols-3 gap-3 w-full lg:w-5/12 bg-gray-50/80 p-3 rounded-2xl border border-gray-100">

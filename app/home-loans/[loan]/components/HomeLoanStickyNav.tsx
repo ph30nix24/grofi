@@ -3,27 +3,28 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { BusinessLoanLender } from "../../components/type";
+import { HomeLoanLender } from "../../components/type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
 
-interface BusinessLoanStickyNavProps {
-  lender: BusinessLoanLender;
+interface HomeLoanStickyNavProps {
+  lender: HomeLoanLender;
 }
 
 const NAV_ITEMS = [
   { id: "overview", label: "Overview & Verdict" },
-  { id: "emi-calculator", label: "EMI Calculator" },
+  { id: "emi-calculator", label: "EMI & Savings Calculator" },
   { id: "fees-charges", label: "Fees & Charges" },
+  { id: "ltv-overdraft", label: "LTV & Overdraft" },
   { id: "eligibility", label: "Eligibility" },
   { id: "documents", label: "Documents" },
-  { id: "gov-schemes", label: "Govt Schemes" },
+  { id: "tax-benefits", label: "Tax Benefits (Sec 24b)" },
   { id: "pros-cons", label: "Pros & Cons" },
   { id: "disbursal-steps", label: "Disbursal Journey" },
   { id: "faqs", label: "FAQs" },
   { id: "similar-loans", label: "Similar Loans" },
 ];
 
-export default function BusinessLoanStickyNav({ lender }: BusinessLoanStickyNavProps) {
+export default function HomeLoanStickyNav({ lender }: HomeLoanStickyNavProps) {
   const { openApplyModal } = useApplyModal();
   const [activeSection, setActiveSection] = useState("overview");
   const [isScrolled, setIsScrolled] = useState(false);
@@ -69,7 +70,6 @@ export default function BusinessLoanStickyNav({ lender }: BusinessLoanStickyNavP
   return (
     <div className="sticky top-[72px] sm:top-[84px] z-40 bg-white/95 backdrop-blur-md border-b border-gray-200/90 shadow-2xs transition-all duration-300 font-montserrat">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-between gap-4">
-        
         {/* Horizontal Scrollable Nav Links */}
         <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto scrollbar-hidden py-3 text-xs font-semibold">
           {NAV_ITEMS.map((item) => {
@@ -111,7 +111,7 @@ export default function BusinessLoanStickyNav({ lender }: BusinessLoanStickyNavP
                 {lender.name}
               </span>
               <span className="block text-[10px] text-primary font-bold">
-                From {lender.interestRate?.min ?? 10.75}% p.a.
+                From {lender.interestRate?.min ?? 7.15}% p.a.
               </span>
             </div>
           </div>
@@ -121,7 +121,7 @@ export default function BusinessLoanStickyNav({ lender }: BusinessLoanStickyNavP
             onClick={() =>
               openApplyModal(
                 lender.name,
-                `Instant Business Loan Application • From ${lender.interestRate?.min ?? 10.75}% p.a.`
+                `Instant Home Loan Application • From ${lender.interestRate?.min ?? 7.15}% p.a.`
               )
             }
             className="bg-primary hover:bg-[#035259] text-white text-xs font-bold py-2 px-4 rounded-xl flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
@@ -130,7 +130,6 @@ export default function BusinessLoanStickyNav({ lender }: BusinessLoanStickyNavP
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
-
       </div>
     </div>
   );

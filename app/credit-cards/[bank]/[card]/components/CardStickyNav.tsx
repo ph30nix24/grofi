@@ -33,7 +33,7 @@ export default function CardStickyNav({ card }: CardStickyNavProps) {
       setIsScrolled(window.scrollY > 450);
 
       // Highlight active section based on scroll position
-      const scrollPos = window.scrollY + 140;
+      const scrollPos = window.scrollY + 160;
       for (const item of NAV_ITEMS) {
         const el = document.getElementById(item.id);
         if (el) {
@@ -54,7 +54,7 @@ export default function CardStickyNav({ card }: CardStickyNavProps) {
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      const navOffset = 90;
+      const navOffset = 140;
       const elementPosition = el.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - navOffset;
 
@@ -67,7 +67,7 @@ export default function CardStickyNav({ card }: CardStickyNavProps) {
   };
 
   return (
-    <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200/90 shadow-xs transition-all duration-300">
+    <div className="sticky top-[72px] sm:top-[84px] z-40 bg-white/95 backdrop-blur-md border-b border-gray-200/90 shadow-xs transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-between gap-4">
         
         {/* Horizontal Scrollable Nav Links */}

@@ -266,5 +266,5 @@ export const navLinks = [
   },
   { label: 'Be Secure', href: '/secure-with-us'},
   { label: 'Blogs', href: '/blogs' },
-  { label: "Careers", href: '/careers ' }
+  { label: "Careers", href: '/careers' }
 ];

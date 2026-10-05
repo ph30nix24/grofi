@@ -208,3 +208,24 @@ model HomeLoanData {
 
   faqs    Json[]
 }
+
+
+model BlogPost {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  title         String
+  excerpt       String
+  content       String   @db.Text
+  category      String
+  categoryColor String   @default("#B5A711")
+  categoryBg    String   @default("#F4F2EC")
+  image         String
+  readTime      String   @default("5 min read")
+  author        String   @default("Money Mittra Team")
+  authorRole    String?  @default("Financial Expert")
+  tags          String[] @default([])
+  published     Boolean  @default(true)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

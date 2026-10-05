@@ -43,7 +43,7 @@ const companyLinks = [
   { label: "Why Choose Grofi", href: "#why-choose-us" },
   { label: "Our Banking Partners", href: "#products" },
   { label: "Verified Reviews", href: "#testimonials" },
-  // { label: "Careers", href: "#" },
+  { label: "Careers", href: "/careers" },
   // { label: "Press & Media", href: "#" },
   // { label: "Partner with Us", href: "#" },
   // { label: "Contact Us", href: "#" },
