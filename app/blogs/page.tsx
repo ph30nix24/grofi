@@ -8,6 +8,9 @@ import BlogHero from "./components/BlogHero";
 import BlogExplorer from "./components/BlogExplorer";
 import BlogTrustBanner from "./components/BlogTrustBanner";
 
+
+
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.grofi.in"),
   title: "Grofi Financial Insights & Blogs | Credit Cards, Loans & Wealth - Grofi",

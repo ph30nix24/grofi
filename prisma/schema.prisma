@@ -229,3 +229,173 @@ model BlogPost {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
+
+model instantLoansData {
+  id                            String    @id
+  name                          String
+  logo                          String
+  tagline                       String
+  lenderType                    String
+  interestRate                  Json
+  startingEmiPerLakh            Int
+  minAmount                     String
+  minAmountNum                  Int
+  maxAmount                     String
+  maxAmountNum                  Int
+  tenure                        String
+  tenureMonths                  Int
+  processingFee                 String
+  processingFeePercent          Int
+  disbursalTime                 String
+  disbursalSpeedCategory        String
+  badge                         String?
+  badgeColor                    String?
+  categories                    String[]
+  minCreditScore                Int
+  minIncome                     String
+  documentation                 String
+  features                      String[]
+  recommendedFor                String
+  rating                        Float
+  reviewCount                   String
+  rbiRegulated                  Boolean
+  appDownloads                  String?
+  playStoreRating               Float?
+}
+
+model loanTransfer {
+  id    String    @id
+  name    String
+  logo    String
+  tagline   String
+  bankType    String
+  interestRate    Json
+  startingEmiPerLakh20Yr    Int
+  startingEmiPerLakh30Yr    Int
+  maxAmount   String
+  maxAmountNum    Int
+  maxTenure    String
+  tenureYears   Int
+  processingFee   String
+  processingFeePercent    Float
+  processingFeeCap    String
+  maxLtv    String
+  womenConcession   String
+  overdraftScheme   String?
+  foreclosureCharges    String
+  topUpAvailable    Boolean
+  maxTopUpAmount    String
+  turnaroundTime    String
+  category    String[]
+  minCreditScore    Int
+  minIncome   String
+  features    String[]
+  pros    String[]
+  recommendedFor    String
+  rating    Float
+  reviewCount   String
+  badge   String?
+  badgeColor    String?
+
+  title   String
+  description   String
+  keywords    String[]  
+  openGraphTitle    String
+  openGraphDesc   String
+  twitterTitle    String
+  twitterDesc   String
+
+  faqs    Json[]
+}
+
+model loanAgainstProperty {
+  id    String    @id
+  name    String
+  logo    String
+  tagline   String
+  bankType    String
+  interestRate    Json
+  startingEmiPerLakh15Yr    Int
+  startingEmiPerLakh20Yr    Int
+  maxAmount   String
+  maxAmountNum    Int
+  maxTenure    String
+  tenureYears   Int
+  processingFee   String
+  processingFeePercent    Float
+  processingFeeCap    String?
+  maxLtv    String
+  maxLtvPercent   Int
+  propertyTypesAccepted   String[]
+  overdraftAvailable    Boolean
+  overdraftScheme   String?
+  foreclosureCharges    String
+  minCreditScore    Int
+  minIncome   String
+  features    String[]
+  pros    String[]
+  recommendedFor    String
+  rating    Float
+  reviewCount   String
+  badge   String?
+  badgeColor    String?
+  category    String[]
+
+  
+  title   String
+  description   String
+  keywords    String[]  
+  openGraphTitle    String
+  openGraphDesc   String
+  twitterTitle    String
+  twitterDesc   String
+
+  faqs    Json[]
+}
+
+model ShortTermLoan {
+  id    String @id
+  name    String
+  logo    String
+  tagline   String
+  lenderType    String
+  rbiRegulatedEntity    String
+  interestRate    Json
+  startingEmiPerLakh    Int
+  minAmount   String
+  minAmountNum    Int
+  maxAmount   String
+  maxAmountNum    Int
+  tenure    String
+  tenureMonths    Int
+  shortTenureOptions    String[]
+  processingFee   String
+  processingFeePercent    Int
+  disbursalTime   String
+  disbursalSpeedCategory    String
+  badge   String?
+  badgeColor    String?
+  categories    String[]
+  minCreditScore    Int
+  minIncome   String
+  documentation   String
+  features    String[]
+  pros    String[]
+  cons    String[]
+  recommendedFor    String
+  rating    Int
+  reviewCount   String
+  rbiRegulated    Boolean
+  appDownloads    String?
+  playStoreRating   Float?
+  coolingOffPeriod    String
+  kfsProvided   Boolean
+  faqs    Json[]
+  title   String
+  description   String
+  keywords    String[]
+  openGraphTitle    String
+  openGraphDesc    String
+  twitterTitle    String
+  twitterDesc   String
+}
