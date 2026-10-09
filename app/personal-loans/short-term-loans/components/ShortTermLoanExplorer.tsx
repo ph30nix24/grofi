@@ -7,11 +7,9 @@ import {
   Search,
   X,
   Zap,
-  Clock,
   Building2,
   Percent,
   CheckCircle2,
-  Star,
   ArrowRight,
   ChevronLeft,
   ChevronRight,
@@ -21,7 +19,6 @@ import {
   ShieldCheck,
   Sparkles,
   Calendar,
-  Layers,
   Scale,
 } from "lucide-react";
 import { ShortTermLoanLender } from "./type";
@@ -29,6 +26,7 @@ import { useApplyModal } from "@/app/context/ApplyModalContext";
 import ShortTermLoanCompareDock from "./ShortTermLoanCompareDock";
 import ShortTermLoanCompareModal from "./ShortTermLoanCompareModal";
 import ShortTermLoanDetailModal from "./ShortTermLoanDetailModal";
+import Link from "next/link";
 
 interface ShortTermLoanExplorerProps {
   initialLenders: ShortTermLoanLender[];
@@ -453,134 +451,136 @@ export default function ShortTermLoanExplorer({ initialLenders }: ShortTermLoanE
                   key={lender.id}
                   className="bg-white rounded-3xl border border-gray-200/90 hover:border-primary/40 p-5 sm:p-6 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative group"
                 >
-                  {/* Top Row: Logo, Badges, Compare Checkbox */}
-                  <div>
-                    <div className="flex items-start justify-between gap-3 mb-3">
-                      <div className="flex items-center gap-3">
-                        <div className="w-14 h-14 rounded-2xl bg-[#FDFBF7] border border-gray-200/80 p-2 flex items-center justify-center shrink-0 shadow-2xs">
-                          <Image
-                            src={lender.logo}
-                            alt={lender.name}
-                            width={48}
-                            height={48}
-                            className="max-h-full max-w-full object-contain"
-                          />
+                  <Link href={`/personal-loans/short-term-loans/${lender.id}`}>
+                    {/* Top Row: Logo, Badges, Compare Checkbox */}
+                    <div>
+                      <div className="flex items-start justify-between gap-3 mb-3">
+                        <div className="flex items-center gap-3">
+                          <div className="w-14 h-14 rounded-2xl bg-[#FDFBF7] border border-gray-200/80 p-2 flex items-center justify-center shrink-0 shadow-2xs">
+                            <Image
+                              src={lender.logo}
+                              alt={lender.name}
+                              width={48}
+                              height={48}
+                              className="max-h-full max-w-full object-contain"
+                            />
+                          </div>
+
+                          <div>
+                            <h3 className="font-bricolage font-bold text-base text-gray-900 group-hover:text-primary transition-colors leading-tight">
+                              {lender.name}
+                            </h3>
+                            <span className="text-[10px] text-gray-500 line-clamp-1 mt-0.5">
+                              {lender.rbiRegulatedEntity}
+                            </span>
+                          </div>
+                        </div>
+
+                        <button
+                          onClick={() => handleToggleCompare(lender)}
+                          className={`text-[10px] font-bold px-2 py-1 rounded-lg border transition-all flex items-center gap-1 cursor-pointer shrink-0 ${
+                            isCompared
+                              ? "bg-primary text-white border-primary"
+                              : "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100"
+                          }`}
+                          title="Add to comparison"
+                        >
+                          <Scale className="w-3 h-3" />
+                          <span>{isCompared ? "Compared" : "Compare"}</span>
+                        </button>
+                      </div>
+
+                      {/* Badge & Disbursal Speed Tag */}
+                      <div className="flex flex-wrap items-center gap-1.5 mb-4">
+                        {lender.badge && (
+                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${lender.badgeColor || "bg-amber-50 text-amber-800 border-amber-200"}`}>
+                            {lender.badge}
+                          </span>
+                        )}
+
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1">
+                          <Zap className="w-3 h-3 text-gold" />
+                          <span>{lender.disbursalTime}</span>
+                        </span>
+
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-800 border border-blue-200 flex items-center gap-1">
+                          <ShieldCheck className="w-3 h-3 text-blue-600" />
+                          <span>{lender.coolingOffPeriod} Look-Up</span>
+                        </span>
+                      </div>
+
+                      {/* Rate & Starting EMI Matrix */}
+                      <div className="grid grid-cols-2 gap-2.5 p-3 rounded-2xl bg-[#FDFBF7] border border-gray-200/70 mb-4">
+                        <div>
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block mb-0.5">
+                            Interest Rate
+                          </span>
+                          <div className="font-bricolage font-extrabold text-base text-primary">
+                            {lender.interestRate?.text || `${lender.interestRate?.min}% p.a.`}
+                          </div>
+                          {lender.interestRate?.monthlyRateText && (
+                            <span className="text-[10px] text-amber-700 font-medium block">
+                              {lender.interestRate.monthlyRateText}
+                            </span>
+                          )}
                         </div>
 
                         <div>
-                          <h3 className="font-bricolage font-bold text-base text-gray-900 group-hover:text-primary transition-colors leading-tight">
-                            {lender.name}
-                          </h3>
-                          <span className="text-[10px] text-gray-500 line-clamp-1 mt-0.5">
-                            {lender.rbiRegulatedEntity}
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block mb-0.5">
+                            Starting EMI (12M)
                           </span>
+                          <div className="font-bricolage font-extrabold text-base text-gray-900">
+                            ₹{formatINR(lender.startingEmiPerLakh)}
+                          </div>
+                          <span className="text-[10px] text-gray-500 block">per ₹1 Lakh</span>
                         </div>
                       </div>
 
-                      <button
-                        onClick={() => handleToggleCompare(lender)}
-                        className={`text-[10px] font-bold px-2 py-1 rounded-lg border transition-all flex items-center gap-1 cursor-pointer shrink-0 ${
-                          isCompared
-                            ? "bg-primary text-white border-primary"
-                            : "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100"
-                        }`}
-                        title="Add to comparison"
-                      >
-                        <Scale className="w-3 h-3" />
-                        <span>{isCompared ? "Compared" : "Compare"}</span>
-                      </button>
-                    </div>
-
-                    {/* Badge & Disbursal Speed Tag */}
-                    <div className="flex flex-wrap items-center gap-1.5 mb-4">
-                      {lender.badge && (
-                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${lender.badgeColor || "bg-amber-50 text-amber-800 border-amber-200"}`}>
-                          {lender.badge}
+                      {/* Short Tenure Chips */}
+                      <div className="mb-4">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5 flex items-center gap-1">
+                          <Calendar className="w-3 h-3 text-primary" />
+                          Short Tenure Options:
                         </span>
-                      )}
-
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1">
-                        <Zap className="w-3 h-3 text-gold" />
-                        <span>{lender.disbursalTime}</span>
-                      </span>
-
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-800 border border-blue-200 flex items-center gap-1">
-                        <ShieldCheck className="w-3 h-3 text-blue-600" />
-                        <span>{lender.coolingOffPeriod} Look-Up</span>
-                      </span>
-                    </div>
-
-                    {/* Rate & Starting EMI Matrix */}
-                    <div className="grid grid-cols-2 gap-2.5 p-3 rounded-2xl bg-[#FDFBF7] border border-gray-200/70 mb-4">
-                      <div>
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block mb-0.5">
-                          Interest Rate
-                        </span>
-                        <div className="font-bricolage font-extrabold text-base text-primary">
-                          {lender.interestRate?.text || `${lender.interestRate?.min}% p.a.`}
+                        <div className="flex flex-wrap gap-1.5">
+                          {lender.shortTenureOptions?.map((opt) => (
+                            <span
+                              key={opt}
+                              className="px-2 py-0.5 rounded-lg bg-amber-50/70 text-amber-900 border border-amber-200/80 text-[10px] font-bold"
+                            >
+                              {opt}
+                            </span>
+                          )) || (
+                            <span className="text-xs font-semibold text-gray-700">{lender.tenure}</span>
+                          )}
                         </div>
-                        {lender.interestRate?.monthlyRateText && (
-                          <span className="text-[10px] text-amber-700 font-medium block">
-                            {lender.interestRate.monthlyRateText}
-                          </span>
-                        )}
                       </div>
 
-                      <div>
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block mb-0.5">
-                          Starting EMI (12M)
-                        </span>
-                        <div className="font-bricolage font-extrabold text-base text-gray-900">
-                          ₹{formatINR(lender.startingEmiPerLakh)}
+                      {/* Loan Limits & Key Metrics */}
+                      <div className="space-y-1.5 text-xs text-gray-600 mb-4">
+                        <div className="flex justify-between py-1 border-b border-gray-100">
+                          <span className="text-gray-400 text-[11px]">Loan Amount:</span>
+                          <span className="font-bold text-gray-900">
+                            {lender.minAmount} - {lender.maxAmount}
+                          </span>
                         </div>
-                        <span className="text-[10px] text-gray-500 block">per ₹1 Lakh</span>
-                      </div>
-                    </div>
 
-                    {/* Short Tenure Chips */}
-                    <div className="mb-4">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block mb-1.5 flex items-center gap-1">
-                        <Calendar className="w-3 h-3 text-primary" />
-                        Short Tenure Options:
-                      </span>
-                      <div className="flex flex-wrap gap-1.5">
-                        {lender.shortTenureOptions?.map((opt) => (
-                          <span
-                            key={opt}
-                            className="px-2 py-0.5 rounded-lg bg-amber-50/70 text-amber-900 border border-amber-200/80 text-[10px] font-bold"
-                          >
-                            {opt}
+                        <div className="flex justify-between py-1 border-b border-gray-100">
+                          <span className="text-gray-400 text-[11px]">Processing Fee:</span>
+                          <span className="font-semibold text-gray-800 text-[11px]">
+                            {lender.processingFee}
                           </span>
-                        )) || (
-                          <span className="text-xs font-semibold text-gray-700">{lender.tenure}</span>
-                        )}
+                        </div>
+
+                        <div className="flex justify-between py-1">
+                          <span className="text-gray-400 text-[11px]">Min Eligibility:</span>
+                          <span className="font-semibold text-gray-800 text-[11px]">
+                            {lender.minCreditScore}+ CIBIL • {lender.minIncome}
+                          </span>
+                        </div>
                       </div>
                     </div>
-
-                    {/* Loan Limits & Key Metrics */}
-                    <div className="space-y-1.5 text-xs text-gray-600 mb-4">
-                      <div className="flex justify-between py-1 border-b border-gray-100">
-                        <span className="text-gray-400 text-[11px]">Loan Amount:</span>
-                        <span className="font-bold text-gray-900">
-                          {lender.minAmount} - {lender.maxAmount}
-                        </span>
-                      </div>
-
-                      <div className="flex justify-between py-1 border-b border-gray-100">
-                        <span className="text-gray-400 text-[11px]">Processing Fee:</span>
-                        <span className="font-semibold text-gray-800 text-[11px]">
-                          {lender.processingFee}
-                        </span>
-                      </div>
-
-                      <div className="flex justify-between py-1">
-                        <span className="text-gray-400 text-[11px]">Min Eligibility:</span>
-                        <span className="font-semibold text-gray-800 text-[11px]">
-                          {lender.minCreditScore}+ CIBIL • {lender.minIncome}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                  </Link>
 
                   {/* Actions: View Details & Apply */}
                   <div className="pt-2 border-t border-gray-100 flex items-center gap-2">
@@ -619,45 +619,47 @@ export default function ShortTermLoanExplorer({ initialLenders }: ShortTermLoanE
                   key={lender.id}
                   className="bg-white rounded-3xl border border-gray-200/90 hover:border-primary/40 p-5 sm:p-6 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5 group"
                 >
-                  {/* Left: Lender Info */}
-                  <div className="flex items-start gap-4 max-w-sm">
-                    <div className="w-16 h-16 rounded-2xl bg-[#FDFBF7] border border-gray-200/80 p-2 flex items-center justify-center shrink-0">
-                      <Image
-                        src={lender.logo}
-                        alt={lender.name}
-                        width={52}
-                        height={52}
-                        className="max-h-full max-w-full object-contain"
-                      />
-                    </div>
+                  <Link href={`/personal-loans/short-term-loans/${lender.id}`}>
+                    {/* Left: Lender Info */}
+                    <div className="flex items-start gap-4 max-w-sm">
+                      <div className="w-16 h-16 rounded-2xl bg-[#FDFBF7] border border-gray-200/80 p-2 flex items-center justify-center shrink-0">
+                        <Image
+                          src={lender.logo}
+                          alt={lender.name}
+                          width={52}
+                          height={52}
+                          className="max-h-full max-w-full object-contain"
+                        />
+                      </div>
 
-                    <div>
-                      <div className="flex flex-wrap items-center gap-1.5 mb-1">
-                        <h3 className="font-bricolage font-bold text-base text-gray-900 group-hover:text-primary transition-colors">
-                          {lender.name}
-                        </h3>
-                        {lender.badge && (
-                          <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold border ${lender.badgeColor || "bg-amber-50 text-amber-800 border-amber-200"}`}>
-                            {lender.badge}
+                      <div>
+                        <div className="flex flex-wrap items-center gap-1.5 mb-1">
+                          <h3 className="font-bricolage font-bold text-base text-gray-900 group-hover:text-primary transition-colors">
+                            {lender.name}
+                          </h3>
+                          {lender.badge && (
+                            <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold border ${lender.badgeColor || "bg-amber-50 text-amber-800 border-amber-200"}`}>
+                              {lender.badge}
+                            </span>
+                          )}
+                        </div>
+
+                        <p className="text-[11px] text-gray-500 line-clamp-1 mb-1.5">
+                          {lender.rbiRegulatedEntity}
+                        </p>
+
+                        <div className="flex items-center gap-2 text-xs">
+                          <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1">
+                            <Zap className="w-3 h-3 text-gold" />
+                            {lender.disbursalTime}
                           </span>
-                        )}
-                      </div>
-
-                      <p className="text-[11px] text-gray-500 line-clamp-1 mb-1.5">
-                        {lender.rbiRegulatedEntity}
-                      </p>
-
-                      <div className="flex items-center gap-2 text-xs">
-                        <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1">
-                          <Zap className="w-3 h-3 text-gold" />
-                          {lender.disbursalTime}
-                        </span>
-                        <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-50 text-blue-800 border border-blue-200">
-                          {lender.coolingOffPeriod} Look-Up
-                        </span>
+                          <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-50 text-blue-800 border border-blue-200">
+                            {lender.coolingOffPeriod} Look-Up
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
 
                   {/* Middle: Metrics Grid */}
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full lg:w-auto text-xs">
