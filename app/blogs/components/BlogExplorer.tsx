@@ -55,6 +55,8 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
   // Newsletter state
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
+  const [newsletterSubmitting, setNewsletterSubmitting] = useState(false);
+  const [newsletterError, setNewsletterError] = useState("");
 
   // Extract unique categories dynamically from DB blogs
   const categories = useMemo(() => {
@@ -153,26 +155,41 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (newsletterEmail.trim()) {
-      const emailToSend = newsletterEmail.trim();
+    if (!newsletterEmail.trim()) return;
+
+    const emailToSend = newsletterEmail.trim();
+    setNewsletterSubmitting(true);
+    setNewsletterError("");
+
+    try {
+      const res = await fetch("/api/forms/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "Grofi Money Brief Subscription",
+          formTitle: `Blog Newsletter Subscription: ${emailToSend}`,
+          email: emailToSend,
+          replyTo: emailToSend,
+          page: typeof window !== "undefined" ? window.location.pathname : undefined,
+          consentTimestamp: new Date().toISOString(),
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Subscription failed. Please try again.");
+      }
+
       setNewsletterSubmitted(true);
       setTimeout(() => setNewsletterSubmitted(false), 5000);
       setNewsletterEmail("");
-      try {
-        await fetch("/api/forms/submit", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            formType: "Grofi Money Brief Subscription",
-            formTitle: `Blog Newsletter Subscription: ${emailToSend}`,
-            email: emailToSend,
-            replyTo: emailToSend,
-            page: typeof window !== "undefined" ? window.location.pathname : undefined,
-          }),
-        });
-      } catch (err) {
-        console.warn("Failed to submit newsletter subscription to server:", err);
-      }
+    } catch (err) {
+      console.warn("Failed to submit newsletter subscription to server:", err);
+      setNewsletterError(
+        err instanceof Error ? err.message : "Failed to subscribe. Please try again."
+      );
+    } finally {
+      setNewsletterSubmitting(false);
     }
   };
 
@@ -536,25 +553,32 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
               <span>Thank you! You are now subscribed to the Grofi Financial Briefing.</span>
             </div>
           ) : (
-            <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3">
-              <div className="relative flex-1">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <input
-                  type="email"
-                  required
-                  value={newsletterEmail}
-                  onChange={(e) => setNewsletterEmail(e.target.value)}
-                  placeholder="Enter your email address..."
-                  className="w-full pl-10 pr-4 py-3 text-sm bg-white text-gray-900 rounded-xl outline-hidden focus:ring-2 focus:ring-gold"
-                />
-              </div>
-              <button
-                type="submit"
-                className="bg-gold hover:bg-[#c9a52f] text-[#02282C] px-6 py-3 rounded-xl font-bold text-sm transition-colors cursor-pointer shrink-0 shadow-sm"
-              >
-                Subscribe Free
-              </button>
-            </form>
+            <div>
+              <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3">
+                <div className="relative flex-1">
+                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <input
+                    type="email"
+                    required
+                    disabled={newsletterSubmitting}
+                    value={newsletterEmail}
+                    onChange={(e) => setNewsletterEmail(e.target.value)}
+                    placeholder="Enter your email address..."
+                    className="w-full pl-10 pr-4 py-3 text-sm bg-white text-gray-900 rounded-xl outline-hidden focus:ring-2 focus:ring-gold disabled:opacity-60"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={newsletterSubmitting}
+                  className="bg-gold hover:bg-[#c9a52f] text-[#02282C] px-6 py-3 rounded-xl font-bold text-sm transition-colors cursor-pointer shrink-0 shadow-sm disabled:opacity-60"
+                >
+                  {newsletterSubmitting ? "Subscribing..." : "Subscribe Free"}
+                </button>
+              </form>
+              {newsletterError && (
+                <p className="text-red-300 text-xs mt-2 font-medium">{newsletterError}</p>
+              )}
+            </div>
           )}
         </div>
       </section>

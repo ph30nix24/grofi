@@ -68,7 +68,7 @@ export default function HeroEligibilityForm({ bankName }: HeroEligibilityFormPro
 
     setIsSubmitting(true);
     try {
-      await fetch("/api/forms/submit", {
+      const res = await fetch("/api/forms/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -79,13 +79,18 @@ export default function HeroEligibilityForm({ bankName }: HeroEligibilityFormPro
           bank: bankName,
           cibilScore: cibilScore === "Other" ? (customScore || "Custom") : cibilScore,
           page: typeof window !== "undefined" ? window.location.pathname : undefined,
+          consentTimestamp: new Date().toISOString(),
         }),
       });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Something went wrong. Please try again.");
+      }
+      setIsSubmitted(true);
     } catch (err) {
-      console.warn("Failed to submit form to server:", err);
+      setErrors((prev) => ({ ...prev, phone: err instanceof Error ? err.message : "Submission failed. Please try again." }));
     } finally {
       setIsSubmitting(false);
-      setIsSubmitted(true);
     }
   };
 

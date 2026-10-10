@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import { sendFormNotification } from "@/libs/resend";
+import prisma from "@/libs/db";
 
 export async function POST(request: Request) {
   try {
@@ -82,8 +83,36 @@ export async function POST(request: Request) {
     console.log("Timestamp:", new Date().toISOString());
     console.log("=====================================");
 
-    // Send email notification to NOTIFICATION_EMAIL with attached resume PDF
-    await sendFormNotification({
+    // 1. Save applicant lead to database first
+    const sourcePage = request.headers.get("referer") || "/careers";
+    const lead = await prisma.lead.create({
+      data: {
+        formType: "Careers Application Form",
+        formTitle: `Job Application: ${name} (${role || "Open Role"})`,
+        name,
+        phone: cleanPhone,
+        service: role || "Open Role",
+        status: "NEW",
+        sourcePage,
+        consentTimestamp: new Date(),
+        payload: {
+          name,
+          number: cleanPhone,
+          role: role || "Not specified",
+          city,
+          currentlyWorking: currentlyWorking === "yes" ? "Yes" : "No",
+          currentSalary,
+          noticePeriod,
+          resumeFilename: resumeFile.name,
+          resumePath: `/uploads/resumes/${filename}`,
+          sourcePage,
+        },
+        emailSent: false,
+      },
+    });
+
+    // 2. Send email notification to NOTIFICATION_EMAIL with attached resume PDF
+    const emailResult = await sendFormNotification({
       formTitle: `Job Application: ${name} (${role || "Open Role"})`,
       formType: "Careers Application Form",
       fields: {
@@ -95,6 +124,7 @@ export async function POST(request: Request) {
         currentSalary,
         noticePeriod,
         resumeFilename: resumeFile.name,
+        sourcePage,
       },
       attachments: [
         {
@@ -105,9 +135,39 @@ export async function POST(request: Request) {
       ],
     });
 
+    if (!emailResult.success) {
+      console.warn(`[Careers Apply] Email notification error: ${emailResult.error}`);
+      await prisma.lead.update({
+        where: { id: lead.id },
+        data: {
+          emailSent: false,
+          emailError: emailResult.error || "Email delivery failed",
+        },
+      });
+
+      return NextResponse.json(
+        {
+          success: false,
+          error: emailResult.error || "Application saved but email notification failed.",
+          leadId: lead.id,
+        },
+        { status: 500 }
+      );
+    }
+
+    await prisma.lead.update({
+      where: { id: lead.id },
+      data: {
+        emailSent: true,
+        emailId: emailResult.id,
+        emailError: null,
+      },
+    });
+
     return NextResponse.json({
       success: true,
       message: "Application submitted successfully! Our HR team will reach out within 48 hours.",
+      leadId: lead.id,
       data: {
         name,
         phone: cleanPhone,

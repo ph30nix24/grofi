@@ -65,6 +65,7 @@ export default function ComingSoon({
 }: ComingSoonProps) {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -74,9 +75,10 @@ export default function ComingSoon({
       return;
     }
     setError("");
+    setIsSubmitting(true);
 
     try {
-      await fetch("/api/forms/submit", {
+      const res = await fetch("/api/forms/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -87,12 +89,20 @@ export default function ComingSoon({
           email: email.trim(),
           replyTo: email.trim(),
           page: typeof window !== "undefined" ? window.location.pathname : undefined,
+          consentTimestamp: new Date().toISOString(),
         }),
       });
-    } catch (err) {
-      console.warn("Failed to submit form to server:", err);
-    } finally {
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Something went wrong. Please try again.");
+      }
+
       setIsSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Submission failed. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -186,13 +196,14 @@ export default function ComingSoon({
                   <div className="flex-1 relative">
                     <input
                       type="email"
+                      disabled={isSubmitting}
                       value={email}
                       onChange={(e) => {
                         setEmail(e.target.value);
                         if (error) setError("");
                       }}
                       placeholder="Enter your email address"
-                      className="w-full px-4 py-3 rounded-xl bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#02474D] focus:border-transparent text-sm text-gray-900 placeholder:text-gray-400"
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#02474D] focus:border-transparent text-sm text-gray-900 placeholder:text-gray-400 disabled:opacity-60"
                     />
                     {error && (
                       <p className="text-xs text-red-600 mt-1 absolute -bottom-5 left-1">
@@ -202,9 +213,10 @@ export default function ComingSoon({
                   </div>
                   <button
                     type="submit"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#02474D] hover:bg-[#035961] active:scale-[0.98] text-white text-sm font-semibold transition-all shadow-md hover:shadow-lg cursor-pointer"
+                    disabled={isSubmitting}
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#02474D] hover:bg-[#035961] active:scale-[0.98] text-white text-sm font-semibold transition-all shadow-md hover:shadow-lg cursor-pointer disabled:opacity-60"
                   >
-                    <span>Notify Me</span>
+                    <span>{isSubmitting ? "Submitting..." : "Notify Me"}</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </form>

@@ -170,17 +170,25 @@ export default function FloatingConnectButton() {
           phone: phone.replace(/\D/g, ""),
           cibilScore: cibilScore.trim(),
           service,
+          page: typeof window !== "undefined" ? window.location.pathname : undefined,
+          consentTimestamp: new Date().toISOString(),
         }),
       });
 
       if (!res.ok) {
-        console.warn("API returned error, proceeding with confirmation fallback");
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to submit request. Please try again.");
       }
+
+      setIsSubmitted(true);
     } catch (err) {
-      console.warn("Network request error, proceeding with confirmation fallback:", err);
+      console.error("Connect request error:", err);
+      setErrors((prev) => ({
+        ...prev,
+        phone: err instanceof Error ? err.message : "Failed to submit request. Please try again.",
+      }));
     } finally {
       setIsSubmitting(false);
-      setIsSubmitted(true);
     }
   };
 

@@ -103,7 +103,7 @@ export default function BalanceTransferLoanHeroForm({
 
     setIsSubmitting(true);
     try {
-      await fetch("/api/forms/submit", {
+      const res = await fetch("/api/forms/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -119,13 +119,18 @@ export default function BalanceTransferLoanHeroForm({
           monthlySavings: `₹${formatINR(monthlySavings)}/mo`,
           employmentType,
           page: typeof window !== "undefined" ? window.location.pathname : undefined,
+          consentTimestamp: new Date().toISOString(),
         }),
       });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Something went wrong. Please try again.");
+      }
+      setIsSubmitted(true);
     } catch (err) {
-      console.warn("Failed to submit balance transfer form:", err);
+      setErrors((prev) => ({ ...prev, phone: err instanceof Error ? err.message : "Submission failed. Please try again." }));
     } finally {
       setIsSubmitting(false);
-      setIsSubmitted(true);
     }
   };
 

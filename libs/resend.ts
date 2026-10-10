@@ -8,9 +8,8 @@ export function getResendClient(): Resend | null {
 
 // Default sender & recipient configurations
 // Note: If domain is not verified on Resend, onboarding@resend.dev must be used as sender.
-// Once grofi.in is verified on resend.com/domains, set RESEND_FROM_EMAIL="Grofi <notifications@grofi.in>"
 export function getDefaultFromEmail(): string {
-  return process.env.RESEND_FROM_EMAIL || "Grofi <onboarding@resend.dev>";
+  return process.env.RESEND_FROM_EMAIL || "Grofi <notifications@grofi.in>";
 }
 
 export function getNotificationEmail(): string {

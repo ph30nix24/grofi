@@ -52,28 +52,43 @@ const companyLinks = [
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      const emailToSend = email.trim();
+    if (!email.trim()) return;
+
+    const emailToSend = email.trim();
+    setIsSubmitting(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/forms/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "Newsletter & Rate Alerts Subscription",
+          formTitle: `Newsletter Subscription: ${emailToSend}`,
+          email: emailToSend,
+          replyTo: emailToSend,
+          page: typeof window !== "undefined" ? window.location.pathname : undefined,
+          consentTimestamp: new Date().toISOString(),
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Subscription failed. Please try again.");
+      }
+
       setSubscribed(true);
       setEmail("");
-      try {
-        await fetch("/api/forms/submit", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            formType: "Newsletter & Rate Alerts Subscription",
-            formTitle: `Newsletter Subscription: ${emailToSend}`,
-            email: emailToSend,
-            replyTo: emailToSend,
-            page: typeof window !== "undefined" ? window.location.pathname : undefined,
-          }),
-        });
-      } catch (err) {
-        console.warn("Failed to submit subscription to server:", err);
-      }
+    } catch (err) {
+      console.warn("Failed to submit subscription to server:", err);
+      setError(err instanceof Error ? err.message : "Failed to subscribe. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -108,25 +123,32 @@ export default function Footer() {
                 <span>Thank you! You&apos;re now subscribed to Grofi financial alerts.</span>
               </div>
             ) : (
-              <div className="flex flex-col sm:flex-row gap-3 bg-white/10 p-2 rounded-2xl border border-white/15">
-                <div className="relative flex-1 flex items-center">
-                  <Mail className="absolute left-3.5 w-4 h-4 text-white/40" />
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email address..."
-                    className="w-full pl-10 pr-4 py-3 bg-transparent text-white placeholder-white/40 text-xs sm:text-sm focus:outline-none"
-                  />
+              <div>
+                <div className="flex flex-col sm:flex-row gap-3 bg-white/10 p-2 rounded-2xl border border-white/15">
+                  <div className="relative flex-1 flex items-center">
+                    <Mail className="absolute left-3.5 w-4 h-4 text-white/40" />
+                    <input
+                      type="email"
+                      required
+                      disabled={isSubmitting}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Enter your email address..."
+                      className="w-full pl-10 pr-4 py-3 bg-transparent text-white placeholder-white/40 text-xs sm:text-sm focus:outline-none disabled:opacity-60"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="bg-gold hover:bg-gold/90 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer shrink-0 disabled:opacity-60"
+                  >
+                    {isSubmitting ? "Subscribing..." : "Subscribe"}
+                    <Send className="w-3.5 h-3.5" />
+                  </button>
                 </div>
-                <button
-                  type="submit"
-                  className="bg-gold hover:bg-gold/90 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer shrink-0"
-                >
-                  Subscribe
-                  <Send className="w-3.5 h-3.5" />
-                </button>
+                {error && (
+                  <p className="text-red-300 text-xs mt-2 font-medium px-2">{error}</p>
+                )}
               </div>
             )}
           </form>
