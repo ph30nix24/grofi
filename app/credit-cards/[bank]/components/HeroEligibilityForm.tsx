@@ -15,6 +15,8 @@ import {
   Headphones,
   RotateCcw,
 } from "lucide-react";
+import ConsentCheckbox from "@/app/components/ConsentCheckbox";
+import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 
 interface HeroEligibilityFormProps {
   bankName: string;
@@ -32,12 +34,13 @@ export default function HeroEligibilityForm({ bankName }: HeroEligibilityFormPro
   const [phone, setPhone] = useState("");
   const [cibilScore, setCibilScore] = useState("750+");
   const [customScore, setCustomScore] = useState("");
-  const [errors, setErrors] = useState<{ name?: string; phone?: string; score?: string }>({});
+  const [consentGiven, setConsentGiven] = useState(false);
+  const [errors, setErrors] = useState<{ name?: string; phone?: string; score?: string; consent?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const validateForm = () => {
-    const newErrors: { name?: string; phone?: string; score?: string } = {};
+    const newErrors: { name?: string; phone?: string; score?: string; consent?: string } = {};
 
     if (!name.trim()) {
       newErrors.name = "Please enter your full name";
@@ -56,6 +59,10 @@ export default function HeroEligibilityForm({ bankName }: HeroEligibilityFormPro
 
     if (!cibilScore && !customScore.trim()) {
       newErrors.score = "Please select or enter your CIBIL score";
+    }
+
+    if (!consentGiven) {
+      newErrors.consent = "Please agree to the privacy policy & consent to continue";
     }
 
     setErrors(newErrors);
@@ -79,7 +86,8 @@ export default function HeroEligibilityForm({ bankName }: HeroEligibilityFormPro
           bank: bankName,
           cibilScore: cibilScore === "Other" ? (customScore || "Custom") : cibilScore,
           page: typeof window !== "undefined" ? window.location.pathname : undefined,
-          consentTimestamp: new Date().toISOString(),
+          consentGiven: true,
+          consentVersion: CURRENT_CONSENT_VERSION,
         }),
       });
       if (!res.ok) {
@@ -100,6 +108,7 @@ export default function HeroEligibilityForm({ bankName }: HeroEligibilityFormPro
     setPhone("");
     setCibilScore("750+");
     setCustomScore("");
+    setConsentGiven(false);
     setErrors({});
   };
 
@@ -249,17 +258,18 @@ export default function HeroEligibilityForm({ bankName }: HeroEligibilityFormPro
               )}
             </div>
 
-            {/* Trust Note */}
-            <div className="flex items-center justify-between text-[11px] text-gray-500 font-montserrat py-1">
-              <span className="flex items-center gap-1 text-gray-600">
-                <Lock className="w-3.5 h-3.5 text-primary" />
-                256-Bit SSL Encrypted
-              </span>
-              <span className="flex items-center gap-1 text-emerald-700 font-semibold">
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                No Spam Calls
-              </span>
-            </div>
+            {/* Versioned Consent Checkbox */}
+            <ConsentCheckbox
+              id="cc-bank-consent"
+              checked={consentGiven}
+              onChange={(val) => {
+                setConsentGiven(val);
+                if (errors.consent) {
+                  setErrors((prev) => ({ ...prev, consent: undefined }));
+                }
+              }}
+              error={errors.consent}
+            />
 
             {/* Submit Button */}
             <button

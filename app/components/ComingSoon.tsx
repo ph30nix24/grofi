@@ -17,6 +17,8 @@ import {
   TrendingUp,
   Zap,
 } from "lucide-react";
+import ConsentCheckbox from "@/app/components/ConsentCheckbox";
+import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 
 export interface ComingSoonFeature {
   title: string;
@@ -64,17 +66,29 @@ export default function ComingSoon({
   ],
 }: ComingSoonProps) {
   const [email, setEmail] = useState("");
+  const [consentGiven, setConsentGiven] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [consentError, setConsentError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    let hasErr = false;
     if (!email || !email.includes("@") || !email.includes(".")) {
       setError("Please enter a valid email address");
-      return;
+      hasErr = true;
+    } else {
+      setError("");
     }
-    setError("");
+    if (!consentGiven) {
+      setConsentError("Please agree to the privacy policy & consent to continue");
+      hasErr = true;
+    } else {
+      setConsentError("");
+    }
+    if (hasErr) return;
+
     setIsSubmitting(true);
 
     try {
@@ -89,7 +103,8 @@ export default function ComingSoon({
           email: email.trim(),
           replyTo: email.trim(),
           page: typeof window !== "undefined" ? window.location.pathname : undefined,
-          consentTimestamp: new Date().toISOString(),
+          consentGiven: true,
+          consentVersion: CURRENT_CONSENT_VERSION,
         }),
       });
 
@@ -192,33 +207,44 @@ export default function ComingSoon({
                   </div>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2.5">
-                  <div className="flex-1 relative">
-                    <input
-                      type="email"
+                <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+                  <div className="flex flex-col sm:flex-row gap-2.5">
+                    <div className="flex-1 relative">
+                      <input
+                        type="email"
+                        disabled={isSubmitting}
+                        value={email}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                          if (error) setError("");
+                        }}
+                        placeholder="Enter your email address"
+                        className="w-full px-4 py-3 rounded-xl bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#02474D] focus:border-transparent text-sm text-gray-900 placeholder:text-gray-400 disabled:opacity-60"
+                      />
+                      {error && (
+                        <p className="text-xs text-red-600 mt-1">
+                          {error}
+                        </p>
+                      )}
+                    </div>
+                    <button
+                      type="submit"
                       disabled={isSubmitting}
-                      value={email}
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                        if (error) setError("");
-                      }}
-                      placeholder="Enter your email address"
-                      className="w-full px-4 py-3 rounded-xl bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#02474D] focus:border-transparent text-sm text-gray-900 placeholder:text-gray-400 disabled:opacity-60"
-                    />
-                    {error && (
-                      <p className="text-xs text-red-600 mt-1 absolute -bottom-5 left-1">
-                        {error}
-                      </p>
-                    )}
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#02474D] hover:bg-[#035961] active:scale-[0.98] text-white text-sm font-semibold transition-all shadow-md hover:shadow-lg cursor-pointer disabled:opacity-60"
+                    >
+                      <span>{isSubmitting ? "Submitting..." : "Notify Me"}</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
                   </div>
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#02474D] hover:bg-[#035961] active:scale-[0.98] text-white text-sm font-semibold transition-all shadow-md hover:shadow-lg cursor-pointer disabled:opacity-60"
-                  >
-                    <span>{isSubmitting ? "Submitting..." : "Notify Me"}</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
+                  <ConsentCheckbox
+                    id="coming-soon-consent"
+                    checked={consentGiven}
+                    onChange={(checked) => {
+                      setConsentGiven(checked);
+                      if (checked && consentError) setConsentError("");
+                    }}
+                    error={consentError}
+                  />
                 </form>
               )}
             </div>

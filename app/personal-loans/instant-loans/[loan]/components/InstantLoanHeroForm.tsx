@@ -16,6 +16,8 @@ import {
   RotateCcw,
   Zap,
 } from "lucide-react";
+import ConsentCheckbox from "@/app/components/ConsentCheckbox";
+import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 import { InstantLoanLender } from "../../components/type";
 
 interface InstantLoanHeroFormProps {
@@ -33,7 +35,8 @@ export default function InstantLoanHeroForm({ lender }: InstantLoanHeroFormProps
   const [employmentType, setEmploymentType] = useState<"salaried" | "selfEmployed">("salaried");
   const [monthlyIncome, setMonthlyIncome] = useState("₹25,000 - ₹50,000");
 
-  const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
+  const [consentGiven, setConsentGiven] = useState(false);
+  const [errors, setErrors] = useState<{ name?: string; phone?: string; consent?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -76,7 +79,7 @@ export default function InstantLoanHeroForm({ lender }: InstantLoanHeroFormProps
   }, [loanAmount, minRate, lender.tenureMonths]);
 
   const validateForm = () => {
-    const newErrors: { name?: string; phone?: string } = {};
+    const newErrors: { name?: string; phone?: string; consent?: string } = {};
 
     if (!name.trim()) {
       newErrors.name = "Please enter your full name";
@@ -91,6 +94,10 @@ export default function InstantLoanHeroForm({ lender }: InstantLoanHeroFormProps
       newErrors.phone = "Please enter a valid 10-digit mobile number";
     } else if (!/^[6-9]/.test(cleanPhone)) {
       newErrors.phone = "Mobile number must start with 6, 7, 8, or 9";
+    }
+
+    if (!consentGiven) {
+      newErrors.consent = "Please agree to the privacy policy & consent to continue";
     }
 
     setErrors(newErrors);
@@ -118,7 +125,8 @@ export default function InstantLoanHeroForm({ lender }: InstantLoanHeroFormProps
           disbursalSpeed: lender.disbursalTime,
           estimatedEmi: `₹${formatINR(estimatedEmi)}/mo`,
           page: typeof window !== "undefined" ? window.location.pathname : undefined,
-          consentTimestamp: new Date().toISOString(),
+          consentGiven: true,
+          consentVersion: CURRENT_CONSENT_VERSION,
         }),
       });
       if (!res.ok) {
@@ -315,13 +323,18 @@ export default function InstantLoanHeroForm({ lender }: InstantLoanHeroFormProps
               )}
             </div>
 
-            {/* Trust Pill */}
-            <div className="bg-[#EBF4ED]/60 border border-primary/10 rounded-xl p-2.5 flex items-center gap-2 text-[10px] text-gray-600">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span>
-                100% Paperless • Zero CIBIL Score Impact • Bank-Grade Security
-              </span>
-            </div>
+            {/* Versioned Consent Checkbox */}
+            <ConsentCheckbox
+              id="instant-loan-consent"
+              checked={consentGiven}
+              onChange={(val) => {
+                setConsentGiven(val);
+                if (errors.consent) {
+                  setErrors((prev) => ({ ...prev, consent: undefined }));
+                }
+              }}
+              error={errors.consent}
+            />
 
             {/* Submit Button */}
             <button

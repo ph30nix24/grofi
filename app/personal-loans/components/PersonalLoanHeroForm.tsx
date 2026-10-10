@@ -16,6 +16,8 @@ import {
   RotateCcw,
   Building,
 } from "lucide-react";
+import ConsentCheckbox from "@/app/components/ConsentCheckbox";
+import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 
 const CIBIL_RANGES = [
   { label: "750+ (Prime)", value: "750+" },
@@ -38,8 +40,9 @@ export default function PersonalLoanHeroForm() {
   const [employmentType, setEmploymentType] = useState<"salaried" | "selfEmployed">("salaried");
   const [monthlyIncome, setMonthlyIncome] = useState("₹50,000 - ₹1,00,000");
   const [cibilScore, setCibilScore] = useState("750+");
+  const [consentGiven, setConsentGiven] = useState(false);
   
-  const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
+  const [errors, setErrors] = useState<{ name?: string; phone?: string; consent?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -51,7 +54,7 @@ export default function PersonalLoanHeroForm() {
   };
 
   const validateForm = () => {
-    const newErrors: { name?: string; phone?: string } = {};
+    const newErrors: { name?: string; phone?: string; consent?: string } = {};
 
     if (!name.trim()) {
       newErrors.name = "Please enter your full name";
@@ -66,6 +69,10 @@ export default function PersonalLoanHeroForm() {
       newErrors.phone = "Please enter a valid 10-digit mobile number";
     } else if (!/^[6-9]/.test(cleanPhone)) {
       newErrors.phone = "Mobile number must start with 6, 7, 8, or 9";
+    }
+
+    if (!consentGiven) {
+      newErrors.consent = "Please agree to the privacy policy & consent to continue";
     }
 
     setErrors(newErrors);
@@ -91,7 +98,8 @@ export default function PersonalLoanHeroForm() {
           cibilScore,
           estimatedEmi: `₹${formatINR(estimatedEmi)}/mo`,
           page: typeof window !== "undefined" ? window.location.pathname : undefined,
-          consentTimestamp: new Date().toISOString(),
+          consentGiven: true,
+          consentVersion: CURRENT_CONSENT_VERSION,
         }),
       });
 
@@ -114,6 +122,7 @@ export default function PersonalLoanHeroForm() {
     setLoanAmount(500000);
     setEmploymentType("salaried");
     setCibilScore("750+");
+    setConsentGiven(false);
     setErrors({});
   };
 
@@ -303,13 +312,18 @@ export default function PersonalLoanHeroForm() {
               </div>
             </div>
 
-            {/* Trust note */}
-            <div className="bg-[#EBF4ED]/50 border border-primary/10 rounded-xl p-2.5 flex items-start gap-2 text-[11px] text-gray-600 leading-snug">
-              <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-              <span>
-                100% confidential. Checking offers does not reduce any points from your credit score.
-              </span>
-            </div>
+            {/* Versioned Consent Checkbox */}
+            <ConsentCheckbox
+              id="personal-loan-hero-consent"
+              checked={consentGiven}
+              onChange={(val) => {
+                setConsentGiven(val);
+                if (errors.consent) {
+                  setErrors((prev) => ({ ...prev, consent: undefined }));
+                }
+              }}
+              error={errors.consent}
+            />
 
             {/* Submit Button */}
             <button

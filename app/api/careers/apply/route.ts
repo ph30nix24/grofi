@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
 import { sendFormNotification } from "@/libs/resend";
 import prisma from "@/libs/db";
+import { resolveServerConsent } from "@/app/constants/consent";
+
+// Maximum allowed resume file size: 5 MB
+const MAX_RESUME_SIZE = 5 * 1024 * 1024;
 
 export async function POST(request: Request) {
   try {
@@ -16,8 +18,22 @@ export async function POST(request: Request) {
     const currentSalary = formData.get("currentSalary")?.toString().trim() || "Not provided";
     const noticePeriod = formData.get("noticePeriod")?.toString().trim() || "Not specified";
     const resumeFile = formData.get("resume") as File | null;
+    const rawConsentGiven = formData.get("consentGiven");
+    const rawConsentVersion = formData.get("consentVersion");
 
-    // Validation
+    const { consentGiven, consentVersion, consentTimestamp } = resolveServerConsent(
+      rawConsentGiven,
+      rawConsentVersion
+    );
+
+    if (!consentGiven) {
+      return NextResponse.json(
+        { error: "Please agree to the privacy policy to submit your application." },
+        { status: 400 }
+      );
+    }
+
+    // 1. Text validations
     if (!name || name.length < 2) {
       return NextResponse.json(
         { error: "Please enter your full name (minimum 2 characters)" },
@@ -47,44 +63,66 @@ export async function POST(request: Request) {
       );
     }
 
-    // Strict PDF check
-    const isPdfType = resumeFile.type === "application/pdf";
-    const hasPdfExtension = resumeFile.name.toLowerCase().endsWith(".pdf");
-
-    if (!isPdfType && !hasPdfExtension) {
+    // 2. Strict PDF checks: size limit, extension check AND %PDF magic bytes check
+    if (resumeFile.size > MAX_RESUME_SIZE) {
       return NextResponse.json(
-        { error: "Only PDF resumes are accepted. Please upload a .pdf file." },
+        { error: "Resume file size must not exceed 5 MB." },
         { status: 400 }
       );
     }
 
-    // Ensure uploads directory exists
-    const uploadsDir = path.join(process.cwd(), "public", "uploads", "resumes");
-    await mkdir(uploadsDir, { recursive: true });
+    if (resumeFile.size < 4) {
+      return NextResponse.json(
+        { error: "The uploaded file is empty or invalid." },
+        { status: 400 }
+      );
+    }
 
-    // Sanitize and save PDF file
-    const safeBaseName = resumeFile.name.replace(/[^a-zA-Z0-9.-]/g, "_");
-    const filename = `${Date.now()}-${safeBaseName}`;
-    const filePath = path.join(uploadsDir, filename);
+    const fileNameLower = resumeFile.name.toLowerCase();
+    const hasPdfExtension = fileNameLower.endsWith(".pdf");
+    if (!hasPdfExtension) {
+      return NextResponse.json(
+        { error: "Only PDF resumes (.pdf) are accepted." },
+        { status: 400 }
+      );
+    }
 
     const arrayBuffer = await resumeFile.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
-    await writeFile(filePath, buffer);
+
+    // Verify %PDF magic bytes: 0x25, 0x50, 0x44, 0x46 ("%PDF")
+    const hasPdfMagicBytes =
+      buffer.length >= 4 &&
+      buffer[0] === 0x25 &&
+      buffer[1] === 0x50 &&
+      buffer[2] === 0x44 &&
+      buffer[3] === 0x46;
+
+    if (!hasPdfMagicBytes) {
+      return NextResponse.json(
+        { error: "The uploaded file is not a valid PDF document." },
+        { status: 400 }
+      );
+    }
+
+    // Sanitize filename for attachment
+    const safeResumeName = resumeFile.name.replace(/[^a-zA-Z0-9.-]/g, "_");
 
     console.log("=== NEW JOB APPLICATION RECEIVED ===");
     console.log("Name:", name);
-    console.log("Phone:", cleanPhone);
+    console.log("Phone: +91", cleanPhone);
     console.log("Role Applied For:", role || "Not specified");
     console.log("City:", city);
     console.log("Currently Working:", currentlyWorking);
     console.log("Current Salary:", currentSalary);
     console.log("Notice Period:", noticePeriod);
-    console.log("Resume Saved To:", `/uploads/resumes/${filename}`);
+    console.log("Resume File:", safeResumeName, `(${Math.round(buffer.length / 1024)} KB)`);
     console.log("Timestamp:", new Date().toISOString());
     console.log("=====================================");
 
-    // 1. Save applicant lead to database first
     const sourcePage = request.headers.get("referer") || "/careers";
+
+    // 3. PERSIST LEAD IN DATABASE FIRST: guarantees no lost applications even if email fails
     const lead = await prisma.lead.create({
       data: {
         formType: "Careers Application Form",
@@ -94,7 +132,9 @@ export async function POST(request: Request) {
         service: role || "Open Role",
         status: "NEW",
         sourcePage,
-        consentTimestamp: new Date(),
+        consentGiven,
+        consentVersion,
+        consentTimestamp,
         payload: {
           name,
           number: cleanPhone,
@@ -103,15 +143,17 @@ export async function POST(request: Request) {
           currentlyWorking: currentlyWorking === "yes" ? "Yes" : "No",
           currentSalary,
           noticePeriod,
-          resumeFilename: resumeFile.name,
-          resumePath: `/uploads/resumes/${filename}`,
+          resumeFilename: safeResumeName,
+          resumeSizeBytes: buffer.length,
           sourcePage,
         },
         emailSent: false,
       },
     });
 
-    // 2. Send email notification to NOTIFICATION_EMAIL with attached resume PDF
+    console.log(`[Careers Apply] Application lead ${lead.id} safely persisted to database.`);
+
+    // 4. Send email notification with in-memory resume attachment (zero disk writes, no public file exposure)
     const emailResult = await sendFormNotification({
       formTitle: `Job Application: ${name} (${role || "Open Role"})`,
       formType: "Careers Application Form",
@@ -123,12 +165,12 @@ export async function POST(request: Request) {
         currentlyWorking: currentlyWorking === "yes" ? "Yes" : "No",
         currentSalary,
         noticePeriod,
-        resumeFilename: resumeFile.name,
+        resumeFilename: safeResumeName,
         sourcePage,
       },
       attachments: [
         {
-          filename: resumeFile.name,
+          filename: safeResumeName,
           content: buffer,
           contentType: "application/pdf",
         },
@@ -148,7 +190,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           success: false,
-          error: emailResult.error || "Application saved but email notification failed.",
+          error: emailResult.error || "Application saved, but email notification could not be delivered.",
           leadId: lead.id,
         },
         { status: 500 }
@@ -164,6 +206,7 @@ export async function POST(request: Request) {
       },
     });
 
+    // 5. Return success without exposing any private file paths
     return NextResponse.json({
       success: true,
       message: "Application submitted successfully! Our HR team will reach out within 48 hours.",
@@ -176,7 +219,6 @@ export async function POST(request: Request) {
         currentlyWorking,
         currentSalary,
         noticePeriod,
-        resumePath: `/uploads/resumes/${filename}`,
       },
     });
   } catch (error) {

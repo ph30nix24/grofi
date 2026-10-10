@@ -14,6 +14,8 @@ import {
   RotateCcw,
   TrendingDown,
 } from "lucide-react";
+import ConsentCheckbox from "@/app/components/ConsentCheckbox";
+import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 import { BalanceTransferLender } from "../../components/type";
 
 interface BalanceTransferLoanHeroFormProps {
@@ -30,7 +32,8 @@ export default function BalanceTransferLoanHeroForm({
   const [currentRate, setCurrentRate] = useState<number>(9.25);
   const [employmentType, setEmploymentType] = useState<"salaried" | "selfEmployed">("salaried");
 
-  const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
+  const [consentGiven, setConsentGiven] = useState(false);
+  const [errors, setErrors] = useState<{ name?: string; phone?: string; consent?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -76,7 +79,7 @@ export default function BalanceTransferLoanHeroForm({
   ).toFixed(1);
 
   const validateForm = () => {
-    const newErrors: { name?: string; phone?: string } = {};
+    const newErrors: { name?: string; phone?: string; consent?: string } = {};
 
     if (!name.trim()) {
       newErrors.name = "Enter your full name";
@@ -91,6 +94,10 @@ export default function BalanceTransferLoanHeroForm({
       newErrors.phone = "Mobile number must be 10 digits";
     } else if (!/^[6-9]/.test(cleanPhone)) {
       newErrors.phone = "Must start with 6, 7, 8, or 9";
+    }
+
+    if (!consentGiven) {
+      newErrors.consent = "Please agree to the privacy policy & consent to continue";
     }
 
     setErrors(newErrors);
@@ -119,7 +126,8 @@ export default function BalanceTransferLoanHeroForm({
           monthlySavings: `₹${formatINR(monthlySavings)}/mo`,
           employmentType,
           page: typeof window !== "undefined" ? window.location.pathname : undefined,
-          consentTimestamp: new Date().toISOString(),
+          consentGiven: true,
+          consentVersion: CURRENT_CONSENT_VERSION,
         }),
       });
       if (!res.ok) {
@@ -141,6 +149,7 @@ export default function BalanceTransferLoanHeroForm({
     setOutstandingLoan(Math.min(5000000, maxAmount));
     setCurrentRate(9.25);
     setEmploymentType("salaried");
+    setConsentGiven(false);
     setErrors({});
   };
 
@@ -357,11 +366,18 @@ export default function BalanceTransferLoanHeroForm({
               )}
             </div>
 
-            {/* Trust disclaimer */}
-            <div className="flex items-center gap-2 text-[10px] text-gray-500 pt-0.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span>Zero CIBIL impact • Direct {lender.name} takeover desk</span>
-            </div>
+            {/* Versioned Consent Checkbox */}
+            <ConsentCheckbox
+              id="bt-lender-consent"
+              checked={consentGiven}
+              onChange={(val) => {
+                setConsentGiven(val);
+                if (errors.consent) {
+                  setErrors((prev) => ({ ...prev, consent: undefined }));
+                }
+              }}
+              error={errors.consent}
+            />
 
             {/* Submit Button */}
             <button

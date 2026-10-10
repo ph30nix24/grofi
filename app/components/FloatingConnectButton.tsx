@@ -20,6 +20,8 @@ import {
   Clock,
   ChevronRight,
 } from "lucide-react";
+import ConsentCheckbox from "@/app/components/ConsentCheckbox";
+import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 
 type ServiceOption = "credit-cards" | "personal-loans" | "home-loans";
 
@@ -65,12 +67,14 @@ export default function FloatingConnectButton() {
   const [phone, setPhone] = useState("");
   const [cibilScore, setCibilScore] = useState("");
   const [service, setService] = useState<ServiceOption>("credit-cards");
+  const [consentGiven, setConsentGiven] = useState(false);
 
   const [errors, setErrors] = useState<{
     name?: string;
     phone?: string;
     cibilScore?: string;
     service?: string;
+    consent?: string;
   }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -107,6 +111,7 @@ export default function FloatingConnectButton() {
       setPhone("");
       setCibilScore("");
       setService("credit-cards");
+      setConsentGiven(false);
       setErrors({});
     }, 250);
   };
@@ -117,6 +122,7 @@ export default function FloatingConnectButton() {
       phone?: string;
       cibilScore?: string;
       service?: string;
+      consent?: string;
     } = {};
 
     if (!name.trim()) {
@@ -151,6 +157,10 @@ export default function FloatingConnectButton() {
       newErrors.service = "Please select an option";
     }
 
+    if (!consentGiven) {
+      newErrors.consent = "Please agree to the privacy policy & consent to continue";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -171,7 +181,8 @@ export default function FloatingConnectButton() {
           cibilScore: cibilScore.trim(),
           service,
           page: typeof window !== "undefined" ? window.location.pathname : undefined,
-          consentTimestamp: new Date().toISOString(),
+          consentGiven: true,
+          consentVersion: CURRENT_CONSENT_VERSION,
         }),
       });
 
@@ -503,13 +514,18 @@ export default function FloatingConnectButton() {
                     )}
                   </div>
 
-                  {/* Trust Badge Note */}
-                  <div className="bg-[#EBF4ED]/60 border border-[#02474D]/10 rounded-xl p-2.5 sm:p-3 flex items-start gap-2.5 text-[11px] text-gray-600 font-montserrat leading-relaxed">
-                    <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>
-                      100% Free consultation & confidentiality guaranteed. No impact on your existing CIBIL credit score.
-                    </span>
-                  </div>
+                  {/* Versioned Consent Checkbox */}
+                  <ConsentCheckbox
+                    id="connect-modal-consent"
+                    checked={consentGiven}
+                    onChange={(val) => {
+                      setConsentGiven(val);
+                      if (errors.consent) {
+                        setErrors((prev) => ({ ...prev, consent: undefined }));
+                      }
+                    }}
+                    error={errors.consent}
+                  />
 
                   {/* Submit Button */}
                   <button

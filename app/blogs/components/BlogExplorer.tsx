@@ -20,6 +20,7 @@ import {
 import { BlogItem } from "./type";
 import BlogCard from "./BlogCard";
 import BlogImage from "./BlogImage";
+import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 
 interface BlogExplorerProps {
   initialBlogs: BlogItem[];
@@ -171,7 +172,8 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
           email: emailToSend,
           replyTo: emailToSend,
           page: typeof window !== "undefined" ? window.location.pathname : undefined,
-          consentTimestamp: new Date().toISOString(),
+          consentGiven: true,
+          consentVersion: CURRENT_CONSENT_VERSION,
         }),
       });
 
@@ -575,6 +577,13 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
                   {newsletterSubmitting ? "Subscribing..." : "Subscribe Free"}
                 </button>
               </form>
+              <p className="text-[11px] text-white/50 mt-2">
+                By subscribing, you agree to receive financial updates and accept our{" "}
+                <Link href="/privacy-policy" className="text-white/80 hover:text-white underline">
+                  Privacy Policy
+                </Link>
+                . Unsubscribe anytime.
+              </p>
               {newsletterError && (
                 <p className="text-red-300 text-xs mt-2 font-medium">{newsletterError}</p>
               )}

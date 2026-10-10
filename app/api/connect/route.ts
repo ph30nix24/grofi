@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
 import { sendFormNotification } from "@/libs/resend";
 import prisma from "@/libs/db";
+import { resolveServerConsent } from "@/app/constants/consent";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, phone, cibilScore, service, page, consentTimestamp: rawConsent } = body;
+    const { name, phone, cibilScore, service, page, consentGiven: rawConsentGiven, consentVersion: rawConsentVersion } = body;
 
     if (!name || typeof name !== "string" || name.trim().length < 2) {
       return NextResponse.json(
@@ -30,8 +31,20 @@ export async function POST(request: Request) {
       );
     }
 
+    // Resolve versioned consent on server - never trust client timestamps or arbitrary dates
+    const { consentGiven, consentVersion, consentTimestamp } = resolveServerConsent(
+      rawConsentGiven,
+      rawConsentVersion
+    );
+
+    if (!consentGiven) {
+      return NextResponse.json(
+        { error: "Consent is required to submit your callback request." },
+        { status: 400 }
+      );
+    }
+
     const sourcePage = page || request.headers.get("referer") || null;
-    const consentTimestamp = rawConsent ? new Date(rawConsent) : new Date();
 
     // Log the lead for follow-up
     console.log("=== NEW CONNECT LEAD ===");
@@ -40,7 +53,8 @@ export async function POST(request: Request) {
     console.log("CIBIL Score:", cibilScore || "Not provided");
     console.log("Selected Service:", service);
     console.log("Source Page:", sourcePage);
-    console.log("Received At:", new Date().toISOString());
+    console.log("Consent Version:", consentVersion);
+    console.log("Consent Timestamp (Server):", consentTimestamp?.toISOString());
     console.log("========================");
 
     // 1. Save every lead to the Lead table FIRST (guaranteeing no lead loss)
@@ -53,6 +67,8 @@ export async function POST(request: Request) {
         service,
         status: "NEW",
         sourcePage: sourcePage ? String(sourcePage) : null,
+        consentGiven,
+        consentVersion,
         consentTimestamp,
         payload: {
           name: name.trim(),
@@ -60,6 +76,8 @@ export async function POST(request: Request) {
           cibilScore: cibilScore || "Not provided",
           service,
           sourcePage,
+          consentGiven,
+          consentVersion,
         },
         emailSent: false,
       },

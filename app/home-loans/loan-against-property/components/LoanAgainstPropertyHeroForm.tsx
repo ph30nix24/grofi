@@ -12,6 +12,8 @@ import {
   Clock,
   RotateCcw,
 } from "lucide-react";
+import ConsentCheckbox from "@/app/components/ConsentCheckbox";
+import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
 
 const PROPERTY_VALUE_PRESETS = [
@@ -39,7 +41,8 @@ export default function LoanAgainstPropertyHeroForm() {
   const [tenureYears, setTenureYears] = useState<number>(15);
   const [employmentType, setEmploymentType] = useState<"salaried" | "selfEmployed">("selfEmployed");
 
-  const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
+  const [consentGiven, setConsentGiven] = useState(false);
+  const [errors, setErrors] = useState<{ name?: string; phone?: string; consent?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -74,7 +77,7 @@ export default function LoanAgainstPropertyHeroForm() {
   );
 
   const validateForm = () => {
-    const newErrors: { name?: string; phone?: string } = {};
+    const newErrors: { name?: string; phone?: string; consent?: string } = {};
 
     if (!name.trim()) {
       newErrors.name = "Please enter your full name";
@@ -89,6 +92,10 @@ export default function LoanAgainstPropertyHeroForm() {
       newErrors.phone = "Please enter a valid 10-digit mobile number";
     } else if (!/^[6-9]/.test(cleanPhone)) {
       newErrors.phone = "Mobile number must start with 6, 7, 8, or 9";
+    }
+
+    if (!consentGiven) {
+      newErrors.consent = "Please agree to the privacy policy & consent to continue";
     }
 
     setErrors(newErrors);
@@ -116,7 +123,8 @@ export default function LoanAgainstPropertyHeroForm() {
           employmentType,
           estimatedEmi: `₹${formatINR(estimatedEmi)}/mo`,
           page: typeof window !== "undefined" ? window.location.pathname : undefined,
-          consentTimestamp: new Date().toISOString(),
+          consentGiven: true,
+          consentVersion: CURRENT_CONSENT_VERSION,
         }),
       });
       if (!res.ok) {
@@ -139,6 +147,7 @@ export default function LoanAgainstPropertyHeroForm() {
     setTenureYears(15);
     setPropertyType("residential");
     setEmploymentType("selfEmployed");
+    setConsentGiven(false);
     setErrors({});
   };
 
@@ -408,6 +417,19 @@ export default function LoanAgainstPropertyHeroForm() {
               {errors.phone && <p className="text-[10px] text-red-500 mt-1">{errors.phone}</p>}
             </div>
           </div>
+
+          {/* Versioned Consent Checkbox */}
+          <ConsentCheckbox
+            id="lap-hero-consent"
+            checked={consentGiven}
+            onChange={(val) => {
+              setConsentGiven(val);
+              if (errors.consent) {
+                setErrors((prev) => ({ ...prev, consent: undefined }));
+              }
+            }}
+            error={errors.consent}
+          />
 
           {/* Action Button */}
           <button

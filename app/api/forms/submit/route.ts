@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { sendFormNotification } from "@/libs/resend";
 import prisma from "@/libs/db";
+import { resolveServerConsent } from "@/app/constants/consent";
 
 export async function POST(request: Request) {
   try {
@@ -30,14 +31,20 @@ export async function POST(request: Request) {
     const rawEmail = rawFields.email || rawFields.newsletterEmail || replyTo || null;
     const rawService = rawFields.service || rawFields.selectedProduct || rawFields.feature || rawFields.lender || null;
     const sourcePage = rawFields.page || rawFields.sourceUrl || request.headers.get("referer") || null;
-    const consentTimestamp = rawFields.consentTimestamp
-      ? new Date(rawFields.consentTimestamp)
-      : new Date();
+
+    // Resolve versioned consent on the server - ignore client-supplied timestamps and prevent invalid Date crashes
+    const { consentGiven, consentVersion, consentTimestamp } = resolveServerConsent(
+      rawFields.consentGiven,
+      rawFields.consentVersion
+    );
 
     const cleanPhone = rawPhone ? String(rawPhone).replace(/\D/g, "") : null;
 
     // Log the lead
     console.log(`=== NEW FORM SUBMISSION: ${formType} ===`);
+    console.log("Consent Given:", consentGiven);
+    console.log("Consent Version:", consentVersion);
+    console.log("Consent Timestamp (Server):", consentTimestamp?.toISOString());
     console.log("Fields:", JSON.stringify(rawFields, null, 2));
 
     // 1. Save every lead to the Lead table FIRST (guaranteeing no lead loss)
@@ -51,8 +58,14 @@ export async function POST(request: Request) {
         service: rawService ? String(rawService).trim() : null,
         status: "NEW",
         sourcePage: sourcePage ? String(sourcePage) : null,
+        consentGiven,
+        consentVersion,
         consentTimestamp,
-        payload: rawFields,
+        payload: {
+          ...rawFields,
+          consentGiven,
+          consentVersion,
+        },
         emailSent: false,
       },
     });

@@ -410,7 +410,9 @@ model Lead {
   service          String?
   status           String   @default("NEW")
   sourcePage       String?
-  consentTimestamp DateTime @default(now())
+  consentGiven     Boolean  @default(false)
+  consentVersion   String?
+  consentTimestamp DateTime?
   payload          Json?
   emailSent        Boolean  @default(false)
   emailId          String?

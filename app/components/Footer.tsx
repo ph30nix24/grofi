@@ -12,6 +12,8 @@ import {
   Sparkles,
   Send,
 } from "lucide-react";
+import Link from "next/link";
+import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 
 const loanLinks = [
   { label: "Personal Loan", href: "#products" },
@@ -73,7 +75,8 @@ export default function Footer() {
           email: emailToSend,
           replyTo: emailToSend,
           page: typeof window !== "undefined" ? window.location.pathname : undefined,
-          consentTimestamp: new Date().toISOString(),
+          consentGiven: true,
+          consentVersion: CURRENT_CONSENT_VERSION,
         }),
       });
 
@@ -146,6 +149,13 @@ export default function Footer() {
                     <Send className="w-3.5 h-3.5" />
                   </button>
                 </div>
+                <p className="text-[11px] text-white/50 mt-2 px-2">
+                  By subscribing, you agree to receive email updates and accept our{" "}
+                  <Link href="/privacy-policy" className="text-white/80 hover:text-white underline">
+                    Privacy Policy
+                  </Link>
+                  . Unsubscribe anytime.
+                </p>
                 {error && (
                   <p className="text-red-300 text-xs mt-2 font-medium px-2">{error}</p>
                 )}
@@ -376,7 +386,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Grofi Financial Technologies Pvt. Ltd. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-[11px]">
-            <a href="#" className="hover:text-gold transition-colors">Privacy Policy</a>
+            <a href="/privacy-policy" className="hover:text-gold transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-gold transition-colors">Terms of Service</a>
             <a href="#" className="hover:text-gold transition-colors">Security Disclosures</a>
             <a href="#" className="hover:text-gold transition-colors">Grievance Officer</a>

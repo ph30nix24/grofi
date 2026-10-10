@@ -18,6 +18,8 @@ import {
   Sparkles,
   ShieldCheck,
 } from "lucide-react";
+import ConsentCheckbox from "@/app/components/ConsentCheckbox";
+import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 
 interface CareersApplicationFormProps {
   selectedRoleTitle?: string;
@@ -38,6 +40,7 @@ export default function CareersApplicationForm({
 
   // Status & Validation States
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [consentGiven, setConsentGiven] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -135,6 +138,10 @@ export default function CareersApplicationForm({
       errs.resume = "Please upload your resume in PDF format";
     }
 
+    if (!consentGiven) {
+      errs.consent = "Please agree to the privacy policy & consent to continue";
+    }
+
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -158,6 +165,8 @@ export default function CareersApplicationForm({
       formData.append("currentlyWorking", currentlyWorking);
       formData.append("currentSalary", currentSalary.trim());
       formData.append("noticePeriod", noticePeriod);
+      formData.append("consentGiven", "true");
+      formData.append("consentVersion", CURRENT_CONSENT_VERSION);
       if (resumeFile) {
         formData.append("resume", resumeFile);
       }
@@ -192,6 +201,7 @@ export default function CareersApplicationForm({
     setCurrentSalary("");
     setNoticePeriod("Immediate");
     setResumeFile(null);
+    setConsentGiven(false);
     setSubmitSuccess(false);
     setErrors({});
     if (fileInputRef.current) fileInputRef.current.value = "";
@@ -611,6 +621,22 @@ export default function CareersApplicationForm({
                   </p>
                 )}
               </div>
+
+              <ConsentCheckbox
+                id="careers-application-form-consent"
+                checked={consentGiven}
+                onChange={(checked) => {
+                  setConsentGiven(checked);
+                  if (checked && errors.consent) {
+                    setErrors((prev) => {
+                      const next = { ...prev };
+                      delete next.consent;
+                      return next;
+                    });
+                  }
+                }}
+                error={errors.consent}
+              />
 
               {/* Submit CTA */}
               <div className="pt-2">

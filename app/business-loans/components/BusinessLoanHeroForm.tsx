@@ -16,6 +16,8 @@ import {
   RotateCcw,
   TrendingUp,
 } from "lucide-react";
+import ConsentCheckbox from "@/app/components/ConsentCheckbox";
+import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 
 const CIBIL_RANGES = [
   { label: "750+ (Prime MSME)", value: "750+" },
@@ -47,7 +49,8 @@ export default function BusinessLoanHeroForm() {
   const [vintage, setVintage] = useState("3+ Years");
   const [cibilScore, setCibilScore] = useState("750+");
 
-  const [errors, setErrors] = useState<{ businessName?: string; phone?: string }>({});
+  const [consentGiven, setConsentGiven] = useState(false);
+  const [errors, setErrors] = useState<{ businessName?: string; phone?: string; consent?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -59,7 +62,7 @@ export default function BusinessLoanHeroForm() {
   };
 
   const validateForm = () => {
-    const newErrors: { businessName?: string; phone?: string } = {};
+    const newErrors: { businessName?: string; phone?: string; consent?: string } = {};
 
     if (!businessName.trim()) {
       newErrors.businessName = "Please enter your enterprise / company name";
@@ -74,6 +77,10 @@ export default function BusinessLoanHeroForm() {
       newErrors.phone = "Please enter a valid 10-digit mobile number";
     } else if (!/^[6-9]/.test(cleanPhone)) {
       newErrors.phone = "Mobile number must start with 6, 7, 8, or 9";
+    }
+
+    if (!consentGiven) {
+      newErrors.consent = "Please agree to the privacy policy & consent to continue";
     }
 
     setErrors(newErrors);
@@ -101,7 +108,8 @@ export default function BusinessLoanHeroForm() {
           cibilScore,
           estimatedEmi: `₹${formatINR(estimatedEmi)}/mo`,
           page: typeof window !== "undefined" ? window.location.pathname : undefined,
-          consentTimestamp: new Date().toISOString(),
+          consentGiven: true,
+          consentVersion: CURRENT_CONSENT_VERSION,
         }),
       });
       if (!res.ok) {
@@ -125,6 +133,7 @@ export default function BusinessLoanHeroForm() {
     setCibilScore("750+");
     setAnnualTurnover("₹50L - ₹1 Crore");
     setVintage("3+ Years");
+    setConsentGiven(false);
     setErrors({});
   };
 
@@ -343,13 +352,18 @@ export default function BusinessLoanHeroForm() {
               </select>
             </div>
 
-            {/* Trust note */}
-            <div className="bg-[#EBF4ED]/60 border border-primary/10 rounded-xl p-2.5 flex items-start gap-2 text-[11px] text-gray-600 leading-snug">
-              <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-              <span>
-                100% confidential. Checking pre-approved offers does not impact your commercial credit score.
-              </span>
-            </div>
+            {/* Versioned Consent Checkbox */}
+            <ConsentCheckbox
+              id="business-loan-consent"
+              checked={consentGiven}
+              onChange={(val) => {
+                setConsentGiven(val);
+                if (errors.consent) {
+                  setErrors((prev) => ({ ...prev, consent: undefined }));
+                }
+              }}
+              error={errors.consent}
+            />
 
             {/* Submit Button */}
             <button

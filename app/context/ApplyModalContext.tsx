@@ -16,6 +16,8 @@ import {
   Headphones,
   Lock,
 } from "lucide-react";
+import ConsentCheckbox from "@/app/components/ConsentCheckbox";
+import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 
 interface ApplyModalContextType {
   isOpen: boolean;
@@ -80,7 +82,8 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [selectedProduct, setSelectedProduct] = useState("Personal Loan");
-  const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
+  const [consentGiven, setConsentGiven] = useState(false);
+  const [errors, setErrors] = useState<{ name?: string; phone?: string; consent?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -109,6 +112,7 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
     setProductSubtitle(prodSubtitle);
     setName("");
     setPhone("");
+    setConsentGiven(false);
     setErrors({});
     setIsSubmitted(false);
     setIsSubmitting(false);
@@ -122,6 +126,7 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
       setIsSubmitting(false);
       setName("");
       setPhone("");
+      setConsentGiven(false);
       setErrors({});
     }, 200);
   };
@@ -150,7 +155,7 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
   }, [isOpen]);
 
   const validateForm = () => {
-    const newErrors: { name?: string; phone?: string } = {};
+    const newErrors: { name?: string; phone?: string; consent?: string } = {};
 
     if (!name.trim()) {
       newErrors.name = "Please enter your full name";
@@ -165,6 +170,10 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
       newErrors.phone = "Please enter a valid 10-digit mobile number";
     } else if (!/^[6-9]/.test(cleanPhone)) {
       newErrors.phone = "Mobile number must start with 6, 7, 8, or 9";
+    }
+
+    if (!consentGiven) {
+      newErrors.consent = "Please agree to the privacy policy & consent to continue";
     }
 
     setErrors(newErrors);
@@ -189,7 +198,8 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
           selectedProduct,
           productSubtitle: productSubtitle || undefined,
           page: typeof window !== "undefined" ? window.location.pathname : undefined,
-          consentTimestamp: new Date().toISOString(),
+          consentGiven: true,
+          consentVersion: CURRENT_CONSENT_VERSION,
         }),
       });
 
@@ -358,13 +368,18 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
                     </div>
                   </div>
 
-                  {/* Trust & Consent Note */}
-                  <div className="bg-[#EBF4ED]/50 border border-primary/10 rounded-xl p-3 flex items-start gap-2.5 text-[11px] text-gray-600 font-montserrat leading-relaxed">
-                    <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>
-                      Your information is 100% confidential. No spam calls — only genuine bank offers and expert advice.
-                    </span>
-                  </div>
+                  {/* Versioned Consent Checkbox */}
+                  <ConsentCheckbox
+                    id="apply-modal-consent"
+                    checked={consentGiven}
+                    onChange={(val) => {
+                      setConsentGiven(val);
+                      if (errors.consent) {
+                        setErrors((prev) => ({ ...prev, consent: undefined }));
+                      }
+                    }}
+                    error={errors.consent}
+                  />
 
                   {/* Submit Button */}
                   <button

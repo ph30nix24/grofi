@@ -15,6 +15,8 @@ import {
   Briefcase,
   Layers,
 } from "lucide-react";
+import ConsentCheckbox from "@/app/components/ConsentCheckbox";
+import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 import { LoanAgainstPropertyLender } from "../../components/type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
 
@@ -34,8 +36,9 @@ export default function LoanAgainstPropertyLoanHeroForm({
   >("residential");
   const [propertyValue, setPropertyValue] = useState<number>(15000000); // ₹1.5 Crore default
   const [employmentType, setEmploymentType] = useState<"salaried" | "selfEmployed">("selfEmployed");
+  const [consentGiven, setConsentGiven] = useState(false);
 
-  const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
+  const [errors, setErrors] = useState<{ name?: string; phone?: string; consent?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -89,7 +92,7 @@ export default function LoanAgainstPropertyLoanHeroForm({
   ];
 
   const validateForm = () => {
-    const newErrors: { name?: string; phone?: string } = {};
+    const newErrors: { name?: string; phone?: string; consent?: string } = {};
 
     if (!name.trim()) {
       newErrors.name = "Enter your full name";
@@ -104,6 +107,10 @@ export default function LoanAgainstPropertyLoanHeroForm({
       newErrors.phone = "Mobile number must be 10 digits";
     } else if (!/^[6-9]/.test(cleanPhone)) {
       newErrors.phone = "Must start with 6, 7, 8, or 9";
+    }
+
+    if (!consentGiven) {
+      newErrors.consent = "Please agree to the privacy policy & consent to continue";
     }
 
     setErrors(newErrors);
@@ -132,7 +139,8 @@ export default function LoanAgainstPropertyLoanHeroForm({
           floorRate: `${floorRate}%`,
           employmentType,
           page: typeof window !== "undefined" ? window.location.pathname : undefined,
-          consentTimestamp: new Date().toISOString(),
+          consentGiven: true,
+          consentVersion: CURRENT_CONSENT_VERSION,
         }),
       });
       if (!res.ok) {
@@ -155,6 +163,7 @@ export default function LoanAgainstPropertyLoanHeroForm({
     setRequestedLoan(10000000);
     setEmploymentType("selfEmployed");
     setPropertyType("residential");
+    setConsentGiven(false);
     setErrors({});
   };
 
@@ -380,6 +389,19 @@ export default function LoanAgainstPropertyLoanHeroForm({
                 {errors.phone && <p className="text-[10px] text-red-500 mt-0.5">{errors.phone}</p>}
               </div>
             </div>
+
+            {/* Versioned Consent Checkbox */}
+            <ConsentCheckbox
+              id="lap-lender-consent"
+              checked={consentGiven}
+              onChange={(val) => {
+                setConsentGiven(val);
+                if (errors.consent) {
+                  setErrors((prev) => ({ ...prev, consent: undefined }));
+                }
+              }}
+              error={errors.consent}
+            />
 
             {/* Submit Button */}
             <button

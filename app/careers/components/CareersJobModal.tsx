@@ -10,6 +10,8 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { JobOpening } from "../types";
+import ConsentCheckbox from "@/app/components/ConsentCheckbox";
+import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 
 interface CareersJobModalProps {
   job: JobOpening | null;
@@ -43,11 +45,13 @@ export default function CareersJobModal({
   });
 
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [consentGiven, setConsentGiven] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
       setActiveTab(initialTab);
       setIsSubmitted(false);
+      setConsentGiven(false);
       setFormErrors({});
       document.body.style.overflow = "hidden";
     } else {
@@ -98,6 +102,9 @@ export default function CareersJobModal({
     if (!formData.resumeLink.trim()) {
       errors.resumeLink = "Please provide your resume link or portfolio";
     }
+    if (!consentGiven) {
+      errors.consent = "Please agree to the privacy policy & consent to continue";
+    }
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -119,7 +126,8 @@ export default function CareersJobModal({
           replyTo: formData.email.trim(),
           ...formData,
           page: typeof window !== "undefined" ? window.location.pathname : undefined,
-          consentTimestamp: new Date().toISOString(),
+          consentGiven: true,
+          consentVersion: CURRENT_CONSENT_VERSION,
         }),
       });
 
@@ -531,6 +539,22 @@ export default function CareersJobModal({
                   className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-800 outline-none focus:border-primary resize-none"
                 />
               </div>
+
+              <ConsentCheckbox
+                id="careers-job-modal-consent"
+                checked={consentGiven}
+                onChange={(checked) => {
+                  setConsentGiven(checked);
+                  if (checked && formErrors.consent) {
+                    setFormErrors((prev) => {
+                      const next = { ...prev };
+                      delete next.consent;
+                      return next;
+                    });
+                  }
+                }}
+                error={formErrors.consent}
+              />
 
               <div className="pt-2">
                 <button
