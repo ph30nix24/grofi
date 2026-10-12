@@ -127,7 +127,7 @@ export default function PersonalLoanCompareModal({
                   <td className="py-3.5 px-3 font-bold text-gray-700 bg-gray-50/40">Interest Rate (% p.a.)</td>
                   {lenders.map((lender) => (
                     <td key={lender.id} className="py-3.5 px-4 text-center font-bricolage font-bold text-base text-primary">
-                      {lender.interestRate?.text || `${lender.interestRate?.min ?? 9.99}% - ${lender.interestRate?.max ?? 24}% p.a.`}
+                      {lender.interestRate?.text || (typeof lender.interestRate?.min === "number" ? `${lender.interestRate.min}%${lender.interestRate.max ? ` - ${lender.interestRate.max}%` : ''} p.a.` : "Competitive p.a.")}
                     </td>
                   ))}
                 </tr>

@@ -51,8 +51,12 @@ export default function InstantLoanMobileApplyBar({
                 <Clock className="w-2.5 h-2.5" />
                 {lender.disbursalTime}
               </span>
-              <span>•</span>
-              <span>From <strong className="text-primary font-bold">{lender.interestRate?.min ?? 9.99}%</strong></span>
+              {typeof lender.interestRate?.min === "number" ? (
+                <>
+                  <span>•</span>
+                  <span>From <strong className="text-primary font-bold">{lender.interestRate.min}%</strong></span>
+                </>
+              ) : null}
             </p>
           </div>
         </div>

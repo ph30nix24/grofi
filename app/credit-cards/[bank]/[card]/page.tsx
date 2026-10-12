@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { cache } from "react";
 import prisma from "@/libs/db";
 import Navbar from "@/app/components/Navbar";
@@ -197,7 +197,7 @@ export default async function SelectedCard({
   // Validate that bank slug matches the card's issuer; if not, redirect to the canonical URL
   if (!isBankMatch(bank, structure.issuer)) {
     const canonicalBankSlug = getBankSlug(structure.issuer);
-    redirect(`/credit-cards/${canonicalBankSlug}/${card}`);
+    permanentRedirect(`/credit-cards/${canonicalBankSlug}/${card}`);
   }
 
   // Fetch parallel related resources

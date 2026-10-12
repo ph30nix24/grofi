@@ -535,7 +535,7 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                               Interest Rate
                             </span>
                             <span className="font-bricolage font-extrabold text-sm sm:text-base text-primary block mt-0.5">
-                              {lender.interestRate?.min ?? 9.99}% - {lender.interestRate?.max ?? 24}%
+                              {typeof lender.interestRate?.min === "number" ? `${lender.interestRate.min}%${lender.interestRate.max ? ` - ${lender.interestRate.max}%` : ''}` : "Competitive"}
                             </span>
                           </div>
 
@@ -656,7 +656,7 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                       <div>
                         <span className="text-[10px] font-bold uppercase text-gray-400 block">Interest Rate</span>
                         <span className="font-bricolage font-extrabold text-sm sm:text-base text-primary">
-                          {lender.interestRate?.min ?? 9.99}% - {lender.interestRate?.max ?? 24}%
+                          {typeof lender.interestRate?.min === "number" ? `${lender.interestRate.min}%${lender.interestRate.max ? ` - ${lender.interestRate.max}%` : ''}` : "Competitive"}
                         </span>
                       </div>
 

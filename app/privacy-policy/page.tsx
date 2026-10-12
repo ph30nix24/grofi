@@ -118,7 +118,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* Section 4 */}
-          <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-xs border border-gray-200/80">
+          <div id="grievance-redressal" className="bg-white rounded-2xl p-6 sm:p-8 shadow-xs border border-gray-200/80">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-xl bg-[#EBF4ED] text-[#02474D] flex items-center justify-center font-bold">
                 4
@@ -135,6 +135,21 @@ export default function PrivacyPolicyPage() {
               <p className="mt-1 text-gray-700">Email: <a href="mailto:privacy@grofi.in" className="underline font-semibold text-[#02474D]">privacy@grofi.in</a></p>
               <p className="text-gray-700">Turnaround Time: Acknowledgement within 24 hours, resolution within 7 working days.</p>
             </div>
+          </div>
+
+          {/* Section 5 */}
+          <div id="terms" className="bg-white rounded-2xl p-6 sm:p-8 shadow-xs border border-gray-200/80">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-[#EBF4ED] text-[#02474D] flex items-center justify-center font-bold">
+                5
+              </div>
+              <h2 className="text-xl sm:text-2xl font-bold font-bricolage text-gray-900">
+                Platform Terms of Service & Disclosures
+              </h2>
+            </div>
+            <p className="text-sm text-gray-600 leading-relaxed">
+              Grofi operates as an independent digital financial marketplace facilitating comparisons and connections between consumers and RBI-regulated banks and NBFCs. Grofi does not directly lend or charge application fees to users. Loan approvals, interest rates, credit limits, and terms are determined solely by lending institutions. By using the platform, users agree to adhere to transparent financial disclosures and fair-use guidelines.
+            </p>
           </div>
         </section>
       </main>

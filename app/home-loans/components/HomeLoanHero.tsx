@@ -31,7 +31,7 @@ export default function HomeLoanHero() {
     { name: "Kotak Mahindra Bank", src: "/partners-logos/kotak-logo.webp" },
     { name: "Axis Bank", src: "/partners-logos/axis-logo.webp" },
     { name: "Canara Bank", src: "/partners-logos/canara-logo.webp" },
-    { name: "Punjab National Bank", src: "/partners-logos/pnb-logo.webp" },
+    { name: "Punjab National Bank", src: "/partners-logos/punjab-logo.webp" },
     { name: "LIC Housing Finance", src: "/partners-logos/lic-logo.webp" },
     { name: "Bajaj Housing Finance", src: "/partners-logos/bajaj-logo.webp" },
     { name: "Tata Capital", src: "/partners-logos/tata-logo.webp" },

@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
 import sitemap from "../app/sitemap";
@@ -7,6 +8,14 @@ describe("Sitemap Integrity & Safety", () => {
     const entries = await sitemap();
     assert.ok(Array.isArray(entries), "Sitemap must return an array");
     assert.ok(entries.length > 0, "Sitemap must not be empty");
+
+    // If database is available, verify full catalog coverage (> 300 URLs)
+    if (process.env.DATABASE_URL) {
+      assert.ok(
+        entries.length >= 300,
+        `Sitemap should contain all catalog tables (expected >= 300 URLs, got ${entries.length})`
+      );
+    }
 
     const urls = new Set(entries.map((e) => e.url));
 
@@ -25,13 +34,19 @@ describe("Sitemap Integrity & Safety", () => {
       "https://www.grofi.in/blogs",
       "https://www.grofi.in/careers",
       "https://www.grofi.in/secure-with-us",
-      "https://www.grofi.in/privacy",
       "https://www.grofi.in/privacy-policy",
     ];
 
     for (const path of requiredStaticPaths) {
       assert.ok(urls.has(path), `Sitemap must contain static path: ${path}`);
     }
+
+    // Ensure redirect paths like /privacy are never in the sitemap
+    assert.equal(
+      urls.has("https://www.grofi.in/privacy"),
+      false,
+      "Sitemap must not contain redirect routes like /privacy"
+    );
 
     // Verify metadata rules
     for (const entry of entries) {

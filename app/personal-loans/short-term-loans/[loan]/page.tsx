@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { cache } from "react";
 import prisma from "@/libs/db";
 import Navbar from "@/app/components/Navbar";
@@ -17,6 +17,7 @@ import ShortTermLoanFaqSection from "./components/ShortTermLoanFaqSection";
 import SimilarShortTermLoansSection from "./components/SimilarShortTermLoansSection";
 import ShortTermLoanPreApprovedBanner from "./components/ShortTermLoanPreApprovedBanner";
 import ShortTermLoanMobileApplyBar from "./components/ShortTermLoanMobileApplyBar";
+import { buildShortTermLoanJsonLd } from "@/libs/structuredData";
 
 const SITE = "https://www.grofi.in";
 
@@ -158,115 +159,13 @@ export default async function SelectedShortTermLoan({
 
   // Canonical redirect if accessed via non-canonical alias
   if (lender.id !== loan) {
-    redirect(`/personal-loans/short-term-loans/${lender.id}`);
+    permanentRedirect(`/personal-loans/short-term-loans/${lender.id}`);
   }
 
   const similarLenders = await fetchSimilarShortTermLoans(lender.id);
 
   // Schema.org Structured Data (JSON-LD) for Search Engine Optimization
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: SITE,
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Personal Loans",
-            item: `${SITE}/personal-loans`,
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: "Short Term Loans",
-            item: `${SITE}/personal-loans/short-term-loans`,
-          },
-          {
-            "@type": "ListItem",
-            position: 4,
-            name: lender.name,
-            item: `${SITE}/personal-loans/short-term-loans/${lender.id}`,
-          },
-        ],
-      },
-      {
-        "@type": "FinancialProduct",
-        name: lender.name,
-        description: lender.tagline,
-        provider: {
-          "@type": "FinancialService",
-          name: lender.rbiRegulatedEntity,
-        },
-        annualPercentageRate: lender.interestRate?.min ?? 12.0,
-        feesAndCommissionsSpecification: lender.processingFee,
-        url: `${SITE}/personal-loans/short-term-loans/${lender.id}`,
-        image: `${SITE}${lender.logo}`,
-        offers: {
-          "@type": "Offer",
-          price: "0",
-          priceCurrency: "INR",
-          availability: "https://schema.org/InStock",
-        },
-        review: lender.rating
-          ? {
-              "@type": "Review",
-              author: { "@type": "Organization", name: "Grofi Editorial Team" },
-              reviewRating: {
-                "@type": "Rating",
-                ratingValue: lender.rating,
-                bestRating: 5,
-                worstRating: 1,
-              },
-              reviewBody: lender.tagline,
-            }
-          : undefined,
-      },
-      {
-        "@type": "FAQPage",
-        mainEntity: [
-          {
-            "@type": "Question",
-            name: `How fast can I get funds disbursed from ${lender.name}?`,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: `Funds are deposited into your bank account in ${lender.disbursalTime} via 24x7 automated IMPS rails upon digital agreement execution.`,
-            },
-          },
-          {
-            "@type": "Question",
-            name: `What is the cooling-off period on ${lender.name}?`,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: `${lender.name} provides a mandatory ${lender.coolingOffPeriod} cooling-off period under RBI Digital Lending Guidelines allowing borrowers to exit with zero penalties.`,
-            },
-          },
-          {
-            "@type": "Question",
-            name: `What is the minimum CIBIL score required for ${lender.name}?`,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: `The minimum CIBIL score for ${lender.name} is ${lender.minCreditScore}. Borrowers with CIBIL score above 750 receive prime interest rates starting at ${lender.interestRate?.min ?? 12.0}% p.a.`,
-            },
-          },
-          {
-            "@type": "Question",
-            name: `Is checking pre-approved loan offers on Grofi safe?`,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: `Yes. Grofi performs a soft credit inquiry which has zero impact on your CIBIL score. Your data is 256-bit encrypted and confidential.`,
-            },
-          },
-        ],
-      },
-    ],
-  };
+  const jsonLd = buildShortTermLoanJsonLd(lender, SITE);
 
   return (
     <>

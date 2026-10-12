@@ -50,7 +50,9 @@ export default function ShortTermLoanHero({ lender }: ShortTermLoanHeroProps) {
 
   const rateText =
     lender.interestRate?.text ||
-    `${lender.interestRate?.min ?? 12.0}% - ${lender.interestRate?.max ?? 30.0}% p.a.`;
+    (typeof lender.interestRate?.min === "number"
+      ? `${lender.interestRate.min}%${lender.interestRate?.max ? ` - ${lender.interestRate.max}%` : ''} p.a.`
+      : "Competitive Rates");
 
   const lenderTypeLabel =
     lender.lenderType === "bank"
@@ -314,7 +316,7 @@ export default function ShortTermLoanHero({ lender }: ShortTermLoanHeroProps) {
                 onClick={() =>
                   openApplyModal(
                     lender.name,
-                    `Short-Term Loan in ${lender.disbursalTime} • Rates from ${lender.interestRate?.min ?? 12.0}% p.a.`
+                    `Short-Term Loan in ${lender.disbursalTime}${typeof lender.interestRate?.min === "number" ? ` • Rates from ${lender.interestRate.min}% p.a.` : ""}`
                   )
                 }
                 className="bg-primary hover:bg-[#035259] active:scale-98 text-white font-bold text-xs sm:text-sm py-3 px-6 rounded-xl flex items-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer"

@@ -15,40 +15,41 @@ import {
 import Link from "next/link";
 import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 
-const loanLinks = [
-  { label: "Personal Loan", href: "#products" },
-  { label: "Business Loan", href: "#products" },
-  { label: "Home Loan", href: "#products" },
-  { label: "Loan Against Property", href: "#products" },
-  { label: "Loan Against Mutual Funds", href: "#products" },
-  { label: "Short Term Personal Loan", href: "#products" },
+export const loanLinks = [
+  { label: "Personal Loans", href: "/personal-loans" },
+  { label: "Instant Personal Loans", href: "/personal-loans/instant-loans" },
+  { label: "Short Term Loans", href: "/personal-loans/short-term-loans" },
+  { label: "Business Loans", href: "/business-loans" },
+  { label: "Home Loans", href: "/home-loans" },
+  { label: "Loan Against Property", href: "/home-loans/loan-against-property" },
+  { label: "Home Loan Balance Transfer", href: "/home-loans/balance-transfer" },
 ];
 
-const cardLinks = [
-  { label: "HDFC Infinia Metal", href: "#credit-cards" },
-  { label: "Axis Bank Magnus", href: "#credit-cards" },
-  { label: "Amex Platinum Metal", href: "#credit-cards" },
-  { label: "SBI Cashback Card", href: "#credit-cards" },
-  { label: "Axis Atlas Travel Card", href: "#credit-cards" },
-  { label: "Tata Neu RuPay Card", href: "#credit-cards" },
-  { label: "Yes Bank Marquée", href: "#credit-cards" },
+export const cardLinks = [
+  { label: "All Credit Cards", href: "/credit-cards" },
+  { label: "HDFC Infinia Metal", href: "/credit-cards/hdfc-bank/hdfc-infinia-metal" },
+  { label: "Axis Bank Magnus", href: "/credit-cards/axis-bank/axis-magnus" },
+  { label: "SBI Cashback Card", href: "/credit-cards/sbi-bank/sbi-cashback" },
+  { label: "Axis Bank ATLAS", href: "/credit-cards/axis-bank/axis-atlas" },
+  { label: "Tata Neu Infinity HDFC", href: "/credit-cards/hdfc-bank/tata-neu-infinity-hdfc" },
+  { label: "YES BANK MARQUÉE", href: "/credit-cards/yes-bank/yes-bank-marquee" },
+  { label: "Card Features & Perks", href: "/credit-cards/features" },
 ];
 
-const toolLinks = [
-  { label: "Loan EMI Calculator", href: "#emi-calculator" },
-  { label: "Home Loan EMI Calculator", href: "#emi-calculator" },
-  { label: "Personal Loan Eligibility", href: "#eligibility" },
-  { label: "Credit Card Comparison", href: "#credit-cards" },
+export const toolLinks = [
+  { label: "Personal Loan EMI Calculator", href: "/personal-loans#emi-calculator-section" },
+  { label: "Home Loan EMI Calculator", href: "/home-loans#emi-calculator-section" },
+  { label: "Business Loan EMI Calculator", href: "/business-loans#emi-calculator-section" },
+  { label: "Credit Card Comparison", href: "/credit-cards" },
+  { label: "Universal EMI Calculator", href: "/#emi-calculator" },
 ];
 
-const companyLinks = [
-  { label: "Why Choose Grofi", href: "#why-choose-us" },
-  { label: "Our Banking Partners", href: "#products" },
-  { label: "Verified Reviews", href: "#testimonials" },
-  { label: "Careers", href: "/careers" },
-  // { label: "Press & Media", href: "#" },
-  // { label: "Partner with Us", href: "#" },
-  // { label: "Contact Us", href: "#" },
+export const companyLinks = [
+  { label: "Why Choose Grofi", href: "/#why-choose-us" },
+  { label: "Customer Reviews", href: "/#testimonials" },
+  { label: "Financial Blogs", href: "/blogs" },
+  { label: "CyberShield Security", href: "/secure-with-us" },
+  { label: "Careers at Grofi", href: "/careers" },
 ];
 
 export default function Footer() {
@@ -169,7 +170,7 @@ export default function Footer() {
           
           {/* Column 1: Brand & Contact Info (4 cols equivalent) */}
           <div className="w-full lg:w-[calc(33.333%-1.334rem)] flex flex-col gap-6">
-            <a href="#" className="inline-block">
+            <Link href="/" className="inline-block">
               <Image
                 src="/Grofi.png"
                 alt="Grofi Logo"
@@ -177,10 +178,10 @@ export default function Footer() {
                 height={50}
                 className="w-36 h-auto brightness-0 invert"
               />
-            </a>
+            </Link>
             
             <p className="text-xs sm:text-sm text-white/70 leading-relaxed max-w-sm">
-              Grofi is India&apos;s premier digital financial marketplace, empowering over 2,00,000+ borrowers and cardholders with transparent comparisons from 50+ leading banks &amp; NBFCs.
+              Grofi is India&apos;s premier digital financial marketplace, empowering over 2,0,000+ borrowers and cardholders with transparent comparisons from 50+ leading banks &amp; NBFCs.
             </p>
 
             {/* Contact Details */}
@@ -260,12 +261,12 @@ export default function Footer() {
             <ul className="flex flex-col gap-2.5 text-xs text-white/70">
               {loanLinks.map((item) => (
                 <li key={item.label}>
-                  <a
+                  <Link
                     href={item.href}
                     className="hover:text-gold transition-colors duration-150 inline-flex items-center gap-1"
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -279,12 +280,12 @@ export default function Footer() {
             <ul className="flex flex-col gap-2.5 text-xs text-white/70">
               {cardLinks.map((item) => (
                 <li key={item.label}>
-                  <a
+                  <Link
                     href={item.href}
                     className="hover:text-gold transition-colors duration-150 inline-flex items-center gap-1"
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -298,12 +299,12 @@ export default function Footer() {
             <ul className="flex flex-col gap-2.5 text-xs text-white/70">
               {toolLinks.map((item) => (
                 <li key={item.label}>
-                  <a
+                  <Link
                     href={item.href}
                     className="hover:text-gold transition-colors duration-150 inline-flex items-center gap-1"
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -317,12 +318,12 @@ export default function Footer() {
             <ul className="flex flex-col gap-2.5 text-xs text-white/70">
               {companyLinks.map((item) => (
                 <li key={item.label}>
-                  <a
+                  <Link
                     href={item.href}
                     className="hover:text-gold transition-colors duration-150 inline-flex items-center gap-1"
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -385,11 +386,11 @@ export default function Footer() {
           <p>
             &copy; {new Date().getFullYear()} Grofi Financial Technologies Pvt. Ltd. All rights reserved.
           </p>
-          <div className="flex items-center gap-6 text-[11px]">
-            <a href="/privacy-policy" className="hover:text-gold transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-gold transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-gold transition-colors">Security Disclosures</a>
-            <a href="#" className="hover:text-gold transition-colors">Grievance Officer</a>
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-[11px]">
+            <Link href="/privacy-policy" className="hover:text-gold transition-colors">Privacy Policy</Link>
+            <Link href="/privacy-policy#terms" className="hover:text-gold transition-colors">Terms of Service</Link>
+            <Link href="/secure-with-us" className="hover:text-gold transition-colors">Security Disclosures</Link>
+            <Link href="/privacy-policy#grievance-redressal" className="hover:text-gold transition-colors">Grievance Officer</Link>
           </div>
         </div>
 

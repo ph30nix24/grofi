@@ -120,7 +120,7 @@ export default function PersonalLoanComparisonTable({
 
                     {/* Interest Rate */}
                     <td className="py-4 px-3 sm:px-4 font-bricolage font-bold text-sm sm:text-base text-primary">
-                      {lender.interestRate?.min ?? 9.99}% - {lender.interestRate?.max ?? 24}% p.a.
+                      {typeof lender.interestRate?.min === "number" ? `${lender.interestRate.min}%${lender.interestRate.max ? ` - ${lender.interestRate.max}%` : ''} p.a.` : "Competitive p.a."}
                     </td>
 
                     {/* Starting EMI / Lakh */}
@@ -211,7 +211,7 @@ export default function PersonalLoanComparisonTable({
                     <div>
                       <span className="text-[10px] text-gray-500 uppercase block font-medium">Interest Rate</span>
                       <span className="font-bricolage font-bold text-primary text-sm">
-                        {lender.interestRate?.min ?? 9.99}% - {lender.interestRate?.max ?? 24}% p.a.
+                        {typeof lender.interestRate?.min === "number" ? `${lender.interestRate.min}%${lender.interestRate.max ? ` - ${lender.interestRate.max}%` : ''} p.a.` : "Competitive p.a."}
                       </span>
                     </div>
                     <div>

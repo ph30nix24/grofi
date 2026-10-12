@@ -16,7 +16,9 @@ interface InstantLoanFeesSectionProps {
 export default function InstantLoanFeesSection({ lender }: InstantLoanFeesSectionProps) {
   const rateText =
     lender.interestRate?.text ||
-    `${lender.interestRate?.min ?? 9.99}% - ${lender.interestRate?.max ?? 24.0}% p.a.`;
+    (typeof lender.interestRate?.min === "number"
+      ? `${lender.interestRate.min}%${lender.interestRate?.max ? ` - ${lender.interestRate.max}%` : ''} p.a.`
+      : "Competitive Annual Rates");
 
   const feeItems = [
     {

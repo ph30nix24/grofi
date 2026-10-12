@@ -40,7 +40,7 @@ model CreditCard {
   cardMetaData      cardMetaData?  
 
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime @default(now()) @updatedAt
 }
 
 
@@ -67,7 +67,7 @@ model BankFAQS {
   answer   String
   bank   String
   createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  updatedAt     DateTime @default(now()) @updatedAt
 }
 
 
@@ -128,7 +128,7 @@ model PersonalLoanLender {
   twitterDesc    String
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model BusinessLoanData {
@@ -168,7 +168,7 @@ model BusinessLoanData {
   twitterDesc   String
 
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime @default(now()) @updatedAt
 }
 
 model HomeLoanData {
@@ -212,7 +212,7 @@ model HomeLoanData {
   faqs    Json[]
 
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime @default(now()) @updatedAt
 }
 
 
@@ -233,7 +233,7 @@ model BlogPost {
   published     Boolean  @default(true)
 
   createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  updatedAt     DateTime @default(now()) @updatedAt
 }
 
 model instantLoansData {
@@ -269,7 +269,7 @@ model instantLoansData {
   playStoreRating               Float?
 
   createdAt                     DateTime @default(now())
-  updatedAt                     DateTime @updatedAt
+  updatedAt                     DateTime @default(now()) @updatedAt
 }
 
 model loanTransfer {
@@ -317,7 +317,7 @@ model loanTransfer {
   faqs    Json[]
 
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime @default(now()) @updatedAt
 }
 
 model loanAgainstProperty {
@@ -365,7 +365,7 @@ model loanAgainstProperty {
   faqs    Json[]
 
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime @default(now()) @updatedAt
 }
 
 model ShortTermLoan {
@@ -415,7 +415,7 @@ model ShortTermLoan {
   twitterDesc   String
 
   createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  updatedAt     DateTime @default(now()) @updatedAt
 }
 
 model Lead {
@@ -436,7 +436,7 @@ model Lead {
   emailId          String?
   emailError       String?
   createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  updatedAt        DateTime @default(now()) @updatedAt
 
   @@index([phone])
   @@index([email])

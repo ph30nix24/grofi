@@ -24,11 +24,21 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 });
 
-import type { Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 import { ApplyModalProvider } from "./context/ApplyModalContext";
 import ScrollRevealProvider from "./components/ScrollRevealProvider";
 import ScrollToTop from "./components/ScrollToTop";
 import FloatingConnectButton from "./components/FloatingConnectButton";
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://www.grofi.in"),
+  title: {
+    default: "Grofi - Smart Financial Growth Partner",
+    template: "%s | Grofi",
+  },
+  description:
+    "Compare and apply for top personal loans, home loans, business loans, and credit cards across leading Indian banks and NBFCs.",
+};
 
 export const viewport: Viewport = {
   width: "device-width",

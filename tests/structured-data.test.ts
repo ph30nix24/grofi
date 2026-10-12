@@ -1,58 +1,126 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
+import {
+  buildBusinessLoanJsonLd,
+  buildHomeLoanJsonLd,
+  buildBalanceTransferJsonLd,
+  buildLapJsonLd,
+  buildPersonalLoanJsonLd,
+  buildInstantLoanJsonLd,
+  buildShortTermLoanJsonLd,
+} from "../libs/structuredData";
 
-describe("Loan Structured Data Safety", () => {
-  test("Structured data emits compliant editorial Review entity instead of AggregateRating", () => {
-    const mockLender = {
-      id: "test-lender",
-      name: "Test Bank",
-      rating: 4.8,
-      tagline: "Premier banking with low interest rates",
-    };
+const mockLender = {
+  id: "hdfc-bank",
+  name: "HDFC Bank Personal Loan",
+  logo: "/partners-logos/hdfc.png",
+  tagline: "Instant 10-second disbursal for pre-approved customers",
+  overview:
+    "HDFC Bank is India's largest private sector lender, renowned for offering lightning-fast personal loans with 10-second instant disbursals to pre-approved customers.",
+  description:
+    "HDFC Bank stands out as an exceptional commercial financing partner for Indian businesses.",
+  recommendedFor: "Salaried professionals seeking fast liquidity",
+  disbursalTime: "10 Seconds",
+  minCreditScore: 720,
+  maxLtv: "90%",
+  coolingOffPeriod: "3 Days",
+  rating: 4.8,
+  interestRate: { min: 9.99, max: 15.0, text: "9.99% - 15.0%" },
+  processingFee: "Up to 1.5%",
+  processingFeeCap: "₹10,000",
+  rbiRegulatedEntity: "HDFC Bank Limited",
+  faqs: [{ question: "How to apply?", answer: "Online via Grofi." }],
+  customFaqs: [{ question: "Is it paperless?", answer: "Yes." }],
+};
 
-    // Mimic the structured data review block used in loan detail templates
-    const reviewBlock = mockLender.rating
-      ? {
-          "@type": "Review",
-          author: { "@type": "Organization", name: "Grofi Editorial Team" },
-          reviewRating: {
-            "@type": "Rating",
-            ratingValue: mockLender.rating,
-            bestRating: 5,
-            worstRating: 1,
-          },
-          reviewBody: mockLender.tagline,
-        }
-      : undefined;
+const allBuilders = [
+  { name: "buildBusinessLoanJsonLd", fn: () => buildBusinessLoanJsonLd(mockLender) },
+  { name: "buildHomeLoanJsonLd", fn: () => buildHomeLoanJsonLd(mockLender) },
+  { name: "buildBalanceTransferJsonLd", fn: () => buildBalanceTransferJsonLd(mockLender, mockLender.faqs) },
+  { name: "buildLapJsonLd", fn: () => buildLapJsonLd(mockLender, mockLender.faqs) },
+  { name: "buildPersonalLoanJsonLd", fn: () => buildPersonalLoanJsonLd(mockLender) },
+  { name: "buildInstantLoanJsonLd", fn: () => buildInstantLoanJsonLd(mockLender) },
+  { name: "buildShortTermLoanJsonLd", fn: () => buildShortTermLoanJsonLd(mockLender) },
+];
 
-    assert.ok(reviewBlock, "Review block should be defined when rating is present");
-    assert.equal(reviewBlock["@type"], "Review");
-    assert.equal(reviewBlock.author.name, "Grofi Editorial Team");
-    assert.equal(reviewBlock.reviewRating.ratingValue, 4.8);
-    assert.equal(reviewBlock.reviewRating.bestRating, 5);
-    assert.equal(reviewBlock.reviewRating.worstRating, 1);
-    assert.equal(reviewBlock.reviewBody, "Premier banking with low interest rates");
+describe("Centralized Structured Data Builders Integrity", () => {
+  for (const { name, fn } of allBuilders) {
+    test(`${name} emits zero AggregateRating and zero ratingCount`, () => {
+      const result = fn();
+      const jsonString = JSON.stringify(result);
 
-    // Ensure forbidden AggregateRating keys do not exist
-    assert.equal((reviewBlock as any).ratingCount, undefined, "Fake ratingCount must not exist");
-    assert.notEqual(reviewBlock["@type"], "AggregateRating", "@type must not be AggregateRating");
-  });
+      // Strict prohibition on fake AggregateRating and ratingCount
+      assert.equal(
+        jsonString.includes("AggregateRating"),
+        false,
+        `${name} must NEVER emit AggregateRating`
+      );
+      assert.equal(
+        jsonString.includes("ratingCount"),
+        false,
+        `${name} must NEVER emit ratingCount`
+      );
 
-  test("Structured data gracefully omits review when rating is not present", () => {
-    const mockLenderWithoutRating = {
-      id: "test-lender-no-rating",
-      name: "Test Bank",
-      rating: 0,
-      tagline: "Standard loan",
-    };
+      // Verify valid FinancialProduct entity
+      const product = result["@graph"].find(
+        (node: any) => node["@type"] === "FinancialProduct"
+      );
+      assert.ok(product, `${name} must include a FinancialProduct entity in @graph`);
 
-    const reviewBlock = mockLenderWithoutRating.rating
-      ? {
-          "@type": "Review",
-          author: { "@type": "Organization", name: "Grofi Editorial Team" },
-        }
-      : undefined;
+      // Verify compliant Review entity
+      assert.ok(product.review, `${name} must include review when rating is present`);
+      assert.equal(product.review["@type"], "Review");
+      assert.equal(
+        product.review.author.name,
+        "Grofi Editorial Team",
+        `${name} review author must be Grofi Editorial Team`
+      );
+      assert.equal(product.review.reviewRating.ratingValue, 4.8);
+      assert.equal(product.review.reviewRating.bestRating, 5);
+      assert.equal(product.review.reviewRating.worstRating, 1);
 
-    assert.equal(reviewBlock, undefined, "Review block should be undefined when rating is 0 or absent");
+      // Verify substantive reviewBody (editorial assessment, not raw marketing tagline)
+      assert.ok(
+        typeof product.review.reviewBody === "string" &&
+          product.review.reviewBody.length > 30,
+        `${name} reviewBody must be substantive editorial text`
+      );
+    });
+
+    test(`${name} cleanly omits review when rating is absent`, () => {
+      const lenderWithoutRating = { ...mockLender, rating: null };
+      let result: any;
+      if (name.includes("BalanceTransfer")) {
+        result = buildBalanceTransferJsonLd(lenderWithoutRating, []);
+      } else if (name.includes("Lap")) {
+        result = buildLapJsonLd(lenderWithoutRating, []);
+      } else {
+        result = fn.call(null);
+        // recreate with no rating
+        if (name === "buildBusinessLoanJsonLd") result = buildBusinessLoanJsonLd(lenderWithoutRating);
+        if (name === "buildHomeLoanJsonLd") result = buildHomeLoanJsonLd(lenderWithoutRating);
+        if (name === "buildPersonalLoanJsonLd") result = buildPersonalLoanJsonLd(lenderWithoutRating);
+        if (name === "buildInstantLoanJsonLd") result = buildInstantLoanJsonLd(lenderWithoutRating);
+        if (name === "buildShortTermLoanJsonLd") result = buildShortTermLoanJsonLd(lenderWithoutRating);
+      }
+
+      const product = result["@graph"].find(
+        (node: any) => node["@type"] === "FinancialProduct"
+      );
+      assert.equal(
+        product.review,
+        undefined,
+        `${name} must not emit review when rating is absent`
+      );
+    });
+  }
+
+  test("Personal loan reviewBody prefers visible overview text over marketing copy", () => {
+    const result = buildPersonalLoanJsonLd(mockLender);
+    const product: any = result["@graph"].find((node: any) => node["@type"] === "FinancialProduct");
+    assert.ok(product);
+    assert.ok(product.review);
+    assert.equal(product.review.reviewBody, mockLender.overview);
+    assert.notEqual(product.review.reviewBody, mockLender.tagline);
   });
 });

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { cache } from "react";
 import prisma from "@/libs/db";
 import Navbar from "@/app/components/Navbar";
@@ -21,6 +21,7 @@ import LoanAgainstPropertyLoanFaqSection from "./components/LoanAgainstPropertyL
 import LoanAgainstPropertySimilarLenders from "./components/LoanAgainstPropertySimilarLenders";
 import LoanAgainstPropertyLoanPreApprovedBanner from "./components/LoanAgainstPropertyLoanPreApprovedBanner";
 import LoanAgainstPropertyLoanMobileApplyBar from "./components/LoanAgainstPropertyLoanMobileApplyBar";
+import { buildLapJsonLd } from "@/libs/structuredData";
 
 const SITE = "https://www.grofi.in";
 
@@ -177,7 +178,7 @@ export default async function SelectedLoanAgainstProperty({
 
   // Canonical redirect if accessed via non-canonical alias
   if (lender.id !== loan) {
-    redirect(`/home-loans/loan-against-property/${lender.id}`);
+    permanentRedirect(`/home-loans/loan-against-property/${lender.id}`);
   }
 
   // Fetch alternative lenders directly from database
@@ -187,87 +188,7 @@ export default async function SelectedLoanAgainstProperty({
   const dbFaqs = Array.isArray(lender.faqs) ? lender.faqs : [];
 
   // Schema.org Structured Data (JSON-LD) for Search Engine Optimization
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: SITE,
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Home Loans",
-            item: `${SITE}/home-loans`,
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: "Loan Against Property",
-            item: `${SITE}/home-loans/loan-against-property`,
-          },
-          {
-            "@type": "ListItem",
-            position: 4,
-            name: lender.name,
-            item: `${SITE}/home-loans/loan-against-property/${lender.id}`,
-          },
-        ],
-      },
-      {
-        "@type": "FinancialProduct",
-        name: lender.name,
-        description: lender.tagline,
-        provider: {
-          "@type": "BankOrCreditUnion",
-          name: lender.name.replace(/Loan Against Property|Mortgage Loan/i, "").trim(),
-        },
-        annualPercentageRate: lender.interestRate?.min ?? 9.25,
-        feesAndCommissionsSpecification: lender.processingFeeCap || lender.processingFee,
-        url: `${SITE}/home-loans/loan-against-property/${lender.id}`,
-        image: `${SITE}${lender.logo}`,
-        offers: {
-          "@type": "Offer",
-          price: "0",
-          priceCurrency: "INR",
-          availability: "https://schema.org/InStock",
-        },
-        review: lender.rating
-          ? {
-              "@type": "Review",
-              author: { "@type": "Organization", name: "Grofi Editorial Team" },
-              reviewRating: {
-                "@type": "Rating",
-                ratingValue: lender.rating,
-                bestRating: 5,
-                worstRating: 1,
-              },
-              reviewBody: lender.tagline,
-            }
-          : undefined,
-      },
-      ...(dbFaqs.length > 0
-        ? [
-            {
-              "@type": "FAQPage",
-              mainEntity: dbFaqs.map((faq) => ({
-                "@type": "Question",
-                name: faq.question,
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: faq.answer,
-                },
-              })),
-            },
-          ]
-        : []),
-    ],
-  };
+  const jsonLd = buildLapJsonLd(lender, dbFaqs, SITE);
 
   return (
     <>

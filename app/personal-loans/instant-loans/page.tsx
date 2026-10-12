@@ -15,7 +15,7 @@ import InstantLoanTrustSection from "./components/InstantLoanTrustSection";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.grofi.in"),
-  title: "Instant Personal Loans (2026) | Pre-Approved Cash in 10s to 15 Mins - Grofi",
+  title: "Instant Personal Loans (2026): Fast Online Approval",
   description:
     "Compare 16 instant personal loan lenders in India. Fast disbursals from 3 seconds to 15 minutes, 100% paperless Aadhaar e-KYC, starting rates from 8.90% p.a., loan amounts up to ₹50 Lakhs with zero CIBIL impact on pre-approval.",
   alternates: { canonical: "/personal-loans/instant-loans" },
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     "Grofi instant loans",
   ],
   openGraph: {
-    title: "Instant Personal Loans (2026) | Pre-Approved Cash in Minutes - Grofi",
+    title: "Instant Personal Loans (2026): Fast Online Approval",
     description:
       "Compare 16 verified RBI-regulated instant lenders. 100% paperless e-KYC, 10-second bank disbursals up to ₹50 Lakhs, and zero impact on your credit score.",
     url: "https://www.grofi.in/personal-loans/instant-loans",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Instant Personal Loans in India | Disbursal in 10s to 15 Mins - Grofi",
+    title: "Instant Personal Loans (2026): Fast Online Approval",
     description:
       "Emergency cash made simple. Compare top 16 instant lenders including HDFC, SBI, ICICI, Navi & KreditBee with paperless e-KYC.",
   },
@@ -120,8 +120,9 @@ export default async function InstantLoansPage() {
               "@type": "FinancialService",
               "name": lender.name.replace(/Personal Loan|Instant Loan/i, "").trim(),
             },
-            "description": lender.tagline,
-            "annualPercentageRate": lender.interestRate?.min ?? 9.99,
+            ...(typeof lender.interestRate?.min === "number"
+              ? { "annualPercentageRate": lender.interestRate.min }
+              : {}),
             "feesAndCommissionsSpecification": lender.processingFee,
           },
         })),

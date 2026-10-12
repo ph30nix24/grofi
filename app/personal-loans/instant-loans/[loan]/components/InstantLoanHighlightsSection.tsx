@@ -84,7 +84,9 @@ export default function InstantLoanHighlightsSection({
   const instantPros = [
     `Lightning-fast disbursal turnaround of ${lender.disbursalTime}`,
     `${lender.documentation} — zero physical documents or branch visits`,
-    `Starting interest rates from ${lender.interestRate?.min ?? 9.99}% p.a. with starting EMI of ₹${lender.startingEmiPerLakh}/Lakh`,
+    typeof lender.interestRate?.min === "number"
+      ? `Starting interest rates from ${lender.interestRate.min}% p.a. with starting EMI of ₹${lender.startingEmiPerLakh}/Lakh`
+      : `Starting EMI of ₹${lender.startingEmiPerLakh}/Lakh with transparent reducing rates`,
     lender.minCreditScore <= 650
       ? `Accessible for credit builders with minimum CIBIL score of ${lender.minCreditScore}`
       : `Attractive rate discounts for borrowers with CIBIL score above ${lender.minCreditScore}`,
@@ -114,8 +116,11 @@ export default function InstantLoanHighlightsSection({
 
             <p className="text-sm sm:text-base text-gray-700 mt-4 leading-relaxed">
               {lender.tagline}. With a guaranteed disbursal window of{" "}
-              <strong>{lender.disbursalTime}</strong> and starting rates from{" "}
-              <strong>{lender.interestRate?.min ?? 9.99}% p.a.</strong>, {lender.name} delivers one of the fastest, most streamlined digital borrowing experiences in India. Through automated Aadhaar e-KYC and digital bank statement feeds, eligible borrowers can access sovereign liquidity without cumbersome branch queues.
+              <strong>{lender.disbursalTime}</strong>
+              {typeof lender.interestRate?.min === "number" ? (
+                <> and starting rates from <strong>{lender.interestRate.min}% p.a.</strong></>
+              ) : null}
+              , {lender.name} delivers one of the fastest, most streamlined digital borrowing experiences in India. Through automated Aadhaar e-KYC and digital bank statement feeds, eligible borrowers can access sovereign liquidity without cumbersome branch queues.
             </p>
 
             {/* Best For Callout */}

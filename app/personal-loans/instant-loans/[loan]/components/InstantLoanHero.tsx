@@ -49,7 +49,9 @@ export default function InstantLoanHero({ lender }: InstantLoanHeroProps) {
 
   const rateText =
     lender.interestRate?.text ||
-    `${lender.interestRate?.min ?? 9.99}% - ${lender.interestRate?.max ?? 24.0}% p.a.`;
+    (typeof lender.interestRate?.min === "number"
+      ? `${lender.interestRate.min}%${lender.interestRate?.max ? ` - ${lender.interestRate.max}%` : ''} p.a.`
+      : "Competitive Rates");
 
   const lenderTypeLabel =
     lender.lenderType === "bank"
@@ -276,7 +278,7 @@ export default function InstantLoanHero({ lender }: InstantLoanHeroProps) {
                 onClick={() =>
                   openApplyModal(
                     lender.name,
-                    `Instant Disbursal in ${lender.disbursalTime} • Starting from ${lender.interestRate?.min ?? 9.99}% p.a.`
+                    `Instant Disbursal in ${lender.disbursalTime}${typeof lender.interestRate?.min === "number" ? ` • Starting from ${lender.interestRate.min}% p.a.` : ""}`
                   )
                 }
                 className="bg-primary hover:bg-[#035259] active:scale-98 text-white font-bold text-xs sm:text-sm py-3 px-6 rounded-xl flex items-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer"

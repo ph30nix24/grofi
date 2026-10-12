@@ -30,7 +30,7 @@ export default function InstantLoanFaqSection({
       },
       {
         question: `Can I apply for ${lender.name} if my CIBIL score is below 700?`,
-        answer: `The minimum CIBIL score required for ${lender.name} is ${lender.minCreditScore}. If your score is above 650 or you are new-to-credit, approval can still be granted based on monthly bank cashflows verified securely through the RBI Account Aggregator framework. Borrowers with CIBIL scores above 750 receive the lowest starting interest rate of ${lender.interestRate?.min ?? 9.99}% p.a.`,
+        answer: `The minimum CIBIL score required for ${lender.name} is ${lender.minCreditScore}. If your score is above 650 or you are new-to-credit, approval can still be granted based on monthly bank cashflows verified securely through the RBI Account Aggregator framework.${typeof lender.interestRate?.min === "number" ? ` Borrowers with CIBIL scores above 750 receive the lowest starting interest rate of ${lender.interestRate.min}% p.a.` : ""}`,
       },
       {
         question: `What documents are required for an instant loan from ${lender.name}?`,

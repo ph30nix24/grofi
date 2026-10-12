@@ -15,7 +15,7 @@ import ShortTermLoanTrustSection from "./components/ShortTermLoanTrustSection";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.grofi.in"),
-  title: "Short Term Personal Loans (2026) | Flexible 3 to 12 Month Credit - Grofi",
+  title: "Short Term Personal Loans (2026): 3 to 12 Month Credit",
   description:
     "Compare 15 top short-term personal loan lenders in India. Flexible 3 to 12-month tenures, zero foreclosure penalties, instant disbursals from 3 seconds to 15 minutes, starting rates from 10.0% p.a., and mandatory RBI KFS & cooling-off protection.",
   alternates: { canonical: "/personal-loans/short-term-loans" },
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     "Grofi short term loans",
   ],
   openGraph: {
-    title: "Short Term Personal Loans (2026) | Flexible 3-12 Month Credit - Grofi",
+    title: "Short Term Personal Loans (2026): 3 to 12 Month Credit",
     description:
       "Compare 15 verified RBI-regulated short-term lenders. 3 to 12-month tenures, zero foreclosure penalties, minimal total interest outgo, and instant bank disbursals up to ₹40 Lakhs.",
     url: "https://www.grofi.in/personal-loans/short-term-loans",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Short Term Personal Loans in India | Flexible 3-12 Months - Grofi",
+    title: "Short Term Personal Loans (2026): 3 to 12 Month Credit",
     description:
       "Borrow quick and repay fast with zero long-term liabilities. Compare top short-term lenders including SBI, HDFC, Navi, KreditBee & CASHe with paperless e-KYC.",
   },
@@ -121,8 +121,9 @@ export default async function ShortTermPersonalLoanPage() {
               "@type": "FinancialService",
               "name": lender.rbiRegulatedEntity,
             },
-            "description": lender.tagline,
-            "annualPercentageRate": lender.interestRate?.min ?? 10.0,
+            ...(typeof lender.interestRate?.min === "number"
+              ? { "annualPercentageRate": lender.interestRate.min }
+              : {}),
             "feesAndCommissionsSpecification": lender.processingFee,
           },
         })),

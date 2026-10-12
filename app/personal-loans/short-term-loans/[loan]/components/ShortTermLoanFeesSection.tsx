@@ -18,7 +18,9 @@ interface ShortTermLoanFeesSectionProps {
 export default function ShortTermLoanFeesSection({ lender }: ShortTermLoanFeesSectionProps) {
   const rateText =
     lender.interestRate?.text ||
-    `${lender.interestRate?.min ?? 12.0}% - ${lender.interestRate?.max ?? 30.0}% p.a.`;
+    (typeof lender.interestRate?.min === "number"
+      ? `${lender.interestRate.min}%${lender.interestRate?.max ? ` - ${lender.interestRate.max}%` : ''} p.a.`
+      : "Competitive Annual Rates");
 
   const feeItems = [
     {
@@ -166,7 +168,7 @@ export default function ShortTermLoanFeesSection({ lender }: ShortTermLoanFeesSe
             </div>
 
             <div className="flex justify-between py-2 border-b border-white/10">
-              <span className="text-emerald-200">Monthly EMI (6 Months @ {lender.interestRate?.min ?? 16}%):</span>
+              <span className="text-emerald-200">Monthly EMI (6 Months{typeof lender.interestRate?.min === "number" ? ` @ ${lender.interestRate.min}%` : ""}):</span>
               <strong className="text-white font-bold">₹8,728 / mo</strong>
             </div>
 

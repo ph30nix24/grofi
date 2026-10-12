@@ -125,7 +125,7 @@ export default function InstantLoanEligibilityDocsSection({
                     </span>
                   </div>
                   <p className="text-[11px] text-gray-500 mt-0.5">
-                    Scores above 750 unlock the lowest starting rate of {lender.interestRate?.min ?? 9.99}% p.a.
+                    {typeof lender.interestRate?.min === "number" ? `Scores above 750 unlock the lowest starting rate of ${lender.interestRate.min}% p.a.` : "Higher credit scores qualify for premier interest brackets."}
                   </p>
                 </div>
               </div>

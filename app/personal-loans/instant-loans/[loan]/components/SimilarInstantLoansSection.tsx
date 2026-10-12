@@ -48,7 +48,9 @@ export default function SimilarInstantLoansSection({
           const loanHref = `/personal-loans/instant-loans/${item.id}`;
           const rateText =
             item.interestRate?.text ||
-            `${item.interestRate?.min ?? 9.99}% p.a. onwards`;
+            (typeof item.interestRate?.min === "number"
+              ? `${item.interestRate.min}% p.a. onwards`
+              : "Competitive rates");
 
           return (
             <div

@@ -125,7 +125,7 @@ export default function PersonalLoanDetailModal({
             <div className="bg-white p-2.5 rounded-xl border border-gray-100">
               <span className="text-gray-600 block text-[10px] uppercase font-bold">Interest Rate</span>
               <span className="font-bricolage font-bold text-sm sm:text-base text-primary">
-                {lender.interestRate?.min ?? 9.99}% - {lender.interestRate?.max ?? 24}%
+                {typeof lender.interestRate?.min === "number" ? `${lender.interestRate.min}%${lender.interestRate.max ? ` - ${lender.interestRate.max}%` : ''}` : "Competitive"}
               </span>
             </div>
             <div className="bg-white p-2.5 rounded-xl border border-gray-100">
@@ -443,7 +443,7 @@ export default function PersonalLoanDetailModal({
           <div>
             <span className="text-[11px] text-gray-500 block">Lowest Rate Starting From</span>
             <span className="font-bricolage font-extrabold text-lg text-primary">
-              {lender.interestRate?.min ?? 9.99}% p.a.
+              {typeof lender.interestRate?.min === "number" ? `${lender.interestRate.min}% p.a.` : "Competitive Rates"}
             </span>
           </div>
 

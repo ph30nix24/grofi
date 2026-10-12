@@ -51,7 +51,7 @@ export default function InstantLoanCompareDock({
                   </span>
                   <div className="flex items-center gap-1.5 text-[10px]">
                     <span className="text-emerald-400 font-semibold">
-                      {lender.interestRate?.min ?? 9.99}% p.a.
+                      {typeof lender.interestRate?.min === "number" ? `${lender.interestRate.min}% p.a.` : "Competitive"}
                     </span>
                     <span className="text-amber-400 font-medium flex items-center">
                       <Zap className="w-2.5 h-2.5" />

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { cache } from "react";
 import prisma from "@/libs/db";
 import Navbar from "@/app/components/Navbar";
@@ -18,6 +18,7 @@ import BusinessLoanFaqSection from "./components/BusinessLoanFaqSection";
 import SimilarBusinessLoansSection from "./components/SimilarBusinessLoansSection";
 import BusinessLoanPreApprovedBanner from "./components/BusinessLoanPreApprovedBanner";
 import BusinessLoanMobileApplyBar from "./components/BusinessLoanMobileApplyBar";
+import { buildBusinessLoanJsonLd } from "@/libs/structuredData";
 
 const SITE = "https://www.grofi.in";
 
@@ -155,87 +156,13 @@ export default async function SelectedBusinessLoan({
 
   // If accessed by a slug rather than canonical ID, redirect to canonical slug
   if (lender.id !== loan) {
-    redirect(`/business-loans/${lender.id}`);
+    permanentRedirect(`/business-loans/${lender.id}`);
   }
 
   const similarLenders = await fetchSimilarLenders(lender.id);
 
   // Schema.org Structured Data (JSON-LD) for Search Engine Optimization
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: SITE,
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Business Loans",
-            item: `${SITE}/business-loans`,
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: lender.name,
-            item: `${SITE}/business-loans/${lender.id}`,
-          },
-        ],
-      },
-      {
-        "@type": "FinancialProduct",
-        name: lender.name,
-        description: lender.description || lender.tagline,
-        provider: {
-          "@type": "BankOrCreditUnion",
-          name: lender.name.replace(/Business Loan|Loan/i, "").trim(),
-        },
-        annualPercentageRate: lender.interestRate?.min ?? 10.75,
-        feesAndCommissionsSpecification: lender.processingFee,
-        url: `${SITE}/business-loans/${lender.id}`,
-        image: `${SITE}${lender.logo}`,
-        offers: {
-          "@type": "Offer",
-          price: "0",
-          priceCurrency: "INR",
-          availability: "https://schema.org/InStock",
-        },
-        review: lender.rating
-          ? {
-              "@type": "Review",
-              author: { "@type": "Organization", name: "Grofi Editorial Team" },
-              reviewRating: {
-                "@type": "Rating",
-                ratingValue: lender.rating,
-                bestRating: 5,
-                worstRating: 1,
-              },
-              reviewBody: lender.tagline,
-            }
-          : undefined,
-      },
-      ...(lender.faqs && lender.faqs.length > 0
-        ? [
-            {
-              "@type": "FAQPage",
-              mainEntity: lender.faqs.map((faq) => ({
-                "@type": "Question",
-                name: faq.question,
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: faq.answer,
-                },
-              })),
-            },
-          ]
-        : []),
-    ],
-  };
+  const jsonLd = buildBusinessLoanJsonLd(lender, SITE);
 
   return (
     <>

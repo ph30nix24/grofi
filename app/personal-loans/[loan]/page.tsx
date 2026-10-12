@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { cache } from "react";
 import prisma from "@/libs/db";
 import Navbar from "@/app/components/Navbar";
@@ -17,7 +17,7 @@ import LoanFaqSection from "./components/LoanFaqSection";
 import SimilarLoansSection from "./components/SimilarLoansSection";
 import LoanPreApprovedBanner from "./components/LoanPreApprovedBanner";
 import LoanMobileApplyBar from "./components/LoanMobileApplyBar";
-
+import { buildPersonalLoanJsonLd } from "@/libs/structuredData";
 
 const SITE = "https://www.grofi.in";
 
@@ -161,87 +161,13 @@ export default async function SelectedPersonalLoan({
 
   // If accessed by an alias rather than canonical ID, redirect to canonical slug
   if (lender.id !== loan) {
-    redirect(`/personal-loans/${lender.id}`);
+    permanentRedirect(`/personal-loans/${lender.id}`);
   }
 
   const similarLenders = await fetchSimilarLenders(lender.id);
 
   // Schema.org Structured Data (JSON-LD) for Search Engine Optimization
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: SITE,
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Personal Loans",
-            item: `${SITE}/personal-loans`,
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: lender.name,
-            item: `${SITE}/personal-loans/${lender.id}`,
-          },
-        ],
-      },
-      {
-        "@type": "FinancialProduct",
-        name: lender.name,
-        description: lender.overview || lender.tagline,
-        provider: {
-          "@type": "BankOrCreditUnion",
-          name: lender.name.replace(/Personal Loan/i, "").trim(),
-        },
-        annualPercentageRate: lender.interestRate?.min ?? 9.99,
-        feesAndCommissionsSpecification: lender.processingFee,
-        url: `${SITE}/personal-loans/${lender.id}`,
-        image: `${SITE}${lender.logo}`,
-        offers: {
-          "@type": "Offer",
-          price: "0",
-          priceCurrency: "INR",
-          availability: "https://schema.org/InStock",
-        },
-        review: lender.rating
-          ? {
-              "@type": "Review",
-              author: { "@type": "Organization", name: "Grofi Editorial Team" },
-              reviewRating: {
-                "@type": "Rating",
-                ratingValue: lender.rating,
-                bestRating: 5,
-                worstRating: 1,
-              },
-              reviewBody: lender.tagline,
-            }
-          : undefined,
-      },
-      ...(lender.customFaqs && lender.customFaqs.length > 0
-        ? [
-            {
-              "@type": "FAQPage",
-              mainEntity: lender.customFaqs.map((faq) => ({
-                "@type": "Question",
-                name: faq.question,
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: faq.answer,
-                },
-              })),
-            },
-          ]
-        : []),
-    ],
-  };
+  const jsonLd = buildPersonalLoanJsonLd(lender, SITE);
 
   return (
     <>

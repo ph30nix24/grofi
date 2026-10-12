@@ -70,6 +70,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
   ]);
 
+  const results = [
+    { name: "cards", res: cardsResult },
+    { name: "personalLoans", res: personalLoansResult },
+    { name: "instantLoans", res: instantLoansResult },
+    { name: "shortTermLoans", res: shortTermLoansResult },
+    { name: "homeLoans", res: homeLoansResult },
+    { name: "balanceTransfers", res: balanceTransferResult },
+    { name: "lapLoans", res: lapResult },
+    { name: "businessLoans", res: businessLoansResult },
+    { name: "blogs", res: blogsResult },
+  ];
+  for (const { name, res } of results) {
+    if (res.status === "rejected") {
+      console.error(`Sitemap: Query failed for ${name}:`, res.reason);
+    }
+  }
+
   const cards = cardsResult.status === "fulfilled" ? cardsResult.value : [];
   const personalLoans =
     personalLoansResult.status === "fulfilled" ? personalLoansResult.value : [];
@@ -193,12 +210,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: STATIC_FALLBACK_DATE,
       changeFrequency: "monthly",
       priority: 0.75,
-    },
-    {
-      url: `${BASE_URL}/privacy`,
-      lastModified: STATIC_FALLBACK_DATE,
-      changeFrequency: "yearly",
-      priority: 0.5,
     },
     {
       url: `${BASE_URL}/privacy-policy`,
