@@ -258,7 +258,7 @@ export default function BalanceTransferExplorer({
         </div>
 
         {/* Category Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hidden scrollbar-none [&::-webkit-scrollbar]:hidden">
           {categoryTabs.map((cat) => {
             const Icon = cat.icon;
             const isSelected = selectedCategory === cat.id;
@@ -537,14 +537,14 @@ export default function BalanceTransferExplorer({
                       <div className="mt-3.5 space-y-2 text-xs">
                         <div className="flex items-center justify-between text-gray-600">
                           <span className="text-gray-400">Processing Fee:</span>
-                          <span className="font-semibold text-gray-900 text-right truncate max-w-[170px]" title={lender.processingFee}>
+                          <span className="font-semibold text-gray-900 text-right truncate max-w-42.5" title={lender.processingFee}>
                             {lender.processingFeeCap || lender.processingFee}
                           </span>
                         </div>
 
                         <div className="flex items-center justify-between text-gray-600">
                           <span className="text-gray-400">Max Top-Up Limit:</span>
-                          <span className="font-bold text-emerald-700 truncate max-w-[170px]">
+                          <span className="font-bold text-emerald-700 truncate max-w-42.5">
                             {lender.maxTopUpAmount}
                           </span>
                         </div>
@@ -690,7 +690,7 @@ export default function BalanceTransferExplorer({
 
                     <div>
                       <span className="text-[10px] text-gray-400 block">Processing Fee Cap</span>
-                      <span className="font-bold text-gray-900 block truncate max-w-[130px]">
+                      <span className="font-bold text-gray-900 block truncate max-w-32.5">
                         {lender.processingFeeCap || lender.processingFee}
                       </span>
                       <span className="text-[10px] text-emerald-600">
@@ -700,7 +700,7 @@ export default function BalanceTransferExplorer({
 
                     <div>
                       <span className="text-[10px] text-gray-400 block">Top-Up Available</span>
-                      <span className="font-bold text-emerald-700 block truncate max-w-[130px]">
+                      <span className="font-bold text-emerald-700 block truncate max-w-32.5">
                         {lender.maxTopUpAmount}
                       </span>
                       <span className="text-[10px] text-gray-500">

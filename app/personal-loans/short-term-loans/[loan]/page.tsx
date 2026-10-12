@@ -214,13 +214,17 @@ export default async function SelectedShortTermLoan({
           priceCurrency: "INR",
           availability: "https://schema.org/InStock",
         },
-        aggregateRating: lender.rating
+        review: lender.rating
           ? {
-              "@type": "AggregateRating",
-              ratingValue: lender.rating,
-              bestRating: 5,
-              worstRating: 1,
-              ratingCount: 1500,
+              "@type": "Review",
+              author: { "@type": "Organization", name: "Grofi Editorial Team" },
+              reviewRating: {
+                "@type": "Rating",
+                ratingValue: lender.rating,
+                bestRating: 5,
+                worstRating: 1,
+              },
+              reviewBody: lender.tagline,
             }
           : undefined,
       },
