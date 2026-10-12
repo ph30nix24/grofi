@@ -15,6 +15,7 @@ import {
   Building2,
 } from "lucide-react";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
+import { calculateEmi, formatINR } from "@/libs/calculators/emi";
 
 export default function BusinessLoanEmiCalculator() {
   const { openApplyModal } = useApplyModal();
@@ -57,68 +58,9 @@ export default function BusinessLoanEmiCalculator() {
     { label: "7 Years", years: 7 },
   ];
 
-  // Formatting helper
-  const formatINR = (val: number): string => {
-    return new Intl.NumberFormat("en-IN", {
-      maximumFractionDigits: 0,
-    }).format(Math.round(val));
-  };
-
-  // Monthly EMI Math calculation: E = P * r * (1 + r)^n / ((1 + r)^n - 1)
+  // Monthly EMI Math calculation via centralized engine
   const calculation = useMemo(() => {
-    const P = loanAmount;
-    const r = interestRate / 12 / 100;
-    const n = tenureYears * 12;
-
-    if (r === 0 || n === 0) {
-      return {
-        monthlyEmi: Math.round(P / Math.max(1, n)),
-        totalInterest: 0,
-        totalPayment: P,
-        principalPercent: 100,
-        interestPercent: 0,
-        yearlyBreakdown: [],
-      };
-    }
-
-    const compound = Math.pow(1 + r, n);
-    const emi = (P * r * compound) / (compound - 1);
-    const totalPayment = emi * n;
-    const totalInterest = totalPayment - P;
-
-    const principalPct = Math.round((P / totalPayment) * 100);
-    const interestPct = Math.max(0, 100 - principalPct);
-
-    // Generate yearly amortization breakdown
-    let balance = P;
-    const yearlyBreakdown: { year: number; principalPaid: number; interestPaid: number; balance: number }[] = [];
-
-    for (let yr = 1; yr <= tenureYears; yr++) {
-      let yrPrincipal = 0;
-      let yrInterest = 0;
-      for (let m = 1; m <= 12; m++) {
-        const monthlyInterest = balance * r;
-        const monthlyPrincipal = emi - monthlyInterest;
-        yrInterest += monthlyInterest;
-        yrPrincipal += monthlyPrincipal;
-        balance = Math.max(0, balance - monthlyPrincipal);
-      }
-      yearlyBreakdown.push({
-        year: yr,
-        principalPaid: Math.round(yrPrincipal),
-        interestPaid: Math.round(yrInterest),
-        balance: Math.round(balance),
-      });
-    }
-
-    return {
-      monthlyEmi: Math.round(emi),
-      totalInterest: Math.round(totalInterest),
-      totalPayment: Math.round(totalPayment),
-      principalPercent: principalPct,
-      interestPercent: interestPct,
-      yearlyBreakdown,
-    };
+    return calculateEmi(loanAmount, interestRate, tenureYears * 12);
   }, [loanAmount, interestRate, tenureYears]);
 
   return (

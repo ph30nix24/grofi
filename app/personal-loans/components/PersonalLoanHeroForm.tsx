@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import ConsentCheckbox from "@/app/components/ConsentCheckbox";
 import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
+import { formatINR } from "@/libs/calculators/emi";
+import LeadFormSuccess from "@/app/components/forms/LeadFormSuccess";
 
 const CIBIL_RANGES = [
   { label: "750+ (Prime)", value: "750+" },
@@ -45,13 +47,6 @@ export default function PersonalLoanHeroForm() {
   const [errors, setErrors] = useState<{ name?: string; phone?: string; consent?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  // Formatting helper
-  const formatINR = (val: number): string => {
-    return new Intl.NumberFormat("en-IN", {
-      maximumFractionDigits: 0,
-    }).format(Math.round(val));
-  };
 
   const validateForm = () => {
     const newErrors: { name?: string; phone?: string; consent?: string } = {};
@@ -348,90 +343,15 @@ export default function PersonalLoanHeroForm() {
           </form>
         </>
       ) : (
-        /* ── Celebratory Result Screen ── */
-        <div className="text-center py-2 animate-fadeIn relative">
-          
-          {/* Multi-ring pulsating checkmark */}
-          <div className="relative flex items-center justify-center my-3">
-            <div className="absolute w-16 h-16 rounded-full bg-emerald-500/15 animate-ping duration-1000 pointer-events-none" />
-            <div className="relative w-16 h-16 rounded-full bg-linear-to-tr from-emerald-500 via-teal-400 to-[#C9AA3C] p-0.5 shadow-xl flex items-center justify-center">
-              <div className="w-full h-full bg-white rounded-full flex items-center justify-center p-1">
-                <div className="w-full h-full bg-linear-to-br from-primary to-[#035259] rounded-full flex items-center justify-center text-white shadow-inner">
-                  <CheckCircle2 className="w-7 h-7 text-emerald-300 stroke-[2.5]" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="inline-flex items-center gap-1.5 bg-[#EBF4ED] text-primary px-3 py-1 rounded-full text-[11px] font-bold mt-1 border border-primary/15 mb-3">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            Pre-Approval Verified
-          </div>
-
-          <h3 className="font-bricolage font-bold text-xl sm:text-2xl text-gray-900 leading-tight">
-            You&apos;re Eligible, <span className="text-primary">{name || "Applicant"}</span>!
-          </h3>
-          <p className="text-xs text-gray-500 mt-1">
-            Based on your profile, you qualify for instant digital disbursal.
-          </p>
-
-          {/* Pre-Approved Sanction Card */}
-          <div className="bg-[#FDFBF7] border border-gray-200 rounded-2xl p-4 my-4 text-left space-y-2">
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-gray-500">Requested Amount:</span>
-              <span className="font-bold text-gray-900 font-bricolage text-base">₹{formatINR(loanAmount)}</span>
-            </div>
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-gray-500">Starting Interest Rate:</span>
-              <span className="font-bold text-emerald-700 font-bricolage text-base">From 9.99% p.a.</span>
-            </div>
-            <div className="flex items-center justify-between text-xs pt-2 border-t border-gray-200">
-              <span className="text-primary font-bold">Estimated EMI (5 Yrs):</span>
-              <span className="font-bricolage font-extrabold text-primary text-base">₹{formatINR(estimatedEmi)}/mo</span>
-            </div>
-          </div>
-
-          {/* Callback note */}
-          <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 my-3 text-left flex items-center gap-2.5 text-xs text-emerald-950">
-            <Headphones className="w-4 h-4 text-emerald-700 shrink-0" />
-            <div>
-              <p className="font-bold leading-tight">Our loan advisor will contact you shortly.</p>
-              <p className="text-[11px] text-emerald-800 mt-0.5 flex items-center gap-1">
-                <Clock className="w-3 h-3" />
-                Response time: <strong>Under 15 minutes</strong>
-              </p>
-            </div>
-          </div>
-
-          {/* Action buttons */}
-          <div className="space-y-2 pt-2">
-            <button
-              onClick={() => {
-                const el = document.getElementById("lenders-list-section");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="w-full bg-primary hover:bg-[#035259] text-white font-bold text-xs sm:text-sm py-3 px-4 rounded-xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-1.5"
-            >
-              <span>Compare Matching Banks Below</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-
-            <button
-              onClick={handleReset}
-              className="w-full text-xs font-semibold text-gray-500 hover:text-gray-800 py-1.5 flex items-center justify-center gap-1 cursor-pointer transition-colors"
-            >
-              <RotateCcw className="w-3 h-3" />
-              <span>Check another loan amount</span>
-            </button>
-          </div>
-
-          {/* Security note */}
-          <div className="flex items-center justify-center gap-2 text-[10px] text-gray-400 mt-3">
-            <Lock className="w-3 h-3 text-emerald-600" />
-            <span>256-Bit SSL Encrypted & RBI Regulated</span>
-          </div>
-
-        </div>
+        <LeadFormSuccess
+          applicantName={name.trim() || "Applicant"}
+          requestedAmount={loanAmount}
+          startingRateText="From 9.99% p.a."
+          estimatedEmi={estimatedEmi}
+          scrollTargetId="lenders-list-section"
+          scrollButtonText="Compare Matching Banks Below"
+          onReset={handleReset}
+        />
       )}
 
     </div>

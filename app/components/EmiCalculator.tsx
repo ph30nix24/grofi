@@ -20,6 +20,14 @@ import {
   Zap,
 } from "lucide-react";
 import { useApplyModal } from "../context/ApplyModalContext";
+import {
+  calculateEmi,
+  formatINR,
+  formatAmountText,
+  getSliderPercentage,
+} from "@/libs/calculators/emi";
+import AmortizationTable from "./calculators/AmortizationTable";
+import EmiDonutChart from "./calculators/EmiDonutChart";
 
 type LoanType = "personal" | "business" | "home";
 
@@ -200,116 +208,26 @@ export default function EmiCalculator() {
     return tenureUnit === "years" ? tenureYears * 12 : tenureYears;
   }, [tenureYears, tenureUnit]);
 
-  // EMI Math formula & Yearly Breakdown calculation
+  // EMI Math formula & Yearly Breakdown calculation from centralized engine
   const { monthlyEmi, totalInterest, totalPayment, principalPercent, interestPercent, yearlyBreakdown } =
     useMemo(() => {
-      const P = amount;
-      const r = interestRate / 12 / 100;
-      const n = Math.max(1, totalMonths);
-
-      if (r === 0) {
-        const emi = P / n;
-        return {
-          monthlyEmi: Math.round(emi),
-          totalInterest: 0,
-          totalPayment: Math.round(P),
-          principalPercent: 100,
-          interestPercent: 0,
-          yearlyBreakdown: [],
-        };
-      }
-
-      const compound = Math.pow(1 + r, n);
-      const emi = (P * r * compound) / (compound - 1);
-      const payment = emi * n;
-      const interest = payment - P;
-
-      const pPct = payment > 0 ? (P / payment) * 100 : 100;
-      const iPct = payment > 0 ? (interest / payment) * 100 : 0;
-
-      // Generate yearly amortization breakdown
-      let balance = P;
-      const breakdown: {
-        year: number;
-        principalPaid: number;
-        interestPaid: number;
-        balance: number;
-      }[] = [];
-
-      const totalYears = Math.ceil(n / 12);
-      for (let yr = 1; yr <= totalYears; yr++) {
-        let yrPrincipal = 0;
-        let yrInterest = 0;
-        const monthsInThisYear = yr === totalYears && n % 12 !== 0 ? n % 12 : 12;
-
-        for (let m = 1; m <= monthsInThisYear; m++) {
-          const monthlyInt = balance * r;
-          const monthlyPrin = emi - monthlyInt;
-          yrInterest += monthlyInt;
-          yrPrincipal += monthlyPrin;
-          balance = Math.max(0, balance - monthlyPrin);
-        }
-
-        breakdown.push({
-          year: yr,
-          principalPaid: Math.round(yrPrincipal),
-          interestPaid: Math.round(yrInterest),
-          balance: Math.round(balance),
-        });
-      }
-
-      return {
-        monthlyEmi: Math.round(emi),
-        totalInterest: Math.round(interest),
-        totalPayment: Math.round(payment),
-        principalPercent: Math.round(pPct),
-        interestPercent: Math.max(0, 100 - Math.round(pPct)),
-        yearlyBreakdown: breakdown,
-      };
+      return calculateEmi(amount, interestRate, totalMonths);
     }, [amount, interestRate, totalMonths]);
-
-  // Format currency in Indian standard format
-  const formatINR = (val: number) => {
-    return new Intl.NumberFormat("en-IN", {
-      maximumFractionDigits: 0,
-    }).format(Math.round(val));
-  };
-
-  // Format Indian text label for preview (e.g. 50 Lakhs, 1.2 Crore)
-  const formatAmountText = (val: number) => {
-    if (val >= 10000000) {
-      return `₹ ${(val / 10000000).toFixed(2).replace(/\.00$/, "")} Cr`;
-    }
-    if (val >= 100000) {
-      return `₹ ${(val / 100000).toFixed(2).replace(/\.00$/, "")} Lakh`;
-    }
-    return `₹ ${formatINR(val)}`;
-  };
 
   // Slider Fill Percentages
   const amountPercent = useMemo(() => {
-    const min = activeConfig.minAmount;
-    const max = activeConfig.maxAmount;
-    return Math.min(100, Math.max(0, ((amount - min) / (max - min)) * 100));
+    return getSliderPercentage(amount, activeConfig.minAmount, activeConfig.maxAmount);
   }, [amount, activeConfig]);
 
   const ratePercent = useMemo(() => {
-    const min = activeConfig.minRate;
-    const max = activeConfig.maxRate;
-    return Math.min(100, Math.max(0, ((interestRate - min) / (max - min)) * 100));
+    return getSliderPercentage(interestRate, activeConfig.minRate, activeConfig.maxRate);
   }, [interestRate, activeConfig]);
 
   const tenurePercent = useMemo(() => {
     const min = tenureUnit === "years" ? activeConfig.minTenureYears : activeConfig.minTenureYears * 12;
     const max = tenureUnit === "years" ? activeConfig.maxTenureYears : activeConfig.maxTenureYears * 12;
-    return Math.min(100, Math.max(0, ((tenureYears - min) / (max - min)) * 100));
+    return getSliderPercentage(tenureYears, min, max);
   }, [tenureYears, tenureUnit, activeConfig]);
-
-  // Calculate SVG Pie/Donut Chart parameters
-  const radius = 64;
-  const circumference = 2 * Math.PI * radius;
-  const principalStroke = (principalPercent / 100) * circumference;
-  const interestStroke = (interestPercent / 100) * circumference;
 
   return (
     <section
@@ -727,112 +645,12 @@ export default function EmiCalculator() {
 
               {/* Donut Chart & Visual Breakdown */}
               <div className="my-6 pt-6 border-t border-white/10 relative z-10">
-                <div className="flex items-center justify-between gap-4">
-                  {/* SVG Donut Ring with Gradients */}
-                  <div className="relative w-32 h-32 sm:w-36 sm:h-36 flex items-center justify-center shrink-0">
-                    <svg className="w-full h-full -rotate-90" viewBox="0 0 160 160">
-                      <defs>
-                        <linearGradient id="emiPrincipalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#34D399" />
-                          <stop offset="100%" stopColor="#059669" />
-                        </linearGradient>
-                        <linearGradient id="emiInterestGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#FBBF24" />
-                          <stop offset="100%" stopColor="#D97706" />
-                        </linearGradient>
-                      </defs>
-
-                      {/* Track background circle */}
-                      <circle
-                        cx="80"
-                        cy="80"
-                        r={radius}
-                        stroke="rgba(255, 255, 255, 0.12)"
-                        strokeWidth="16"
-                        fill="transparent"
-                      />
-
-                      {/* Principal Segment */}
-                      <circle
-                        cx="80"
-                        cy="80"
-                        r={radius}
-                        stroke="url(#emiPrincipalGrad)"
-                        strokeWidth="16"
-                        strokeDasharray={`${principalStroke} ${circumference}`}
-                        strokeDashoffset="0"
-                        strokeLinecap="round"
-                        fill="transparent"
-                        className="transition-all duration-700 ease-out"
-                      />
-
-                      {/* Interest Segment */}
-                      <circle
-                        cx="80"
-                        cy="80"
-                        r={radius}
-                        stroke="url(#emiInterestGrad)"
-                        strokeWidth="16"
-                        strokeDasharray={`${interestStroke} ${circumference}`}
-                        strokeDashoffset={-principalStroke}
-                        strokeLinecap="round"
-                        fill="transparent"
-                        className="transition-all duration-700 ease-out"
-                      />
-                    </svg>
-
-                    {/* Center Percentage Display */}
-                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                      <span className="text-[10px] uppercase tracking-wider text-emerald-200/70 font-bold font-montserrat">
-                        Principal
-                      </span>
-                      <span className="text-xl sm:text-2xl font-extrabold font-bricolage text-white">
-                        {principalPercent}%
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Adjacent Legend & Stat Cards */}
-                  <div className="flex-1 flex flex-col gap-2.5">
-                    {/* Principal Stat */}
-                    <div className="bg-white/[0.07] hover:bg-white/[0.12] border border-white/10 rounded-xl p-3 transition-colors">
-                      <div className="flex items-center justify-between mb-1">
-                        <div className="flex items-center gap-1.5 text-xs text-white/80 font-montserrat font-medium">
-                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0 shadow-2xs" />
-                          <span>Principal ({principalPercent}%)</span>
-                        </div>
-                      </div>
-                      <p className="font-bricolage font-bold text-white text-base sm:text-lg">
-                        ₹ {formatINR(amount)}
-                      </p>
-                      <div className="w-full h-1 bg-white/10 rounded-full mt-1.5 overflow-hidden">
-                        <div
-                          style={{ width: `${principalPercent}%` }}
-                          className="h-full bg-emerald-400 rounded-full"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Interest Stat */}
-                    <div className="bg-white/[0.07] hover:bg-white/[0.12] border border-white/10 rounded-xl p-3 transition-colors">
-                      <div className="flex items-center justify-between mb-1">
-                        <div className="flex items-center gap-1.5 text-xs text-white/80 font-montserrat font-medium">
-                          <span className="w-2.5 h-2.5 rounded-full bg-gold shrink-0 shadow-2xs" />
-                          <span>Total Interest ({interestPercent}%)</span>
-                        </div>
-                      </div>
-                      <p className="font-bricolage font-bold text-gold text-base sm:text-lg">
-                        ₹ {formatINR(totalInterest)}
-                      </p>
-                      <div className="w-full h-1 bg-white/10 rounded-full mt-1.5 overflow-hidden">
-                        <div
-                          style={{ width: `${interestPercent}%` }}
-                          className="h-full bg-gold rounded-full"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <EmiDonutChart
+                  amount={amount}
+                  totalInterest={totalInterest}
+                  principalPercent={principalPercent}
+                  interestPercent={interestPercent}
+                />
               </div>
 
               {/* Total Payable Summary Bar */}
@@ -913,60 +731,11 @@ export default function EmiCalculator() {
 
         {/* ── Collapsible Yearly Amortization Schedule ─────────────────── */}
         {showAmortization && (
-          <div className="mt-8 bg-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-lg border border-gray-150 animate-fadeIn">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-gray-100 gap-2 mb-6">
-              <div>
-                <h3 className="font-bricolage font-bold text-xl sm:text-2xl text-gray-900 flex items-center gap-2">
-                  <Calendar className="w-5 h-5 text-primary" />
-                  Yearly Amortization Schedule
-                </h3>
-                <p className="text-xs sm:text-sm text-gray-500 font-montserrat mt-1">
-                  Complete breakdown of principal vs interest paid across your {tenureYears} year tenure.
-                </p>
-              </div>
-              <span className="self-start sm:self-auto text-xs font-bold bg-primary/10 text-primary px-3 py-1.5 rounded-lg border border-primary/20 font-montserrat">
-                Total Repayment: ₹{formatINR(totalPayment)}
-              </span>
-            </div>
-
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs sm:text-sm font-montserrat">
-                <thead>
-                  <tr className="bg-gray-50 border-y border-gray-200/80 text-gray-500 font-bold uppercase tracking-wider text-[11px]">
-                    <th className="py-3 px-4 rounded-l-xl">Year</th>
-                    <th className="py-3 px-4">Principal Paid</th>
-                    <th className="py-3 px-4">Interest Paid</th>
-                    <th className="py-3 px-4">Total Paid in Year</th>
-                    <th className="py-3 px-4 rounded-r-xl">Remaining Balance</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100 text-gray-700">
-                  {yearlyBreakdown.map((row) => (
-                    <tr key={row.year} className="hover:bg-primary/[0.02] transition-colors">
-                      <td className="py-3.5 px-4 font-bold text-gray-900 flex items-center gap-2">
-                        <span className="w-6 h-6 rounded-md bg-gray-100 text-gray-700 text-xs font-bold flex items-center justify-center">
-                          {row.year}
-                        </span>
-                        Year {row.year}
-                      </td>
-                      <td className="py-3.5 px-4 font-semibold text-emerald-700 font-bricolage text-base">
-                        ₹ {formatINR(row.principalPaid)}
-                      </td>
-                      <td className="py-3.5 px-4 font-semibold text-amber-800 font-bricolage text-base">
-                        ₹ {formatINR(row.interestPaid)}
-                      </td>
-                      <td className="py-3.5 px-4 font-bold text-primary font-bricolage text-base">
-                        ₹ {formatINR(row.principalPaid + row.interestPaid)}
-                      </td>
-                      <td className="py-3.5 px-4 font-medium text-gray-500 font-bricolage text-base">
-                        ₹ {formatINR(row.balance)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <AmortizationTable
+            tenureYears={tenureYears}
+            totalPayment={totalPayment}
+            yearlyBreakdown={yearlyBreakdown}
+          />
         )}
       </div>
     </section>

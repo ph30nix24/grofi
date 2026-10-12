@@ -13,6 +13,13 @@ import {
   Calendar,
 } from "lucide-react";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
+import {
+  calculateEmi,
+  calculateBalanceTransfer,
+  formatINR,
+  formatAmountText,
+  getSliderPercentage,
+} from "@/libs/calculators/emi";
 
 export default function HomeLoanEmiCalculator() {
   const { openApplyModal } = useApplyModal();
@@ -80,102 +87,25 @@ export default function HomeLoanEmiCalculator() {
     return Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100));
   };
 
-  // Monthly EMI Math calculation: E = P * r * (1 + r)^n / ((1 + r)^n - 1)
+  // Monthly EMI Math calculation via centralized engine
   const emiCalculation = useMemo(() => {
-    const P = loanAmount;
-    const r = interestRate / 12 / 100;
-    const n = tenureYears * 12;
-
-    if (r === 0 || n === 0) {
-      return {
-        monthlyEmi: Math.round(P / Math.max(1, n)),
-        totalInterest: 0,
-        totalPayment: P,
-        principalPercent: 100,
-        interestPercent: 0,
-        yearlyBreakdown: [],
-      };
-    }
-
-    const compound = Math.pow(1 + r, n);
-    const emi = (P * r * compound) / (compound - 1);
-    const totalPayment = emi * n;
-    const totalInterest = totalPayment - P;
-
-    const principalPct = Math.round((P / totalPayment) * 100);
-    const interestPct = Math.max(0, 100 - principalPct);
-
-    // Amortization schedule
-    let balance = P;
-    const yearlyBreakdown: { year: number; principalPaid: number; interestPaid: number; balance: number }[] = [];
-
-    for (let yr = 1; yr <= tenureYears; yr++) {
-      let yrPrincipal = 0;
-      let yrInterest = 0;
-      for (let m = 1; m <= 12; m++) {
-        const monthlyInterest = balance * r;
-        const monthlyPrincipal = emi - monthlyInterest;
-        yrInterest += monthlyInterest;
-        yrPrincipal += monthlyPrincipal;
-        balance = Math.max(0, balance - monthlyPrincipal);
-      }
-      yearlyBreakdown.push({
-        year: yr,
-        principalPaid: Math.round(yrPrincipal),
-        interestPaid: Math.round(yrInterest),
-        balance: Math.round(balance),
-      });
-    }
-
-    return {
-      monthlyEmi: Math.round(emi),
-      totalInterest: Math.round(totalInterest),
-      totalPayment: Math.round(totalPayment),
-      principalPercent: principalPct,
-      interestPercent: interestPct,
-      yearlyBreakdown,
-    };
+    return calculateEmi(loanAmount, interestRate, tenureYears * 12);
   }, [loanAmount, interestRate, tenureYears]);
 
-  // Balance Transfer Math calculation
+  // Balance Transfer Math calculation via centralized engine
   const transferCalculation = useMemo(() => {
-    const P = transferBalance;
-    const n = remainingYears * 12;
-
-    const rOld = currentRate / 12 / 100;
-    const compOld = Math.pow(1 + rOld, n);
-    const oldEmi = (P * rOld * compOld) / (compOld - 1);
-    const oldTotalInterest = oldEmi * n - P;
-
-    const rNew = newRate / 12 / 100;
-    const compNew = Math.pow(1 + rNew, n);
-    const newEmi = (P * rNew * compNew) / (compNew - 1);
-    const newTotalInterest = newEmi * n - P;
-
-    const monthlySavings = Math.max(0, Math.round(oldEmi - newEmi));
-    const totalInterestSaved = Math.max(0, Math.round(oldTotalInterest - newTotalInterest));
-    const estimatedTransferCost = Math.round(P * 0.0035 + 5000); // 0.35% fee + legal
-    const netSavings = Math.max(0, totalInterestSaved - estimatedTransferCost);
-
-    return {
-      oldEmi: Math.round(oldEmi),
-      newEmi: Math.round(newEmi),
-      monthlySavings,
-      totalInterestSaved,
-      estimatedTransferCost,
-      netSavings,
-    };
+    return calculateBalanceTransfer(transferBalance, currentRate, newRate, remainingYears);
   }, [transferBalance, currentRate, newRate, remainingYears]);
 
   // Slider Fill Percentages
-  const amountPercent = getPercent(loanAmount, 1000000, 50000000);
-  const ratePercent = getPercent(interestRate, 6.5, 12.0);
-  const tenurePercent = getPercent(tenureYears, 5, 30);
+  const amountPercent = getSliderPercentage(loanAmount, 1000000, 50000000);
+  const ratePercent = getSliderPercentage(interestRate, 6.5, 12.0);
+  const tenurePercent = getSliderPercentage(tenureYears, 5, 30);
 
-  const transferBalancePercent = getPercent(transferBalance, 1000000, 30000000);
-  const currentRatePercent = getPercent(currentRate, 7.5, 14.0);
-  const newRatePercent = getPercent(newRate, 6.5, 9.0);
-  const remainingYearsPercent = getPercent(remainingYears, 3, 30);
+  const transferBalancePercent = getSliderPercentage(transferBalance, 1000000, 30000000);
+  const currentRatePercent = getSliderPercentage(currentRate, 7.5, 14.0);
+  const newRatePercent = getSliderPercentage(newRate, 6.5, 9.0);
+  const remainingYearsPercent = getSliderPercentage(remainingYears, 3, 30);
 
   return (
     <section id="emi-calculator-section" className="py-14 sm:py-20 bg-[#FDFBF7] border-t border-gray-200/60 font-montserrat">

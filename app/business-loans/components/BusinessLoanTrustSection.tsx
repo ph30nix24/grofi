@@ -1,4 +1,3 @@
-"use client";
 
 import React from "react";
 import { ShieldCheck, Lock, CheckCircle2, PhoneOff } from "lucide-react";
