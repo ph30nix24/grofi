@@ -28,67 +28,82 @@ export const revalidate = 3600;
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const post = await prisma.blogPost.findUnique({
-    where: { slug },
-  });
+  try {
+    const { slug } = await params;
+    const post = await prisma.blogPost.findUnique({
+      where: { slug },
+    });
 
-  if (!post || !post.published) {
+    if (!post || !post.published) {
+      return {
+        title: "Article Not Found | Grofi",
+        description: "The requested financial guide could not be found.",
+      };
+    }
+
     return {
-      title: "Article Not Found | Grofi",
-      description: "The requested financial guide could not be found.",
+      title: `${post.title} | Grofi Financial Insights`,
+      description: post.excerpt,
+      alternates: {
+        canonical: `/blogs/${post.slug}`,
+      },
+      keywords: post.tags,
+      openGraph: {
+        title: post.title,
+        description: post.excerpt,
+        url: `https://www.grofi.in/blogs/${post.slug}`,
+        siteName: "Grofi",
+        type: "article",
+        publishedTime: post.createdAt.toISOString(),
+        modifiedTime: post.updatedAt.toISOString(),
+        authors: [post.author],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: post.title,
+        description: post.excerpt,
+      },
+    };
+  } catch (error) {
+    console.error("Error generating blog metadata:", error);
+    return {
+      title: "Financial Insights & Credit Guides | Grofi",
+      description: "Explore in-depth credit card and loan guides, comparisons, and financial insights on Grofi.",
     };
   }
-
-  return {
-    title: `${post.title} | Grofi Financial Insights`,
-    description: post.excerpt,
-    alternates: {
-      canonical: `/blogs/${post.slug}`,
-    },
-    keywords: post.tags,
-    openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      url: `https://www.grofi.in/blogs/${post.slug}`,
-      siteName: "Grofi",
-      type: "article",
-      publishedTime: post.createdAt.toISOString(),
-      modifiedTime: post.updatedAt.toISOString(),
-      authors: [post.author],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description: post.excerpt,
-    },
-  };
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
 
-  const rawPost = await prisma.blogPost.findUnique({
-    where: { slug },
-  });
+  let rawPost = null;
+  let relatedPosts: BlogItem[] = [];
+
+  try {
+    rawPost = await prisma.blogPost.findUnique({
+      where: { slug },
+    });
+
+    if (rawPost && rawPost.published) {
+      const rawRelated = await prisma.blogPost.findMany({
+        where: {
+          slug: { not: slug },
+          published: true,
+        },
+        take: 2,
+        orderBy: { createdAt: "desc" },
+      });
+      relatedPosts = JSON.parse(JSON.stringify(rawRelated)) as BlogItem[];
+    }
+  } catch (error) {
+    console.error("Error fetching blog post data:", error);
+  }
 
   if (!rawPost || !rawPost.published) {
     notFound();
   }
 
   const post = JSON.parse(JSON.stringify(rawPost)) as BlogItem;
-
-  // Fetch related posts from database (strictly from DB, no mocks)
-  const rawRelated = await prisma.blogPost.findMany({
-    where: {
-      slug: { not: slug },
-      published: true,
-    },
-    take: 2,
-    orderBy: { createdAt: "desc" },
-  });
-
-  const relatedPosts = JSON.parse(JSON.stringify(rawRelated)) as BlogItem[];
 
   const formattedDate = new Date(post.createdAt).toLocaleDateString("en-IN", {
     year: "numeric",
