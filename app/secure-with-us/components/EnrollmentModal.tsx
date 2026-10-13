@@ -14,6 +14,7 @@ import {
   Building2,
   BadgeCheck,
 } from "lucide-react";
+import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 
 export interface PlanDetails {
   id: "essential" | "plus" | "premium";
@@ -43,6 +44,7 @@ export default function EnrollmentModal({
   const [primaryBank, setPrimaryBank] = useState("State Bank of India (SBI)");
   const [acknowledged, setAcknowledged] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   if (!isOpen) return null;
 
@@ -51,17 +53,68 @@ export default function EnrollmentModal({
   const total = basePrice + gst;
   const mockPolicyNo = `CS-2026-IN-${Math.floor(100000 + Math.random() * 900000)}`;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage("");
+
+    const cleanPhone = phoneNumber.replace(/\D/g, "");
+    if (!fullName.trim() || fullName.trim().length < 2) {
+      setErrorMessage("Please enter your full legal name (minimum 2 characters)");
+      return;
+    }
+    if (cleanPhone.length !== 10 || !/^[6-9]/.test(cleanPhone)) {
+      setErrorMessage("Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9");
+      return;
+    }
+    if (!email.trim() || !/^\S+@\S+\.\S+$/.test(email)) {
+      setErrorMessage("Please enter a valid email address");
+      return;
+    }
+    if (!acknowledged) {
+      setErrorMessage("Please acknowledge the policy terms and exclusions to continue");
+      return;
+    }
+
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const res = await fetch("/api/forms/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "CyberShield Protection Plan Enrollment",
+          formTitle: `CyberShield Enrollment (${selectedPlan.name}): ${fullName.trim()}`,
+          fullName: fullName.trim(),
+          phone: cleanPhone,
+          email: email.trim(),
+          replyTo: email.trim(),
+          primaryBank,
+          planName: selectedPlan.name,
+          maxCover: selectedPlan.maxCover,
+          annualPremium: `₹${total.toLocaleString("en-IN")}/yr`,
+          page: typeof window !== "undefined" ? window.location.pathname : "/secure-with-us",
+          consentGiven: true,
+          consentVersion: CURRENT_CONSENT_VERSION,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to submit enrollment. Please try again.");
+      }
+
       setStep("certificate");
-    }, 900);
+    } catch (err) {
+      setErrorMessage(
+        err instanceof Error ? err.message : "Submission failed. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
     setStep("form");
+    setErrorMessage("");
     onClose();
   };
 
@@ -252,6 +305,13 @@ export default function EnrollmentModal({
                     </span>
                   </label>
                 </div>
+
+                {errorMessage && (
+                  <div className="p-2.5 rounded-xl bg-red-50 border border-red-200 text-red-600 text-xs flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0" />
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
               </div>
 
               {/* Submit Button */}
@@ -263,12 +323,12 @@ export default function EnrollmentModal({
                 {isSubmitting ? (
                   <>
                     <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    <span>Processing Mock Underwriting...</span>
+                    <span>Securing Protection & Sending Policy...</span>
                   </>
                 ) : (
                   <>
                     <ShieldCheck className="w-4 h-4 text-gold" />
-                    <span>Simulate Instant Policy Issuance • ₹{total.toLocaleString("en-IN")}</span>
+                    <span>Activate Protection Policy • ₹{total.toLocaleString("en-IN")}</span>
                     <ArrowRight className="w-4 h-4" />
                   </>
                 )}

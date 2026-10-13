@@ -17,6 +17,8 @@ import {
   Percent,
 } from "lucide-react";
 import { ShortTermLoanLender } from "../../components/type";
+import ConsentCheckbox from "@/app/components/ConsentCheckbox";
+import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 
 interface ShortTermLoanHeroFormProps {
   lender: ShortTermLoanLender;
@@ -46,7 +48,8 @@ export default function ShortTermLoanHeroForm({ lender }: ShortTermLoanHeroFormP
     availableTenures[Math.min(1, availableTenures.length - 1)]
   );
 
-  const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
+  const [consentGiven, setConsentGiven] = useState(false);
+  const [errors, setErrors] = useState<{ name?: string; phone?: string; consent?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -112,7 +115,7 @@ export default function ShortTermLoanHeroForm({ lender }: ShortTermLoanHeroFormP
   }, [estimatedEmi, tenureMonthsCount, loanAmount]);
 
   const validate = () => {
-    const errs: { name?: string; phone?: string } = {};
+    const errs: { name?: string; phone?: string; consent?: string } = {};
     if (!name.trim()) errs.name = "Full name is required";
     else if (name.trim().length < 3) errs.name = "Name must be at least 3 letters";
 
@@ -121,19 +124,54 @@ export default function ShortTermLoanHeroForm({ lender }: ShortTermLoanHeroFormP
     else if (!/^[6-9]\d{9}$/.test(cleanPhone))
       errs.phone = "Enter valid 10-digit Indian mobile number";
 
+    if (!consentGiven) {
+      errs.consent = "Please agree to the privacy policy & consent to continue";
+    }
+
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const res = await fetch("/api/forms/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: `Short-Term Loan - ${lender.name}`,
+          formTitle: `Short-Term Loan Application (${lender.name}): ${name.trim()}`,
+          name: name.trim(),
+          phone: phone.replace(/\D/g, ""),
+          lender: lender.name,
+          loanAmount: `₹${formatINR(loanAmount)}`,
+          tenure: selectedTenure,
+          employmentType,
+          monthlyIncome,
+          estimatedEmi: `₹${formatINR(estimatedEmi)}/mo`,
+          page: typeof window !== "undefined" ? window.location.pathname : undefined,
+          consentGiven: true,
+          consentVersion: CURRENT_CONSENT_VERSION,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Something went wrong. Please try again.");
+      }
+
       setIsSubmitted(true);
-    }, 1200);
+    } catch (err) {
+      setErrors((prev) => ({
+        ...prev,
+        phone: err instanceof Error ? err.message : "Submission failed. Please try again.",
+      }));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -197,6 +235,8 @@ export default function ShortTermLoanHeroForm({ lender }: ShortTermLoanHeroFormP
               setIsSubmitted(false);
               setName("");
               setPhone("");
+              setConsentGiven(false);
+              setErrors({});
             }}
             className="text-xs font-bold text-primary hover:underline inline-flex items-center gap-1 cursor-pointer pt-2"
           >
@@ -386,6 +426,19 @@ export default function ShortTermLoanHeroForm({ lender }: ShortTermLoanHeroFormP
             </div>
             {errors.phone && <p className="text-[10px] text-red-600 font-medium">{errors.phone}</p>}
           </div>
+
+          {/* Consent Checkbox */}
+          <ConsentCheckbox
+            id="short-term-loan-lender-consent"
+            checked={consentGiven}
+            onChange={(val) => {
+              setConsentGiven(val);
+              if (errors.consent) {
+                setErrors((prev) => ({ ...prev, consent: undefined }));
+              }
+            }}
+            error={errors.consent}
+          />
 
           {/* Submit Button */}
           <button

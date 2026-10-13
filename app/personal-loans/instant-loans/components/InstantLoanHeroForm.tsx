@@ -17,6 +17,8 @@ import {
   Building,
 } from "lucide-react";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
+import ConsentCheckbox from "@/app/components/ConsentCheckbox";
+import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 
 const CIBIL_RANGES = [
   { label: "750+ (Prime - 10s Disbursal)", value: "750+" },
@@ -49,7 +51,8 @@ export default function InstantLoanHeroForm() {
   const [monthlyIncome, setMonthlyIncome] = useState("₹25,000 - ₹50,000");
   const [cibilScore, setCibilScore] = useState("750+");
 
-  const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
+  const [consentGiven, setConsentGiven] = useState(false);
+  const [errors, setErrors] = useState<{ name?: string; phone?: string; consent?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -60,7 +63,7 @@ export default function InstantLoanHeroForm() {
   };
 
   const validateForm = () => {
-    const newErrors: { name?: string; phone?: string } = {};
+    const newErrors: { name?: string; phone?: string; consent?: string } = {};
 
     if (!name.trim()) {
       newErrors.name = "Please enter your full name";
@@ -77,6 +80,10 @@ export default function InstantLoanHeroForm() {
       newErrors.phone = "Mobile number must start with 6, 7, 8, or 9";
     }
 
+    if (!consentGiven) {
+      newErrors.consent = "Please agree to the privacy policy & consent to continue";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -87,10 +94,36 @@ export default function InstantLoanHeroForm() {
 
     setIsSubmitting(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      const res = await fetch("/api/forms/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "Instant Loan Hero Form",
+          formTitle: `Instant Loan Request: ${name.trim()}`,
+          name: name.trim(),
+          phone: phone.replace(/\D/g, ""),
+          loanAmount: `₹${formatINR(loanAmount)}`,
+          urgency,
+          employmentType,
+          monthlyIncome,
+          cibilScore,
+          page: typeof window !== "undefined" ? window.location.pathname : undefined,
+          consentGiven: true,
+          consentVersion: CURRENT_CONSENT_VERSION,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Something went wrong. Please try again.");
+      }
+
       setIsSubmitted(true);
-    } catch {
-      // ignore
+    } catch (err) {
+      setErrors((prev) => ({
+        ...prev,
+        phone: err instanceof Error ? err.message : "Submission failed. Please try again.",
+      }));
     } finally {
       setIsSubmitting(false);
     }
@@ -100,6 +133,8 @@ export default function InstantLoanHeroForm() {
     setIsSubmitted(false);
     setName("");
     setPhone("");
+    setConsentGiven(false);
+    setErrors({});
   };
 
   return (
@@ -360,6 +395,19 @@ export default function InstantLoanHeroForm() {
               {errors.phone && <p className="text-[10px] text-red-500 mt-1">{errors.phone}</p>}
             </div>
           </div>
+
+          {/* Consent Checkbox */}
+          <ConsentCheckbox
+            id="instant-loan-hero-consent"
+            checked={consentGiven}
+            onChange={(val) => {
+              setConsentGiven(val);
+              if (errors.consent) {
+                setErrors((prev) => ({ ...prev, consent: undefined }));
+              }
+            }}
+            error={errors.consent}
+          />
 
           {/* Submit CTA */}
           <div className="pt-2">
