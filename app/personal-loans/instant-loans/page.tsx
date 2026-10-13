@@ -12,6 +12,8 @@ import InstantLoanStepsSection from "./components/InstantLoanStepsSection";
 import InstantLoanSafetyGuide from "./components/InstantLoanSafetyGuide";
 import InstantLoanFAQSection from "./components/InstantLoanFAQSection";
 import InstantLoanTrustSection from "./components/InstantLoanTrustSection";
+import JsonLd from "@/app/components/JsonLd";
+import { buildInstantLoansHubJsonLd } from "@/libs/structuredData";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.grofi.in"),
@@ -47,12 +49,21 @@ export const metadata: Metadata = {
     siteName: "Grofi",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Instant Personal Loans with 24x7 Digital Disbursals",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Instant Personal Loans (2026): Fast Online Approval",
     description:
       "Emergency cash made simple. Compare top 16 instant lenders including HDFC, SBI, ICICI, Navi & KreditBee with paperless e-KYC.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -78,94 +89,11 @@ async function fetchInstantLoans(): Promise<InstantLoanLender[]> {
 export default async function InstantLoansPage() {
   const lenders = await fetchInstantLoans();
 
-  // JSON-LD Structured Data for Search Engines
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://www.grofi.in",
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Personal Loans",
-            "item": "https://www.grofi.in/personal-loans",
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Instant Personal Loans",
-            "item": "https://www.grofi.in/personal-loans/instant-loans",
-          },
-        ],
-      },
-      {
-        "@type": "ItemList",
-        "name": "Top Instant Personal Loan Lenders in India",
-        "description": "Compare lowest interest rate instant personal loans from top Indian scheduled commercial banks and RBI-registered NBFCs.",
-        "numberOfItems": lenders.length,
-        "itemListElement": lenders.map((lender, idx) => ({
-          "@type": "ListItem",
-          "position": idx + 1,
-          "item": {
-            "@type": "FinancialProduct",
-            "name": lender.name,
-            "provider": {
-              "@type": "FinancialService",
-              "name": lender.name.replace(/Personal Loan|Instant Loan/i, "").trim(),
-            },
-            ...(typeof lender.interestRate?.min === "number"
-              ? { "annualPercentageRate": lender.interestRate.min }
-              : {}),
-            "feesAndCommissionsSpecification": lender.processingFee,
-          },
-        })),
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "How can an instant personal loan be disbursed in under 10 seconds?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Leading Indian banks like HDFC, ICICI, and SBI run periodic algorithmic assessments on their existing savings account customers. When you accept the pre-approved offer, the funds are deposited into your account via automated IMPS rails in 3 to 10 seconds without human intervention.",
-            },
-          },
-          {
-            "@type": "Question",
-            "name": "Are instant loan apps on Grofi safe and RBI regulated?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. Grofi partners exclusively with Scheduled Commercial Banks and RBI-registered Systemically Important NBFCs that strictly adhere to the RBI Digital Lending Directives, prohibiting access to phone contacts or photo galleries.",
-            },
-          },
-          {
-            "@type": "Question",
-            "name": "Can I get an instant loan if my CIBIL score is below 650 or I am new to credit?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. Fintech partners like KreditBee, CASHe, and Navi assess your monthly salary flows and digital banking activity via Account Aggregator rather than solely relying on past credit bureau score.",
-            },
-          },
-        ],
-      },
-    ],
-  };
+  const jsonLd = buildInstantLoansHubJsonLd(lenders);
 
   return (
     <>
-      {/* Schema.org Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd schema={jsonLd} />
 
       <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
         <Navbar />

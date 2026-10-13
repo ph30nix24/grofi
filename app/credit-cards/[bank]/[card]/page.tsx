@@ -19,6 +19,8 @@ import CardFaqSection from "./components/CardFaqSection";
 import SimilarCardsSection from "./components/SimilarCardsSection";
 import CardPreApprovedBanner from "./components/CardPreApprovedBanner";
 import CardMobileApplyBar from "./components/CardMobileApplyBar";
+import JsonLd from "@/app/components/JsonLd";
+import { buildCreditCardJsonLd } from "@/libs/structuredData";
 
 const SITE = "https://www.grofi.in";
 
@@ -207,67 +209,16 @@ export default async function SelectedCard({
   ]);
 
   // Structured Data (JSON-LD) for SEO
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: SITE,
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Credit Cards",
-            item: `${SITE}/credit-cards`,
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: structure.issuer,
-            item: `${SITE}/credit-cards/${bank}`,
-          },
-          {
-            "@type": "ListItem",
-            position: 4,
-            name: structure.name,
-            item: `${SITE}/credit-cards/${bank}/${card}`,
-          },
-        ],
-      },
-      {
-        "@type": "FinancialProduct",
-        name: structure.name,
-        description: structure.description || metadata?.description,
-        brand: {
-          "@type": "Brand",
-          name: structure.issuer,
-        },
-        feesAndCommissionsSpecification: `Annual Fee: ${structure.annualFee}, Joining Fee: ${structure.joiningFee}`,
-        annualPercentageRate: "43.2%",
-        image: metadata?.imageUrl || structure.cardImage,
-        url: `${SITE}/credit-cards/${bank}/${card}`,
-        offers: {
-          "@type": "Offer",
-          price: "0",
-          priceCurrency: "INR",
-          availability: "https://schema.org/InStock",
-        },
-      },
-    ],
-  };
+  const jsonLd = buildCreditCardJsonLd(
+    { ...structure, cardMetaData: metadata },
+    bank,
+    bankFaqs,
+    SITE
+  );
 
   return (
     <main className="flex flex-col min-h-screen bg-[#FDFBF7] text-gray-900 selection:bg-primary/20 selection:text-primary">
-      {/* Structured Data Script for Google Search */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd schema={jsonLd} />
 
       <Navbar />
 

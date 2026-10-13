@@ -8,6 +8,7 @@ import InstagramGallery from "./components/InstagramGallery";
 import { getReels } from "@/libs/instagram";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import JsonLd from "./components/JsonLd";
 import { Metadata } from "next";
 // import { CardStructure } from "./utils";
 // import prisma from "@/libs/db";
@@ -65,7 +66,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -74,14 +74,39 @@ export default async function Home() {
         "@id": "https://www.grofi.in/#org",
         name: "Grofi",
         url: "https://www.grofi.in",
-        logo: "https://www.grofi.in/icon.png", // square, 112x112 or larger
+        logo: "https://www.grofi.in/icon.png",
+        description:
+          "India's premier financial product comparison and discovery platform. Compare credit cards, personal loans, instant loans, home loans, and business loans with zero CIBIL impact soft checks.",
+        address: {
+          "@type": "PostalAddress",
+          addressCountry: "IN",
+        },
+        contactPoint: {
+          "@type": "ContactPoint",
+          contactType: "Customer Support",
+          email: "privacy@grofi.in",
+          areaServed: "IN",
+          availableLanguage: ["English", "Hindi"],
+        },
+        sameAs: [
+          "https://www.instagram.com/grofi.in",
+        ],
       },
       {
         "@type": "WebSite",
         "@id": "https://www.grofi.in/#website",
         url: "https://www.grofi.in",
         name: "Grofi",
+        description: "Compare Credit Cards, Personal Loans, Home Loans & Business Loans in India",
         publisher: { "@id": "https://www.grofi.in/#org" },
+        potentialAction: {
+          "@type": "SearchAction",
+          target: {
+            "@type": "EntryPoint",
+            urlTemplate: "https://www.grofi.in/credit-cards?search={search_term_string}",
+          },
+          "query-input": "required name=search_term_string",
+        },
       },
     ],
   };
@@ -91,10 +116,7 @@ export default async function Home() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd schema={jsonLd} />
       <Navbar />
       <main className="flex flex-col min-h-screen overflow-x-clip">
         <Hero2 />
@@ -104,8 +126,8 @@ export default async function Home() {
         {/* <CreditCardShowcase creditCards={featuredCreditCards} /> */}
         <EmiCalculator />
         <WhyChooseUs />
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 }

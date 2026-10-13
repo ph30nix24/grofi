@@ -12,6 +12,8 @@ import HomeLoanStepsSection from "./components/HomeLoanStepsSection";
 import HomeLoanTaxBenefitsGuide from "./components/HomeLoanTaxBenefitsGuide";
 import HomeLoanFAQSection from "./components/HomeLoanFAQSection";
 import HomeLoanTrustSection from "./components/HomeLoanTrustSection";
+import JsonLd from "@/app/components/JsonLd";
+import { buildHomeLoansHubJsonLd } from "@/libs/structuredData";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.grofi.in"),
@@ -47,12 +49,21 @@ export const metadata: Metadata = {
     siteName: "Grofi",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Compare Best Home Loans in India - Grofi",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Compare Best Home Loans in India | Rates from 7.15% - Grofi",
     description:
       "Compare 13+ banks & HFCs. Up to 90% funding with lowest rates, balance transfers, and paperless verification.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -87,95 +98,11 @@ async function fetchHomeLoans(): Promise<HomeLoanLender[]> {
 export default async function HomeLoansPage() {
   const homeLoans = await fetchHomeLoans();
 
-  // JSON-LD Structured Data for Search Engine Optimization
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://www.grofi.in",
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Home Loans",
-            "item": "https://www.grofi.in/home-loans",
-          },
-        ],
-      },
-      {
-        "@type": "ItemList",
-        "name": "Top Home Loan Lenders in India",
-        "description": "Compare lowest interest rate home loans and balance transfers from top Indian scheduled commercial banks and housing finance companies.",
-        "numberOfItems": homeLoans.length,
-        "itemListElement": homeLoans.map((lender, idx) => ({
-          "@type": "ListItem",
-          "position": idx + 1,
-          "item": {
-            "@type": "FinancialProduct",
-            "name": lender.name,
-            "provider": {
-              "@type": "BankOrCreditUnion",
-              "name": lender.name.replace(/Home Loan|Housing Loan/i, "").trim(),
-            },
-            "description": lender.tagline,
-            "annualPercentageRate": lender.interestRate?.min ?? 7.15,
-            "feesAndCommissionsSpecification": lender.processingFee,
-          },
-        })),
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What is Repo-Linked External Benchmark Lending Rate (EBLR)?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "EBLR is an RBI-mandated mechanism where floating housing loan interest rates are directly tied to the RBI Repo Rate. When RBI reduces the repo rate, banks are required to pass on the rate cut to borrowers within 3 months.",
-            },
-          },
-          {
-            "@type": "Question",
-            "name": "How does an Overdraft / Maxgain home loan save interest?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "An overdraft home loan links a current account to your loan. Any surplus cash parked in this account offsets the outstanding principal balance for the daily interest calculation, reducing your total interest outflow while retaining instant withdrawal liquidity.",
-            },
-          },
-          {
-            "@type": "Question",
-            "name": "What tax deductions can I claim on a home loan?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Under Section 24(b), you can deduct up to ₹2 Lakhs per year on interest paid for a self-occupied property. Under Section 80C, up to ₹1.5 Lakhs can be deducted on principal repayment. Joint co-owners can claim up to ₹7 Lakhs combined.",
-            },
-          },
-          {
-            "@type": "Question",
-            "name": "Are there prepayment charges on floating-rate home loans?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. Per RBI directives, individual floating-rate home loans carry 0% foreclosure and part-prepayment penalties.",
-            },
-          },
-        ],
-      },
-    ],
-  };
+  const jsonLd = buildHomeLoansHubJsonLd(homeLoans);
 
   return (
     <>
-      {/* Schema.org Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd schema={jsonLd} />
 
       <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
         <Navbar />

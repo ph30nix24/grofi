@@ -15,6 +15,8 @@ import LoanAgainstPropertyVsOthers from "./components/LoanAgainstPropertyVsOther
 import LoanAgainstPropertyTaxGuide from "./components/LoanAgainstPropertyTaxGuide";
 import LoanAgainstPropertyFAQSection from "./components/LoanAgainstPropertyFAQSection";
 import LoanAgainstPropertyTrustSection from "./components/LoanAgainstPropertyTrustSection";
+import JsonLd from "@/app/components/JsonLd";
+import { buildLapHubJsonLd } from "@/libs/structuredData";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.grofi.in"),
@@ -54,12 +56,21 @@ export const metadata: Metadata = {
     siteName: "Grofi",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Compare Best Loan Against Property in India - Grofi",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Loan Against Property (2026) | Compare Top 10 Banks - Grofi",
     description:
       "Compare 10+ verified banks & NBFCs. Up to 75% LTV funding, multi-crore ticket sizes, overdraft facilities, and zero prepayment penalties on floating rates.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -99,110 +110,11 @@ async function fetchLoanAgainstProperty(): Promise<LoanAgainstPropertyLender[]> 
 export default async function LoanAgainstPropertyPage() {
   const lenders = await fetchLoanAgainstProperty();
 
-  // JSON-LD Structured Data for Search Engine Optimization
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://www.grofi.in",
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Home Loans",
-            "item": "https://www.grofi.in/home-loans",
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Loan Against Property",
-            "item": "https://www.grofi.in/home-loans/loan-against-property",
-          },
-        ],
-      },
-      {
-        "@type": "ItemList",
-        "name": "Top Loan Against Property (LAP) Lenders in India",
-        "description":
-          "Compare lowest interest rate mortgage loans and overdraft facilities against residential and commercial property from top Indian banks and NBFCs.",
-        "numberOfItems": lenders.length,
-        "itemListElement": lenders.map((lender, idx) => ({
-          "@type": "ListItem",
-          "position": idx + 1,
-          "item": {
-            "@type": "FinancialProduct",
-            "name": lender.name,
-            "provider": {
-              "@type": "BankOrCreditUnion",
-              "name": lender.name.replace(/Loan Against Property|Mortgage Loan/i, "").trim(),
-            },
-            "description": lender.tagline,
-            "annualPercentageRate": lender.interestRate?.min ?? 9.25,
-            "feesAndCommissionsSpecification": lender.processingFee,
-          },
-        })),
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What is the difference between a Home Loan and a Loan Against Property (LAP)?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "A home loan is taken exclusively to buy or construct a residential property. A Loan Against Property (LAP) pledges an existing unencumbered property to raise capital for any legal purpose including business expansion, debt consolidation, or higher education.",
-            },
-          },
-          {
-            "@type": "Question",
-            "name": "What is the maximum LTV ratio permitted on a Loan Against Property?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Banks typically sanction up to 70% to 75% of fair market value for residential self-occupied properties, 60% to 65% for commercial offices/shops, and 50% to 55% for industrial properties.",
-            },
-          },
-          {
-            "@type": "Question",
-            "name": "How does an Overdraft / Dropline OD work on a Loan Against Property?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "An overdraft LAP links a current account to your mortgaged property limit. Interest is charged strictly on the daily utilized balance, not the sanctioned limit. Borrowers can deposit surplus cash anytime to reduce interest and withdraw as needed.",
-            },
-          },
-          {
-            "@type": "Question",
-            "name": "Are there prepayment charges on floating rate Loan Against Property?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Per RBI directives, individual borrowers availing floating-rate mortgage loans incur 0% / Nil foreclosure charges and part-prepayment penalties.",
-            },
-          },
-          {
-            "@type": "Question",
-            "name": "Can I claim income tax deductions on a Loan Against Property?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. Under Section 37(1), 100% of the interest paid is fully deductible as a business expense if loan proceeds are utilized for business operations. Under Section 24(b), up to ₹2 Lakhs can be deducted if used for residential home renovation.",
-            },
-          },
-        ],
-      },
-    ],
-  };
+  const jsonLd = buildLapHubJsonLd(lenders);
 
   return (
     <>
-      {/* Schema.org Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd schema={jsonLd} />
 
       <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
         <Navbar />

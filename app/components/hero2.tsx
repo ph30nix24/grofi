@@ -52,16 +52,25 @@ const stats = [
 
 
 
+function getPartnerBankName(src: string): string {
+  const s = src.toLowerCase();
+  if (s.includes("hdfc")) return "HDFC Bank";
+  if (s.includes("axis")) return "Axis Bank";
+  if (s.includes("bob") || s.includes("baroda")) return "Bank of Baroda";
+  if (s.includes("yes")) return "YES BANK";
+  if (s.includes("idfc")) return "IDFC FIRST Bank";
+  if (s.includes("lic")) return "LIC Housing Finance";
+  if (s.includes("sbi")) return "State Bank of India";
+  if (s.includes("icici")) return "ICICI Bank";
+  return "Partner Bank";
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════ */
 export default function Hero2() {
   const { openApplyModal } = useApplyModal();
 
-  
-
   return (
     <div className="flex flex-col min-h-screen font-montserrat bg-linear-to-br from-[#F3F0DF] via-[#ECE9CF] to-[#DDE3C1]">
-
-      
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <section className="relative flex-1">
@@ -80,7 +89,7 @@ export default function Hero2() {
         <div className="max-w-7xl mx-auto px-8 flex flex-wrap xl:flex-nowrap items-center gap-4 pt-8 pb-0 relative">
 
           {/* ── Column 1: left text ──────────────────────────────────────── */}
-          <div className="w-full xl:w-[38%] shrink-0 flex flex-col gap-4 pb-8 z-30 reveal-slide-left relative">
+          <div className="w-full xl:w-[38%] shrink-0 flex flex-col gap-4 pb-8 z-30 relative">
 
             <div className="w-fit text-[10px] font-bold uppercase tracking-widest text-primary bg-[#b0cca65a] rounded-full px-5 py-1.5 border border-[#a5c490]/30">
               Your Financial Growth Partner
@@ -89,6 +98,7 @@ export default function Hero2() {
             <h1 className="font-bricolage font-bold text-[3.1rem] leading-[1.08] text-primary">
               Smart choices <br />today,{" "}
               <span className="text-gold">stronger <br />tomorrow.</span>
+              <span className="sr-only"> - Compare Credit Cards, Personal Loans, Home Loans &amp; Business Loans in India</span>
             </h1>
 
             <div className="w-14 h-0.75 bg-gold rounded-full" />
@@ -125,7 +135,7 @@ export default function Hero2() {
                     className="absolute top-0 rounded-full border-[2.5px] border-[#F3F0DF] overflow-hidden shadow"
                     style={{ left: i * 22, width: 38, height: 38, zIndex: i + 1 }}
                   >
-                    <Image src={src} alt="avatar" width={38} height={38} className="w-full h-full object-cover object-top" />
+                    <Image src={src} alt={`Grofi verified customer ${i + 1}`} width={38} height={38} className="w-full h-full object-cover object-top" />
                   </div>
                 ))}
                 <div
@@ -150,20 +160,20 @@ export default function Hero2() {
           </div>
 
           {/* ── Column 2: big hero image + ALL floating illustrations with arrows ─── */}
-          <div className="w-full xl:w-[62%] shrink-0 relative flex items-center justify-center z-10 reveal-scale delay-100 min-h-[520px] sm:min-h-[580px] md:min-h-[620px] xl:min-h-[640px]">
+          <div className="w-full xl:w-[62%] shrink-0 relative flex items-center justify-center z-10 min-h-[520px] sm:min-h-[580px] md:min-h-[620px] xl:min-h-[640px]">
 
             {/* Glow circle behind image */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 size-80 sm:size-110 xl:size-130 rounded-full bg-primary/[0.07]" />
 
             {/* ── Hero image ── */}
             <div className="relative z-20 w-[300px] h-[300px] sm:w-[420px] sm:h-[420px] md:w-[480px] md:h-[480px] xl:w-[560px] xl:h-[560px] max-w-full">
-              <Image src="/hero.png" alt="Grofi hero" fill className="object-contain" priority />
+              <Image src="/hero.png" alt="Grofi - India's Premier Financial Product Comparison Platform" fill className="object-contain" priority />
             </div>
 
             {/* ════ Floating Illustrations with Directional Arrows ════ */}
 
             {/* TOP-LEFT illustration: Top Credit Cards */}
-            <div className="absolute top-1 -left-2 sm:top-2 sm:left-0 md:top-4 md:-left-4 xl:-left-8 z-30 reveal-scale delay-150">
+            <div className="absolute top-1 -left-2 sm:top-2 sm:left-0 md:top-4 md:-left-4 xl:-left-8 z-30">
               <div className="relative animate-hero-float">
                 <Link href={`/credit-cards`}
                   className="group relative block w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 xl:w-48 xl:h-48 cursor-pointer transition-all duration-300 hover:scale-108 hover:-translate-y-2 active:scale-95 filter drop-shadow-md hover:drop-shadow-2xl focus:outline-none rounded-2xl"
@@ -211,7 +221,7 @@ export default function Hero2() {
             </div>
 
             {/* BOTTOM-LEFT illustration: Personal Loan */}
-            <div className="absolute bottom-2 -left-2 sm:bottom-3 sm:left-0 md:bottom-5 md:-left-4 xl:-left-6 z-30 reveal-scale delay-200">
+            <div className="absolute bottom-2 -left-2 sm:bottom-3 sm:left-0 md:bottom-5 md:-left-4 xl:-left-6 z-30">
               <div className="relative animate-hero-float-delayed">
                 <Link href={`/personal-loans`}
                   className="group relative block w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 xl:w-48 xl:h-48 cursor-pointer transition-all duration-300 hover:scale-108 hover:-translate-y-2 active:scale-95 filter drop-shadow-md hover:drop-shadow-2xl focus:outline-none rounded-2xl"
@@ -259,7 +269,7 @@ export default function Hero2() {
             </div>
 
             {/* TOP-RIGHT illustration: Home Loan */}
-            <div className="absolute top-1 -right-2 sm:top-2 sm:right-0 md:top-4 md:-right-4 xl:-right-8 z-30 reveal-scale delay-150">
+            <div className="absolute top-1 -right-2 sm:top-2 sm:right-0 md:top-4 md:-right-4 xl:-right-8 z-30">
               <div className="relative animate-hero-float-delayed">
                 <Link href={`/home-loans`}
                   className="group relative block w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 xl:w-48 xl:h-48 cursor-pointer transition-all duration-300 hover:scale-108 hover:-translate-y-2 active:scale-95 filter drop-shadow-md hover:drop-shadow-2xl focus:outline-none rounded-2xl"
@@ -307,7 +317,7 @@ export default function Hero2() {
             </div>
 
             {/* BOTTOM-RIGHT illustration: Business Loan */}
-            <div className="absolute bottom-2 -right-2 sm:bottom-3 sm:right-0 md:bottom-5 md:-right-4 xl:-right-6 z-30 reveal-scale delay-250">
+            <div className="absolute bottom-2 -right-2 sm:bottom-3 sm:right-0 md:bottom-5 md:-right-4 xl:-right-6 z-30">
               <div className="relative animate-hero-float">
                 <Link href={`/business-loans`}
                   className="group relative block w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 xl:w-48 xl:h-48 cursor-pointer transition-all duration-300 hover:scale-108 hover:-translate-y-2 active:scale-95 filter drop-shadow-md hover:drop-shadow-2xl focus:outline-none rounded-2xl"
@@ -358,10 +368,10 @@ export default function Hero2() {
         </div>
 
         {/* ── Stats strip ──────────────────────────────────────────────── */}
-        <div className="max-w-7xl mx-auto px-8 pb-5 relative z-10 reveal-on-scroll delay-150">
+        <div className="max-w-7xl mx-auto px-8 pb-5 relative z-10">
           <div className="bg-white/75 backdrop-blur rounded-2xl shadow-md border border-white/90 px-8 py-5 flex flex-wrap md:flex-nowrap gap-6">
-            {stats.map((s, idx) => (
-              <div key={s.value} className={`flex items-start gap-3.5 w-[calc(50%-12px)] md:flex-1 reveal-on-scroll delay-${(idx + 1) * 100}`}>
+            {stats.map((s) => (
+              <div key={s.value} className="flex items-start gap-3.5 w-[calc(50%-12px)] md:flex-1">
                 <div className="w-11 h-11 bg-[#EBF4ED] rounded-xl flex items-center justify-center shrink-0">{s.icon}</div>
                 <div>
                   <p className="font-bricolage font-bold text-2xl text-primary leading-none">{s.value}</p>
@@ -375,7 +385,7 @@ export default function Hero2() {
       </section>
 
       {/* ── Trusted Banking Partners ───────────────────────────────────── */}
-      <div className="relative bg-primary/6 border-t border-primary/10 overflow-hidden py-5 reveal-on-scroll delay-100">
+      <div className="relative bg-primary/6 border-t border-primary/10 overflow-hidden py-5">
 
         {/* Section label */}
         <p className="text-center text-[10px] font-bold uppercase tracking-[0.22em] text-primary/40 mb-4">
@@ -399,7 +409,7 @@ export default function Hero2() {
                   style={{ minWidth: 140, height: 60 }}
                 >
                   <div className="relative w-full h-full">
-                    <Image src={src} alt="bank logo" fill className="object-contain" />
+                    <Image src={src} alt={`${getPartnerBankName(src)} partner logo`} fill className="object-contain" />
                   </div>
                 </div>
               ))}
@@ -414,7 +424,7 @@ export default function Hero2() {
                   style={{ minWidth: 140, height: 60 }}
                 >
                   <div className="relative w-full h-full">
-                    <Image src={src} alt="bank logo" fill className="object-contain" />
+                    <Image src={src} alt={`${getPartnerBankName(src)} partner logo`} fill className="object-contain" />
                   </div>
                 </div>
               ))}

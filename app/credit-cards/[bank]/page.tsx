@@ -10,6 +10,10 @@ import BankWhyChooseSection from "./components/BankWhyChooseSection";
 import BankFAQSection from "./components/BankFAQSection";
 import BankPreApprovedBanner from "./components/BankPreApprovedBanner";
 import { BankFAQS, CardStructure } from "../components/type";
+import JsonLd from "@/app/components/JsonLd";
+import { buildBankCreditCardsHubJsonLd } from "@/libs/structuredData";
+
+import { PARTNER_BANKS } from "./components/constants";
 
 export const revalidate = 3600;
 
@@ -24,6 +28,11 @@ export async function generateMetadata({
   const bank = issuer
     .map((word, idx) => (idx === 0 ? word.toUpperCase() : word.charAt(0).toUpperCase() + word.slice(1)))
     .join(" ");
+
+  const partnerBank = PARTNER_BANKS.find(
+    (b) => b.slug.toLowerCase() === bankSlug.toLowerCase()
+  );
+  const ogImage = partnerBank?.logo || "/og-image.png";
 
   return {
     metadataBase: new URL("https://www.grofi.in"),
@@ -47,6 +56,20 @@ export async function generateMetadata({
       siteName: "Grofi",
       locale: "en_IN",
       type: "website",
+      images: [
+        {
+          url: ogImage,
+          width: 800,
+          height: 600,
+          alt: `${bank} Credit Cards in India`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Best ${bank} Credit Cards in India (2026) | Grofi`,
+      description: `Compare all ${bank} credit cards with zero CIBIL impact soft checks. Explore reward rates and fees.`,
+      images: [ogImage],
     },
   };
 }
@@ -91,40 +114,50 @@ export default async function SelectedBankCreditCard({ params }: {
     const creditsCards = await fetchBankCards(bank)
     const relatedFAQs = await fetchFAQs(bank)
 
+    const jsonLd = buildBankCreditCardsHubJsonLd(
+        bank,
+        bankSlug,
+        creditsCards || [],
+        relatedFAQs || []
+    );
+
     return (
-        <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
-            <Navbar />
-            <BankHero
-                bankName={bank}
-                bankSlug={bankSlug}
-                cards={creditsCards || []}
-            />
-            <BankPartnerSwitcher
-                currentBankSlug={bankSlug}
-                currentBankName={bank}
-            />
-            
-            <BankCardExplorer
-                initialCards={creditsCards || []}
-                bankName={bank}
-                bankSlug={bankSlug}
-            />
-            <ComparisonMatrixSection
-                bankName={bank}
-                cards={creditsCards || []}
-            />
-            <BankWhyChooseSection
-                bankName={bank}
-                bankSlug={bankSlug}
-            />
-            <BankFAQSection
-                bankName={bank}
-                faqs={relatedFAQs || []}
-            />
-            <BankPreApprovedBanner
-                bankName={bank}
-            />
-            <Footer />
-        </main>
+        <>
+            <JsonLd schema={jsonLd} />
+            <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
+                <Navbar />
+                <BankHero
+                    bankName={bank}
+                    bankSlug={bankSlug}
+                    cards={creditsCards || []}
+                />
+                <BankPartnerSwitcher
+                    currentBankSlug={bankSlug}
+                    currentBankName={bank}
+                />
+                
+                <BankCardExplorer
+                    initialCards={creditsCards || []}
+                    bankName={bank}
+                    bankSlug={bankSlug}
+                />
+                <ComparisonMatrixSection
+                    bankName={bank}
+                    cards={creditsCards || []}
+                />
+                <BankWhyChooseSection
+                    bankName={bank}
+                    bankSlug={bankSlug}
+                />
+                <BankFAQSection
+                    bankName={bank}
+                    faqs={relatedFAQs || []}
+                />
+                <BankPreApprovedBanner
+                    bankName={bank}
+                />
+                <Footer />
+            </main>
+        </>
     )
 }

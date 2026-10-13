@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
+import JsonLd from "@/app/components/JsonLd";
 import { ShieldCheck, Lock, FileText, CheckCircle2, UserCheck, Bell } from "lucide-react";
 import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 
@@ -18,12 +19,54 @@ export const metadata: Metadata = {
     siteName: "Grofi",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Grofi Privacy Policy and Data Sovereignty",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy | Grofi",
+    description:
+      "Learn how Grofi protects and governs personal financial data under DPDP and RBI guidelines.",
+    images: ["/og-image.png"],
   },
 };
 
 export default function PrivacyPolicyPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.grofi.in" },
+          { "@type": "ListItem", position: 2, name: "Privacy Policy", item: "https://www.grofi.in/privacy-policy" },
+        ],
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://www.grofi.in/privacy-policy#webpage",
+        url: "https://www.grofi.in/privacy-policy",
+        name: "Privacy Policy | Grofi",
+        description:
+          "Learn how Grofi collects, uses, protects, and governs your personal and financial data in accordance with DPDP regulations and RBI Digital Lending Guidelines.",
+        publisher: {
+          "@type": "Organization",
+          name: "Grofi",
+          url: "https://www.grofi.in",
+        },
+      },
+    ],
+  };
+
   return (
     <>
+      <JsonLd schema={jsonLd} />
       <Navbar />
       <main className="min-h-screen bg-[#FDFBF7] text-gray-800 font-montserrat">
         {/* Hero Banner */}

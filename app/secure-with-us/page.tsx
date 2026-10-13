@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import SecureWithUsClient from "./components/SecureWithUsClient";
+import JsonLd from "@/app/components/JsonLd";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.grofi.in"),
@@ -29,12 +30,21 @@ export const metadata: Metadata = {
     siteName: "Grofi",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "CyberShield Personal Cyber-Fraud Protection",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "CyberShield ₹1 Lakh Personal Cyber-Fraud Protection - Grofi",
     description:
       "Protection up to ₹1,00,000 against unauthorized digital-fraud losses plus claims assistance. From ₹83/month.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -81,10 +91,7 @@ export default function SecureWithUsPage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd schema={jsonLd} />
       <Navbar />
       <main className="flex flex-col min-h-screen overflow-x-clip bg-white">
         <SecureWithUsClient />

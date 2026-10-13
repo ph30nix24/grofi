@@ -4,6 +4,8 @@ import Footer from "@/app/components/Footer";
 import AllBanksFeaturesExplorer from "../components/AllBanksFeaturesExplorer";
 import Link from "next/link";
 import { ChevronRight, ShieldCheck, Sparkles, CheckCircle2, Zap } from "lucide-react";
+import JsonLd from "@/app/components/JsonLd";
+import { buildHubPageJsonLd } from "@/libs/structuredData";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.grofi.in"),
@@ -32,6 +34,21 @@ export const metadata: Metadata = {
     siteName: "Grofi",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Bank Credit Card Features and Benefits Across Top Indian Banks",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bank Credit Card Features & Benefits for Every Bank in India | Grofi",
+    description:
+      "Explore features across HDFC, SBI, ICICI, Axis, AU Bank, IDFC & more. Reward rates, lounge access & fees.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -61,9 +78,24 @@ const BANK_FEATURES_FAQS = [
 ];
 
 export default function BankFeaturesPage() {
+  const jsonLd = buildHubPageJsonLd({
+    name: "Bank Credit Card Features & Benefits for Every Bank in India (2026)",
+    description:
+      "Explore credit card features and benefits across all major Indian banks: HDFC, SBI, ICICI, Axis, AU Bank, IDFC FIRST, IndusInd, YES Bank, Federal Bank, and BOB.",
+    url: "https://www.grofi.in/credit-cards/features",
+    breadcrumbs: [
+      { name: "Home", item: "https://www.grofi.in" },
+      { name: "Credit Cards", item: "https://www.grofi.in/credit-cards" },
+      { name: "Bank Features & Benefits", item: "https://www.grofi.in/credit-cards/features" },
+    ],
+    faqs: BANK_FEATURES_FAQS.map((f) => ({ question: f.q, answer: f.a })),
+  });
+
   return (
-    <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
-      <Navbar />
+    <>
+      <JsonLd schema={jsonLd} />
+      <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
+        <Navbar />
 
       {/* ── Page Hero Header ────────────────────────────────────────── */}
       <section className="relative pt-8 pb-12 sm:pt-12 sm:pb-16 px-4 sm:px-6 md:px-8 bg-linear-to-b from-[#F3F0DF]/80 via-[#F3F0DF]/35 to-white border-b border-[#DDE3C1]/60">
@@ -152,5 +184,6 @@ export default function BankFeaturesPage() {
 
       <Footer />
     </main>
+    </>
   );
 }

@@ -12,6 +12,8 @@ import BalanceTransferStepsSection from "./components/BalanceTransferStepsSectio
 import BalanceTransferBenefitsGuide from "./components/BalanceTransferBenefitsGuide";
 import BalanceTransferFAQSection from "./components/BalanceTransferFAQSection";
 import BalanceTransferTrustSection from "./components/BalanceTransferTrustSection";
+import JsonLd from "@/app/components/JsonLd";
+import { buildBalanceTransferHubJsonLd } from "@/libs/structuredData";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.grofi.in"),
@@ -44,12 +46,21 @@ export const metadata: Metadata = {
     siteName: "Grofi",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Home Loan Balance Transfer Takeover Schemes",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Home Loan Balance Transfer in India | Rates from 7.10% - Grofi",
     description:
       "Compare 14+ verified banks & HFCs. Switch to lowest interest rates, save on monthly EMIs, and unlock high-value top-up loans.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -75,85 +86,15 @@ async function fetchBalanceTransfers(): Promise<BalanceTransferLender[]> {
 export default async function BalanceTransferPage() {
   const lenders = await fetchBalanceTransfers();
 
-  // Extract FAQs from database lenders for JSON-LD Structured Data
   const jsonLdFaqs = lenders
     .flatMap((l) => (Array.isArray(l.faqs) ? l.faqs : []))
     .slice(0, 8);
 
-  // JSON-LD Structured Data for Search Engine Optimization
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://www.grofi.in",
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Home Loans",
-            "item": "https://www.grofi.in/home-loans",
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Balance Transfer",
-            "item": "https://www.grofi.in/home-loans/balance-transfer",
-          },
-        ],
-      },
-      {
-        "@type": "ItemList",
-        "name": "Top Home Loan Balance Transfer Lenders in India",
-        "description":
-          "Compare lowest interest rate home loan takeover and balance transfer schemes with top-up options from top Indian banks and HFCs.",
-        "numberOfItems": lenders.length,
-        "itemListElement": lenders.map((lender, idx) => ({
-          "@type": "ListItem",
-          "position": idx + 1,
-          "item": {
-            "@type": "FinancialProduct",
-            "name": lender.name,
-            "provider": {
-              "@type": "BankOrCreditUnion",
-              "name": lender.name.replace(/Home Loan|Balance Transfer|Takeover Scheme|Takeover/i, "").trim(),
-            },
-            "description": lender.tagline,
-            "annualPercentageRate": lender.interestRate?.min ?? 7.15,
-            "feesAndCommissionsSpecification": lender.processingFeeCap || lender.processingFee,
-          },
-        })),
-      },
-      ...(jsonLdFaqs.length > 0
-        ? [
-            {
-              "@type": "FAQPage",
-              "mainEntity": jsonLdFaqs.map((faq) => ({
-                "@type": "Question",
-                "name": faq.question,
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": faq.answer,
-                },
-              })),
-            },
-          ]
-        : []),
-    ],
-  };
+  const jsonLd = buildBalanceTransferHubJsonLd(lenders, jsonLdFaqs);
 
   return (
     <>
-      {/* Schema.org Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd schema={jsonLd} />
 
       <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
         <Navbar />

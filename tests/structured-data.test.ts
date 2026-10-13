@@ -8,6 +8,17 @@ import {
   buildPersonalLoanJsonLd,
   buildInstantLoanJsonLd,
   buildShortTermLoanJsonLd,
+  buildHubPageJsonLd,
+  buildPersonalLoansHubJsonLd,
+  buildInstantLoansHubJsonLd,
+  buildShortTermLoansHubJsonLd,
+  buildHomeLoansHubJsonLd,
+  buildBalanceTransferHubJsonLd,
+  buildLapHubJsonLd,
+  buildBusinessLoansHubJsonLd,
+  buildCreditCardsHubJsonLd,
+  buildBankCreditCardsHubJsonLd,
+  buildCreditCardJsonLd,
 } from "../libs/structuredData";
 
 const mockLender = {
@@ -123,4 +134,147 @@ describe("Centralized Structured Data Builders Integrity", () => {
     assert.equal(product.review.reviewBody, mockLender.overview);
     assert.notEqual(product.review.reviewBody, mockLender.tagline);
   });
+
+  test("buildCreditCardJsonLd emits zero AggregateRating, valid Review and BreadcrumbList", () => {
+    const cardWithVerdict = {
+      id: "infinia",
+      name: "HDFC Infinia Metal",
+      issuer: "HDFC Bank",
+      annualFee: "₹12,500",
+      joiningFee: "₹12,500",
+      editorialVerdict:
+        "HDFC Infinia Metal is India's leading super-premium card with unmatched SmartBuy reward acceleration.",
+    };
+    const result = buildCreditCardJsonLd(
+      cardWithVerdict,
+      "hdfc-bank",
+      [{ question: "Is it metal?", answer: "Yes." }]
+    );
+    const jsonString = JSON.stringify(result);
+
+    assert.equal(jsonString.includes("AggregateRating"), false);
+    assert.equal(jsonString.includes("ratingCount"), false);
+
+    const product: any = result["@graph"].find(
+      (node: any) => node["@type"] === "FinancialProduct"
+    );
+    assert.ok(product);
+    assert.ok(product.review);
+    assert.equal(product.review.author.name, "Grofi Editorial Team");
+    assert.equal(product.review.reviewBody, cardWithVerdict.editorialVerdict);
+
+    const breadcrumbs: any = result["@graph"].find(
+      (node: any) => node["@type"] === "BreadcrumbList"
+    );
+    assert.ok(breadcrumbs);
+    assert.equal(breadcrumbs.itemListElement.length, 4);
+
+    const faq: any = result["@graph"].find(
+      (node: any) => node["@type"] === "FAQPage"
+    );
+    assert.ok(faq);
+  });
+
+  test("buildCreditCardJsonLd cleanly omits review when editorialVerdict is absent", () => {
+    const cardWithoutVerdict = {
+      id: "infinia",
+      name: "HDFC Infinia Metal",
+      issuer: "HDFC Bank",
+      annualFee: "₹12,500",
+      joiningFee: "₹12,500",
+    };
+    const result = buildCreditCardJsonLd(cardWithoutVerdict, "hdfc-bank");
+    const product: any = result["@graph"].find(
+      (node: any) => node["@type"] === "FinancialProduct"
+    );
+    assert.ok(product);
+    assert.equal(product.review, undefined);
+  });
 });
+
+describe("Hub-Page Schema Builders Integrity", () => {
+  const mockLenders = [mockLender];
+  const mockCards = [
+    {
+      id: "regalia-gold",
+      name: "HDFC Regalia Gold",
+      issuer: "HDFC Bank",
+      image: "/cards/regalia.png",
+      tagline: "Premier travel and lifestyle card",
+      joiningFee: "₹2,500",
+      annualFee: "₹2,500",
+    },
+  ];
+  const mockFaqs = [
+    { question: "What is Grofi?", answer: "A smart financial growth marketplace." },
+  ];
+
+  const hubBuilders = [
+    { name: "buildPersonalLoansHubJsonLd", fn: () => buildPersonalLoansHubJsonLd(mockLenders) },
+    { name: "buildInstantLoansHubJsonLd", fn: () => buildInstantLoansHubJsonLd(mockLenders) },
+    { name: "buildShortTermLoansHubJsonLd", fn: () => buildShortTermLoansHubJsonLd(mockLenders) },
+    { name: "buildHomeLoansHubJsonLd", fn: () => buildHomeLoansHubJsonLd(mockLenders) },
+    { name: "buildBalanceTransferHubJsonLd", fn: () => buildBalanceTransferHubJsonLd(mockLenders, mockFaqs) },
+    { name: "buildLapHubJsonLd", fn: () => buildLapHubJsonLd(mockLenders, mockFaqs) },
+    { name: "buildBusinessLoansHubJsonLd", fn: () => buildBusinessLoansHubJsonLd(mockLenders) },
+    { name: "buildCreditCardsHubJsonLd", fn: () => buildCreditCardsHubJsonLd(mockCards) },
+    {
+      name: "buildBankCreditCardsHubJsonLd",
+      fn: () => buildBankCreditCardsHubJsonLd("HDFC Bank", "hdfc-bank", mockCards, mockFaqs),
+    },
+  ];
+
+  for (const { name, fn } of hubBuilders) {
+    test(`${name} emits zero AggregateRating, valid CollectionPage, Breadcrumbs and ItemList`, () => {
+      const result = fn();
+      const jsonString = JSON.stringify(result);
+
+      // Strict prohibition on fake AggregateRating and ratingCount
+      assert.equal(
+        jsonString.includes("AggregateRating"),
+        false,
+        `${name} must NEVER emit AggregateRating`
+      );
+      assert.equal(
+        jsonString.includes("ratingCount"),
+        false,
+        `${name} must NEVER emit ratingCount`
+      );
+
+      // Check CollectionPage entity
+      const collectionPage: any = result["@graph"].find(
+        (node: any) => node["@type"] === "CollectionPage"
+      );
+      assert.ok(collectionPage, `${name} must contain CollectionPage`);
+      assert.ok(collectionPage.url);
+      assert.ok(collectionPage.name);
+
+      // Check BreadcrumbList entity
+      const breadcrumb: any = result["@graph"].find(
+        (node: any) => node["@type"] === "BreadcrumbList"
+      );
+      assert.ok(breadcrumb, `${name} must contain BreadcrumbList`);
+      assert.ok(breadcrumb.itemListElement && breadcrumb.itemListElement.length >= 2);
+      assert.equal(breadcrumb.itemListElement[0].position, 1);
+
+      // Check ItemList entity
+      const itemList: any = result["@graph"].find(
+        (node: any) => node["@type"] === "ItemList"
+      );
+      assert.ok(itemList, `${name} must contain ItemList`);
+      assert.equal(itemList.numberOfItems, 1);
+      assert.equal(itemList.itemListElement[0].position, 1);
+      assert.equal(itemList.itemListElement[0].item["@type"], "FinancialProduct");
+
+      // Check FAQPage entity
+      const faqPage: any = result["@graph"].find(
+        (node: any) => node["@type"] === "FAQPage"
+      );
+      assert.ok(faqPage, `${name} must contain FAQPage`);
+      assert.ok(faqPage.mainEntity && faqPage.mainEntity.length > 0);
+      assert.ok(faqPage.mainEntity[0].name);
+      assert.ok(faqPage.mainEntity[0].acceptedAnswer.text);
+    });
+  }
+});
+

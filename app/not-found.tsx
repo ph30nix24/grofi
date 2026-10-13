@@ -1,7 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import { CreditCard, Landmark, Home, Briefcase, ArrowRight, Home as HomeIcon } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "404 - Page Not Found | Grofi",
+  description:
+    "The financial product or page you are looking for could not be found. Explore credit cards, personal loans, home loans, and business loans on Grofi.",
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
 
 export default function NotFound() {
   const quickLinks = [

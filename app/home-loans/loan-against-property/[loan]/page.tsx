@@ -22,6 +22,7 @@ import LoanAgainstPropertySimilarLenders from "./components/LoanAgainstPropertyS
 import LoanAgainstPropertyLoanPreApprovedBanner from "./components/LoanAgainstPropertyLoanPreApprovedBanner";
 import LoanAgainstPropertyLoanMobileApplyBar from "./components/LoanAgainstPropertyLoanMobileApplyBar";
 import { buildLapJsonLd } from "@/libs/structuredData";
+import JsonLd from "@/app/components/JsonLd";
 
 const SITE = "https://www.grofi.in";
 
@@ -192,11 +193,7 @@ export default async function SelectedLoanAgainstProperty({
 
   return (
     <>
-      {/* Schema.org Structured Data Script */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd schema={jsonLd} />
 
       <main className="flex flex-col min-h-screen bg-[#FDFBF7] text-gray-900 selection:bg-primary/20 selection:text-primary">
         <Navbar />

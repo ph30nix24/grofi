@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import CareersPageClient from "./components/CareersPageClient";
+import JsonLd from "@/app/components/JsonLd";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.grofi.in"),
@@ -29,12 +30,21 @@ export const metadata: Metadata = {
     siteName: "Grofi",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/careers-hero.webp",
+        width: 1200,
+        height: 630,
+        alt: "Careers at Grofi Delhi - Join our FinTech team",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Careers at Grofi | 18 Active Openings in Delhi (WFO)",
     description:
       "Join Grofi Delhi! Hiring BD Executives (10), Content Creators (5), Video Editor (1), and HR Executives (2). WFO model with fast-track 48-hour interview turnaround.",
+    images: ["/careers-hero.webp"],
   },
 };
 
@@ -181,10 +191,7 @@ export default function CareersPage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd schema={jsonLd} />
       <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
         <Navbar />
         <CareersPageClient />

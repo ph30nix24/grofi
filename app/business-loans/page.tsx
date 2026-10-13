@@ -13,6 +13,8 @@ import BusinessLoanStepsSection from "./components/BusinessLoanStepsSection";
 import BusinessLoanEligibilityGuide from "./components/BusinessLoanEligibilityGuide";
 import BusinessLoanFAQSection from "./components/BusinessLoanFAQSection";
 import BusinessLoanTrustSection from "./components/BusinessLoanTrustSection";
+import JsonLd from "@/app/components/JsonLd";
+import { buildBusinessLoansHubJsonLd } from "@/libs/structuredData";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.grofi.in"),
@@ -51,12 +53,21 @@ export const metadata: Metadata = {
     siteName: "Grofi",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Compare Best Business Loans & MSME Credit in India - Grofi",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Compare Best Business Loans & MSME Credit in India | Grofi",
     description:
       "Compare 12+ banks & NBFCs. Collateral-free options, CGTMSE coverage, and fast digital GST verification.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -81,96 +92,11 @@ async function fetchBusinessLoans(): Promise<BusinessLoanLender[]> {
 export default async function BusinessLoansPage() {
   const lenders = await fetchBusinessLoans();
 
-  // JSON-LD Structured Data for Search Engine Optimization
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://www.grofi.in",
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Business Loans",
-            "item": "https://www.grofi.in/business-loans",
-          },
-        ],
-      },
-      {
-        "@type": "ItemList",
-        "name": "Top Business Loan Lenders & MSME Financiers in India",
-        "description":
-          "Compare lowest interest rate business loans, drop-line overdrafts, and collateral-free MSME credit from top Indian scheduled commercial banks and NBFCs.",
-        "numberOfItems": lenders.length,
-        "itemListElement": lenders.map((lender, idx) => ({
-          "@type": "ListItem",
-          "position": idx + 1,
-          "item": {
-            "@type": "FinancialProduct",
-            "name": lender.name,
-            "provider": {
-              "@type": "BankOrCreditUnion",
-              "name": lender.name.replace(/Business Loan|Loan/i, "").trim(),
-            },
-            "description": lender.tagline,
-            "annualPercentageRate": lender.interestRate?.min ?? 8.85,
-            "feesAndCommissionsSpecification": lender.processingFee,
-          },
-        })),
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Can I get a business loan in India without pledging collateral?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. Top lenders on Grofi offer unsecured collateral-free business loans up to ₹75 Lakhs to ₹1 Crore. Furthermore, Micro and Small Enterprises can secure up to ₹5 Crores collateral-free under the Government of India's CGTMSE scheme.",
-            },
-          },
-          {
-            "@type": "Question",
-            "name": "What is the lowest interest rate for business loans in India?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "PSU commercial banks like Punjab National Bank (PNB) and Bank of Baroda provide business loans starting from 8.85% to 8.95% p.a. for GST-registered MSMEs, while leading private banks start around 10.75% to 11.00% p.a.",
-            },
-          },
-          {
-            "@type": "Question",
-            "name": "Are there prepayment or foreclosure charges on business loans?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Under RBI guidelines, floating-rate business loans sanctioned to individual proprietorships and Micro/Small Enterprises (MSEs) incur zero foreclosure or prepayment penalties.",
-            },
-          },
-          {
-            "@type": "Question",
-            "name": "How fast are business loans disbursed on Grofi?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "With digital GST verification and the RBI Account Aggregator framework, in-principle approval is issued within 2 to 4 hours, and sanctioned funds are credited to your Current Account within 48 to 72 business hours.",
-            },
-          },
-        ],
-      },
-    ],
-  };
+  const jsonLd = buildBusinessLoansHubJsonLd(lenders);
 
   return (
     <>
-      {/* Schema.org Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd schema={jsonLd} />
 
       <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
         <Navbar />

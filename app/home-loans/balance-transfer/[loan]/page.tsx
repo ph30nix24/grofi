@@ -20,6 +20,7 @@ import BalanceTransferSimilarLenders from "./components/BalanceTransferSimilarLe
 import BalanceTransferLoanPreApprovedBanner from "./components/BalanceTransferLoanPreApprovedBanner";
 import BalanceTransferLoanMobileApplyBar from "./components/BalanceTransferLoanMobileApplyBar";
 import { buildBalanceTransferJsonLd } from "@/libs/structuredData";
+import JsonLd from "@/app/components/JsonLd";
 
 const SITE = "https://www.grofi.in";
 
@@ -177,11 +178,7 @@ export default async function SelectedBalanceTransfer({
 
   return (
     <>
-      {/* Schema.org Structured Data Script */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd schema={jsonLd} />
 
       <main className="flex flex-col min-h-screen bg-[#FDFBF7] text-gray-900 selection:bg-primary/20 selection:text-primary">
         <Navbar />

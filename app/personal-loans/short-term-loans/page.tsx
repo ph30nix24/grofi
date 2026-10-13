@@ -12,6 +12,8 @@ import ShortTermLoanStepsSection from "./components/ShortTermLoanStepsSection";
 import ShortTermLoanGuideSection from "./components/ShortTermLoanGuideSection";
 import ShortTermLoanFAQSection from "./components/ShortTermLoanFAQSection";
 import ShortTermLoanTrustSection from "./components/ShortTermLoanTrustSection";
+import JsonLd from "@/app/components/JsonLd";
+import { buildShortTermLoansHubJsonLd } from "@/libs/structuredData";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.grofi.in"),
@@ -47,12 +49,21 @@ export const metadata: Metadata = {
     siteName: "Grofi",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Short Term Personal Loans in India",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Short Term Personal Loans (2026): 3 to 12 Month Credit",
     description:
       "Borrow quick and repay fast with zero long-term liabilities. Compare top short-term lenders including SBI, HDFC, Navi, KreditBee & CASHe with paperless e-KYC.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -78,95 +89,11 @@ async function fetchShortTermLoans(): Promise<ShortTermLoanLender[]> {
 export default async function ShortTermPersonalLoanPage() {
   const lenders = await fetchShortTermLoans();
 
-  // JSON-LD Structured Data for Search Engines
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://www.grofi.in",
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Personal Loans",
-            "item": "https://www.grofi.in/personal-loans",
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Short Term Loans",
-            "item": "https://www.grofi.in/personal-loans/short-term-loans",
-          },
-        ],
-      },
-      {
-        "@type": "ItemList",
-        "name": "Top Short-Term Personal Loan Lenders in India",
-        "description":
-          "Compare lowest interest rate short-term personal loans from top Indian scheduled commercial banks and RBI-registered NBFCs with 3 to 12-month tenures.",
-        "numberOfItems": lenders.length,
-        "itemListElement": lenders.map((lender, idx) => ({
-          "@type": "ListItem",
-          "position": idx + 1,
-          "item": {
-            "@type": "FinancialProduct",
-            "name": lender.name,
-            "provider": {
-              "@type": "FinancialService",
-              "name": lender.rbiRegulatedEntity,
-            },
-            ...(typeof lender.interestRate?.min === "number"
-              ? { "annualPercentageRate": lender.interestRate.min }
-              : {}),
-            "feesAndCommissionsSpecification": lender.processingFee,
-          },
-        })),
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Why do short-term loans save money even if their APR is slightly higher?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Compounding duration is the primary driver of total loan cost. Borrowing ₹1 Lakh for 6 months at 16% APR results in approximately ₹4,728 in interest, whereas a 3-year loan at 13.5% incurs over ₹22,184 in interest — nearly 5x higher.",
-            },
-          },
-          {
-            "@type": "Question",
-            "name": "What is the mandatory RBI cooling-off period on short-term loans?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Under RBI Digital Lending Directives, every regulated lender must provide a cooling-off look-up period of 1 to 3 days allowing borrowers to exit the loan with zero prepayment penalties by repaying only the principal and proportionate APR.",
-            },
-          },
-          {
-            "@type": "Question",
-            "name": "Can I prepay or foreclose a short-term personal loan early without a penalty?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. Top digital lenders like Navi, KreditBee, and major banks waive prepayment and foreclosure fees, allowing borrowers to clear their balance early without penalty once liquidity returns.",
-            },
-          },
-        ],
-      },
-    ],
-  };
+  const jsonLd = buildShortTermLoansHubJsonLd(lenders);
 
   return (
     <>
-      {/* Schema.org Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd schema={jsonLd} />
 
       <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
         <Navbar />

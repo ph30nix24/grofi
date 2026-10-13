@@ -8,6 +8,7 @@ import { BlogItem } from "../components/type";
 import BlogImage from "../components/BlogImage";
 import BlogCard from "../components/BlogCard";
 import MarkdownContent from "./components/MarkdownContent";
+import JsonLd from "@/app/components/JsonLd";
 import {
   Clock,
   Calendar,
@@ -41,6 +42,12 @@ export async function generateMetadata({
       };
     }
 
+    const imageUrl = post.image
+      ? post.image.startsWith("http")
+        ? post.image
+        : `https://www.grofi.in${post.image}`
+      : "https://www.grofi.in/og-image.png";
+
     return {
       title: `${post.title} | Grofi Financial Insights`,
       description: post.excerpt,
@@ -57,11 +64,20 @@ export async function generateMetadata({
         publishedTime: post.createdAt.toISOString(),
         modifiedTime: post.updatedAt.toISOString(),
         authors: [post.author],
+        images: [
+          {
+            url: imageUrl,
+            width: 1200,
+            height: 630,
+            alt: post.title,
+          },
+        ],
       },
       twitter: {
         card: "summary_large_image",
         title: post.title,
         description: post.excerpt,
+        images: [imageUrl],
       },
     };
   } catch (error) {
@@ -111,36 +127,71 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     day: "numeric",
   });
 
-  // JSON-LD structured data
+  const postImageUrl = post.image
+    ? post.image.startsWith("http")
+      ? post.image
+      : `https://www.grofi.in${post.image}`
+    : "https://www.grofi.in/og-image.png";
+
+  // JSON-LD structured data with BreadcrumbList and BlogPosting
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": post.title,
-    "description": post.excerpt,
-    "datePublished": post.createdAt,
-    "dateModified": post.updatedAt || post.createdAt,
-    "author": {
-      "@type": "Person",
-      "name": post.author,
-      "jobTitle": post.authorRole || "Financial Analyst",
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Grofi",
-      "url": "https://www.grofi.in",
-    },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `https://www.grofi.in/blogs/${post.slug}`,
-    },
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://www.grofi.in",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Blogs",
+            item: "https://www.grofi.in/blogs",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: post.title,
+            item: `https://www.grofi.in/blogs/${post.slug}`,
+          },
+        ],
+      },
+      {
+        "@type": "BlogPosting",
+        headline: post.title,
+        description: post.excerpt,
+        image: [postImageUrl],
+        datePublished: post.createdAt,
+        dateModified: post.updatedAt || post.createdAt,
+        author: {
+          "@type": "Person",
+          name: post.author,
+          jobTitle: post.authorRole || "Financial Analyst",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Grofi",
+          url: "https://www.grofi.in",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://www.grofi.in/icon.png",
+          },
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": `https://www.grofi.in/blogs/${post.slug}`,
+        },
+      },
+    ],
   };
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd schema={jsonLd} />
       <main className="flex flex-col min-h-screen bg-[#FDFBF7] font-montserrat">
         <Navbar />
 

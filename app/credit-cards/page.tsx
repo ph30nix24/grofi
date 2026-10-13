@@ -6,6 +6,8 @@ import Footer from "../components/Footer";
 import CreditCardExplorer from "./components/CreditCardExplorer";
 import AllBanksFeaturesExplorer from "./components/AllBanksFeaturesExplorer";
 import { CardStructure } from "./components/type";
+import JsonLd from "@/app/components/JsonLd";
+import { buildCreditCardsHubJsonLd } from "@/libs/structuredData";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.grofi.in"),
@@ -29,13 +31,28 @@ export const metadata: Metadata = {
     "Grofi credit cards",
   ],
   openGraph: {
-    title: "Compare Best Credit Cards in India | Grofi",
+    title: "Compare Best Credit Cards in India (200+ Cards) | Grofi",
     description:
       "Find India's highest reward rate and lifetime free credit cards. 100% free eligibility check across 10+ partner banks.",
     url: "https://www.grofi.in/credit-cards",
     siteName: "Grofi",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Compare Best Credit Cards in India - Grofi",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Compare Best Credit Cards in India (200+ Cards) | Grofi",
+    description:
+      "Compare 200+ credit cards across HDFC, SBI, ICICI, Axis & more. Reward rates, airport lounge access & instant approval.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -60,16 +77,20 @@ async function getCreditCards(): Promise<CardStructure[]> {
 
 export default async function CreditCardsPage() {
   const cards = await getCreditCards();
+  const jsonLd = buildCreditCardsHubJsonLd(cards);
 
   return (
-    <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
-      <Navbar />
-      <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center text-sm text-gray-400">Loading cards...</div>}>
-        <CreditCardExplorer initialCards={cards} />
-      </Suspense>
-      <AllBanksFeaturesExplorer />
-      
-      <Footer />
-    </main>
+    <>
+      <JsonLd schema={jsonLd} />
+      <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
+        <Navbar />
+        <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center text-sm text-gray-400">Loading cards...</div>}>
+          <CreditCardExplorer initialCards={cards} />
+        </Suspense>
+        <AllBanksFeaturesExplorer />
+        
+        <Footer />
+      </main>
+    </>
   );
 }

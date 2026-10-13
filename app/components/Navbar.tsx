@@ -478,7 +478,7 @@ export default function Navbar() {
                                                     {itemLogo ? (
                                                       <Image
                                                         src={itemLogo}
-                                                        alt=""
+                                                        alt={`${item.label} logo`}
                                                         width={16}
                                                         height={16}
                                                         className="w-full h-full object-contain"
@@ -795,7 +795,7 @@ export default function Navbar() {
                                               {subLogo ? (
                                                 <Image
                                                   src={subLogo}
-                                                  alt=""
+                                                  alt={`${sub.label} logo`}
                                                   width={14}
                                                   height={14}
                                                   className="w-full h-full object-contain"

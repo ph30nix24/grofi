@@ -12,6 +12,8 @@ import PersonalLoanStepsSection from "./components/PersonalLoanStepsSection";
 import PersonalLoanEligibilityGuide from "./components/PersonalLoanEligibilityGuide";
 import PersonalLoanFAQSection from "./components/PersonalLoanFAQSection";
 import PersonalLoanTrustSection from "./components/PersonalLoanTrustSection";
+import JsonLd from "@/app/components/JsonLd";
+import { buildPersonalLoansHubJsonLd } from "@/libs/structuredData";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.grofi.in"),
@@ -46,12 +48,21 @@ export const metadata: Metadata = {
     siteName: "Grofi",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Best Personal Loans in India - Grofi",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Best Personal Loans in India (2026): Rates from 9.99%",
     description:
       "Compare 10+ banks & NBFCs. Instant disbursals up to ₹50 Lakhs with lowest rates and paperless verification.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -76,96 +87,11 @@ async function fetchPersonalLoans(): Promise<PersonalLoanLender[]> {
 export default async function PersonalLoansPage() {
   const lenders = await fetchPersonalLoans();
 
-  // JSON-LD Structured Data for Search Engine Optimization
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://www.grofi.in",
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Personal Loans",
-            "item": "https://www.grofi.in/personal-loans",
-          },
-        ],
-      },
-      {
-        "@type": "ItemList",
-        "name": "Top Personal Loan Lenders in India",
-        "description": "Compare lowest interest rate personal loans from top Indian scheduled commercial banks and NBFCs.",
-        "numberOfItems": lenders.length,
-        "itemListElement": lenders.map((lender, idx) => ({
-          "@type": "ListItem",
-          "position": idx + 1,
-          "item": {
-            "@type": "FinancialProduct",
-            "name": lender.name,
-            "provider": {
-              "@type": "BankOrCreditUnion",
-              "name": lender.name.replace(/Personal Loan/i, "").trim(),
-            },
-            ...(typeof lender.interestRate?.min === "number"
-              ? { "annualPercentageRate": lender.interestRate.min }
-              : {}),
-            "feesAndCommissionsSpecification": lender.processingFee,
-          },
-        })),
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What is the difference between Reducing Balance Rate and Flat Interest Rate?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "In a Monthly Reducing Balance method, interest is calculated solely on the outstanding principal balance at the end of each month. In a Flat Interest Rate method, interest is calculated on the entire initial sanction amount for the full tenure, making it significantly more expensive.",
-            },
-          },
-          {
-            "@type": "Question",
-            "name": "What minimum CIBIL score is required for personal loan approval?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Most scheduled commercial banks (HDFC, ICICI, SBI, Axis) prefer a CIBIL score of 720 or higher. A score above 750 qualifies you for prime interest rates starting at 9.99% p.a.",
-            },
-          },
-          {
-            "@type": "Question",
-            "name": "Will checking my loan eligibility on Grofi hurt my credit score?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. Checking pre-approved eligibility on Grofi performs a soft credit inquiry which causes zero deduction to your CIBIL score.",
-            },
-          },
-          {
-            "@type": "Question",
-            "name": "Can I prepay or foreclose my personal loan early?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes, borrowers are allowed to prepay or foreclose after the lock-in period (typically 6-12 months). RBI rules restrict penalties on individual floating rate loans.",
-            },
-          },
-        ],
-      },
-    ],
-  };
+  const jsonLd = buildPersonalLoansHubJsonLd(lenders);
 
   return (
     <>
-      {/* Schema.org Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd schema={jsonLd} />
 
       <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
         <Navbar />

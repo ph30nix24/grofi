@@ -7,6 +7,7 @@ import { BlogItem } from "./components/type";
 import BlogHero from "./components/BlogHero";
 import BlogExplorer from "./components/BlogExplorer";
 import BlogTrustBanner from "./components/BlogTrustBanner";
+import JsonLd from "@/app/components/JsonLd";
 
 
 
@@ -36,12 +37,21 @@ export const metadata: Metadata = {
     siteName: "Grofi",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Grofi Financial Insights and Research Guides",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Grofi Financial Insights & Blogs | Credit Cards & Loans",
     description:
       "Expert articles, reward hacks, and actionable personal finance guides curated by Grofi.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -112,10 +122,7 @@ export default async function BlogPage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd schema={jsonLd} />
       <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
         <Navbar />
         <BlogHero totalBlogs={blogs.length} />
