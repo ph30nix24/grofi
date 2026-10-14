@@ -99,7 +99,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     rawPost = await prisma.blogPost.findUnique({
       where: { slug },
     });
-
+    
     if (rawPost && rawPost.published) {
       const rawRelated = await prisma.blogPost.findMany({
         where: {
@@ -264,11 +264,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="flex items-center justify-between pt-4 border-t border-gray-200/70">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm font-bricolage shadow-2xs">
-                  {post.author ? post.author.charAt(0) : "G"}
+                  {"G"}
                 </div>
                 <div>
                   <p className="text-sm font-bold text-gray-900 leading-tight">
-                    {post.author || "Grofi Editorial"}
+                    {"Grofi Editorial"}
                   </p>
                   {post.authorRole && (
                     <p className="text-xs text-gray-500 leading-tight">

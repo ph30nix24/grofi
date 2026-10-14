@@ -113,11 +113,11 @@ export default function BlogCard({
           <div className="pt-3 border-t border-gray-100 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs font-bricolage">
-                {blog.author ? blog.author.charAt(0) : "G"}
+                {"G"}
               </div>
               <div className="text-left">
                 <p className="text-xs font-semibold text-gray-900 leading-tight">
-                  {blog.author || "Grofi Editorial"}
+                  {"Grofi Editorial"}
                 </p>
                 {blog.authorRole && (
                   <p className="text-[11px] text-gray-500 leading-tight">
@@ -218,11 +218,11 @@ export default function BlogCard({
         <div className="pt-3 border-t border-gray-100 flex items-center justify-between mt-auto">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs font-bricolage">
-              {blog.author ? blog.author.charAt(0) : "G"}
+              {"G"}
             </div>
             <div className="text-left">
               <p className="text-xs font-semibold text-gray-900 leading-tight truncate max-w-[120px]">
-                {blog.author || "Grofi Editorial"}
+                {"Grofi Editorial"}
               </p>
               {blog.authorRole && (
                 <p className="text-[10px] text-gray-500 leading-tight truncate max-w-[120px]">

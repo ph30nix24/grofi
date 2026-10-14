@@ -309,11 +309,11 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
               <div className="pt-4 border-t border-gray-100 flex flex-wrap items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm font-bricolage shadow-xs">
-                    {featuredBlog.author ? featuredBlog.author.charAt(0) : "G"}
+                    { "G" }
                   </div>
                   <div>
                     <p className="text-sm font-bold text-gray-900 leading-tight">
-                      {featuredBlog.author || "Money Mittra Team"}
+                      {"Grofi Team"}
                     </p>
                     {featuredBlog.authorRole && (
                       <p className="text-xs text-gray-500 leading-tight">

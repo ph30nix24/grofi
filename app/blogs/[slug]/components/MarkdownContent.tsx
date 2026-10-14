@@ -1,4 +1,5 @@
 import { AlertCircle, Info, Lightbulb } from "lucide-react";
+import ContentImage from "./ContentImage";
 
 interface MarkdownContentProps {
   content: string;
@@ -53,6 +54,12 @@ interface BlockBlockquote {
 interface BlockHR {
   type: "hr";
 }
+interface BlockImage {
+  type: "image";
+  src: string;
+  alt: string;
+  caption?: string;
+}
 
 type MarkdownBlock =
   | BlockH1
@@ -66,7 +73,8 @@ type MarkdownBlock =
   | BlockTable
   | BlockCallout
   | BlockBlockquote
-  | BlockHR;
+  | BlockHR
+  | BlockImage;
 
 function parseMarkdownBlocks(rawContent: string): MarkdownBlock[] {
   const lines = rawContent.replace(/\r\n/g, "\n").split("\n");
@@ -82,10 +90,43 @@ function parseMarkdownBlocks(rawContent: string): MarkdownBlock[] {
       continue;
     }
 
-    // Skip standalone image blocks if they use missing local /uploads/
-    if (line.startsWith("![") && line.endsWith(")")) {
+    // Standalone Markdown Image (![alt](url) or ![alt](url "title"))
+    const imgMatch = line.match(/^!\[([\s\S]*?)\]\(([\s\S]*?)\)$/);
+    if (imgMatch) {
+      const alt = imgMatch[1].trim();
+      const rawTarget = imgMatch[2].trim();
+      const titleMatch = rawTarget.match(/^(\S+)(?:\s+["']([\s\S]*?)["'])?$/);
+      const src = titleMatch ? titleMatch[1] : rawTarget;
+      const caption = titleMatch && titleMatch[2] ? titleMatch[2].trim() : alt;
+
+      blocks.push({
+        type: "image",
+        src,
+        alt: alt || "Blog illustration",
+        caption: caption || undefined,
+      });
       i++;
       continue;
+    }
+
+    // Standalone HTML Image (<img ...>)
+    const htmlImgMatch = line.match(/^<img\s+([^>]*?)\/?>$/i);
+    if (htmlImgMatch) {
+      const attrs = htmlImgMatch[1];
+      const srcMatch = attrs.match(/src=["']([^"']+)["']/i);
+      const altMatch = attrs.match(/alt=["']([^"']*)["']/i);
+      if (srcMatch) {
+        const src = srcMatch[1].trim();
+        const alt = altMatch ? altMatch[1].trim() : "Blog illustration";
+        blocks.push({
+          type: "image",
+          src,
+          alt,
+          caption: alt && alt !== "Blog illustration" ? alt : undefined,
+        });
+        i++;
+        continue;
+      }
     }
 
     // Horizontal rule
@@ -253,6 +294,7 @@ function parseMarkdownBlocks(rawContent: string): MarkdownBlock[] {
       !/^\d+\.\s+/.test(lines[i].trim()) &&
       lines[i].trim() !== "---" &&
       !lines[i].trim().startsWith("![") &&
+      !lines[i].trim().startsWith("<img") &&
       !/^\*\*\s*(.+?)\s*\*\*:?$/.test(lines[i].trim())
     ) {
       pLines.push(lines[i].trim());
@@ -275,12 +317,12 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
 
   const blocks = parseMarkdownBlocks(content);
 
-  // Helper to render inline markdown: **bold**, *italic*, `code`, [link](url)
+  // Helper to render inline markdown: **bold**, *italic*, `code`, ![image](url), [link](url)
   const renderInline = (text: string): React.ReactNode => {
     const parts: React.ReactNode[] = [];
     let keyIdx = 0;
 
-    const regex = /(\*\*([^*]+)\*\*|\*([^*]+)\*|`([^`]+)`|\[([^\]]+)\]\(([^)]+)\))/g;
+    const regex = /(\*\*([^*]+)\*\*|\*([^*]+)\*|`([^`]+)`|!\[([^\]]*)\]\(([^)]+)\)|\[([^\]]+)\]\(([^)]+)\))/g;
     let lastIndex = 0;
     let match: RegExpExecArray | null;
 
@@ -313,17 +355,36 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
             {match[4]}
           </code>
         );
-      } else if (match[5] && match[6]) {
+      } else if (match[6] !== undefined) {
+        // ![image](url)
+        const altText = match[5]?.trim() || "Blog illustration";
+        let target = match[6].trim();
+        let caption = altText;
+        const titleM = target.match(/^(\S+)(?:\s+["']([\s\S]*?)["'])?$/);
+        if (titleM) {
+          target = titleM[1];
+          if (titleM[2]) caption = titleM[2].trim();
+        }
+        parts.push(
+          <ContentImage
+            key={keyIdx++}
+            src={target}
+            alt={altText}
+            caption={caption}
+            inline
+          />
+        );
+      } else if (match[7] && match[8]) {
         // [link](url)
         parts.push(
           <a
             key={keyIdx++}
-            href={match[6]}
-            target={match[6].startsWith("http") ? "_blank" : undefined}
-            rel={match[6].startsWith("http") ? "noopener noreferrer" : undefined}
+            href={match[8]}
+            target={match[8].startsWith("http") ? "_blank" : undefined}
+            rel={match[8].startsWith("http") ? "noopener noreferrer" : undefined}
             className="text-primary hover:text-gold underline underline-offset-2 font-semibold transition-colors"
           >
-            {match[5]}
+            {match[7]}
           </a>
         );
       }
@@ -522,6 +583,16 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
               >
                 {renderInline(block.text)}
               </blockquote>
+            );
+
+          case "image":
+            return (
+              <ContentImage
+                key={idx}
+                src={block.src}
+                alt={block.alt}
+                caption={block.caption}
+              />
             );
 
           case "hr":
