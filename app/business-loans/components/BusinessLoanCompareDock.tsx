@@ -46,7 +46,7 @@ export default function BusinessLoanCompareDock({
                   />
                 </div>
                 <div className="text-left">
-                  <span className="text-xs font-bold text-white block max-w-[100px] sm:max-w-[140px] truncate">
+                  <span className="text-xs font-bold text-white block max-w-25 sm:max-w-35 truncate">
                     {lender.name.replace(/Business Loan|Loan/i, "").trim()}
                   </span>
                   <span className="text-[10px] text-emerald-400 font-semibold block">

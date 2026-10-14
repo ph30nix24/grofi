@@ -63,7 +63,7 @@ export default function BusinessLoanEditorialVerdict({ lender }: BusinessLoanEdi
 
             {/* Best Suited For Box */}
             {lender.recommendedFor && (
-              <div className="mt-6 p-4.5 rounded-2xl bg-gradient-to-r from-amber-50/80 via-[#FEF6E4] to-amber-50/80 border border-amber-200/80 flex items-start gap-3.5">
+              <div className="mt-6 p-4.5 rounded-2xl bg-linear-to-r from-amber-50/80 via-[#FEF6E4] to-amber-50/80 border border-amber-200/80 flex items-start gap-3.5">
                 <div className="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-900 flex items-center justify-center shrink-0 mt-0.5">
                   <Target className="w-5 h-5 text-amber-700" />
                 </div>
@@ -81,7 +81,7 @@ export default function BusinessLoanEditorialVerdict({ lender }: BusinessLoanEdi
 
           {/* Key Product Features Grid */}
           {lender.features && lender.features.length > 0 && (
-            <div className="bg-gradient-to-br from-emerald-50/60 via-white to-emerald-50/30 rounded-3xl p-6 sm:p-8 border border-emerald-200 shadow-sm">
+            <div className="bg-linear-to-br from-emerald-50/60 via-white to-emerald-50/30 rounded-3xl p-6 sm:p-8 border border-emerald-200 shadow-sm">
               <div className="flex items-center justify-between gap-3 mb-4">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-lg bg-emerald-600/10 text-emerald-800 flex items-center justify-center">
@@ -165,7 +165,7 @@ export default function BusinessLoanEditorialVerdict({ lender }: BusinessLoanEdi
 
                   <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-primary to-emerald-500 rounded-full transition-all duration-1000"
+                      className="h-full bg-linear-to-r from-primary to-emerald-500 rounded-full transition-all duration-1000"
                       style={{ width: `${(item.score / 10) * 100}%` }}
                     />
                   </div>

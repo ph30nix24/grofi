@@ -143,12 +143,12 @@ export default function Testimonials() {
   });
 
   return (
-    <section id="testimonials" className="py-22 px-6 relative bg-gradient-to-b from-[#F3F0DF]/40 via-white to-[#F3F0DF]/30 overflow-hidden">
+    <section id="testimonials" className="py-22 px-6 relative bg-linear-to-b from-[#F3F0DF]/40 via-white to-[#F3F0DF]/30 overflow-hidden">
       
       {/* Decorative background glow */}
-      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[850px] h-[500px] bg-gradient-to-br from-[#B6CC9A]/15 via-primary/5 to-transparent rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-212.5 h-125 bg-linear-to-br from-[#B6CC9A]/15 via-primary/5 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-[1280px] mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10">
         
         {/* ── Section Header ───────────────────────────────────────────── */}
         <div className="text-center max-w-3xl mx-auto mb-14 reveal-on-scroll">
@@ -168,9 +168,9 @@ export default function Testimonials() {
 
           {/* Decorative diamond line */}
           <div className="flex items-center justify-center gap-3 my-4">
-            <div className="w-16 h-px bg-gradient-to-r from-transparent to-primary/30" />
+            <div className="w-16 h-px bg-linear-to-r from-transparent to-primary/30" />
             <div className="w-2 h-2 rotate-45 bg-primary/60 rounded-xs" />
-            <div className="w-16 h-px bg-gradient-to-l from-transparent to-primary/30" />
+            <div className="w-16 h-px bg-linear-to-l from-transparent to-primary/30" />
           </div>
 
           <p className="text-sm md:text-base text-black/60 leading-relaxed font-montserrat max-w-2xl mx-auto">

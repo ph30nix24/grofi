@@ -4,12 +4,7 @@ import React, { useState, useMemo } from "react";
 import {
   Home,
   RefreshCw,
-  Info,
   CheckCircle2,
-  IndianRupee,
-  ShieldCheck,
-  TrendingUp,
-  Percent,
 } from "lucide-react";
 import { HomeLoanLender } from "../../components/type";
 
@@ -159,7 +154,7 @@ export default function HomeLoanLtvSection({ lender }: HomeLoanLtvSectionProps) 
         </div>
 
         {/* Right Column: Overdraft Feature Deep Dive (5 cols) */}
-        <div className="lg:col-span-5 bg-gradient-to-br from-purple-50/60 via-white to-purple-50/40 rounded-3xl p-6 sm:p-8 border border-purple-200 shadow-sm flex flex-col justify-between h-full space-y-5">
+        <div className="lg:col-span-5 bg-linear-to-br from-purple-50/60 via-white to-purple-50/40 rounded-3xl p-6 sm:p-8 border border-purple-200 shadow-sm flex flex-col justify-between h-full space-y-5">
           <div className="space-y-4">
             <div className="flex items-start justify-between gap-3">
               <div>

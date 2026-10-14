@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { CardStructure } from "./type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
 
@@ -67,7 +66,7 @@ export default function CardStickyNav({ card }: CardStickyNavProps) {
   };
 
   return (
-    <div className="sticky top-[72px] sm:top-[84px] z-40 bg-white/95 backdrop-blur-md border-b border-gray-200/90 shadow-xs transition-all duration-300">
+    <div className="sticky top-18 sm:top-21 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200/90 shadow-xs transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-between gap-4">
         
         {/* Horizontal Scrollable Nav Links */}
@@ -97,7 +96,7 @@ export default function CardStickyNav({ card }: CardStickyNavProps) {
           }`}
         >
           <div className="text-right">
-            <span className="block text-xs font-bricolage font-bold text-gray-900 truncate max-w-[180px]">
+            <span className="block text-xs font-bricolage font-bold text-gray-900 truncate max-w-45">
               {card.name}
             </span>
             <span className="block text-[11px] text-gray-500 font-montserrat">

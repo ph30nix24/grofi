@@ -231,7 +231,7 @@ export default function BankCardExplorer({
       {/* ── Search, Filters & Controls Bar ─────────────────────────── */}
       <div className="bg-white rounded-2xl border border-gray-200 p-3.5 sm:p-4 mt-6 shadow-xs flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 sm:gap-4">
         {/* Search input inside toolbar */}
-        <div className="relative flex-1 min-w-0 sm:min-w-[240px]">
+        <div className="relative flex-1 min-w-0 sm:min-w-60">
           <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
@@ -258,7 +258,7 @@ export default function BankCardExplorer({
         </div>
 
         {/* Dropdown Filters Group */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 w-full lg:flex-[2]">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 w-full lg:flex-2">
           {/* Annual Fee Filter */}
           <div className="relative w-full">
             <select
@@ -627,7 +627,7 @@ export default function BankCardExplorer({
                         className="inline-flex items-center gap-1 text-[11px] text-gray-700 bg-gray-50 border border-gray-100 px-2 sm:px-2.5 py-1 rounded-lg font-montserrat max-w-full"
                       >
                         <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
-                        <span className="truncate max-w-[180px] sm:max-w-[240px]">{perk}</span>
+                        <span className="truncate max-w-45 sm:max-w-60">{perk}</span>
                       </span>
                     ))}
                   </div>

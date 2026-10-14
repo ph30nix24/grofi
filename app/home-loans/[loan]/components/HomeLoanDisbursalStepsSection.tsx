@@ -6,9 +6,6 @@ import {
   CheckCircle2,
   Clock,
   ArrowRight,
-  ShieldCheck,
-  Building,
-  Key,
 } from "lucide-react";
 import { HomeLoanLender } from "../../components/type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";

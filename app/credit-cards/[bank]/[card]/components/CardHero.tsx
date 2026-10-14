@@ -11,11 +11,8 @@ import {
   ChevronRight,
   Share2,
   Bookmark,
-  Plane,
   Percent,
-  CreditCard as CreditCardIcon,
   Zap,
-  Globe,
   Star,
   Check,
 } from "lucide-react";
@@ -78,7 +75,7 @@ export default function CardHero({ card, bankSlug }: CardHeroProps) {
             {card.issuer}
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-          <span className="text-primary font-bold truncate max-w-[220px] sm:max-w-none">
+          <span className="text-primary font-bold truncate max-w-55 sm:max-w-none">
             {card.name}
           </span>
         </nav>
@@ -88,7 +85,7 @@ export default function CardHero({ card, bankSlug }: CardHeroProps) {
           
           {/* Left Column: Physical Card Graphic Showcase (5 cols on lg) */}
           <div className="lg:col-span-5 flex flex-col items-center">
-            <div className="relative w-full max-w-[380px] sm:max-w-[420px] aspect-[1.586/1] group transition-transform duration-500 hover:scale-[1.02]">
+            <div className="relative w-full max-w-95 sm:max-w-105 aspect-[1.586/1] group transition-transform duration-500 hover:scale-[1.02]">
               
               {/* Dynamic Luxury Ambient Glow */}
               <div className="absolute -inset-2 bg-linear-to-r from-primary/20 via-gold/25 to-primary/20 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
@@ -157,7 +154,7 @@ export default function CardHero({ card, bankSlug }: CardHeroProps) {
                           <p className="font-mono text-xs sm:text-sm tracking-widest text-white/90 font-semibold">
                             •••• •••• •••• 8892
                           </p>
-                          <p className="font-bricolage font-bold text-sm sm:text-base text-white tracking-wide mt-1 truncate max-w-[220px]">
+                          <p className="font-bricolage font-bold text-sm sm:text-base text-white tracking-wide mt-1 truncate max-w-55">
                             {card.name}
                           </p>
                         </div>
@@ -174,7 +171,7 @@ export default function CardHero({ card, bankSlug }: CardHeroProps) {
             </div>
 
             {/* Quick Action Buttons (Share / Bookmark / Verified) */}
-            <div className="w-full max-w-[380px] sm:max-w-[420px] flex items-center justify-between gap-3 mt-4 pt-2">
+            <div className="w-full max-w-95 sm:max-w-105 flex items-center justify-between gap-3 mt-4 pt-2">
               <div className="flex items-center gap-1.5 text-xs text-emerald-800 font-montserrat font-semibold bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                 <span>Verified by Grofi • 2026</span>
@@ -247,7 +244,7 @@ export default function CardHero({ card, bankSlug }: CardHeroProps) {
               </div>
 
               <div className="flex items-center gap-1 text-gray-500">
-                <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3]" />
+                <Check className="w-3.5 h-3.5 text-emerald-600 stroke-3" />
                 <span>2,800+ Checked This Month</span>
               </div>
 
@@ -291,7 +288,7 @@ export default function CardHero({ card, bankSlug }: CardHeroProps) {
               </div>
 
               {/* Reward Headline */}
-              <div className="bg-white p-3 sm:p-3.5 rounded-2xl border border-emerald-200/90 bg-emerald-50/20 shadow-2xs">
+              <div className="p-3 sm:p-3.5 rounded-2xl border border-emerald-200/90 bg-emerald-50/20 shadow-2xs">
                 <span className="text-[10px] font-semibold text-emerald-800 uppercase tracking-wider block font-montserrat">
                   Reward Value
                 </span>

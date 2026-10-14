@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import Image from "next/image";
 import {
   Sparkles,
   Crown,

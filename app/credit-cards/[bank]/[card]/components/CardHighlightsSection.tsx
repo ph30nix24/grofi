@@ -2,7 +2,6 @@
 import React from "react";
 import {
   Sparkles,
-  CheckCircle2,
   ShieldCheck,
   Zap,
   ShoppingBag,
@@ -10,7 +9,6 @@ import {
   Utensils,
   Award,
   Gift,
-  CreditCard,
 } from "lucide-react";
 import { CardStructure } from "./type";
 

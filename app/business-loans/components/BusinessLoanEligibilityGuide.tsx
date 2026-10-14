@@ -8,8 +8,6 @@ import {
   FileCheck2,
   Lightbulb,
   Building,
-  TrendingUp,
-  Percent,
 } from "lucide-react";
 
 export default function BusinessLoanEligibilityGuide() {

@@ -186,7 +186,7 @@ export default function BusinessLoanEligibilityDocsSection({ lender }: BusinessL
         </div>
 
         {/* Right Column: Required Documents Checklist + Pre-approval CTA (5 cols) */}
-        <div id="documents" className="lg:col-span-5 bg-gradient-to-b from-gray-50 via-white to-gray-50 rounded-3xl p-6 sm:p-8 border border-gray-200/90 shadow-sm flex flex-col justify-between">
+        <div id="documents" className="lg:col-span-5 bg-linear-to-b from-gray-50 via-white to-gray-50 rounded-3xl p-6 sm:p-8 border border-gray-200/90 shadow-sm flex flex-col justify-between">
           
           <div>
             <div className="flex items-center gap-2 mb-3">

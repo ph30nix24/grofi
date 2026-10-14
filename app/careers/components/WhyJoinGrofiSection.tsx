@@ -3,9 +3,6 @@ import {
   TrendingUp,
   Clapperboard,
   ShieldCheck,
-  Award,
-  Zap,
-  Coffee,
   CheckCircle2,
   Clock,
   Sparkles,
@@ -176,7 +173,7 @@ export default function WhyJoinGrofiSection() {
         </div>
 
         {/* Office Locations & Direct Talent Contact */}
-        <div className="bg-gradient-to-r from-[#02474D] to-[#01353A] rounded-3xl p-8 sm:p-10 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl relative overflow-hidden">
+        <div className="bg-linear-to-r from-[#02474D] to-[#01353A] rounded-3xl p-8 sm:p-10 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl relative overflow-hidden">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 bg-white/10 text-gold text-xs font-bold px-3 py-1 rounded-full mb-3 border border-white/10">
               <Sparkles className="w-3.5 h-3.5" />

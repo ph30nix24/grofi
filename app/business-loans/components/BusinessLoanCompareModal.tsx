@@ -8,7 +8,6 @@ import {
   ArrowRight,
   ShieldCheck,
   CheckCircle2,
-  Building2,
 } from "lucide-react";
 import { BusinessLoanLender } from "./type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
@@ -83,11 +82,11 @@ export default function BusinessLoanCompareModal({
             <table className="w-full text-left text-xs sm:text-sm border-collapse">
               <thead>
                 <tr className="border-b border-gray-200">
-                  <th className="py-4 px-3 w-1/4 min-w-[140px] text-xs font-bold uppercase text-gray-400 bg-gray-50/50 rounded-l-xl">
+                  <th className="py-4 px-3 w-1/4 min-w-35 text-xs font-bold uppercase text-gray-400 bg-gray-50/50 rounded-l-xl">
                     Lender Profile
                   </th>
                   {lenders.map((lender) => (
-                    <th key={lender.id} className="py-4 px-4 min-w-[200px] text-center align-top bg-white">
+                    <th key={lender.id} className="py-4 px-4 min-w-50 text-center align-top bg-white">
                       <div className="flex flex-col items-center">
                         <div className="h-10 w-24 relative flex items-center justify-center mb-2">
                           <Image

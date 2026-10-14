@@ -4,9 +4,6 @@ import {
   Percent,
   Info,
   ShieldCheck,
-  Building2,
-  FileText,
-  Scale,
 } from "lucide-react";
 import { HomeLoanLender } from "../../components/type";
 
@@ -90,7 +87,7 @@ export default function HomeLoanFeesSection({ lender }: HomeLoanFeesSectionProps
             key={idx}
             className={`bg-white rounded-3xl p-6 border transition-all duration-300 shadow-2xs ${
               item.highlight
-                ? "border-primary/40 ring-2 ring-primary/5 bg-gradient-to-br from-white via-emerald-50/20 to-white"
+                ? "border-primary/40 ring-2 ring-primary/5 bg-linear-to-br from-white via-emerald-50/20 to-white"
                 : "border-gray-200/90 hover:border-gray-300"
             }`}
           >

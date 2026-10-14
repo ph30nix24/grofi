@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Check, X, Scale, ShieldCheck, AlertCircle } from "lucide-react";
+import { Check, X, Scale, ShieldCheck } from "lucide-react";
 import { CardStructure } from "./type";
 
 interface CardProsConsSectionProps {
@@ -38,7 +38,7 @@ export default function CardProsConsSection({ card }: CardProsConsSectionProps) 
           <div className="flex items-center justify-between pb-4 mb-4 border-b border-emerald-200/60">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center">
-                <Check className="w-4 h-4 stroke-[3]" />
+                <Check className="w-4 h-4 stroke-3" />
               </div>
               <h3 className="font-bricolage font-bold text-xl text-emerald-950">
                 What We Love (Pros)
@@ -68,7 +68,7 @@ export default function CardProsConsSection({ card }: CardProsConsSectionProps) 
           <div className="flex items-center justify-between pb-4 mb-4 border-b border-rose-200/60">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-full bg-rose-600 text-white flex items-center justify-center">
-                <X className="w-4 h-4 stroke-[3]" />
+                <X className="w-4 h-4 stroke-3" />
               </div>
               <h3 className="font-bricolage font-bold text-xl text-rose-950">
                 Things to Consider (Cons)

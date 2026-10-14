@@ -17,7 +17,6 @@ import {
   RotateCcw,
   Building,
   Home,
-  Check,
 } from "lucide-react";
 import ConsentCheckbox from "@/app/components/ConsentCheckbox";
 import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";

@@ -2,12 +2,9 @@
 import React from "react";
 import {
   Sparkles,
-  CheckCircle2,
   ThumbsUp,
   Target,
   Award,
-  TrendingDown,
-  Building2,
   ShieldCheck,
   RefreshCw,
 } from "lucide-react";
@@ -73,7 +70,7 @@ export default function HomeLoanEditorialVerdict({ lender }: HomeLoanEditorialVe
         {/* Left Column: Editorial Summary & Who Should Apply (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
           {/* Main Verdict Quote Card */}
-          <div className="bg-gradient-to-br from-white via-[#FDFBF7] to-white rounded-3xl p-6 sm:p-8 border border-primary/20 shadow-sm relative overflow-hidden">
+          <div className="bg-linear-to-br from-white via-[#FDFBF7] to-white rounded-3xl p-6 sm:p-8 border border-primary/20 shadow-sm relative overflow-hidden">
             <div className="absolute top-0 right-0 w-40 h-40 bg-gold/10 rounded-full blur-2xl pointer-events-none" />
 
             <div className="flex items-center gap-2.5 mb-4">

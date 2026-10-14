@@ -79,7 +79,7 @@ export default function BankHero({ bankName, bankSlug, cards }: BankHeroProps) {
 
             {/* Key stats pill strip */}
             <div className="flex flex-wrap gap-3 max-w-xl mt-7">
-              <div className="flex-1 min-w-[120px] bg-white/90 backdrop-blur-xs p-3 rounded-2xl border border-[#DDE3C1] shadow-2xs">
+              <div className="flex-1 min-w-30 bg-white/90 backdrop-blur-xs p-3 rounded-2xl border border-[#DDE3C1] shadow-2xs">
                 <span className="font-bricolage font-bold text-xl sm:text-2xl text-primary block">
                   {totalCards}+
                 </span>
@@ -88,7 +88,7 @@ export default function BankHero({ bankName, bankSlug, cards }: BankHeroProps) {
                 </span>
               </div>
 
-              <div className="flex-1 min-w-[120px] bg-white/90 backdrop-blur-xs p-3 rounded-2xl border border-[#DDE3C1] shadow-2xs">
+              <div className="flex-1 min-w-30 bg-white/90 backdrop-blur-xs p-3 rounded-2xl border border-[#DDE3C1] shadow-2xs">
                 <span className="font-bricolage font-bold text-xl sm:text-2xl text-gold block">
                   {freeCardsCount}
                 </span>
@@ -97,7 +97,7 @@ export default function BankHero({ bankName, bankSlug, cards }: BankHeroProps) {
                 </span>
               </div>
 
-              <div className="flex-1 min-w-[120px] bg-white/90 backdrop-blur-xs p-3 rounded-2xl border border-[#DDE3C1] shadow-2xs">
+              <div className="flex-1 min-w-30 bg-white/90 backdrop-blur-xs p-3 rounded-2xl border border-[#DDE3C1] shadow-2xs">
                 <span className="font-bricolage font-bold text-xl sm:text-2xl text-emerald-700 block">
                   Up to 33%
                 </span>
@@ -106,7 +106,7 @@ export default function BankHero({ bankName, bankSlug, cards }: BankHeroProps) {
                 </span>
               </div>
 
-              <div className="flex-1 min-w-[120px] bg-white/90 backdrop-blur-xs p-3 rounded-2xl border border-[#DDE3C1] shadow-2xs">
+              <div className="flex-1 min-w-30 bg-white/90 backdrop-blur-xs p-3 rounded-2xl border border-[#DDE3C1] shadow-2xs">
                 <span className="font-bricolage font-bold text-xl sm:text-2xl text-primary block">
                   ₹0 Fee
                 </span>

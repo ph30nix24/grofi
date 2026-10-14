@@ -362,7 +362,7 @@ export default function Navbar() {
                           <div className="grid grid-cols-12 gap-5">
 
                             {/* Column 1: Bank / Category Selector List (4 cols) */}
-                            <div className="col-span-4 bg-gray-50/80 rounded-2xl p-2.5 border border-gray-200/80 max-h-[390px] overflow-y-auto scrollbar-hidden space-y-1">
+                            <div className="col-span-4 bg-gray-50/80 rounded-2xl p-2.5 border border-gray-200/80 max-h-97.5 overflow-y-auto scrollbar-hidden space-y-1">
                               <p className="text-[11px] font-bold text-gray-500 uppercase tracking-wider px-3 py-1.5 border-b border-gray-200/60 mb-1">
                                 {isLoan ? `Loan Categories (${link.dropdown.length})` : `Partner Banks (${link.dropdown.length})`}
                               </p>
@@ -460,7 +460,7 @@ export default function Navbar() {
                                       </div>
 
                                       {/* Sub-items grid */}
-                                      <div className="grid grid-cols-2 gap-2.5 max-h-[310px] overflow-y-auto scrollbar-hidden pr-1">
+                                      <div className="grid grid-cols-2 gap-2.5 max-h-77.5 overflow-y-auto scrollbar-hidden pr-1">
                                         {items.length > 0 ? (
                                           items.map((item) => {
                                             const itemLogo = getBankLogo(item.label);
@@ -637,7 +637,7 @@ export default function Navbar() {
 
       {/* ── 4. Mobile & Tablet Drawer Menu (< lg) ────────────────────── */}
       {isClient && isMobileMenuOpen && createPortal(
-        <div className="fixed inset-0 z-[9999] lg:hidden">
+        <div className="fixed inset-0 z-9999 lg:hidden">
 
           {/* Dark frosted backdrop */}
           <div
@@ -646,7 +646,7 @@ export default function Navbar() {
           />
 
           {/* Slide-in Drawer Container */}
-          <div className="fixed top-0 right-0 w-[88vw] max-w-[360px] sm:max-w-sm h-full h-screen h-dvh bg-[#FDFBF7] shadow-2xl z-[10000] flex flex-col border-l border-[#DDE3C1] animate-slideInRight font-montserrat overflow-hidden">
+          <div className="fixed top-0 right-0 w-[88vw] max-w-90 sm:max-w-sm h-dvh bg-[#FDFBF7] shadow-2xl z-10000 flex flex-col border-l border-[#DDE3C1] animate-slideInRight font-montserrat overflow-hidden">
 
             {/* Drawer Header */}
             <div className="p-4 sm:p-5 flex items-center justify-between border-b border-[#DDE3C1] bg-[#F3F0DF] shrink-0">

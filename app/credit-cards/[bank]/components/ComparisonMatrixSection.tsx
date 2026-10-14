@@ -52,7 +52,7 @@ export default function ComparisonMatrixSection({
       </div>
 
       {/* ── Heading & Subtitle ────────────────────────────────────── */}
-      <h2 className="font-bricolage font-extrabold text-2xl sm:text-3xl md:text-4xl text-[#0F172A] tracking-tight leading-tight break-words">
+      <h2 className="font-bricolage font-extrabold text-2xl sm:text-3xl md:text-4xl text-[#0F172A] tracking-tight leading-tight wrap-break-word">
         Key {bankName} Cards at a Glance
       </h2>
       <p className="text-xs sm:text-sm md:text-base text-[#64748B] font-montserrat mt-2 leading-relaxed max-w-3xl">
@@ -74,7 +74,7 @@ export default function ComparisonMatrixSection({
                 {/* Header row: Card Name + Apply Button */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0 flex-1">
-                    <h3 className="font-bricolage font-bold text-base text-[#0F172A] leading-snug break-words">
+                    <h3 className="font-bricolage font-bold text-base text-[#0F172A] leading-snug wrap-break-word">
                       {card.name}
                     </h3>
                     <p className="text-xs text-slate-500 font-montserrat mt-0.5 truncate">
@@ -133,7 +133,7 @@ export default function ComparisonMatrixSection({
                 {rewardHighlight && (
                   <div className="p-2.5 rounded-xl bg-emerald-50/70 border border-emerald-100/80 flex items-start gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                    <span className="text-xs font-semibold text-emerald-900 leading-snug break-words">
+                    <span className="text-xs font-semibold text-emerald-900 leading-snug wrap-break-word">
                       {rewardHighlight}
                     </span>
                   </div>
@@ -145,7 +145,7 @@ export default function ComparisonMatrixSection({
 
         {/* ── Desktop & Tablet Table (>= 768px) ── */}
         <div className="hidden md:block overflow-x-auto">
-          <div className="min-w-[900px]">
+          <div className="min-w-225">
             {/* Table Header */}
             <div className="flex items-center bg-[#F8FAFC] border-b border-slate-200 py-4 px-6 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#475569]">
               <div className="w-[22%] shrink-0 pr-4">CARD NAME</div>

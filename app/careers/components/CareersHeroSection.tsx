@@ -13,9 +13,9 @@ export default function CareersHeroSection({
   onRolesClick,
 }: CareersHeroSectionProps) {
   return (
-    <section className="relative pt-8 pb-14 sm:pt-12 sm:pb-20 bg-gradient-to-b from-[#F2EFE9] via-[#FDFBF7] to-[#FDFBF7] border-b border-gray-200/70 overflow-hidden font-montserrat">
+    <section className="relative pt-8 pb-14 sm:pt-12 sm:pb-20 bg-linear-to-b from-[#F2EFE9] via-[#FDFBF7] to-[#FDFBF7] border-b border-gray-200/70 overflow-hidden font-montserrat">
       {/* Decorative ambient background glows */}
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-1/4 size-125 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-1/3 left-10 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -80,7 +80,7 @@ export default function CareersHeroSection({
             {/* Quick Metrics Bar */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-gray-200/80">
               <div className="bg-white/80 backdrop-blur-xs p-3.5 rounded-xl border border-gray-200/90 shadow-2xs">
-                <div className="text-2xl font-extrabold text-[#02282C] font-bricolage mb-0.5 text-primary">
+                <div className="text-2xl font-extrabold text-primary font-bricolage mb-0.5">
                   18
                 </div>
                 <div className="text-xs font-bold text-gray-800">Total Openings</div>
@@ -88,7 +88,7 @@ export default function CareersHeroSection({
               </div>
 
               <div className="bg-white/80 backdrop-blur-xs p-3.5 rounded-xl border border-gray-200/90 shadow-2xs">
-                <div className="text-2xl font-extrabold text-[#02282C] font-bricolage mb-0.5 text-primary">
+                <div className="text-2xl font-extrabold font-bricolage mb-0.5 text-primary">
                   48 Hrs
                 </div>
                 <div className="text-xs font-bold text-gray-800">Turnaround</div>
@@ -96,7 +96,7 @@ export default function CareersHeroSection({
               </div>
 
               <div className="bg-white/80 backdrop-blur-xs p-3.5 rounded-xl border border-gray-200/90 shadow-2xs">
-                <div className="text-2xl font-extrabold text-[#02282C] font-bricolage mb-0.5 text-primary">
+                <div className="text-2xl font-extrabold font-bricolage mb-0.5 text-primary">
                   Uncapped
                 </div>
                 <div className="text-xs font-bold text-gray-800">Incentives</div>
@@ -104,7 +104,7 @@ export default function CareersHeroSection({
               </div>
 
               <div className="bg-white/80 backdrop-blur-xs p-3.5 rounded-xl border border-gray-200/90 shadow-2xs">
-                <div className="text-2xl font-extrabold text-[#02282C] font-bricolage mb-0.5 text-primary">
+                <div className="text-2xl font-extrabold font-bricolage mb-0.5 text-primary">
                   4.9 / 5
                 </div>
                 <div className="text-xs font-bold text-gray-800">Team Culture</div>
@@ -115,9 +115,9 @@ export default function CareersHeroSection({
 
           {/* Right Column: Hero 3D Illustration */}
           <div className="lg:col-span-5 flex justify-center relative">
-            <div className="relative w-full max-w-[460px] sm:max-w-[480px]">
+            <div className="relative w-full max-w-115 sm:max-w-120">
               {/* Soft background ambient glow */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-gold/15 to-emerald-400/10 rounded-full blur-3xl transform scale-90 pointer-events-none" />
+              <div className="absolute inset-0 bg-linear-to-tr from-primary/20 via-gold/15 to-emerald-400/10 rounded-full blur-3xl transform scale-90 pointer-events-none" />
 
               {/* Floating Illustration */}
               <div className="relative z-10 animate-hero-float">

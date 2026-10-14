@@ -5,12 +5,8 @@ import {
   Briefcase,
   ShieldCheck,
   CheckCircle2,
-  TrendingUp,
-  Percent,
   Sparkles,
   ArrowRight,
-  Info,
-  Building,
 } from "lucide-react";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
 

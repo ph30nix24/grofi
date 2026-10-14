@@ -1,14 +1,9 @@
 
 import React from "react";
 import {
-  CreditCard,
-  ShieldAlert,
   Percent,
-  RefreshCw,
-  Globe,
   Info,
   CheckCircle2,
-  DollarSign,
 } from "lucide-react";
 import { CardStructure } from "./type";
 

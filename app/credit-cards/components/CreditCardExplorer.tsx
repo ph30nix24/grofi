@@ -9,7 +9,6 @@ import {
   Plane,
   CreditCard as CreditCardIcon,
   ShieldCheck,
-  Check,
   CheckCircle2,
   ArrowRight,
   Crown,
@@ -30,7 +29,6 @@ import {
 } from "lucide-react";
 import { CardStructure } from "./type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
-import CreditCardFAQSection from "./CreditCardFAQSection";
 import CreditCardCompareDock from "./CreditCardCompareDock";
 import CreditCardDetailModal from "./CreditCardDetailModal";
 import CreditCardComparisonModal from "./CreditCardComparisonModal";

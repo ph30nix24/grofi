@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, RefreshCw, Star, Percent, Home } from "lucide-react";
+import { ArrowRight, Star, Home } from "lucide-react";
 import { HomeLoanLender } from "../../components/type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
 

@@ -232,7 +232,7 @@ export default function EmiCalculator() {
   return (
     <section
       id="emi-calculator"
-      className="py-20 md:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-gradient-to-b from-[#FAF8F2] via-[#F4F1E6]/40 to-[#FAF8F2]"
+      className="py-20 md:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-linear-to-b from-[#FAF8F2] via-[#F4F1E6]/40 to-[#FAF8F2]"
     >
       {/* Background Decorative Ambient Glows */}
       <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#02474D]/5 rounded-full blur-3xl pointer-events-none" />
@@ -258,9 +258,9 @@ export default function EmiCalculator() {
 
           {/* Decorative diamond line */}
           <div className="flex items-center justify-center gap-3 my-4">
-            <div className="w-16 h-px bg-gradient-to-r from-transparent to-primary/30" />
+            <div className="w-16 h-px bg-linear-to-r from-transparent to-primary/30" />
             <div className="w-2 h-2 rotate-45 bg-gold rounded-xs shadow-2xs" />
-            <div className="w-16 h-px bg-gradient-to-l from-transparent to-primary/30" />
+            <div className="w-16 h-px bg-linear-to-l from-transparent to-primary/30" />
           </div>
 
           <p className="text-sm md:text-base text-gray-600 leading-relaxed font-montserrat max-w-2xl mx-auto">
@@ -308,7 +308,7 @@ export default function EmiCalculator() {
           {/* ── Left Column: Sliders & Controls (58%) ─────────────────── */}
           <div className="w-full lg:w-[58%] bg-white rounded-3xl p-6 sm:p-8 lg:p-9 shadow-[0_16px_40px_rgba(2,71,77,0.06)] border border-gray-150 flex flex-col gap-7 reveal-slide-left delay-150">
             {/* Active Loan Subtitle Banner */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gradient-to-r from-primary/5 via-primary/3 to-transparent border border-primary/10 rounded-2xl p-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-linear-to-r from-primary/5 via-primary/3 to-transparent border border-primary/10 rounded-2xl p-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center shrink-0 shadow-xs">
                   {activeConfig.icon}
@@ -370,7 +370,7 @@ export default function EmiCalculator() {
                   value={amount}
                   onChange={(e) => setAmount(Number(e.target.value))}
                   style={{
-                    background: `linear-gradient(to right, #02474D 0%, #02474D ${amountPercent}%, #E2E8F0 ${amountPercent}%, #E2E8F0 100%)`,
+                    background: `linear-linear(to right, #02474D 0%, #02474D ${amountPercent}%, #E2E8F0 ${amountPercent}%, #E2E8F0 100%)`,
                   }}
                   className="custom-range-slider"
                 />
@@ -448,7 +448,7 @@ export default function EmiCalculator() {
                   value={interestRate}
                   onChange={(e) => setInterestRate(Number(e.target.value))}
                   style={{
-                    background: `linear-gradient(to right, #02474D 0%, #02474D ${ratePercent}%, #E2E8F0 ${ratePercent}%, #E2E8F0 100%)`,
+                    background: `linear-linear(to right, #02474D 0%, #02474D ${ratePercent}%, #E2E8F0 ${ratePercent}%, #E2E8F0 100%)`,
                   }}
                   className="custom-range-slider"
                 />
@@ -555,7 +555,7 @@ export default function EmiCalculator() {
                   value={tenureYears}
                   onChange={(e) => setTenureYears(Number(e.target.value))}
                   style={{
-                    background: `linear-gradient(to right, #02474D 0%, #02474D ${tenurePercent}%, #E2E8F0 ${tenurePercent}%, #E2E8F0 100%)`,
+                    background: `linear-linear(to right, #02474D 0%, #02474D ${tenurePercent}%, #E2E8F0 ${tenurePercent}%, #E2E8F0 100%)`,
                   }}
                   className="custom-range-slider"
                 />
@@ -612,7 +612,7 @@ export default function EmiCalculator() {
           {/* ── Right Column: EMI Summary & Executive Card (42%) ───────── */}
           <div className="w-full lg:w-[42%] flex flex-col gap-6 reveal-slide-right delay-200">
             {/* Primary Result Executive Card */}
-            <div className="bg-gradient-to-br from-[#023338] via-[#02474D] to-[#012226] text-white rounded-3xl p-6 sm:p-8 shadow-[0_20px_50px_rgba(2,71,77,0.28)] border border-emerald-400/20 relative overflow-hidden flex flex-col justify-between">
+            <div className="bg-linear-to-br from-[#023338] via-[#02474D] to-[#012226] text-white rounded-3xl p-6 sm:p-8 shadow-[0_20px_50px_rgba(2,71,77,0.28)] border border-emerald-400/20 relative overflow-hidden flex flex-col justify-between">
               {/* Background Luxury Ambient Glows */}
               <div className="absolute top-0 right-0 w-72 h-72 bg-emerald-400/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
               <div className="absolute bottom-0 left-0 w-60 h-60 bg-gold/15 rounded-full blur-3xl pointer-events-none -ml-16 -mb-16" />
@@ -654,7 +654,7 @@ export default function EmiCalculator() {
               </div>
 
               {/* Total Payable Summary Bar */}
-              <div className="bg-white/[0.09] backdrop-blur-md rounded-2xl p-4 sm:p-5 flex items-center justify-between border border-white/15 relative z-10 mb-4 shadow-inner">
+              <div className="bg-white/9 backdrop-blur-md rounded-2xl p-4 sm:p-5 flex items-center justify-between border border-white/15 relative z-10 mb-4 shadow-inner">
                 <div>
                   <p className="text-xs text-emerald-100/90 font-bold uppercase tracking-wider font-montserrat">
                     Total Amount Payable
@@ -687,7 +687,7 @@ export default function EmiCalculator() {
                       `Loan Amount: ₹${formatINR(amount)} • Rate: ${interestRate}% p.a. • Tenure: ${tenureYears} Yrs`
                     )
                   }
-                  className="w-full bg-gradient-to-r from-[#D4AF37] via-[#C9AA3C] to-[#B69226] hover:from-[#DFC053] hover:to-[#B69226] text-[#0A201C] font-bricolage font-extrabold text-base tracking-wide py-4 px-6 rounded-2xl flex items-center justify-center gap-2.5 transition-all duration-300 shadow-[0_12px_28px_rgba(182,146,38,0.4)] hover:shadow-[0_16px_36px_rgba(182,146,38,0.55)] active:scale-[0.98] group cursor-pointer"
+                  className="w-full bg-linear-to-r from-[#D4AF37] via-[#C9AA3C] to-[#B69226] hover:from-[#DFC053] hover:to-[#B69226] text-[#0A201C] font-bricolage font-extrabold text-base tracking-wide py-4 px-6 rounded-2xl flex items-center justify-center gap-2.5 transition-all duration-300 shadow-[0_12px_28px_rgba(182,146,38,0.4)] hover:shadow-[0_16px_36px_rgba(182,146,38,0.55)] active:scale-[0.98] group cursor-pointer"
                 >
                   <span>Apply for {activeConfig.label}</span>
                   <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1.5" />

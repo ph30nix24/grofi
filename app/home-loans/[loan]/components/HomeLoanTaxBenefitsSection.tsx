@@ -3,12 +3,6 @@
 import React, { useState } from "react";
 import {
   FileText,
-  Percent,
-  CheckCircle2,
-  Users,
-  ShieldCheck,
-  TrendingDown,
-  Sparkles,
 } from "lucide-react";
 
 export default function HomeLoanTaxBenefitsSection() {
@@ -102,7 +96,7 @@ export default function HomeLoanTaxBenefitsSection() {
         </div>
 
         {/* Joint Co-Borrower Benefit */}
-        <div className="bg-gradient-to-br from-[#EBF4ED] via-white to-[#EBF4ED] rounded-3xl p-6 border border-primary/20 shadow-sm space-y-4">
+        <div className="bg-linear-to-br from-[#EBF4ED] via-white to-[#EBF4ED] rounded-3xl p-6 border border-primary/20 shadow-sm space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-primary/10">
             <span className="text-xs font-bold text-primary uppercase tracking-wider">
               Joint Home Loan
@@ -167,7 +161,7 @@ export default function HomeLoanTaxBenefitsSection() {
         </div>
 
         <div className="flex items-center gap-4 shrink-0">
-          <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200 text-center min-w-[130px]">
+          <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200 text-center min-w-32.5">
             <span className="text-[10px] text-gray-500 font-semibold block uppercase">Single Borrower</span>
             <span className="font-bricolage font-extrabold text-xl sm:text-2xl text-gray-900 block mt-0.5">
               ₹{formatINR(singleTaxSavings)}
@@ -175,7 +169,7 @@ export default function HomeLoanTaxBenefitsSection() {
             <span className="text-[10px] text-emerald-700 font-semibold">Annual Tax Saved</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-center min-w-[140px]">
+          <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-center min-w-35">
             <span className="text-[10px] text-emerald-800 font-semibold block uppercase">Joint Borrowers</span>
             <span className="font-bricolage font-extrabold text-xl sm:text-2xl text-emerald-800 block mt-0.5">
               ₹{formatINR(jointTaxSavings)}

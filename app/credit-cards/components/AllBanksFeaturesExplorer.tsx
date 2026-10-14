@@ -17,7 +17,6 @@ import {
   ChevronRight,
   ArrowRight,
   Coins,
-  Globe,
   RefreshCw,
   Search,
   Scale,
@@ -578,12 +577,12 @@ export default function AllBanksFeaturesExplorer() {
               <thead>
                 <tr className="bg-gray-50/80 border-b border-gray-200 text-gray-500 uppercase text-[10px] tracking-wider">
                   <th className="py-4 px-4 font-bold sticky left-0 bg-gray-50 z-10">Bank</th>
-                  <th className="py-4 px-4 font-bold min-w-[140px]">Top Reward Rate</th>
-                  <th className="py-4 px-4 font-bold min-w-[160px]">Airport Lounges</th>
-                  <th className="py-4 px-4 font-bold min-w-[130px]">RuPay UPI</th>
-                  <th className="py-4 px-4 font-bold min-w-[120px]">Forex Markup</th>
-                  <th className="py-4 px-4 font-bold min-w-[180px]">Annual Fee Waiver</th>
-                  <th className="py-4 px-4 font-bold text-right min-w-[120px]">Action</th>
+                  <th className="py-4 px-4 font-bold min-w-35">Top Reward Rate</th>
+                  <th className="py-4 px-4 font-bold min-w-40">Airport Lounges</th>
+                  <th className="py-4 px-4 font-bold min-w-32.5">RuPay UPI</th>
+                  <th className="py-4 px-4 font-bold min-w-30">Forex Markup</th>
+                  <th className="py-4 px-4 font-bold min-w-45">Annual Fee Waiver</th>
+                  <th className="py-4 px-4 font-bold text-right min-w-30">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -605,7 +604,7 @@ export default function AllBanksFeaturesExplorer() {
                           <span className="font-bold text-gray-900 block whitespace-nowrap">
                             {bank.shortName}
                           </span>
-                          <span className="text-[10px] text-gray-400 block truncate max-w-[120px]">
+                          <span className="text-[10px] text-gray-400 block truncate max-w-30">
                             {bank.tagline.split(":")[0]}
                           </span>
                         </div>

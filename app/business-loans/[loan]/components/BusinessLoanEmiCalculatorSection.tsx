@@ -280,7 +280,7 @@ export default function BusinessLoanEmiCalculatorSection({ lender }: BusinessLoa
           </div>
 
           {/* Enterprise Tax Deduction Callout */}
-          <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-50 via-[#EBF4ED] to-emerald-50 border border-emerald-200 flex items-start gap-3">
+          <div className="p-4 rounded-2xl bg-linear-to-r from-emerald-50 via-[#EBF4ED] to-emerald-50 border border-emerald-200 flex items-start gap-3">
             <Receipt className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
             <div className="text-xs text-emerald-950 leading-relaxed">
               <strong className="text-emerald-900 font-bold block mb-0.5">
@@ -293,10 +293,10 @@ export default function BusinessLoanEmiCalculatorSection({ lender }: BusinessLoa
         </div>
 
         {/* Right Column: Calculated Results Summary & CTA (5 cols) */}
-        <div className="lg:col-span-5 bg-gradient-to-br from-gray-50 via-white to-gray-50 rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-sm space-y-6">
+        <div className="lg:col-span-5 bg-linear-to-br from-gray-50 via-white to-gray-50 rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-sm space-y-6">
           
           {/* Main EMI Highlight Box */}
-          <div className="bg-gradient-to-br from-primary to-[#035259] rounded-2xl p-6 text-white text-center shadow-lg relative overflow-hidden">
+          <div className="bg-linear-to-br from-primary to-[#035259] rounded-2xl p-6 text-white text-center shadow-lg relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/15 rounded-full blur-2xl pointer-events-none" />
             
             <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-200 block mb-1">

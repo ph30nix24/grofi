@@ -16,8 +16,6 @@ import { useApplyModal } from "@/app/context/ApplyModalContext";
 import {
   calculateEmi,
   calculateBalanceTransfer,
-  formatINR,
-  formatAmountText,
   getSliderPercentage,
 } from "@/libs/calculators/emi";
 
@@ -83,9 +81,9 @@ export default function HomeLoanEmiCalculator() {
     return `₹${formatINR(val)}`;
   };
 
-  const getPercent = (value: number, min: number, max: number): number => {
-    return Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100));
-  };
+  // const getPercent = (value: number, min: number, max: number): number => {
+  //   return Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100));
+  // };
 
   // Monthly EMI Math calculation via centralized engine
   const emiCalculation = useMemo(() => {
@@ -685,7 +683,7 @@ export default function HomeLoanEmiCalculator() {
               <Calculator className="w-4 h-4 text-primary" />
               <span>Year-by-Year Amortization Schedule</span>
             </h4>
-            <div className="overflow-x-auto max-h-96 [scrollbar-width:thin]">
+            <div className="overflow-x-auto max-h-96 scrollbar-thin">
               <table className="w-full text-left text-xs font-montserrat">
                 <thead className="bg-gray-100 text-gray-600 uppercase font-bold sticky top-0">
                   <tr>

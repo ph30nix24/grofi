@@ -84,7 +84,7 @@ export default async function CreditCardsPage() {
       <JsonLd schema={jsonLd} />
       <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
         <Navbar />
-        <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center text-sm text-gray-400">Loading cards...</div>}>
+        <Suspense fallback={<div className="min-h-100 flex items-center justify-center text-sm text-gray-400">Loading cards...</div>}>
           <CreditCardExplorer initialCards={cards} />
         </Suspense>
         <AllBanksFeaturesExplorer />

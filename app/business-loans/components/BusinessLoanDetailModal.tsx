@@ -6,7 +6,6 @@ import {
   X,
   Star,
   CheckCircle2,
-  AlertCircle,
   FileText,
   UserCheck,
   Percent,
@@ -16,8 +15,6 @@ import {
   ChevronDown,
   ChevronUp,
   Building2,
-  Calendar,
-  Briefcase,
   TrendingUp,
 } from "lucide-react";
 import { BusinessLoanLender } from "./type";

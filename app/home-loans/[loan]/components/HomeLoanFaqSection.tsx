@@ -6,7 +6,6 @@ import {
   ChevronDown,
   ChevronUp,
   Search,
-  Sparkles,
   ShieldCheck,
 } from "lucide-react";
 import { HomeLoanLender } from "../../components/type";

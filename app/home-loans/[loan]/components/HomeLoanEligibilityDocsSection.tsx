@@ -4,12 +4,8 @@ import React, { useState } from "react";
 import {
   UserCheck,
   Building2,
-  FileText,
   CheckCircle2,
-  ShieldCheck,
   Percent,
-  Download,
-  AlertCircle,
 } from "lucide-react";
 import { HomeLoanLender } from "../../components/type";
 

@@ -14,7 +14,7 @@ export default function BusinessLoanPreApprovedBanner({ lender }: BusinessLoanPr
 
   return (
     <section className="py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 font-montserrat">
-      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-primary via-[#023b40] to-primary p-8 sm:p-12 text-white shadow-2xl">
+      <div className="relative rounded-3xl overflow-hidden bg-linear-to-r from-primary via-[#023b40] to-primary p-8 sm:p-12 text-white shadow-2xl">
         
         {/* Decorative lighting background */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />

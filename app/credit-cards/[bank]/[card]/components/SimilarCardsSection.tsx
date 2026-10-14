@@ -5,11 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   CreditCard as CreditCardIcon,
-  Sparkles,
   ArrowRight,
-  Plane,
-  Scale,
-  Check,
 } from "lucide-react";
 import { CardStructure } from "./type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";

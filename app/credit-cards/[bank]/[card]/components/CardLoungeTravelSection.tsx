@@ -2,13 +2,9 @@
 import React from "react";
 import {
   Plane,
-  Sparkles,
-  ShieldCheck,
   Globe,
   Coffee,
-  MapPin,
   Clock,
-  Compass,
   CheckCircle2,
 } from "lucide-react";
 import { CardStructure } from "./type";
@@ -22,9 +18,9 @@ export default function CardLoungeTravelSection({ card }: CardLoungeTravelSectio
   const intlLounge = card.loungeAccess?.international || "Not available";
   const spendCondition = card.loungeAccess?.spendCondition;
 
-  const hasLounge =
-    !domesticLounge.toLowerCase().includes("not available") &&
-    !domesticLounge.toLowerCase().includes("nil");
+  // const hasLounge =
+  //   !domesticLounge.toLowerCase().includes("not available") &&
+  //   !domesticLounge.toLowerCase().includes("nil");
 
   return (
     <section id="lounge-travel" className="py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 border-t border-gray-200">

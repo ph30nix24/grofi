@@ -156,7 +156,7 @@ export default function HomeLoanComparisonTable({
                       {lender.overdraftScheme ? (
                         <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-lg bg-purple-50 text-purple-800 border border-purple-200">
                           <RefreshCw className="w-3 h-3 text-purple-600" />
-                          <span className="truncate max-w-[110px]">{lender.overdraftScheme}</span>
+                          <span className="truncate max-w-27.5">{lender.overdraftScheme}</span>
                         </span>
                       ) : (
                         <span className="text-gray-400 text-xs italic">Standard Loan</span>

@@ -91,7 +91,7 @@ export default function EmiDonutChart({
       {/* Adjacent Legend & Stat Cards */}
       <div className="flex-1 flex flex-col gap-2.5">
         {/* Principal Stat */}
-        <div className="bg-white/[0.07] hover:bg-white/[0.12] border border-white/10 rounded-xl p-3 transition-colors">
+        <div className="bg-white/[0.07] hover:bg-white/12 border border-white/10 rounded-xl p-3 transition-colors">
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-1.5 text-xs text-white/80 font-montserrat font-medium">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0 shadow-2xs" />
@@ -110,7 +110,7 @@ export default function EmiDonutChart({
         </div>
 
         {/* Interest Stat */}
-        <div className="bg-white/[0.07] hover:bg-white/[0.12] border border-white/10 rounded-xl p-3 transition-colors">
+        <div className="bg-white/[0.07] hover:bg-white/12 border border-white/10 rounded-xl p-3 transition-colors">
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-1.5 text-xs text-white/80 font-montserrat font-medium">
               <span className="w-2.5 h-2.5 rounded-full bg-gold shrink-0 shadow-2xs" />

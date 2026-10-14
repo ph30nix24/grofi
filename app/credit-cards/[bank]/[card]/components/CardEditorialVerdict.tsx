@@ -43,11 +43,11 @@ export default function CardEditorialVerdict({ card }: CardEditorialVerdictProps
               <span>GROFI EDITORIAL VERDICT</span>
             </div>
 
-            <h2 className="font-bricolage font-extrabold text-xl sm:text-2xl md:text-3xl text-gray-900 leading-snug break-words">
+            <h2 className="font-bricolage font-extrabold text-xl sm:text-2xl md:text-3xl text-gray-900 leading-snug wrap-break-word">
               Why We Recommend The <span className="text-primary">{card.name}</span>
             </h2>
 
-            <p className="text-xs sm:text-sm md:text-base text-gray-700 font-montserrat mt-3 sm:mt-4 leading-relaxed break-words">
+            <p className="text-xs sm:text-sm md:text-base text-gray-700 font-montserrat mt-3 sm:mt-4 leading-relaxed wrap-break-word">
               {card.editorialVerdict ||
                 `The ${card.name} stands out as a compelling contender in ${card.issuer}'s credit card line-up. With attractive reward yields, comprehensive travel privileges, and well-designed fee waiver targets, it caters seamlessly to modern cardholders.`}
             </p>
@@ -62,7 +62,7 @@ export default function CardEditorialVerdict({ card }: CardEditorialVerdictProps
                   <span className="text-[10px] sm:text-xs font-bold text-amber-900 uppercase tracking-wider block font-montserrat">
                     Best Suited For
                   </span>
-                  <p className="text-xs sm:text-sm font-semibold text-gray-900 font-montserrat mt-0.5 break-words">
+                  <p className="text-xs sm:text-sm font-semibold text-gray-900 font-montserrat mt-0.5 wrap-break-word">
                     {card.bestFor}
                   </p>
                 </div>
@@ -78,7 +78,7 @@ export default function CardEditorialVerdict({ card }: CardEditorialVerdictProps
                   <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-emerald-600/10 text-emerald-800 flex items-center justify-center shrink-0">
                     <Gift className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-700" />
                   </div>
-                  <h3 className="font-bricolage font-bold text-base sm:text-lg md:text-xl text-emerald-950 leading-snug break-words">
+                  <h3 className="font-bricolage font-bold text-base sm:text-lg md:text-xl text-emerald-950 leading-snug wrap-break-word">
                     Welcome Gift &amp; Activation Benefits
                   </h3>
                 </div>
@@ -95,14 +95,14 @@ export default function CardEditorialVerdict({ card }: CardEditorialVerdictProps
                     className="flex items-start gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/80 border border-emerald-100 shadow-2xs"
                   >
                     <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span className="text-xs sm:text-sm text-emerald-950 font-montserrat leading-relaxed min-w-0 flex-1 break-words">
+                    <span className="text-xs sm:text-sm text-emerald-950 font-montserrat leading-relaxed min-w-0 flex-1 wrap-break-word">
                       {benefit}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <p className="text-[10px] sm:text-[11px] text-emerald-800/80 font-montserrat mt-4 leading-normal break-words">
+              <p className="text-[10px] sm:text-[11px] text-emerald-800/80 font-montserrat mt-4 leading-normal wrap-break-word">
                 * Welcome benefits are typically unlocked upon payment of the joining fee and initial card activation within 30 to 90 days.
               </p>
             </div>
@@ -171,7 +171,7 @@ export default function CardEditorialVerdict({ card }: CardEditorialVerdictProps
               <BadgeCheck className="w-4 h-4 text-primary shrink-0" />
               <span>Independent Methodology</span>
             </div>
-            <p className="leading-relaxed text-[10px] sm:text-[11px] break-words">
+            <p className="leading-relaxed text-[10px] sm:text-[11px] wrap-break-word">
               Our ratings assess real-world net reward yields after fee deductions, partner redemption flexibility, lounge conditions, and user transparency.
             </p>
           </div>

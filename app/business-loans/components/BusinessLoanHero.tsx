@@ -12,7 +12,6 @@ import {
   Building2,
   CheckCircle2,
   Briefcase,
-  FileCheck,
 } from "lucide-react";
 import BusinessLoanHeroForm from "./BusinessLoanHeroForm";
 

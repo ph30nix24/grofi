@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
-import { Sparkles, ShieldCheck, ArrowRight, Lock, CheckCircle2, Home } from "lucide-react";
+import { Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
 import { HomeLoanLender } from "../../components/type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
 

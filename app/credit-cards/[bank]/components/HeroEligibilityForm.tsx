@@ -10,7 +10,6 @@ import {
   ArrowRight,
   Loader2,
   CheckCircle2,
-  Lock,
   Clock,
   Headphones,
   RotateCcw,

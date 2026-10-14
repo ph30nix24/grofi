@@ -217,7 +217,7 @@ export default function HomeLoanExplorer({ initialLenders }: HomeLoanExplorerPro
         </div>
 
         {/* Category Horizontal Filter Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hidden scrollbar-none [&::-webkit-scrollbar]:hidden">
           {categoryTabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = selectedCategory === tab.id;

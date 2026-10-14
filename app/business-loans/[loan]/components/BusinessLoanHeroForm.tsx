@@ -273,7 +273,7 @@ export default function BusinessLoanHeroForm({ lender }: BusinessLoanHeroFormPro
             {/* Annual Turnover & Business Vintage */}
             <div className="grid grid-cols-2 gap-2.5">
               <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1 flex items-center gap-1">
+                <label className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-1 flex items-center gap-1">
                   <TrendingUp className="w-3 h-3 text-primary" />
                   <span>Annual Turnover</span>
                 </label>
@@ -291,7 +291,7 @@ export default function BusinessLoanHeroForm({ lender }: BusinessLoanHeroFormPro
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1 flex items-center gap-1">
+                <label className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-1 flex items-center gap-1">
                   <Building2 className="w-3 h-3 text-primary" />
                   <span>Business Vintage</span>
                 </label>
@@ -338,7 +338,7 @@ export default function BusinessLoanHeroForm({ lender }: BusinessLoanHeroFormPro
             </div>
 
             {/* Dynamic Live EMI Estimate Banner */}
-            <div className="p-2.5 rounded-xl bg-gradient-to-r from-emerald-50 via-[#EBF4ED] to-emerald-50 border border-emerald-200 flex items-center justify-between text-xs">
+            <div className="p-2.5 rounded-xl bg-linear-to-r from-emerald-50 via-[#EBF4ED] to-emerald-50 border border-emerald-200 flex items-center justify-between text-xs">
               <span className="text-emerald-900 font-medium">Est. Monthly EMI (48 Mo):</span>
               <span className="font-bricolage font-extrabold text-sm text-primary">
                 ₹{formatINR(estimatedEmi)}/mo
@@ -390,9 +390,9 @@ export default function BusinessLoanHeroForm({ lender }: BusinessLoanHeroFormPro
           {/* Success Check Badge */}
           <div className="relative flex items-center justify-center my-3">
             <div className="absolute w-16 h-16 rounded-full bg-emerald-500/15 animate-ping duration-1000 pointer-events-none" />
-            <div className="relative w-16 h-16 rounded-full bg-gradient-to-tr from-emerald-500 via-teal-400 to-[#C9AA3C] p-0.5 shadow-xl flex items-center justify-center">
+            <div className="relative w-16 h-16 rounded-full bg-linear-to-tr from-emerald-500 via-teal-400 to-[#C9AA3C] p-0.5 shadow-xl flex items-center justify-center">
               <div className="w-full h-full bg-white rounded-full flex items-center justify-center p-1">
-                <div className="w-full h-full bg-gradient-to-br from-primary to-[#035259] rounded-full flex items-center justify-center text-white shadow-inner">
+                <div className="w-full h-full bg-linear-to-br from-primary to-[#035259] rounded-full flex items-center justify-center text-white shadow-inner">
                   <CheckCircle2 className="w-7 h-7 text-emerald-300 stroke-[2.5]" />
                 </div>
               </div>
@@ -408,8 +408,8 @@ export default function BusinessLoanHeroForm({ lender }: BusinessLoanHeroFormPro
             Application Received, <span className="text-primary">{name || "Partner"}</span>!
           </h3>
 
-          <div className="bg-gradient-to-r from-[#EBF4ED] via-emerald-50 to-[#EBF4ED] border border-emerald-300/80 rounded-2xl p-3.5 my-3.5 shadow-xs flex items-center gap-3 text-left">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-emerald-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+          <div className="bg-linear-to-r from-[#EBF4ED] via-emerald-50 to-[#EBF4ED] border border-emerald-300/80 rounded-2xl p-3.5 my-3.5 shadow-xs flex items-center gap-3 text-left">
+            <div className="w-10 h-10 rounded-xl bg-linear-to-tr from-primary to-emerald-600 text-white flex items-center justify-center shrink-0 shadow-sm">
               <Headphones className="w-5 h-5 text-white" />
             </div>
             <div className="flex-1 min-w-0">

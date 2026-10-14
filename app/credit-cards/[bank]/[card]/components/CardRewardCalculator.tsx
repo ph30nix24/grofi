@@ -5,11 +5,7 @@ import {
   Calculator,
   Sparkles,
   TrendingUp,
-  Percent,
-  Coins,
   ArrowRight,
-  ShieldAlert,
-  Sliders,
   Check,
 } from "lucide-react";
 import { CardStructure } from "./type";

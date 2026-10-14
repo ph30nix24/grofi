@@ -211,7 +211,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 Blogs
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-              <span className="text-primary font-semibold truncate max-w-[200px] sm:max-w-md">
+              <span className="text-primary font-semibold truncate max-w-50 sm:max-w-md">
                 {post.title}
               </span>
             </nav>
@@ -289,7 +289,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         {/* Featured Visual Banner */}
         <section className="max-w-4xl mx-auto px-4 sm:px-6 -mt-4 mb-8 w-full">
-          <div className="rounded-2xl overflow-hidden aspect-16/9 shadow-md border border-gray-200/80">
+          <div className="rounded-2xl overflow-hidden aspect-video shadow-md border border-gray-200/80">
             <BlogImage
               src={post.image}
               alt={post.title}

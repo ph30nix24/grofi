@@ -35,7 +35,7 @@ export default function ComparisonDock({
             key={c.id}
             className="flex items-center gap-1.5 bg-gray-100 px-2.5 py-1 rounded-lg text-xs font-medium text-gray-700 font-montserrat"
           >
-            <span className="truncate max-w-[120px]">{c.name}</span>
+            <span className="truncate max-w-30">{c.name}</span>
             <button
               onClick={() => onRemove(c)}
               className="text-gray-400 hover:text-gray-700 cursor-pointer"

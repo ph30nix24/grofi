@@ -72,7 +72,7 @@ export default function HomeLoanHero({ lender }: HomeLoanHeroProps) {
             Home Loans
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-          <span className="text-primary font-bold truncate max-w-[240px] sm:max-w-none">
+          <span className="text-primary font-bold truncate max-w-60 sm:max-w-none">
             {lender.name}
           </span>
         </nav>

@@ -409,7 +409,7 @@ export default function CreditCardFAQSection({
                       {/* High-value quick takeaway badge */}
                       <span className="text-[11px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200/60 px-2.5 py-0.5 rounded-md font-montserrat inline-flex items-center gap-1">
                         <Sparkles className="w-3 h-3 text-emerald-600 shrink-0" />
-                        <span className="truncate max-w-[280px] sm:max-w-none">
+                        <span className="truncate max-w-70 sm:max-w-none">
                           {item.quickTakeaway}
                         </span>
                       </span>

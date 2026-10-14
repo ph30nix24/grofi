@@ -36,9 +36,9 @@ export function InstagramReelSkeleton({
     <div
       className={`${
         viewMode === "carousel"
-          ? "snap-start shrink-0 w-[270px] sm:w-[290px] md:w-[310px]"
+          ? "snap-start shrink-0 w-67.5 sm:w-72.5 md:w-77.5"
           : "w-full"
-      } aspect-[9/16] aspect-reel min-h-[460px] rounded-3xl relative overflow-hidden bg-linear-to-b from-[#0e1e21] via-[#091517] to-[#040a0b] border border-gray-200/40 shadow-md p-5 flex flex-col justify-between select-none ${
+      } aspect-9/16 aspect-reel min-h-115 rounded-3xl relative overflow-hidden bg-linear-to-b from-[#0e1e21] via-[#091517] to-[#040a0b] border border-gray-200/40 shadow-md p-5 flex flex-col justify-between select-none ${
         index % 4 === 1
           ? "delay-75"
           : index % 4 === 2
@@ -332,9 +332,9 @@ export default function InstagramGallery({
                 onClick={() => setActiveModalReel(reel)}
                 className={`${
                   viewMode === "carousel"
-                    ? "snap-start shrink-0 w-[270px] sm:w-[290px] md:w-[310px]"
+                    ? "snap-start shrink-0 w-67.5 sm:w-72.5 md:w-77.5"
                     : "w-full"
-                } aspect-[9/16] aspect-reel min-h-[460px] rounded-3xl relative overflow-hidden group cursor-pointer border border-gray-200/90 shadow-md hover:shadow-2xl hover:border-primary/40 transition-all duration-300 hover:-translate-y-2 select-none`}
+                } aspect-9/16 aspect-reel min-h-115 rounded-3xl relative overflow-hidden group cursor-pointer border border-gray-200/90 shadow-md hover:shadow-2xl hover:border-primary/40 transition-all duration-300 hover:-translate-y-2 select-none`}
               >
                 {/* ── Edge-to-Edge Video Thumbnail Poster ──────────────── */}
                 <div className="absolute inset-0 bg-[#0a181a]">
@@ -604,7 +604,7 @@ export default function InstagramGallery({
             </button>
 
             {/* ── Left Player: Clean Instagram Embed Frame with Skeleton ── */}
-            <div className="w-full md:w-[350px] lg:w-[380px] h-[520px] sm:h-[580px] bg-slate-950 relative flex items-center justify-center shrink-0 overflow-hidden">
+            <div className="w-full md:w-87.5 lg:w-95 h-130 sm:h-145 bg-slate-950 relative flex items-center justify-center shrink-0 overflow-hidden">
               {!modalIframeLoaded && (
                 <div className="absolute inset-0 z-10 bg-linear-to-b from-[#0e1e21] via-[#091517] to-[#040a0b] flex flex-col items-center justify-center p-6 text-center overflow-hidden">
                   {/* Real Instagram poster preview behind shimmer while player loads */}

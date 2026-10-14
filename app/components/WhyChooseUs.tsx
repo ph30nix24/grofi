@@ -105,12 +105,12 @@ const comparisonPoints = [
 
 export default function WhyChooseUs() {
   return (
-    <section id="why-choose-us" className="py-22 px-6 relative bg-gradient-to-b from-[#F3F0DF]/30 via-white to-[#F3F0DF]/40 overflow-hidden">
+    <section id="why-choose-us" className="py-22 px-6 relative bg-linear-to-b from-[#F3F0DF]/30 via-white to-[#F3F0DF]/40 overflow-hidden">
       
       {/* Decorative background glow */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-gradient-to-br from-[#B6CC9A]/20 via-primary/5 to-transparent rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-225 h-125 bg-linear-to-br from-[#B6CC9A]/20 via-primary/5 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-[1280px] mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10">
         
         {/* ── Section Header ───────────────────────────────────────────── */}
         <div className="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
@@ -130,9 +130,9 @@ export default function WhyChooseUs() {
 
           {/* Decorative diamond line */}
           <div className="flex items-center justify-center gap-3 my-4">
-            <div className="w-16 h-px bg-gradient-to-r from-transparent to-primary/30" />
+            <div className="w-16 h-px bg-linear-to-r from-transparent to-primary/30" />
             <div className="w-2 h-2 rotate-45 bg-primary/60 rounded-xs" />
-            <div className="w-16 h-px bg-gradient-to-l from-transparent to-primary/30" />
+            <div className="w-16 h-px bg-linear-to-l from-transparent to-primary/30" />
           </div>
 
           <p className="text-sm md:text-base text-black/60 leading-relaxed font-montserrat max-w-2xl mx-auto">
@@ -150,7 +150,7 @@ export default function WhyChooseUs() {
               }`}
             >
               {/* Subtle card corner accent */}
-              <div className="absolute top-0 right-0 w-24 h-24 bg-primary/[0.02] rounded-bl-full pointer-events-none transition-colors group-hover:bg-primary/[0.05]" />
+              <div className="absolute top-0 right-0 w-24 h-24 bg-primary/2 rounded-bl-full pointer-events-none transition-colors group-hover:bg-primary/5" />
 
               <div>
                 {/* Top bar with icon & badge */}
@@ -252,7 +252,7 @@ export default function WhyChooseUs() {
         </div>
 
         {/* ── Bottom Call To Action ────────────────────────────────────── */}
-        <div className="text-center bg-gradient-to-r from-[#F3F0DF] via-[#ECE9CF] to-[#DDE3C1] rounded-3xl p-8 sm:p-12 border border-[#a5c490]/40 shadow-md reveal-scale delay-150">
+        <div className="text-center bg-linear-to-r from-[#F3F0DF] via-[#ECE9CF] to-[#DDE3C1] rounded-3xl p-8 sm:p-12 border border-[#a5c490]/40 shadow-md reveal-scale delay-150">
           <h3 className="font-bricolage font-bold text-2xl sm:text-3xl xl:text-4xl text-primary">
             Ready to Find Your Ideal Financial Product?
           </h3>

@@ -45,7 +45,7 @@ export default function AmortizationTable({
           </thead>
           <tbody className="divide-y divide-gray-100 text-gray-700">
             {yearlyBreakdown.map((row) => (
-              <tr key={row.year} className="hover:bg-primary/[0.02] transition-colors">
+              <tr key={row.year} className="hover:bg-primary/2 transition-colors">
                 <td className="py-3.5 px-4 font-bold text-gray-900 flex items-center gap-2">
                   <span className="w-6 h-6 rounded-md bg-gray-100 text-gray-700 text-xs font-bold flex items-center justify-center">
                     {row.year}

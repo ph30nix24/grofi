@@ -8,7 +8,6 @@ import {
   CreditCard,
   Briefcase,
   Calendar,
-  Sparkles,
   ArrowRight,
   ShieldCheck,
 } from "lucide-react";

@@ -234,7 +234,7 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
             {/* Visual Header / Graphic (5 cols) */}
             <Link
               href={`/blogs/${featuredBlog.slug}`}
-              className="lg:col-span-6 relative aspect-16/10 lg:aspect-auto min-h-[260px] lg:min-h-[360px] block overflow-hidden"
+              className="lg:col-span-6 relative aspect-16/10 lg:aspect-auto min-h-65 lg:min-h-90 block overflow-hidden"
             >
               <BlogImage
                 src={featuredBlog.image}
@@ -532,7 +532,7 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
       )}
 
       {/* Newsletter & Knowledge Brief Subscription Callout */}
-      <section className="bg-gradient-to-br from-[#02282C] via-[#02474D] to-[#0A5C63] rounded-3xl p-6 sm:p-10 text-white relative overflow-hidden shadow-lg mb-8">
+      <section className="bg-linear-to-br from-[#02282C] via-[#02474D] to-[#0A5C63] rounded-3xl p-6 sm:p-10 text-white relative overflow-hidden shadow-lg mb-8">
         {/* Ambient glow */}
         <div className="absolute top-0 right-0 w-80 h-80 bg-gold/15 rounded-full blur-3xl pointer-events-none" />
 

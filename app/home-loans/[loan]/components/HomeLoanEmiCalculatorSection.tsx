@@ -12,7 +12,6 @@ import {
   ChevronDown,
   ChevronUp,
   RefreshCw,
-  Sparkles,
   Zap,
 } from "lucide-react";
 import { HomeLoanLender } from "../../components/type";
@@ -374,10 +373,10 @@ export default function HomeLoanEmiCalculatorSection({ lender }: HomeLoanEmiCalc
           </div>
 
           {/* Right Column: Calculated Results Summary & Comparison (5 cols) */}
-          <div className="lg:col-span-5 bg-gradient-to-br from-gray-50 via-white to-gray-50 rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-sm flex flex-col justify-between h-full space-y-5">
+          <div className="lg:col-span-5 bg-linear-to-br from-gray-50 via-white to-gray-50 rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-sm flex flex-col justify-between h-full space-y-5">
             <div className="space-y-4">
               {/* Main EMI Highlight Box */}
-              <div className="bg-gradient-to-br from-primary to-[#035259] rounded-2xl p-6 text-white text-center shadow-lg relative overflow-hidden">
+              <div className="bg-linear-to-br from-primary to-[#035259] rounded-2xl p-6 text-white text-center shadow-lg relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gold/15 rounded-full blur-2xl pointer-events-none" />
 
                 <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-200 block mb-1">
@@ -639,9 +638,9 @@ export default function HomeLoanEmiCalculatorSection({ lender }: HomeLoanEmiCalc
           </div>
 
           {/* Right Column: Balance Transfer Savings Highlight (5 cols) */}
-          <div className="lg:col-span-5 bg-gradient-to-br from-emerald-50 via-white to-emerald-50/60 rounded-3xl p-6 sm:p-8 border border-emerald-200 shadow-sm flex flex-col justify-between h-full space-y-6">
+          <div className="lg:col-span-5 bg-linear-to-br from-emerald-50 via-white to-emerald-50/60 rounded-3xl p-6 sm:p-8 border border-emerald-200 shadow-sm flex flex-col justify-between h-full space-y-6">
             <div className="space-y-4">
-              <div className="bg-gradient-to-br from-emerald-800 to-teal-900 rounded-2xl p-6 text-white text-center shadow-lg relative overflow-hidden">
+              <div className="bg-linear-to-br from-emerald-800 to-teal-900 rounded-2xl p-6 text-white text-center shadow-lg relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-2xl pointer-events-none" />
 
                 <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-200 block mb-1">

@@ -4,17 +4,9 @@ import React, { useState } from "react";
 import {
   Building2,
   Phone,
-  Briefcase,
   Sparkles,
-  ShieldCheck,
   ArrowRight,
   Loader2,
-  CheckCircle2,
-  Lock,
-  Clock,
-  Headphones,
-  RotateCcw,
-  TrendingUp,
 } from "lucide-react";
 import ConsentCheckbox from "@/app/components/ConsentCheckbox";
 import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
@@ -35,12 +27,12 @@ const AMOUNT_PRESETS = [
   { label: "₹1 Cr", value: 10000000 },
 ];
 
-const TURNOVER_PRESETS = [
-  { label: "Under ₹25 Lakhs", value: "<25L" },
-  { label: "₹25L - ₹50 Lakhs", value: "25L-50L" },
-  { label: "₹50L - ₹1 Crore", value: "50L-1Cr" },
-  { label: "₹1 Crore+", value: "1Cr+" },
-];
+// const TURNOVER_PRESETS = [
+//   { label: "Under ₹25 Lakhs", value: "<25L" },
+//   { label: "₹25L - ₹50 Lakhs", value: "25L-50L" },
+//   { label: "₹50L - ₹1 Crore", value: "50L-1Cr" },
+//   { label: "₹1 Crore+", value: "1Cr+" },
+// ];
 
 export default function BusinessLoanHeroForm() {
   const [businessName, setBusinessName] = useState("");

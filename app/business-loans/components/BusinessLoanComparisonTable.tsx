@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { ArrowRight, TrendingDown, ShieldCheck, ChevronLeft, ChevronRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, TrendingDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { BusinessLoanLender } from "./type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
 import BusinessLoanDetailModal from "./BusinessLoanDetailModal";

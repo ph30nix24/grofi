@@ -128,7 +128,7 @@ export default async function BlogPage() {
         <BlogHero totalBlogs={blogs.length} />
         <Suspense
           fallback={
-            <div className="min-h-[400px] flex items-center justify-center text-sm text-gray-500 font-montserrat">
+            <div className="min-h-100 flex items-center justify-center text-sm text-gray-500 font-montserrat">
               Loading financial insights...
             </div>
           }

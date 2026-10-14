@@ -160,13 +160,13 @@ export default function Hero2() {
           </div>
 
           {/* ── Column 2: big hero image + ALL floating illustrations with arrows ─── */}
-          <div className="w-full xl:w-[62%] shrink-0 relative flex items-center justify-center z-10 min-h-[520px] sm:min-h-[580px] md:min-h-[620px] xl:min-h-[640px]">
+          <div className="w-full xl:w-[62%] shrink-0 relative flex items-center justify-center z-10 min-h-130 sm:min-h-145 md:min-h-155 xl:min-h-160">
 
             {/* Glow circle behind image */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 size-80 sm:size-110 xl:size-130 rounded-full bg-primary/[0.07]" />
 
             {/* ── Hero image ── */}
-            <div className="relative z-20 w-[300px] h-[300px] sm:w-[420px] sm:h-[420px] md:w-[480px] md:h-[480px] xl:w-[560px] xl:h-[560px] max-w-full">
+            <div className="relative z-20 size-75 sm:size-105 md:size-120 xl:size-140 max-w-full">
               <Image src="/hero.png" alt="Grofi - India's Premier Financial Product Comparison Platform" fill className="object-contain" priority />
             </div>
 

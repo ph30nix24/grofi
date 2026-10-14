@@ -65,7 +65,7 @@ export default function CardDetailsModal({ card, onClose }: CardDetailsModalProp
 
         {/* Key Fees Breakdown */}
         <div className="flex flex-wrap gap-2 mb-6">
-          <div className="flex-1 min-w-[120px] bg-gray-50 p-3 rounded-xl border border-gray-100 text-center">
+          <div className="flex-1 min-w-30 bg-gray-50 p-3 rounded-xl border border-gray-100 text-center">
             <span className="text-[10px] text-gray-400 font-semibold block font-montserrat uppercase">
               Annual Fee
             </span>
@@ -73,7 +73,7 @@ export default function CardDetailsModal({ card, onClose }: CardDetailsModalProp
               {card.annualFee || "Nil"}
             </span>
           </div>
-          <div className="flex-1 min-w-[120px] bg-gray-50 p-3 rounded-xl border border-gray-100 text-center">
+          <div className="flex-1 min-w-30 bg-gray-50 p-3 rounded-xl border border-gray-100 text-center">
             <span className="text-[10px] text-gray-400 font-semibold block font-montserrat uppercase">
               Joining Fee
             </span>
@@ -81,7 +81,7 @@ export default function CardDetailsModal({ card, onClose }: CardDetailsModalProp
               {card.joiningFee || "Nil"}
             </span>
           </div>
-          <div className="flex-1 min-w-[120px] bg-gray-50 p-3 rounded-xl border border-gray-100 text-center">
+          <div className="flex-1 min-w-30 bg-gray-50 p-3 rounded-xl border border-gray-100 text-center">
             <span className="text-[10px] text-gray-400 font-semibold block font-montserrat uppercase">
               Fee Waiver
             </span>
@@ -89,7 +89,7 @@ export default function CardDetailsModal({ card, onClose }: CardDetailsModalProp
               {card.feeWaiver || "None"}
             </span>
           </div>
-          <div className="flex-1 min-w-[120px] bg-gray-50 p-3 rounded-xl border border-gray-100 text-center">
+          <div className="flex-1 min-w-30 bg-gray-50 p-3 rounded-xl border border-gray-100 text-center">
             <span className="text-[10px] text-gray-400 font-semibold block font-montserrat uppercase">
               Forex Markup
             </span>

@@ -6,7 +6,6 @@ import {
   ThumbsUp,
   AlertTriangle,
   Scale,
-  Sparkles,
 } from "lucide-react";
 import { HomeLoanLender } from "../../components/type";
 
@@ -56,7 +55,7 @@ export default function HomeLoanProsConsSection({ lender }: HomeLoanProsConsSect
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
         {/* Pros Column */}
-        <div className="bg-gradient-to-br from-emerald-50/40 via-white to-emerald-50/20 rounded-3xl p-6 sm:p-8 border border-emerald-200 shadow-sm space-y-4">
+        <div className="bg-linear-to-br from-emerald-50/40 via-white to-emerald-50/20 rounded-3xl p-6 sm:p-8 border border-emerald-200 shadow-sm space-y-4">
           <div className="flex items-center gap-2.5 pb-3 border-b border-emerald-100">
             <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center">
               <ThumbsUp className="w-5 h-5 text-emerald-700" />
@@ -80,7 +79,7 @@ export default function HomeLoanProsConsSection({ lender }: HomeLoanProsConsSect
         </div>
 
         {/* Cons Column */}
-        <div className="bg-gradient-to-br from-amber-50/30 via-white to-amber-50/10 rounded-3xl p-6 sm:p-8 border border-amber-200 shadow-sm space-y-4">
+        <div className="bg-linear-to-br from-amber-50/30 via-white to-amber-50/10 rounded-3xl p-6 sm:p-8 border border-amber-200 shadow-sm space-y-4">
           <div className="flex items-center gap-2.5 pb-3 border-b border-amber-100">
             <div className="w-9 h-9 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center">
               <AlertTriangle className="w-5 h-5 text-amber-700" />

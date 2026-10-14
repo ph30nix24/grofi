@@ -8,13 +8,10 @@ import {
   AlertCircle,
   X,
   Send,
-  Building,
   User,
-  Phone,
   MapPin,
   Briefcase,
   IndianRupee,
-  Clock,
   Sparkles,
   ShieldCheck,
 } from "lucide-react";

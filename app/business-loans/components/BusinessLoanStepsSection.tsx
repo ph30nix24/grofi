@@ -8,7 +8,6 @@ import {
   Zap,
   ArrowRight,
   Sparkles,
-  Building2,
 } from "lucide-react";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
 
