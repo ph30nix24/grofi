@@ -332,8 +332,8 @@ export default function Footer() {
         </div>
 
         {/* ── Trust, Security & Regulatory Badges Strip ────────────────── */}
-        <div className="py-8 flex flex-wrap gap-6 border-b border-white/10 text-xs text-white/70 reveal-on-scroll delay-200">
-          <div className="w-full sm:w-[calc(50%-0.75rem)] lg:flex-1 flex items-center gap-3">
+        <div className="py-8 flex flex-wrap gap-6 border-b border-white/10 text-xs text-white/70 reveal-on-scroll delay-200 mx-auto">
+          <div className="w-full sm:w-[calc(50%-0.75rem)] lg:flex-1 flex items-center justify-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#B6CC9A] shrink-0">
               <ShieldCheck className="w-5 h-5" />
             </div>
@@ -343,7 +343,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="w-full sm:w-[calc(50%-0.75rem)] lg:flex-1 flex items-center gap-3">
+          <div className="w-full sm:w-[calc(50%-0.75rem)] lg:flex-1 flex items-center justify-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#B6CC9A] shrink-0">
               <Lock className="w-5 h-5" />
             </div>
@@ -353,7 +353,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="w-full sm:w-[calc(50%-0.75rem)] lg:flex-1 flex items-center gap-3">
+          <div className="w-full sm:w-[calc(50%-0.75rem)] lg:flex-1 flex items-center  justify-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#B6CC9A] shrink-0">
               <CheckCircle2 className="w-5 h-5" />
             </div>
