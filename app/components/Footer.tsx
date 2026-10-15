@@ -7,7 +7,6 @@ import {
   MapPin,
   ShieldCheck,
   Lock,
-  Landmark,
   CheckCircle2,
   Sparkles,
   Send,
