@@ -12,7 +12,6 @@ import {
   ExternalLink,
   Copy,
   Clock,
-  ArrowRight,
 } from "lucide-react";
 
 interface EmergencyReportModalProps {

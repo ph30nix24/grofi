@@ -7,7 +7,6 @@ import {
   Building2,
   ArrowRight,
   Clock,
-  Sparkles,
   Zap,
 } from "lucide-react";
 import { InstantLoanLender } from "../../components/type";
@@ -58,7 +57,7 @@ export default function SimilarInstantLoansSection({
               className="bg-white rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1 relative"
             >
               {/* Top accent strip */}
-              <div className="h-1.5 w-full bg-gradient-to-r from-primary via-emerald-600 to-[#B69226]" />
+              <div className="h-1.5 w-full bg-linear-to-r from-primary via-emerald-600 to-[#B69226]" />
 
               <div className="p-5 sm:p-6">
                 {/* Header: Logo & Badge */}

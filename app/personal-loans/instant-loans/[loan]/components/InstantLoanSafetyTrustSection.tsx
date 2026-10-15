@@ -2,7 +2,6 @@
 import React from "react";
 import {
   ShieldCheck,
-  Lock,
   EyeOff,
   FileText,
   Star,
@@ -100,7 +99,7 @@ export default function InstantLoanSafetyTrustSection({
 
         {/* Right Column: App Ratings & Trust Guarantees (5 cols) */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="bg-gradient-to-br from-white via-[#FDFBF7] to-white rounded-3xl p-6 sm:p-7 border border-gray-200/90 shadow-sm space-y-5">
+          <div className="bg-linear-to-br from-white via-[#FDFBF7] to-white rounded-3xl p-6 sm:p-7 border border-gray-200/90 shadow-sm space-y-5">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-gray-400">
                 Lender Verification

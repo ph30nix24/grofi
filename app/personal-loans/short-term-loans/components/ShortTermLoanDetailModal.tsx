@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import {
   X,
-  Star,
   CheckCircle2,
   AlertCircle,
   UserCheck,
@@ -12,10 +11,8 @@ import {
   Clock,
   ArrowRight,
   ShieldCheck,
-  Zap,
   Calendar,
   FileText,
-  Smartphone,
   ChevronDown,
 } from "lucide-react";
 import { ShortTermLoanLender } from "./type";
@@ -189,7 +186,7 @@ export default function ShortTermLoanDetailModal({
 
               {/* Short Tenure Options */}
               <div className="p-4 rounded-2xl bg-amber-50/40 border border-amber-200/70">
-                <span className="font-bricolage font-bold text-sm text-gray-900 block mb-2 flex items-center gap-1.5">
+                <span className="font-bricolage font-bold text-sm text-gray-900 mb-2 flex items-center gap-1.5">
                   <Calendar className="w-4 h-4 text-primary" />
                   Available Short Tenure Options
                 </span>

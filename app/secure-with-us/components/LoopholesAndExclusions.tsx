@@ -4,12 +4,6 @@ import React, { useState } from "react";
 import {
   AlertTriangle,
   ShieldX,
-  XCircle,
-  HelpCircle,
-  CheckCircle2,
-  FileWarning,
-  Eye,
-  Info,
 } from "lucide-react";
 
 export default function LoopholesAndExclusions() {

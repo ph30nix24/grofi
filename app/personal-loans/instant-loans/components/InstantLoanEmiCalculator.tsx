@@ -6,12 +6,9 @@ import {
   IndianRupee,
   Percent,
   Calendar,
-  Sparkles,
   ArrowRight,
-  TrendingDown,
   Clock,
   Zap,
-  Info,
 } from "lucide-react";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
 

@@ -7,10 +7,8 @@ import {
   Building2,
   ArrowRight,
   Clock,
-  Sparkles,
   Zap,
   Calendar,
-  Percent,
 } from "lucide-react";
 import { ShortTermLoanLender } from "../../components/type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
@@ -58,7 +56,7 @@ export default function SimilarShortTermLoansSection({
               className="bg-white rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1 relative"
             >
               {/* Top accent strip */}
-              <div className="h-1.5 w-full bg-gradient-to-r from-primary via-emerald-600 to-[#B69226]" />
+              <div className="h-1.5 w-full bg-linear-to-r from-primary via-emerald-600 to-[#B69226]" />
 
               <div className="p-6 space-y-4">
                 {/* Header: Logo + Name + Speed */}
@@ -79,7 +77,7 @@ export default function SimilarShortTermLoansSection({
                           {item.name}
                         </h3>
                       </Link>
-                      <span className="text-[11px] text-gray-500 font-medium block truncate max-w-[190px]">
+                      <span className="text-[11px] text-gray-500 font-medium block truncate max-w-47.5">
                         {item.rbiRegulatedEntity}
                       </span>
                     </div>
@@ -92,7 +90,7 @@ export default function SimilarShortTermLoansSection({
                 </div>
 
                 {/* Tagline */}
-                <p className="text-xs text-gray-600 line-clamp-2 min-h-[32px] leading-relaxed">
+                <p className="text-xs text-gray-600 line-clamp-2 min-h-8 leading-relaxed">
                   {item.tagline}
                 </p>
 

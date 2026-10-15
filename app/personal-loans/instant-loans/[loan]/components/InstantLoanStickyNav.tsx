@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { ArrowRight, Zap } from "lucide-react";
+import { Zap } from "lucide-react";
 import { InstantLoanLender } from "../../components/type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
 
@@ -65,7 +65,7 @@ export default function InstantLoanStickyNav({ lender }: InstantLoanStickyNavPro
   };
 
   return (
-    <div className="sticky top-[72px] sm:top-[84px] z-40 bg-white/95 backdrop-blur-md border-b border-gray-200/90 shadow-2xs transition-all duration-300 font-montserrat">
+    <div className="sticky top-18 sm:top-21 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200/90 shadow-2xs transition-all duration-300 font-montserrat">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-between gap-4">
         {/* Horizontal Scrollable Nav Links */}
         <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto scrollbar-hidden py-3 text-xs font-semibold">
@@ -104,7 +104,7 @@ export default function InstantLoanStickyNav({ lender }: InstantLoanStickyNavPro
               />
             </div>
             <div className="text-right">
-              <span className="block text-xs font-bricolage font-bold text-gray-900 truncate max-w-[160px]">
+              <span className="block text-xs font-bricolage font-bold text-gray-900 truncate max-w-40">
                 {lender.name}
               </span>
               <span className="block text-[10px] text-emerald-700 font-bold">

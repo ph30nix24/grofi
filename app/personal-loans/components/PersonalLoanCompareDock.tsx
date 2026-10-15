@@ -47,7 +47,7 @@ export default function PersonalLoanCompareDock({
                   />
                 </div>
                 <div className="text-left">
-                  <span className="text-xs font-bold text-white block max-w-[90px] sm:max-w-[120px] truncate">
+                  <span className="text-xs font-bold text-white block max-w-22.5 sm:max-w-30 truncate">
                     {lender.name.replace(/Personal Loan/i, "").trim()}
                   </span>
                   <span className="text-[10px] text-emerald-400 font-semibold block">

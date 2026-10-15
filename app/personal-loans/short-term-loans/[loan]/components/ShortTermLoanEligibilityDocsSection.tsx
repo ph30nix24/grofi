@@ -7,7 +7,6 @@ import {
   Briefcase,
   Calendar,
   ShieldCheck,
-  Building,
   Landmark,
   IndianRupee,
   Smartphone,
@@ -231,7 +230,7 @@ export default function ShortTermLoanEligibilityDocsSection({
             <div className="p-3.5 bg-blue-50/60 rounded-2xl border border-blue-200/80 flex items-start gap-2.5 text-xs text-blue-950">
               <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
               <div className="leading-relaxed">
-                <strong>Why Account Aggregator (AA) is Better:</strong> You don't need to download PDFs from net banking or share bank passwords. AA uses RBI-approved encrypted token pipes to verify salary credits in seconds.
+                <strong>Why Account Aggregator (AA) is Better:</strong> You don&apos;t need to download PDFs from net banking or share bank passwords. AA uses RBI-approved encrypted token pipes to verify salary credits in seconds.
               </div>
             </div>
           </div>

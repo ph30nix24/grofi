@@ -2,10 +2,7 @@
 import React from "react";
 import {
   Percent,
-  Info,
   ShieldCheck,
-  FileText,
-  AlertCircle,
   Coins,
   CheckCircle2,
 } from "lucide-react";
@@ -134,7 +131,7 @@ export default function ShortTermLoanFeesSection({ lender }: ShortTermLoanFeesSe
         </div>
 
         {/* Right Column: Real-World Scenario Breakdown (5 cols) */}
-        <div className="lg:col-span-5 bg-gradient-to-br from-[#035259] to-[#02383d] rounded-3xl p-6 sm:p-7 text-white shadow-xl relative overflow-hidden">
+        <div className="lg:col-span-5 bg-linear-to-br from-[#035259] to-[#02383d] rounded-3xl p-6 sm:p-7 text-white shadow-xl relative overflow-hidden">
           <div className="flex items-center gap-2 mb-4 text-emerald-300">
             <Coins className="w-5 h-5 text-[#C9AA3C]" />
             <h3 className="font-bricolage font-bold text-base sm:text-lg text-white">

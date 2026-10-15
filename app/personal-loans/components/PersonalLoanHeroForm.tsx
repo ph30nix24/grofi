@@ -6,14 +6,8 @@ import {
   Phone,
   Briefcase,
   Sparkles,
-  ShieldCheck,
   ArrowRight,
   Loader2,
-  CheckCircle2,
-  Lock,
-  Clock,
-  Headphones,
-  RotateCcw,
   Building,
 } from "lucide-react";
 import ConsentCheckbox from "@/app/components/ConsentCheckbox";

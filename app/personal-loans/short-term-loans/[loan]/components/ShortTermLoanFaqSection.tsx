@@ -5,9 +5,6 @@ import {
   HelpCircle,
   ChevronDown,
   Search,
-  Sparkles,
-  ShieldCheck,
-  Zap,
 } from "lucide-react";
 import { ShortTermLoanLender } from "../../components/type";
 

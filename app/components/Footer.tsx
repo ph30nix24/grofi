@@ -338,7 +338,7 @@ export default function Footer() {
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <p className="font-bold text-white">ISO 27001 Certified</p>
+              <p className="font-bold text-white">TRAI Certified</p>
               <p className="text-[11px] text-white/50">Information security standard</p>
             </div>
           </div>
@@ -350,16 +350,6 @@ export default function Footer() {
             <div>
               <p className="font-bold text-white">256-Bit SSL Encryption</p>
               <p className="text-[11px] text-white/50">Bank-grade data protection</p>
-            </div>
-          </div>
-
-          <div className="w-full sm:w-[calc(50%-0.75rem)] lg:flex-1 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#B6CC9A] shrink-0">
-              <Landmark className="w-5 h-5" />
-            </div>
-            <div>
-              <p className="font-bold text-white">RBI Regulated Partners</p>
-              <p className="text-[11px] text-white/50">50+ Scheduled Banks &amp; NBFCs</p>
             </div>
           </div>
 

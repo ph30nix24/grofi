@@ -622,7 +622,7 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                     className="bg-white rounded-3xl p-5 sm:p-6 border border-gray-200/90 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6"
                   >
                     {/* Bank Info */}
-                    <div className="flex items-start gap-4 min-w-[280px] max-w-sm">
+                    <div className="flex items-start gap-4 min-w-70 max-w-sm">
                       <div className="w-14 h-14 rounded-2xl bg-white border border-gray-200 p-2 flex items-center justify-center shrink-0 shadow-2xs">
                         <Image
                           src={lender.logo}

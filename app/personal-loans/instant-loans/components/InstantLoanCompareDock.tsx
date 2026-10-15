@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { Scale, X, ArrowRight, Trash2, Zap, Clock } from "lucide-react";
+import { Scale, X, ArrowRight, Trash2, Zap } from "lucide-react";
 import { InstantLoanLender } from "./type";
 
 interface InstantLoanCompareDockProps {
@@ -46,7 +46,7 @@ export default function InstantLoanCompareDock({
                   />
                 </div>
                 <div className="text-left">
-                  <span className="text-xs font-bold text-white block max-w-[90px] sm:max-w-[120px] truncate">
+                  <span className="text-xs font-bold text-white block max-w-22.5 sm:max-w-30 truncate">
                     {lender.name.replace(/Personal Loan|Instant Loan/i, "").trim()}
                   </span>
                   <div className="flex items-center gap-1.5 text-[10px]">

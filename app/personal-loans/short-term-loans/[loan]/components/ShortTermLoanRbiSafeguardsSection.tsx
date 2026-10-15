@@ -69,7 +69,7 @@ export default function ShortTermLoanRbiSafeguardsSection({
       </div>
 
       {/* Regulated Entity Transparency Card */}
-      <div className="bg-gradient-to-r from-emerald-50/80 via-white to-emerald-50/80 border border-emerald-200 rounded-3xl p-6 sm:p-7 shadow-xs mb-8">
+      <div className="bg-linear-to-r from-emerald-50/80 via-white to-emerald-50/80 border border-emerald-200 rounded-3xl p-6 sm:p-7 shadow-xs mb-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-sm">

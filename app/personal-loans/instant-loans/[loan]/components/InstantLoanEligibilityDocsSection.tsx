@@ -1,23 +1,17 @@
-
-"use client";
-
 import React from "react";
 import {
   UserCheck,
-  FileCheck2,
   Briefcase,
   Calendar,
   ShieldCheck,
-  Building,
   Landmark,
   IndianRupee,
   Smartphone,
   Sparkles,
   Camera,
-  CheckCircle2,
 } from "lucide-react";
 import { InstantLoanLender } from "../../components/type";
-import { useApplyModal } from "@/app/context/ApplyModalContext";
+
 
 interface InstantLoanEligibilityDocsSectionProps {
   lender: InstantLoanLender;
@@ -26,7 +20,6 @@ interface InstantLoanEligibilityDocsSectionProps {
 export default function InstantLoanEligibilityDocsSection({
   lender,
 }: InstantLoanEligibilityDocsSectionProps) {
-  const { openApplyModal } = useApplyModal();
 
   const cibilCategory =
     lender.minCreditScore >= 720

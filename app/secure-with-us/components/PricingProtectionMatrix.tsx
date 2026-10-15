@@ -2,11 +2,9 @@
 
 import React, { useState } from "react";
 import {
-  Check,
   X,
   Sparkles,
   Shield,
-  HelpCircle,
   ArrowRight,
   Info,
   CheckCircle2,
@@ -167,7 +165,7 @@ export default function PricingProtectionMatrix({
                 <h3 className="font-bricolage font-bold text-2xl text-gray-900 mt-2">
                   {plan.name}
                 </h3>
-                <p className="text-xs text-gray-500 mt-1 min-h-[32px]">{plan.subtitle}</p>
+                <p className="text-xs text-gray-500 mt-1 min-h-8">{plan.subtitle}</p>
 
                 {/* Price Display */}
                 <div className="mt-5 p-4 rounded-2xl bg-gray-50 border border-gray-100">

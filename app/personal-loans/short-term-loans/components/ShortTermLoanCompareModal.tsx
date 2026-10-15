@@ -11,9 +11,7 @@ import {
   ArrowRight,
   ShieldCheck,
   Zap,
-  Building2,
   Calendar,
-  Layers,
   FileCheck,
 } from "lucide-react";
 import { ShortTermLoanLender } from "./type";
@@ -87,7 +85,7 @@ export default function ShortTermLoanCompareModal({
         {/* Scrollable Comparison Content */}
         <div className="overflow-y-auto flex-1 p-5 sm:p-6">
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse min-w-[620px]">
+            <table className="w-full text-left border-collapse min-w-155">
               <thead>
                 <tr className="border-b border-gray-200">
                   <th className="py-4 px-3 text-xs font-bold uppercase tracking-wider text-gray-400 w-44">

@@ -10,9 +10,6 @@ import {
   Calculator,
   CalendarRange,
   Scale,
-  Sparkles,
-  ArrowRight,
-  Percent,
 } from "lucide-react";
 import ShortTermLoanHeroForm from "./ShortTermLoanHeroForm";
 

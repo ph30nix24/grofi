@@ -2,7 +2,6 @@
 
 import React from "react";
 import {
-  Sparkles,
   Smartphone,
   Fingerprint,
   Sliders,
@@ -80,7 +79,7 @@ export default function InstantLoanDisbursalStepsSection({
               key={idx}
               className={`bg-white rounded-3xl p-6 border transition-all duration-300 shadow-2xs hover:shadow-lg flex flex-col justify-between relative group ${
                 step.highlight
-                  ? "border-primary/40 ring-2 ring-primary/5 bg-gradient-to-b from-emerald-50/30 via-white to-white"
+                  ? "border-primary/40 ring-2 ring-primary/5 bg-linear-to-b from-emerald-50/30 via-white to-white"
                   : "border-gray-200/90"
               }`}
             >
@@ -119,7 +118,7 @@ export default function InstantLoanDisbursalStepsSection({
       </div>
 
       {/* Bottom CTA Box */}
-      <div className="mt-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-primary via-[#023b40] to-primary text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+      <div className="mt-10 p-6 sm:p-8 rounded-3xl bg-linear-to-r from-primary via-[#023b40] to-primary text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
         <div className="space-y-1 text-center sm:text-left">
           <h3 className="font-bricolage font-bold text-xl sm:text-2xl text-white">
             Ready to Check Your Instant Sanction Limit?

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { ArrowRight, Zap, Clock } from "lucide-react";
+import { Zap, Clock } from "lucide-react";
 import { ShortTermLoanLender } from "../../components/type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
 

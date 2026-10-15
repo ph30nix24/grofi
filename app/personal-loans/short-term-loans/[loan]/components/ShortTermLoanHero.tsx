@@ -62,7 +62,7 @@ export default function ShortTermLoanHero({ lender }: ShortTermLoanHeroProps) {
       : "FINTECH DIGITAL LENDER";
 
   return (
-    <section className="relative overflow-hidden pt-6 pb-12 sm:pb-16 bg-gradient-to-b from-[#F3EFE6]/70 via-[#FDFBF7] to-[#FDFBF7] border-b border-gray-200/80 font-montserrat">
+    <section className="relative overflow-hidden pt-6 pb-12 sm:pb-16 bg-linear-to-b from-[#F3EFE6]/70 via-[#FDFBF7] to-[#FDFBF7] border-b border-gray-200/80 font-montserrat">
       {/* Ambient background glows */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
       <div className="absolute top-1/2 left-0 w-80 h-80 bg-[#C9AA3C]/10 rounded-full blur-3xl pointer-events-none -ml-20" />
@@ -88,7 +88,7 @@ export default function ShortTermLoanHero({ lender }: ShortTermLoanHeroProps) {
             Short Term Loans
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-          <span className="text-primary font-bold truncate max-w-[240px] sm:max-w-none">
+          <span className="text-primary font-bold truncate max-w-60 sm:max-w-none">
             {lender.name}
           </span>
         </nav>

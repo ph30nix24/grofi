@@ -3,7 +3,6 @@
 import React, { useState, useMemo } from "react";
 import {
   User,
-  Phone,
   Briefcase,
   Sparkles,
   ShieldCheck,
@@ -11,10 +10,8 @@ import {
   Loader2,
   CheckCircle2,
   Lock,
-  Clock,
   RotateCcw,
   Calendar,
-  Percent,
 } from "lucide-react";
 import { ShortTermLoanLender } from "../../components/type";
 import ConsentCheckbox from "@/app/components/ConsentCheckbox";
@@ -225,7 +222,7 @@ export default function ShortTermLoanHeroForm({ lender }: ShortTermLoanHeroFormP
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">RBI Regulated NBFC:</span>
-              <strong className="text-emerald-800 truncate max-w-[180px]">{lender.rbiRegulatedEntity}</strong>
+              <strong className="text-emerald-800 truncate max-w-45">{lender.rbiRegulatedEntity}</strong>
             </div>
           </div>
 

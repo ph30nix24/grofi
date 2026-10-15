@@ -6,9 +6,6 @@ import {
   AlertTriangle,
   CheckCircle2,
   XCircle,
-  Lock,
-  FileText,
-  HelpCircle,
   Building,
   UserCheck,
 } from "lucide-react";
@@ -144,7 +141,7 @@ export default function InstantLoanSafetyGuide() {
                     <XCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
                     <div>
                       <strong className="text-gray-900 font-bold block">Requests Advance Fees or Insurance Deposit</strong>
-                      <span>Never pay money to unlock a loan. No genuine financial institution collects 'file charges' via personal UPI IDs.</span>
+                      <span>Never pay money to unlock a loan. No genuine financial institution collects &apos;file charges&apos; via personal UPI IDs.</span>
                     </div>
                   </div>
 

@@ -190,7 +190,7 @@ export default function ShortTermLoanEmiCalculatorSection({
               value={loanAmount}
               onChange={(e) => setLoanAmount(Number(e.target.value))}
               style={{
-                background: `linear-gradient(to right, #035259 ${amountPct}%, #e5e7eb ${amountPct}%)`,
+                background: `linear-linear(to right, #035259 ${amountPct}%, #e5e7eb ${amountPct}%)`,
               }}
               className="w-full h-2 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#035259] [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[#035259] [&::-moz-range-thumb]:border-none"
             />
@@ -240,7 +240,7 @@ export default function ShortTermLoanEmiCalculatorSection({
               value={tenureMonths}
               onChange={(e) => setTenureMonths(Number(e.target.value))}
               style={{
-                background: `linear-gradient(to right, #d97706 ${tenurePct}%, #e5e7eb ${tenurePct}%)`,
+                background: `linear-linear(to right, #d97706 ${tenurePct}%, #e5e7eb ${tenurePct}%)`,
               }}
               className="w-full h-2 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#d97706] [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[#d97706] [&::-moz-range-thumb]:border-none"
             />
@@ -290,7 +290,7 @@ export default function ShortTermLoanEmiCalculatorSection({
               value={interestRate}
               onChange={(e) => setInterestRate(Number(e.target.value))}
               style={{
-                background: `linear-gradient(to right, #059669 ${ratePct}%, #e5e7eb ${ratePct}%)`,
+                background: `linear-linear(to right, #059669 ${ratePct}%, #e5e7eb ${ratePct}%)`,
               }}
               className="w-full h-2 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#059669] [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[#059669] [&::-moz-range-thumb]:border-none"
             />
@@ -305,7 +305,7 @@ export default function ShortTermLoanEmiCalculatorSection({
         {/* Right Column: Results Summary & Educational Cost Compare (5 cols) */}
         <div className="lg:col-span-5 space-y-4">
           {/* Top Dark Teal Card */}
-          <div className="bg-gradient-to-b from-[#023338] via-[#033b41] to-[#02282c] rounded-3xl p-6 sm:p-7 text-white shadow-xl relative overflow-hidden">
+          <div className="bg-linear-to-b from-[#023338] via-[#033b41] to-[#02282c] rounded-3xl p-6 sm:p-7 text-white shadow-xl relative overflow-hidden">
             <div className="relative z-10 space-y-5">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-[#2dd4bf]">
@@ -439,7 +439,7 @@ export default function ShortTermLoanEmiCalculatorSection({
 
         {showAmortization && (
           <div className="p-4 sm:p-6 border-t border-gray-100 overflow-x-auto">
-            <table className="w-full text-left text-xs text-gray-700 min-w-[500px]">
+            <table className="w-full text-left text-xs text-gray-700 min-w-125">
               <thead>
                 <tr className="border-b border-gray-200 text-gray-400 text-[11px] uppercase font-bold">
                   <th className="py-2.5 px-3">Month</th>

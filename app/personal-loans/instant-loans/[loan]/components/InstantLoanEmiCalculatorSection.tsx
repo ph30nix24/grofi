@@ -299,7 +299,7 @@ export default function InstantLoanEmiCalculatorSection({
         </div>
 
         {/* Right Column: Output Card (5 cols) */}
-        <div className="lg:col-span-5 bg-gradient-to-br from-primary via-[#023b40] to-primary text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+        <div className="lg:col-span-5 bg-linear-to-br from-primary via-[#023b40] to-primary text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
           {/* Subtle light effect */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#C9AA3C]/15 rounded-full blur-3xl pointer-events-none" />
 

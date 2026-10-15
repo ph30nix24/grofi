@@ -7,9 +7,6 @@ import {
   Search,
   X,
   Lightbulb,
-  Calendar,
-  ShieldCheck,
-  Percent,
   Zap,
 } from "lucide-react";
 

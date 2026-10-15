@@ -5,14 +5,10 @@ import Image from "next/image";
 import {
   ArrowRight,
   TrendingDown,
-  ShieldCheck,
   ChevronLeft,
   ChevronRight,
-  Clock,
   Zap,
   Search,
-  Calendar,
-  Building2,
   FileCheck,
 } from "lucide-react";
 import { ShortTermLoanLender } from "./type";
@@ -126,7 +122,7 @@ export default function ShortTermLoanComparisonTable({
         {/* Table Wrapper */}
         <div className="bg-white rounded-3xl border border-gray-200/90 shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse min-w-[860px]">
+            <table className="w-full text-left border-collapse min-w-215">
               <thead>
                 <tr className="bg-gray-50/80 border-b border-gray-200 text-[11px] font-bold uppercase tracking-wider text-gray-500">
                   <th className="py-4 px-5">Lender & RBI Entity</th>
@@ -197,7 +193,7 @@ export default function ShortTermLoanComparisonTable({
 
                     {/* Short Tenures */}
                     <td className="py-4 px-4">
-                      <div className="flex flex-wrap gap-1 max-w-[150px]">
+                      <div className="flex flex-wrap gap-1 max-w-37.5">
                         {lender.shortTenureOptions?.slice(0, 3).map((opt) => (
                           <span
                             key={opt}

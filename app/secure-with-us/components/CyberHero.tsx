@@ -4,16 +4,12 @@ import React, { useState } from "react";
 import {
   ShieldCheck,
   Sparkles,
-  Zap,
   Lock,
   ArrowRight,
   ShieldAlert,
   Building2,
   CheckCircle2,
-  TrendingUp,
   AlertCircle,
-  FileText,
-  PhoneCall,
   Scale,
 } from "lucide-react";
 import { PlanDetails } from "./EnrollmentModal";

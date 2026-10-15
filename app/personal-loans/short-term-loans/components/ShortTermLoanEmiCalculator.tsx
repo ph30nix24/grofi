@@ -5,12 +5,9 @@ import {
   Calculator,
   Calendar,
   Percent,
-  Sparkles,
   ArrowRight,
   TrendingDown,
-  Clock,
   ShieldCheck,
-  CheckCircle2,
 } from "lucide-react";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
 

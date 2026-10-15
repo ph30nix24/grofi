@@ -6,7 +6,6 @@ import {
   X,
   Star,
   CheckCircle2,
-  AlertCircle,
   FileText,
   UserCheck,
   Percent,
@@ -14,9 +13,6 @@ import {
   ArrowRight,
   ShieldCheck,
   Zap,
-  Building2,
-  Smartphone,
-  Download,
 } from "lucide-react";
 import { InstantLoanLender } from "./type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";

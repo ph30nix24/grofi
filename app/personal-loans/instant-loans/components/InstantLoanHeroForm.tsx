@@ -3,11 +3,9 @@
 import React, { useState } from "react";
 import {
   User,
-  Phone,
   Briefcase,
   Zap,
   Sparkles,
-  ShieldCheck,
   ArrowRight,
   Loader2,
   CheckCircle2,

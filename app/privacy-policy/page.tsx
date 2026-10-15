@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import JsonLd from "@/app/components/JsonLd";
-import { ShieldCheck, Lock, FileText, CheckCircle2, UserCheck, Bell } from "lucide-react";
+import { ShieldCheck, CheckCircle2 } from "lucide-react";
 import { CURRENT_CONSENT_VERSION } from "@/app/constants/consent";
 
 export const metadata: Metadata = {
@@ -70,7 +70,7 @@ export default function PrivacyPolicyPage() {
       <Navbar />
       <main className="min-h-screen bg-[#FDFBF7] text-gray-800 font-montserrat">
         {/* Hero Banner */}
-        <section className="bg-gradient-to-b from-[#02474D] to-[#012f33] text-white py-16 sm:py-20 px-4 sm:px-6 relative overflow-hidden">
+        <section className="bg-linear-to-b from-[#02474D] to-[#012f33] text-white py-16 sm:py-20 px-4 sm:px-6 relative overflow-hidden">
           <div className="absolute top-0 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
           <div className="max-w-4xl mx-auto text-center relative z-10">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-emerald-300 text-xs font-semibold mb-4 border border-white/15">

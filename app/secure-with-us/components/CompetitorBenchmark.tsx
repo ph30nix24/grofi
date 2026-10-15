@@ -4,11 +4,7 @@ import {
   Scale,
   CheckCircle2,
   AlertCircle,
-  HelpCircle,
   ShieldCheck,
-  Building2,
-  Info,
-  ArrowRight,
 } from "lucide-react";
 
 export default function CompetitorBenchmark() {

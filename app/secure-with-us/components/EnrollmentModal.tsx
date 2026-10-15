@@ -4,12 +4,9 @@ import React, { useState } from "react";
 import {
   X,
   ShieldCheck,
-  CheckCircle2,
   Lock,
   ArrowRight,
-  Sparkles,
   AlertCircle,
-  FileCheck2,
   Download,
   Building2,
   BadgeCheck,

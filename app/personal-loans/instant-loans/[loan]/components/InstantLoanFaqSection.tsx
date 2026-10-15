@@ -6,7 +6,6 @@ import {
   ChevronDown,
   Search,
   ShieldCheck,
-  Zap,
 } from "lucide-react";
 import { InstantLoanLender } from "../../components/type";
 

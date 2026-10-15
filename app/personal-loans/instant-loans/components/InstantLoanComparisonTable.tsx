@@ -5,14 +5,11 @@ import Image from "next/image";
 import {
   ArrowRight,
   TrendingDown,
-  ShieldCheck,
   ChevronLeft,
   ChevronRight,
   Clock,
-  Zap,
   Search,
   X,
-  Star,
 } from "lucide-react";
 import { InstantLoanLender } from "./type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
@@ -156,7 +153,7 @@ export default function InstantLoanComparisonTable({
                               </span>
                             )}
                           </div>
-                          <span className="text-[11px] text-gray-500 block truncate max-w-[160px]">
+                          <span className="text-[11px] text-gray-500 block truncate max-w-40">
                             {lender.tagline}
                           </span>
                         </div>
@@ -200,13 +197,13 @@ export default function InstantLoanComparisonTable({
                       <span className={`font-semibold ${lender.minCreditScore <= 650 ? "text-amber-700" : "text-gray-800"}`}>
                         {lender.minCreditScore}+
                       </span>
-                      <span className="text-[10px] text-gray-400 block truncate max-w-[100px]">
+                      <span className="text-[10px] text-gray-400 block truncate max-w-25">
                         {lender.documentation}
                       </span>
                     </td>
 
                     {/* Processing Fee */}
-                    <td className="py-4 px-4 text-gray-600 text-[11px] max-w-[160px] truncate" title={lender.processingFee}>
+                    <td className="py-4 px-4 text-gray-600 text-[11px] max-w-40 truncate" title={lender.processingFee}>
                       {lender.processingFee}
                     </td>
 

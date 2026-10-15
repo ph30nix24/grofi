@@ -5,13 +5,10 @@ import {
   User,
   Phone,
   Briefcase,
-  Sparkles,
-  ShieldCheck,
   ArrowRight,
   Loader2,
   CheckCircle2,
   Lock,
-  Clock,
   Headphones,
   RotateCcw,
   Zap,
@@ -144,7 +141,7 @@ export default function InstantLoanHeroForm({ lender }: InstantLoanHeroFormProps
   return (
     <div className="bg-white rounded-3xl p-5 sm:p-7 shadow-xl border border-gray-200/90 relative overflow-hidden font-montserrat">
       {/* Top accent gradient bar */}
-      <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-primary via-emerald-500 to-[#B69226]" />
+      <div className="absolute top-0 left-0 right-0 h-1.5 bg-linear-to-r from-primary via-emerald-500 to-[#B69226]" />
 
       {!isSubmitted ? (
         <div>

@@ -10,9 +10,6 @@ import {
   Star,
   CheckCircle2,
   ArrowRight,
-  TrendingDown,
-  Building2,
-  Percent,
 } from "lucide-react";
 import { InstantLoanLender } from "./type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
@@ -84,7 +81,7 @@ export default function InstantLoanCompareModal({
 
         {/* Scrollable comparison matrix */}
         <div className="overflow-auto flex-1 p-4 sm:p-6">
-          <div className="min-w-[620px]">
+          <div className="min-w-155">
             {/* Top Lender Cards Header */}
             <div className="grid grid-cols-12 gap-3 pb-6 border-b border-gray-200">
               <div className="col-span-3 font-bricolage font-bold text-sm text-gray-500 flex items-end pb-2">

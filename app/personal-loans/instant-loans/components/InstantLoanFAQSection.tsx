@@ -7,7 +7,6 @@ import {
   Search,
   X,
   Lightbulb,
-  Zap,
 } from "lucide-react";
 
 export interface InstantLoanFAQItem {

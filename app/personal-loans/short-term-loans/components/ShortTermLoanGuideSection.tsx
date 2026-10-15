@@ -12,7 +12,6 @@ import {
   CreditCard,
   Building,
   Calendar,
-  Layers,
 } from "lucide-react";
 
 export default function ShortTermLoanGuideSection() {

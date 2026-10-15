@@ -3,16 +3,12 @@
 import React from "react";
 import Image from "next/image";
 import {
-  Sparkles,
   Zap,
   Clock,
   ShieldCheck,
   TrendingDown,
-  Building2,
   Calculator,
   CheckCircle2,
-  Lock,
-  ArrowRight,
 } from "lucide-react";
 import InstantLoanHeroForm from "./InstantLoanHeroForm";
 
@@ -201,7 +197,7 @@ export default function InstantLoanHero() {
                   alt={p.name}
                   width={110}
                   height={32}
-                  className="max-h-7 max-w-[100px] object-contain"
+                  className="max-h-7 max-w-25 object-contain"
                 />
               </div>
             ))}

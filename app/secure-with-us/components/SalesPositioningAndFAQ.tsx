@@ -4,12 +4,9 @@ import React, { useState } from "react";
 import {
   ChevronDown,
   HelpCircle,
-  PhoneCall,
   CheckCircle2,
   XCircle,
   AlertOctagon,
-  Sparkles,
-  ShieldCheck,
   MessageSquare,
 } from "lucide-react";
 
