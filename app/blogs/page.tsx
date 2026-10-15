@@ -55,7 +55,8 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 3600;
+// Revalidate blog index every 60s so newly published blogs appear automatically without manual redeployment
+export const revalidate = 60;
 
 async function fetchBlogs(): Promise<BlogItem[]> {
   try {

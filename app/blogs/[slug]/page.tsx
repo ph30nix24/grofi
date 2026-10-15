@@ -24,7 +24,8 @@ interface BlogPostPageProps {
   }>;
 }
 
-export const revalidate = 3600;
+// Revalidate blog post every 60s so edits/updates appear automatically without manual redeployment
+export const revalidate = 60;
 
 export async function generateMetadata({
   params,

@@ -27,6 +27,9 @@ function getLatestDate(
   return new Date(Math.max(...valid.map((d) => d.getTime())));
 }
 
+// Revalidate sitemap every hour so new blog slugs appear automatically without manual redeployment
+export const revalidate = 3600;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Query all product and content tables in parallel with graceful error handling
   const [
