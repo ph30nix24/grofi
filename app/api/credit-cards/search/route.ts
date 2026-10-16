@@ -1,15 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/libs/db";
-import { PARTNER_BANKS } from "@/app/credit-cards/[bank]/components/constants";
-
-// Helper to get bank slug
-function getBankSlug(issuer: string): string {
-  const matched = PARTNER_BANKS.find(
-    (b) => b.name.toLowerCase() === issuer.toLowerCase()
-  );
-  if (matched) return matched.slug;
-  return issuer.toLowerCase().trim().replace(/\s+/g, "-");
-}
+import { PARTNER_BANKS, getBankSlug } from "@/app/credit-cards/[bank]/components/constants";
 
 export async function GET(request: Request) {
   try {

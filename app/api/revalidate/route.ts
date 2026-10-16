@@ -5,8 +5,11 @@ export async function POST(request: NextRequest) {
   return handleRevalidate(request);
 }
 
-export async function GET(request: NextRequest) {
-  return handleRevalidate(request);
+export async function GET() {
+  return NextResponse.json(
+    { error: "Method Not Allowed. Cache revalidation must be triggered via POST." },
+    { status: 405, headers: { Allow: "POST" } }
+  );
 }
 
 function safeRevalidatePath(path: string, type?: "page" | "layout") {
@@ -52,7 +55,7 @@ async function handleRevalidate(request: NextRequest) {
       }
     }
 
-    // Extract secret from header, auth bearer, query param, or json body
+    // Extract secret only from header, auth bearer, or json body (query-string secret dropped)
     const authHeader = request.headers.get("authorization");
     const bearerToken = authHeader?.startsWith("Bearer ")
       ? authHeader.slice(7)
@@ -61,15 +64,14 @@ async function handleRevalidate(request: NextRequest) {
     const providedSecret =
       request.headers.get("x-revalidate-secret") ||
       bearerToken ||
-      searchParams.get("secret") ||
-      searchParams.get("token") ||
       (typeof body.secret === "string" ? body.secret : null) ||
       (typeof body.token === "string" ? body.token : null);
 
     const configuredSecret =
       process.env.REVALIDATION_SECRET || process.env.REVALIDATE_SECRET;
 
-    if (configuredSecret && providedSecret !== configuredSecret) {
+    // Fail closed: secret MUST be configured in environment AND providedSecret MUST match
+    if (!configuredSecret || !providedSecret || providedSecret !== configuredSecret) {
       return NextResponse.json(
         { error: "Unauthorized: Invalid or missing revalidation secret token" },
         { status: 401 }

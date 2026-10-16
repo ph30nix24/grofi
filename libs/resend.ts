@@ -87,6 +87,18 @@ function formatTimestamp(dateInput?: Date | string): string {
 }
 
 /**
+ * HTML-escape utility to prevent HTML/XSS injection in notification emails
+ */
+export function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+/**
  * Sends a clean, branded email notification to NOTIFICATION_EMAIL
  */
 export async function sendFormNotification(options: SendFormNotificationOptions) {
@@ -154,20 +166,26 @@ export async function sendFormNotification(options: SendFormNotificationOptions)
   // Generate HTML table rows
   const tableRowsHtml = filteredEntries
     .map(([key, val], idx) => {
-      const label = formatFieldLabel(key);
+      const label = escapeHtml(formatFieldLabel(key));
       const strVal = String(val);
       const isAltRow = idx % 2 === 1;
 
-      let valueDisplayHtml = strVal;
+      let valueDisplayHtml = escapeHtml(strVal);
 
-      // Make URLs clickable
-      if (/^https?:\/\//i.test(strVal)) {
-        valueDisplayHtml = `<a href="${strVal}" target="_blank" style="color: #02474D; text-decoration: underline; font-weight: 600;">${strVal}</a>`;
+      // Make URLs clickable safely (only allow http / https, validate structure)
+      if (/^https?:\/\/[^\s$.?#].[^\s]*$/i.test(strVal.trim())) {
+        const safeUrl = strVal.trim();
+        valueDisplayHtml = `<a href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer" style="color: #02474D; text-decoration: underline; font-weight: 600;">${escapeHtml(safeUrl)}</a>`;
       } else if (key.toLowerCase().includes("phone") || key.toLowerCase() === "number") {
         const clean = strVal.replace(/\D/g, "");
-        valueDisplayHtml = `<a href="tel:+91${clean}" style="color: #02474D; font-weight: 700; text-decoration: none;">+91 ${clean}</a>`;
+        if (clean.length === 10) {
+          valueDisplayHtml = `<a href="tel:+91${clean}" style="color: #02474D; font-weight: 700; text-decoration: none;">+91 ${clean}</a>`;
+        }
       } else if (key.toLowerCase().includes("email")) {
-        valueDisplayHtml = `<a href="mailto:${strVal}" style="color: #02474D; font-weight: 700; text-decoration: none;">${strVal}</a>`;
+        const emailTrim = strVal.trim();
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailTrim)) {
+          valueDisplayHtml = `<a href="mailto:${escapeHtml(emailTrim)}" style="color: #02474D; font-weight: 700; text-decoration: none;">${escapeHtml(emailTrim)}</a>`;
+        }
       }
 
       return `
@@ -197,9 +215,9 @@ export async function sendFormNotification(options: SendFormNotificationOptions)
       </a>
     `);
   }
-  if (customerEmail && !customerEmail.includes("grofi.in")) {
+  if (customerEmail && !customerEmail.includes("grofi.in") && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail)) {
     actionButtons.push(`
-      <a href="mailto:${customerEmail}" style="display: inline-block; background-color: #B69226; color: #FFFFFF; font-weight: 700; font-size: 13px; padding: 10px 18px; border-radius: 8px; text-decoration: none; margin-right: 8px; margin-bottom: 8px;">
+      <a href="mailto:${escapeHtml(customerEmail)}" style="display: inline-block; background-color: #B69226; color: #FFFFFF; font-weight: 700; font-size: 13px; padding: 10px 18px; border-radius: 8px; text-decoration: none; margin-right: 8px; margin-bottom: 8px;">
         ✉️ Reply via Email
       </a>
     `);
@@ -226,7 +244,7 @@ export async function sendFormNotification(options: SendFormNotificationOptions)
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${formTitle}</title>
+  <title>${escapeHtml(formTitle)}</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #F4F6F8; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: #2D3748; -webkit-font-smoothing: antialiased;">
   <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #F4F6F8; padding: 30px 15px;">
@@ -246,10 +264,10 @@ export async function sendFormNotification(options: SendFormNotificationOptions)
                       ✦ Grofi Lead Alert
                     </div>
                     <h1 style="margin: 0; color: #FFFFFF; font-size: 24px; font-weight: 800; line-height: 1.25;">
-                      ${formTitle}
+                      ${escapeHtml(formTitle)}
                     </h1>
                     <p style="margin: 6px 0 0 0; color: #CBD5E0; font-size: 13px;">
-                      Form: <strong style="color: #FFFFFF;">${formType}</strong> &bull; Received on <strong>${timestampStr}</strong>
+                      Form: <strong style="color: #FFFFFF;">${escapeHtml(formType)}</strong> &bull; Received on <strong>${timestampStr}</strong>
                     </p>
                   </td>
                 </tr>

@@ -2,14 +2,40 @@ import { NextResponse } from "next/server";
 import { sendFormNotification } from "@/libs/resend";
 import prisma from "@/libs/db";
 import { resolveServerConsent } from "@/app/constants/consent";
+import {
+  getClientIp,
+  checkRateLimit,
+  isHoneypotTriggered,
+  isValidIndianPhone,
+  isValidEmail,
+  isValidFormType,
+} from "@/libs/spamProtection";
 
 export async function POST(request: Request) {
   try {
+    // 1. Rate Limiting Check
+    const clientIp = getClientIp(request);
+    const rateLimit = checkRateLimit(clientIp);
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: "Too many requests. Please wait a minute before submitting again." },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
 
     if (!body || typeof body !== "object") {
       return NextResponse.json(
         { error: "Invalid submission payload. Expected JSON object." },
+        { status: 400 }
+      );
+    }
+
+    // 2. Honeypot Bot Check
+    if (isHoneypotTriggered(body)) {
+      return NextResponse.json(
+        { error: "Submission could not be processed." },
         { status: 400 }
       );
     }
@@ -22,32 +48,69 @@ export async function POST(request: Request) {
       ...rawFields
     } = body;
 
-    // Build human-friendly form title if not explicitly provided
-    const resolvedTitle = formTitle || `New Lead: ${formType}`;
+    // 3. Form Type Validation
+    if (!isValidFormType(formType)) {
+      return NextResponse.json(
+        { error: "Invalid or unrecognized form type." },
+        { status: 400 }
+      );
+    }
 
-    // Extract core contact and context fields for structured queryability
+    // Extract core contact and context fields
     const rawName = rawFields.fullName || rawFields.name || rawFields.businessName || null;
     const rawPhone = rawFields.phone || rawFields.number || null;
     const rawEmail = rawFields.email || rawFields.newsletterEmail || replyTo || null;
     const rawService = rawFields.service || rawFields.selectedProduct || rawFields.feature || rawFields.lender || null;
     const sourcePage = rawFields.page || rawFields.sourceUrl || request.headers.get("referer") || null;
 
-    // Resolve versioned consent on the server - ignore client-supplied timestamps and prevent invalid Date crashes
+    const cleanPhone = rawPhone ? String(rawPhone).replace(/\D/g, "") : null;
+    const hasValidPhone = cleanPhone ? isValidIndianPhone(cleanPhone) : false;
+    const hasValidEmail = rawEmail ? isValidEmail(String(rawEmail)) : false;
+
+    // 4. Contact Validation: Every form must provide either a valid phone or a valid email
+    if (rawPhone && !hasValidPhone) {
+      return NextResponse.json(
+        { error: "Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9" },
+        { status: 400 }
+      );
+    }
+
+    if (rawEmail && !hasValidEmail) {
+      return NextResponse.json(
+        { error: "Please enter a valid email address." },
+        { status: 400 }
+      );
+    }
+
+    if (!hasValidPhone && !hasValidEmail) {
+      return NextResponse.json(
+        { error: "Please provide a valid 10-digit mobile number or email address." },
+        { status: 400 }
+      );
+    }
+
+    // 5. Consent Validation: Resolve versioned consent on server
     const { consentGiven, consentVersion, consentTimestamp } = resolveServerConsent(
       rawFields.consentGiven,
       rawFields.consentVersion
     );
 
-    const cleanPhone = rawPhone ? String(rawPhone).replace(/\D/g, "") : null;
+    if (!consentGiven) {
+      return NextResponse.json(
+        { error: "Consent is required to submit your request." },
+        { status: 400 }
+      );
+    }
 
-    // Log the lead
-    console.log(`=== NEW FORM SUBMISSION: ${formType} ===`);
-    console.log("Consent Given:", consentGiven);
-    console.log("Consent Version:", consentVersion);
-    console.log("Consent Timestamp (Server):", consentTimestamp?.toISOString());
-    console.log("Fields:", JSON.stringify(rawFields, null, 2));
+    // Build human-friendly form title if not explicitly provided
+    const resolvedTitle = formTitle || `New Lead: ${formType}`;
 
-    // 1. Save every lead to the Lead table FIRST (guaranteeing no lead loss)
+    // 6. DPDP-Compliant Logging: No unmasked PII in server logs
+    console.log(
+      `[Form Submitted] Type: ${formType}, Source: ${sourcePage || "direct"}, IP: ${clientIp}`
+    );
+
+    // 7. Save every lead to the Lead table FIRST (guaranteeing zero lead loss)
     const lead = await prisma.lead.create({
       data: {
         formType,
@@ -72,7 +135,7 @@ export async function POST(request: Request) {
 
     console.log(`[Lead Saved] Successfully persisted lead ${lead.id} to database.`);
 
-    // 2. Then attempt email notification via Resend
+    // 8. Attempt email notification via Resend
     const emailResult = await sendFormNotification({
       formTitle: resolvedTitle,
       formType,
@@ -84,10 +147,10 @@ export async function POST(request: Request) {
       },
     });
 
-    // 3. Update lead record with email delivery status
+    // 9. Update lead record with email delivery status
     if (!emailResult.success) {
       console.warn(
-        `[Form Submit] Note: Email dispatch had warning/error: ${emailResult.error}`
+        `[Form Submit] Email notification dispatch note: ${emailResult.error}`
       );
       await prisma.lead.update({
         where: { id: lead.id },
@@ -96,33 +159,24 @@ export async function POST(request: Request) {
           emailError: emailResult.error || "Email delivery failed",
         },
       });
-
-      // Do NOT return success: true when email fails or RESEND_API_KEY is missing
-      return NextResponse.json(
-        {
-          success: false,
-          error: emailResult.error || "Failed to deliver email notification.",
-          leadId: lead.id,
+    } else {
+      await prisma.lead.update({
+        where: { id: lead.id },
+        data: {
+          emailSent: true,
+          emailId: emailResult.id,
+          emailError: null,
         },
-        { status: 500 }
-      );
+      });
     }
 
-    await prisma.lead.update({
-      where: { id: lead.id },
-      data: {
-        emailSent: true,
-        emailId: emailResult.id,
-        emailError: null,
-      },
-    });
-
+    // Always report success if lead is safely saved in the database
     return NextResponse.json({
       success: true,
       message: "Form received and processed successfully.",
       leadId: lead.id,
-      emailDelivered: true,
-      emailId: emailResult.id,
+      emailDelivered: emailResult.success,
+      emailId: emailResult.id || null,
     });
   } catch (error) {
     console.error("[Form Submit Error]:", error);
@@ -132,4 +186,3 @@ export async function POST(request: Request) {
     );
   }
 }
-

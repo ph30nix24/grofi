@@ -9,22 +9,12 @@ import {
 } from "lucide-react";
 import { CardStructure } from "./type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
-import { PARTNER_BANKS } from "../../components/constants";
+import { getBankSlug } from "../../components/constants";
 
 interface SimilarCardsSectionProps {
   currentCard: CardStructure;
   similarCards: CardStructure[];
   bankSlug: string;
-}
-
-// Canonical bank slug helper to prevent redirect hops
-function resolveCardSlug(issuer?: string, defaultSlug = "hdfc-bank"): string {
-  if (!issuer) return defaultSlug;
-  const matched = PARTNER_BANKS.find(
-    (b) => b.name.toLowerCase() === issuer.toLowerCase()
-  );
-  if (matched) return matched.slug;
-  return issuer.toLowerCase().trim().replace(/\s+/g, "-");
 }
 
 export default function SimilarCardsSection({
@@ -66,7 +56,7 @@ export default function SimilarCardsSection({
             card.annualFee?.includes("₹0") ||
             card.annualFee?.toLowerCase().includes("nil");
 
-          const cardSlug = resolveCardSlug(card.issuer, bankSlug);
+          const cardSlug = getBankSlug(card.issuer);
           const cardHref = `/credit-cards/${cardSlug}/${card.id}`;
 
           return (

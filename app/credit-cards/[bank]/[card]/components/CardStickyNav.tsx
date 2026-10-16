@@ -34,7 +34,7 @@ export default function CardStickyNav({ card }: CardStickyNavProps) {
       setIsScrolled(window.scrollY > 400);
 
       // Highlight active section based on scroll position
-      const offset = window.innerWidth < 640 ? 120 : 150;
+      const offset = window.innerWidth < 640 ? 125 : 150;
       const scrollPos = window.scrollY + offset;
 
       for (const item of NAV_ITEMS) {
@@ -69,7 +69,7 @@ export default function CardStickyNav({ card }: CardStickyNavProps) {
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      const navOffset = window.innerWidth < 640 ? 110 : 140;
+      const navOffset = window.innerWidth < 640 ? 125 : 145;
       const elementPosition = el.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - navOffset;
 
@@ -84,7 +84,7 @@ export default function CardStickyNav({ card }: CardStickyNavProps) {
   return (
     <nav
       aria-label="Section Quick Jump Navigation"
-      className="sticky top-14 sm:top-16 lg:top-16 z-40 bg-white/95 backdrop-blur-xl border-b border-gray-200/90 shadow-[0_2px_10px_rgba(0,0,0,0.03)] transition-all duration-300"
+      className="sticky top-18 sm:top-21 z-40 bg-white/95 backdrop-blur-xl border-b border-gray-200/90 shadow-[0_2px_10px_rgba(0,0,0,0.03)] transition-all duration-300"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-between gap-4">
         

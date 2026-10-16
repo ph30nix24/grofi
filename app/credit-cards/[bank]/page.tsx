@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { cache } from "react";
 import prisma from "@/libs/db";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
@@ -13,9 +15,47 @@ import { BankFAQS, CardStructure } from "../components/type";
 import JsonLd from "@/app/components/JsonLd";
 import { buildBankCreditCardsHubJsonLd } from "@/libs/structuredData";
 
-import { PARTNER_BANKS } from "./components/constants";
+import { PARTNER_BANKS, getBankSlug } from "./components/constants";
 
 export const revalidate = 3600;
+
+const fetchBankCards = cache(async (bankName: string, bankSlug: string): Promise<CardStructure[] | null> => {
+  try {
+    const rawData = await prisma.creditCard.findMany({
+      where: {
+        issuer: { equals: bankName, mode: "insensitive" },
+      },
+    });
+
+    if (rawData.length > 0) {
+      return JSON.parse(JSON.stringify(rawData)) as CardStructure[];
+    }
+
+    // Fallback: check if any cards match bankSlug via canonical getBankSlug
+    const allCards = await prisma.creditCard.findMany();
+    const matched = allCards.filter(
+      (c) => c.issuer && getBankSlug(c.issuer).toLowerCase() === bankSlug.toLowerCase()
+    );
+    return JSON.parse(JSON.stringify(matched)) as CardStructure[];
+  } catch (error) {
+    console.warn("Failed to fetch data: ", error);
+    return null;
+  }
+});
+
+const fetchFAQs = cache(async (issuer: string): Promise<BankFAQS[] | null> => {
+  try {
+    const rawData = await prisma.bankFAQS.findMany({
+      where: {
+        bank: { equals: issuer, mode: "insensitive" },
+      },
+    });
+    return JSON.parse(JSON.stringify(rawData)) as BankFAQS[];
+  } catch (error) {
+    console.warn("Failed to fetch data: ", error);
+    return null;
+  }
+});
 
 export async function generateMetadata({
   params,
@@ -24,14 +64,23 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const bankSlug = (await params).bank;
 
-  const issuer = bankSlug?.split("-") || [];
-  const bank = issuer
-    .map((word, idx) => (idx === 0 ? word.toUpperCase() : word.charAt(0).toUpperCase() + word.slice(1)))
-    .join(" ");
-
   const partnerBank = PARTNER_BANKS.find(
     (b) => b.slug.toLowerCase() === bankSlug.toLowerCase()
   );
+  const bank = partnerBank
+    ? partnerBank.name
+    : (bankSlug?.split("-") || [])
+        .map((word, idx) => (idx === 0 ? word.toUpperCase() : word.charAt(0).toUpperCase() + word.slice(1)))
+        .join(" ");
+
+  const creditsCards = await fetchBankCards(bank, bankSlug);
+  if (!creditsCards || creditsCards.length === 0) {
+    return {
+      title: "Bank Not Found | Grofi",
+      description: "No credit cards found for this bank.",
+    };
+  }
+
   const ogImage = partnerBank?.logo || "/og-image.png";
 
   return {
@@ -74,45 +123,26 @@ export async function generateMetadata({
   };
 }
 
-async function fetchBankCards(issuer: string): Promise<CardStructure[] | null> {
-    try {
-        const rawData = await prisma.creditCard.findMany({
-            where: { issuer }
-        })
-
-        return JSON.parse(JSON.stringify(rawData)) as CardStructure[]
-    } catch (error) {
-        console.warn("Failed to fetch data: ", error)
-        return null
-    }
-}
-
-async function fetchFAQs(issuer: string): Promise<BankFAQS[] | null> {
-    try {
-        const rawData = await prisma.bankFAQS.findMany({
-            where: { bank: issuer }
-        })
-        console.log(rawData.length)
-        return JSON.parse(JSON.stringify(rawData)) as BankFAQS[]
-    } catch (error) {
-        console.warn("Failed to fetch data: ", error)
-        return null
-    }
-}
-
-
 export default async function SelectedBankCreditCard({ params }: {
     params: Promise<{ bank: string }>
 }) {
-    const bankSlug = (await params).bank
+    const bankSlug = (await params).bank;
 
-    const issuer = bankSlug?.split("-") || [];
-    const bank = issuer
-        .map((word, idx) => (idx === 0 ? word.toUpperCase() : word.charAt(0).toUpperCase() + word.slice(1)))
-        .join(" ");
+    const partnerBank = PARTNER_BANKS.find(
+        (b) => b.slug.toLowerCase() === bankSlug.toLowerCase()
+    );
+    const bank = partnerBank
+        ? partnerBank.name
+        : (bankSlug?.split("-") || [])
+            .map((word, idx) => (idx === 0 ? word.toUpperCase() : word.charAt(0).toUpperCase() + word.slice(1)))
+            .join(" ");
 
-    const creditsCards = await fetchBankCards(bank)
-    const relatedFAQs = await fetchFAQs(bank)
+    const creditsCards = await fetchBankCards(bank, bankSlug);
+    if (!creditsCards || creditsCards.length === 0) {
+        notFound();
+    }
+
+    const relatedFAQs = await fetchFAQs(bank);
 
     const jsonLd = buildBankCreditCardsHubJsonLd(
         bank,

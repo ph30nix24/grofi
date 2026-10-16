@@ -2,12 +2,46 @@ import { NextResponse } from "next/server";
 import { sendFormNotification } from "@/libs/resend";
 import prisma from "@/libs/db";
 import { resolveServerConsent } from "@/app/constants/consent";
+import {
+  getClientIp,
+  checkRateLimit,
+  isHoneypotTriggered,
+  isValidIndianPhone,
+} from "@/libs/spamProtection";
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { name, phone, cibilScore, service, page, consentGiven: rawConsentGiven, consentVersion: rawConsentVersion } = body;
+    // 1. Rate Limiting Check
+    const clientIp = getClientIp(request);
+    const rateLimit = checkRateLimit(clientIp);
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: "Too many requests. Please wait a minute before submitting again." },
+        { status: 429 }
+      );
+    }
 
+    const body = await request.json();
+
+    // 2. Honeypot Bot Check
+    if (isHoneypotTriggered(body)) {
+      return NextResponse.json(
+        { error: "Submission could not be processed." },
+        { status: 400 }
+      );
+    }
+
+    const {
+      name,
+      phone,
+      cibilScore,
+      service,
+      page,
+      consentGiven: rawConsentGiven,
+      consentVersion: rawConsentVersion,
+    } = body;
+
+    // 3. Input Validation
     if (!name || typeof name !== "string" || name.trim().length < 2) {
       return NextResponse.json(
         { error: "Please enter a valid full name (minimum 2 characters)" },
@@ -16,7 +50,7 @@ export async function POST(request: Request) {
     }
 
     const cleanPhone = (phone || "").toString().replace(/\D/g, "");
-    if (cleanPhone.length !== 10 || !/^[6-9]/.test(cleanPhone)) {
+    if (!isValidIndianPhone(cleanPhone)) {
       return NextResponse.json(
         { error: "Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9" },
         { status: 400 }
@@ -31,7 +65,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // Resolve versioned consent on server - never trust client timestamps or arbitrary dates
+    // Resolve versioned consent on server - never trust client timestamps
     const { consentGiven, consentVersion, consentTimestamp } = resolveServerConsent(
       rawConsentGiven,
       rawConsentVersion
@@ -46,18 +80,12 @@ export async function POST(request: Request) {
 
     const sourcePage = page || request.headers.get("referer") || null;
 
-    // Log the lead for follow-up
-    console.log("=== NEW CONNECT LEAD ===");
-    console.log("Name:", name.trim());
-    console.log("Phone: +91", cleanPhone);
-    console.log("CIBIL Score:", cibilScore || "Not provided");
-    console.log("Selected Service:", service);
-    console.log("Source Page:", sourcePage);
-    console.log("Consent Version:", consentVersion);
-    console.log("Consent Timestamp (Server):", consentTimestamp?.toISOString());
-    console.log("========================");
+    // 4. DPDP-Compliant Logging: No unmasked PII (name, full phone, salary, CIBIL) in production logs
+    console.log(
+      `[Connect Lead Received] Service: ${service}, Source: ${sourcePage || "direct"}, IP: ${clientIp}`
+    );
 
-    // 1. Save every lead to the Lead table FIRST (guaranteeing no lead loss)
+    // 5. Persist lead in database FIRST (guaranteeing zero lead loss)
     const lead = await prisma.lead.create({
       data: {
         formType: "Connect With Our Advisors",
@@ -85,7 +113,7 @@ export async function POST(request: Request) {
 
     console.log(`[Connect Lead Saved] Persisted lead ${lead.id} to database.`);
 
-    // 2. Then send email notification via Resend to NOTIFICATION_EMAIL
+    // 6. Attempt email notification via Resend
     const emailResult = await sendFormNotification({
       formTitle: `Advisor Callback Request: ${name.trim()}`,
       formType: "Connect With Our Advisors",
@@ -98,9 +126,10 @@ export async function POST(request: Request) {
       },
     });
 
+    // 7. Update email status on lead without failing user submission if email fails
     if (!emailResult.success) {
       console.warn(
-        `[Connect Lead] Email dispatch warning/error: ${emailResult.error}`
+        `[Connect Lead] Email notification dispatch note: ${emailResult.error}`
       );
       await prisma.lead.update({
         where: { id: lead.id },
@@ -109,26 +138,18 @@ export async function POST(request: Request) {
           emailError: emailResult.error || "Email delivery failed",
         },
       });
-
-      return NextResponse.json(
-        {
-          success: false,
-          error: emailResult.error || "Failed to deliver email notification.",
-          leadId: lead.id,
+    } else {
+      await prisma.lead.update({
+        where: { id: lead.id },
+        data: {
+          emailSent: true,
+          emailId: emailResult.id,
+          emailError: null,
         },
-        { status: 500 }
-      );
+      });
     }
 
-    await prisma.lead.update({
-      where: { id: lead.id },
-      data: {
-        emailSent: true,
-        emailId: emailResult.id,
-        emailError: null,
-      },
-    });
-
+    // Always report success if lead is safely saved in the database
     return NextResponse.json({
       success: true,
       message: "Lead received successfully. Our advisor will connect with you shortly.",
@@ -148,4 +169,3 @@ export async function POST(request: Request) {
     );
   }
 }
-

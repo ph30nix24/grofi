@@ -27,6 +27,63 @@ export const PARTNER_BANKS = [
   { name: "BOB Bank", slug: "bob-bank", logo: "/partners-logos/bob-logo.webp", tag: "RuPay UPI Cards" },
 ];
 
+// Canonical alias map for issuers with naming variations
+const BANK_ALIASES: Record<string, string> = {
+  sbi: "sbi-bank",
+  "sbi card": "sbi-bank",
+  "sbi cards": "sbi-bank",
+  "state bank of india": "sbi-bank",
+  bob: "bob-bank",
+  baroda: "bob-bank",
+  "bank of baroda": "bob-bank",
+  hdfc: "hdfc-bank",
+  icici: "icici-bank",
+  axis: "axis-bank",
+  idfc: "idfc-bank",
+  "idfc first": "idfc-bank",
+  "idfc first bank": "idfc-bank",
+  indusind: "indusind-bank",
+  yes: "yes-bank",
+  federal: "federal-bank",
+  au: "au-bank",
+  "au small finance": "au-bank",
+  "au small finance bank": "au-bank",
+  hsbc: "hsbc-bank",
+  kotak: "kotak-bank",
+  "kotak mahindra": "kotak-bank",
+  "kotak mahindra bank": "kotak-bank",
+  canara: "canara-bank",
+  "canara bank": "canara-bank",
+  pnb: "pnb-bank",
+  "punjab national bank": "pnb-bank",
+  union: "union-bank",
+  "union bank": "union-bank",
+  "union bank of india": "union-bank",
+};
+
+// Helper: Convert bank issuer string to canonical URL slug
+export function getBankSlug(issuer?: string | null): string {
+  if (!issuer) return "other-bank";
+  const trimmed = issuer.trim();
+  if (!trimmed) return "other-bank";
+
+  const lower = trimmed.toLowerCase();
+
+  // 1. Direct partner match by name or slug
+  const matched = PARTNER_BANKS.find(
+    (b) => b.name.toLowerCase() === lower || b.slug.toLowerCase() === lower
+  );
+  if (matched) return matched.slug;
+
+  // 2. Direct alias match
+  if (BANK_ALIASES[lower]) {
+    return BANK_ALIASES[lower];
+  }
+
+  // 3. Fallback: URL-safe kebab slug
+  return lower.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
 // Category filter tabs
 export const CATEGORY_TABS = [
   { id: "all", label: "All Cards", icon: CreditCardIcon },

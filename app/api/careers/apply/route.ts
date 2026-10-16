@@ -2,13 +2,37 @@ import { NextResponse } from "next/server";
 import { sendFormNotification } from "@/libs/resend";
 import prisma from "@/libs/db";
 import { resolveServerConsent } from "@/app/constants/consent";
+import {
+  getClientIp,
+  checkRateLimit,
+  isHoneypotTriggered,
+  isValidIndianPhone,
+} from "@/libs/spamProtection";
 
 // Maximum allowed resume file size: 5 MB
 const MAX_RESUME_SIZE = 5 * 1024 * 1024;
 
 export async function POST(request: Request) {
   try {
+    // 1. Rate Limiting Check
+    const clientIp = getClientIp(request);
+    const rateLimit = checkRateLimit(clientIp);
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: "Too many requests. Please wait a minute before submitting again." },
+        { status: 429 }
+      );
+    }
+
     const formData = await request.formData();
+
+    // 2. Honeypot Bot Check
+    if (isHoneypotTriggered(formData)) {
+      return NextResponse.json(
+        { error: "Submission could not be processed." },
+        { status: 400 }
+      );
+    }
 
     const name = formData.get("name")?.toString().trim();
     const number = formData.get("number")?.toString().trim();
@@ -33,7 +57,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // 1. Text validations
+    // 3. Text validations
     if (!name || name.length < 2) {
       return NextResponse.json(
         { error: "Please enter your full name (minimum 2 characters)" },
@@ -42,7 +66,7 @@ export async function POST(request: Request) {
     }
 
     const cleanPhone = (number || "").replace(/\D/g, "");
-    if (cleanPhone.length !== 10 || !/^[6-9]/.test(cleanPhone)) {
+    if (!isValidIndianPhone(cleanPhone)) {
       return NextResponse.json(
         { error: "Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9" },
         { status: 400 }
@@ -63,7 +87,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // 2. Strict PDF checks: size limit, extension check AND %PDF magic bytes check
+    // 4. Strict PDF checks: size limit, extension check AND %PDF magic bytes check
     if (resumeFile.size > MAX_RESUME_SIZE) {
       return NextResponse.json(
         { error: "Resume file size must not exceed 5 MB." },
@@ -108,21 +132,14 @@ export async function POST(request: Request) {
     // Sanitize filename for attachment
     const safeResumeName = resumeFile.name.replace(/[^a-zA-Z0-9.-]/g, "_");
 
-    console.log("=== NEW JOB APPLICATION RECEIVED ===");
-    console.log("Name:", name);
-    console.log("Phone: +91", cleanPhone);
-    console.log("Role Applied For:", role || "Not specified");
-    console.log("City:", city);
-    console.log("Currently Working:", currentlyWorking);
-    console.log("Current Salary:", currentSalary);
-    console.log("Notice Period:", noticePeriod);
-    console.log("Resume File:", safeResumeName, `(${Math.round(buffer.length / 1024)} KB)`);
-    console.log("Timestamp:", new Date().toISOString());
-    console.log("=====================================");
+    // 5. DPDP-Compliant Logging: No personal data (name, phone, salary, city) in logs
+    console.log(
+      `[Job Application Received] Role: ${role || "Open Role"}, FileSize: ${Math.round(buffer.length / 1024)} KB, IP: ${clientIp}`
+    );
 
     const sourcePage = request.headers.get("referer") || "/careers";
 
-    // 3. PERSIST LEAD IN DATABASE FIRST: guarantees no lost applications even if email fails
+    // 6. PERSIST LEAD IN DATABASE FIRST: guarantees no lost applications even if email fails
     const lead = await prisma.lead.create({
       data: {
         formType: "Careers Application Form",
@@ -153,7 +170,7 @@ export async function POST(request: Request) {
 
     console.log(`[Careers Apply] Application lead ${lead.id} safely persisted to database.`);
 
-    // 4. Send email notification with in-memory resume attachment (zero disk writes, no public file exposure)
+    // 7. Send email notification with in-memory resume attachment
     const emailResult = await sendFormNotification({
       formTitle: `Job Application: ${name} (${role || "Open Role"})`,
       formType: "Careers Application Form",
@@ -177,8 +194,9 @@ export async function POST(request: Request) {
       ],
     });
 
+    // 8. Update email status on lead without failing user application if email fails
     if (!emailResult.success) {
-      console.warn(`[Careers Apply] Email notification error: ${emailResult.error}`);
+      console.warn(`[Careers Apply] Email notification dispatch note: ${emailResult.error}`);
       await prisma.lead.update({
         where: { id: lead.id },
         data: {
@@ -186,27 +204,18 @@ export async function POST(request: Request) {
           emailError: emailResult.error || "Email delivery failed",
         },
       });
-
-      return NextResponse.json(
-        {
-          success: false,
-          error: emailResult.error || "Application saved, but email notification could not be delivered.",
-          leadId: lead.id,
+    } else {
+      await prisma.lead.update({
+        where: { id: lead.id },
+        data: {
+          emailSent: true,
+          emailId: emailResult.id,
+          emailError: null,
         },
-        { status: 500 }
-      );
+      });
     }
 
-    await prisma.lead.update({
-      where: { id: lead.id },
-      data: {
-        emailSent: true,
-        emailId: emailResult.id,
-        emailError: null,
-      },
-    });
-
-    // 5. Return success without exposing any private file paths
+    // Always report success if lead is safely saved in the database
     return NextResponse.json({
       success: true,
       message: "Application submitted successfully! Our HR team will reach out within 48 hours.",

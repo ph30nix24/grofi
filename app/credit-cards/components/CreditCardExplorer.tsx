@@ -32,6 +32,7 @@ import { useApplyModal } from "@/app/context/ApplyModalContext";
 import CreditCardCompareDock from "./CreditCardCompareDock";
 import CreditCardDetailModal from "./CreditCardDetailModal";
 import CreditCardComparisonModal from "./CreditCardComparisonModal";
+import { getBankSlug } from "../[bank]/components/constants";
 
 
 
@@ -41,28 +42,6 @@ function parseFeeNumber(feeStr?: string): number {
   if (/nil|free|₹0|zero/i.test(feeStr)) return 0;
   const match = feeStr.replace(/,/g, "").match(/₹?\s*(\d+)/);
   return match ? parseInt(match[1], 10) : 0;
-}
-
-// Canonical bank slug helper to prevent route breakages on single-word issuers
-function getBankSlug(issuer?: string): string {
-  if (!issuer) return "other-bank";
-  const clean = issuer.toLowerCase().trim();
-  if (clean.includes("hdfc")) return "hdfc-bank";
-  if (clean.includes("sbi")) return "sbi-bank";
-  if (clean.includes("icici")) return "icici-bank";
-  if (clean.includes("axis")) return "axis-bank";
-  if (clean.includes("au")) return "au-bank";
-  if (clean.includes("idfc")) return "idfc-bank";
-  if (clean.includes("indusind")) return "indusind-bank";
-  if (clean.includes("yes")) return "yes-bank";
-  if (clean.includes("federal")) return "federal-bank";
-  if (clean.includes("bob") || clean.includes("baroda")) return "bob-bank";
-  if (clean.includes("hsbc")) return "hsbc-bank";
-  if (clean.includes("kotak")) return "kotak-bank";
-  if (clean.includes("canara")) return "canara-bank";
-  if (clean.includes("punjab") || clean.includes("pnb")) return "pnb-bank";
-  if (clean.includes("union")) return "union-bank";
-  return clean.replace(/\s+/g, "-");
 }
 
 // Categories list

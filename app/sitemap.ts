@@ -1,19 +1,10 @@
 import type { MetadataRoute } from "next";
 import prisma from "@/libs/db";
-import { PARTNER_BANKS } from "./credit-cards/[bank]/components/constants";
+import { getBankSlug } from "./credit-cards/[bank]/components/constants";
 
 const BASE_URL = "https://www.grofi.in";
 // Fixed release timestamp for purely static pages or missing timestamps (avoids changing new Date() on every crawl)
 const STATIC_FALLBACK_DATE = new Date("2026-10-10T00:00:00.000Z");
-
-// Helper: Convert issuer name to canonical URL slug
-function getBankSlug(issuer: string): string {
-  const matched = PARTNER_BANKS.find(
-    (b) => b.name.toLowerCase() === issuer.toLowerCase()
-  );
-  if (matched) return matched.slug;
-  return issuer.toLowerCase().trim().replace(/\s+/g, "-");
-}
 
 // Helper: Safely calculate the latest date from a list of timestamps
 function getLatestDate(
@@ -223,12 +214,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // 2. Bank Category Pages (/credit-cards/[bank])
-  const bankSlugsSet = new Set<string>(PARTNER_BANKS.map((b) => b.slug));
-  cards.forEach((c) => {
-    if (c.issuer) {
-      bankSlugsSet.add(getBankSlug(c.issuer));
-    }
-  });
+  const bankSlugsSet = new Set<string>();
+  cards.forEach((c) => c.issuer && bankSlugsSet.add(getBankSlug(c.issuer)));
 
   const bankRoutes: MetadataRoute.Sitemap = Array.from(bankSlugsSet).map((slug) => {
     const bankCards = cards.filter(

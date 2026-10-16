@@ -5,7 +5,7 @@ import prisma from "@/libs/db";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import { CardMetaData, CardStructure } from "./components/type";
-import { PARTNER_BANKS } from "../components/constants";
+import { PARTNER_BANKS, getBankSlug } from "../components/constants";
 import CardHero from "./components/CardHero";
 import CardStickyNav from "./components/CardStickyNav";
 import CardEditorialVerdict from "./components/CardEditorialVerdict";
@@ -31,15 +31,6 @@ type CardResult = {
   metadata: CardMetaData | null;
 };
 
-// Helper: Convert bank issuer string to canonical slug
-function getBankSlug(issuer: string): string {
-  const matched = PARTNER_BANKS.find(
-    (b) => b.name.toLowerCase() === issuer.toLowerCase()
-  );
-  if (matched) return matched.slug;
-  return issuer.toLowerCase().trim().replace(/\s+/g, "-");
-}
-
 // Helper: Check if slug matches issuer cleanly
 function isBankMatch(bankSlug: string, issuer: string): boolean {
   const expectedSlug = getBankSlug(issuer);
@@ -47,8 +38,7 @@ function isBankMatch(bankSlug: string, issuer: string): boolean {
   const cleanExpected = expectedSlug.toLowerCase().replace(/-bank$/, "").replace(/[^a-z0-9]/g, "");
   return (
     cleanBankSlug === cleanExpected ||
-    bankSlug.toLowerCase() === expectedSlug.toLowerCase() ||
-    issuer.toLowerCase().replace(/\s+/g, "-").includes(bankSlug.toLowerCase())
+    bankSlug.toLowerCase() === expectedSlug.toLowerCase()
   );
 }
 
