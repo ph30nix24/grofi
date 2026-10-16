@@ -74,7 +74,7 @@ export default function LoanFeesSection({ lender }: LoanFeesSectionProps) {
         {feeItems.map((item, idx) => (
           <div
             key={idx}
-            className={`bg-white rounded-3xl p-6 border transition-all duration-300 shadow-2xs ${
+            className={`bg-white rounded-3xl p-4 sm:p-6 border transition-all duration-300 shadow-2xs ${
               item.highlight
                 ? "border-primary/40 ring-2 ring-primary/5 bg-gradient-to-br from-white via-emerald-50/20 to-white"
                 : "border-gray-200/90 hover:border-gray-300"
@@ -85,13 +85,17 @@ export default function LoanFeesSection({ lender }: LoanFeesSectionProps) {
                 {item.title}
               </span>
               {item.badge && (
-                <span className="text-[10px] font-extrabold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full tracking-wide">
+                <span className="text-[10px] font-extrabold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full tracking-wide shrink-0">
                   {item.badge}
                 </span>
               )}
             </div>
 
-            <div className="font-bricolage font-bold text-lg sm:text-xl text-gray-900 mb-1.5 leading-snug">
+            <div
+              className={`font-bricolage font-bold text-gray-900 mb-1.5 leading-snug break-words ${
+                String(item.value).length > 35 ? "text-sm sm:text-base" : "text-base sm:text-xl"
+              }`}
+            >
               {item.value}
             </div>
 

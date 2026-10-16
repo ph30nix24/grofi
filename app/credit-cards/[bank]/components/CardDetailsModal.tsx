@@ -17,21 +17,22 @@ export default function CardDetailsModal({ card, onClose }: CardDetailsModalProp
   if (!card) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/65 backdrop-blur-xs animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-6 bg-black/65 backdrop-blur-xs animate-fadeIn">
       <div className="fixed inset-0" onClick={onClose} />
-      <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[92vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative border border-gray-100 animate-scaleUp z-10">
+      <div className="bg-white rounded-2xl sm:rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-4 sm:p-6 md:p-8 shadow-2xl relative border border-gray-100 animate-scaleUp z-10 min-w-0">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 transition-colors cursor-pointer"
+          aria-label="Close card details modal"
+          className="absolute top-4 right-4 sm:top-5 sm:right-5 w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 transition-colors cursor-pointer"
         >
           <X className="w-4 h-4" />
         </button>
 
         {/* Modal Header */}
-        <div className="flex flex-col sm:flex-row gap-5 items-center sm:items-start mb-6">
-          <div className="w-44 shrink-0">
-            <div className="relative w-full aspect-[1.586/1] rounded-2xl overflow-hidden drop-shadow-md">
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 items-center sm:items-start mb-6 pr-8 sm:pr-0">
+          <div className="w-36 sm:w-44 shrink-0">
+            <div className="relative w-full aspect-[1.586/1] rounded-xl sm:rounded-2xl overflow-hidden drop-shadow-md">
               {card.cardImage ? (
                 <Image
                   src={card.cardImage}
@@ -41,7 +42,7 @@ export default function CardDetailsModal({ card, onClose }: CardDetailsModalProp
                   className="object-contain"
                 />
               ) : (
-                <div className="w-full h-full bg-primary flex items-center justify-center text-white text-xs p-2 text-center">
+                <div className="w-full h-full bg-primary flex items-center justify-center text-white text-xs p-2 text-center font-bricolage font-bold">
                   {card.name}
                 </div>
               )}
@@ -50,11 +51,11 @@ export default function CardDetailsModal({ card, onClose }: CardDetailsModalProp
 
           <div className="flex-1 min-w-0 text-center sm:text-left">
             {card.badge && (
-              <span className="inline-block text-[10px] font-bold text-primary bg-[#EBF4ED] px-2.5 py-0.5 rounded-full border border-primary/15 mb-1.5">
+              <span className="inline-block text-[10px] font-bold text-primary bg-[#EBF4ED] px-2.5 py-0.5 rounded-full border border-primary/15 mb-1.5 truncate max-w-full">
                 {card.badge}
               </span>
             )}
-            <h3 className="font-bricolage font-bold text-2xl text-gray-900 leading-snug">
+            <h3 className="font-bricolage font-bold text-xl sm:text-2xl text-gray-900 leading-snug wrap-break-word">
               {card.name}
             </h3>
             <p className="text-xs text-gray-500 font-montserrat mt-1">
@@ -63,37 +64,37 @@ export default function CardDetailsModal({ card, onClose }: CardDetailsModalProp
           </div>
         </div>
 
-        {/* Key Fees Breakdown */}
-        <div className="flex flex-wrap gap-2 mb-6">
-          <div className="flex-1 min-w-30 bg-gray-50 p-3 rounded-xl border border-gray-100 text-center">
-            <span className="text-[10px] text-gray-400 font-semibold block font-montserrat uppercase">
+        {/* Key Fees Breakdown (2x2 grid on mobile, 4-col on sm) */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5 mb-6">
+          <div className="bg-gray-50/90 p-2.5 sm:p-3 rounded-xl border border-gray-100 text-center min-w-0">
+            <span className="text-[10px] text-gray-400 font-semibold block font-montserrat uppercase truncate">
               Annual Fee
             </span>
-            <span className="text-xs font-bold text-gray-900 font-montserrat block mt-0.5">
+            <span className="text-xs font-bold text-gray-900 font-montserrat block mt-0.5 truncate">
               {card.annualFee || "Nil"}
             </span>
           </div>
-          <div className="flex-1 min-w-30 bg-gray-50 p-3 rounded-xl border border-gray-100 text-center">
-            <span className="text-[10px] text-gray-400 font-semibold block font-montserrat uppercase">
+          <div className="bg-gray-50/90 p-2.5 sm:p-3 rounded-xl border border-gray-100 text-center min-w-0">
+            <span className="text-[10px] text-gray-400 font-semibold block font-montserrat uppercase truncate">
               Joining Fee
             </span>
-            <span className="text-xs font-bold text-gray-900 font-montserrat block mt-0.5">
+            <span className="text-xs font-bold text-gray-900 font-montserrat block mt-0.5 truncate">
               {card.joiningFee || "Nil"}
             </span>
           </div>
-          <div className="flex-1 min-w-30 bg-gray-50 p-3 rounded-xl border border-gray-100 text-center">
-            <span className="text-[10px] text-gray-400 font-semibold block font-montserrat uppercase">
+          <div className="bg-gray-50/90 p-2.5 sm:p-3 rounded-xl border border-gray-100 text-center min-w-0">
+            <span className="text-[10px] text-gray-400 font-semibold block font-montserrat uppercase truncate">
               Fee Waiver
             </span>
-            <span className="text-xs font-bold text-gray-900 font-montserrat block mt-0.5 truncate" title={card.feeWaiver}>
+            <span className="text-xs font-bold text-gray-900 font-montserrat block mt-0.5 line-clamp-2 leading-tight" title={card.feeWaiver}>
               {card.feeWaiver || "None"}
             </span>
           </div>
-          <div className="flex-1 min-w-30 bg-gray-50 p-3 rounded-xl border border-gray-100 text-center">
-            <span className="text-[10px] text-gray-400 font-semibold block font-montserrat uppercase">
+          <div className="bg-gray-50/90 p-2.5 sm:p-3 rounded-xl border border-gray-100 text-center min-w-0">
+            <span className="text-[10px] text-gray-400 font-semibold block font-montserrat uppercase truncate">
               Forex Markup
             </span>
-            <span className="text-xs font-bold text-gray-900 font-montserrat block mt-0.5">
+            <span className="text-xs font-bold text-gray-900 font-montserrat block mt-0.5 truncate">
               {card.forexMarkup || "3.5% + GST"}
             </span>
           </div>
@@ -220,22 +221,22 @@ export default function CardDetailsModal({ card, onClose }: CardDetailsModalProp
         )}
 
         {/* Bottom Actions */}
-        <div className="flex gap-3 pt-2">
+        <div className="flex flex-col-reverse sm:flex-row gap-2.5 sm:gap-3 pt-3 border-t border-gray-100">
           <button
             onClick={onClose}
-            className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold py-3.5 rounded-xl transition-colors cursor-pointer font-montserrat"
+            className="w-full sm:flex-1 min-h-11 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold py-3 px-4 rounded-xl transition-colors cursor-pointer font-montserrat flex items-center justify-center"
           >
-            Close
+            Close Details
           </button>
           <button
             onClick={() => {
               onClose();
               openApplyModal(card.name, `${card.issuer} • ${card.badge || "Credit Card"}`);
             }}
-            className="flex-1 bg-primary hover:bg-primary/90 text-white text-xs font-bold py-3.5 rounded-xl text-center shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer font-montserrat"
+            className="w-full sm:flex-1 min-h-11.5 bg-primary hover:bg-primary/90 text-white text-xs font-bold py-3 px-4 rounded-xl text-center shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer font-montserrat active:scale-[0.98]"
           >
             <span>Apply Online</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-3.5 h-3.5 shrink-0" />
           </button>
         </div>
       </div>

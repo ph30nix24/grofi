@@ -26,7 +26,7 @@ export default function LoanMobileApplyBar({ lender }: LoanMobileApplyBarProps) 
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white/95 backdrop-blur-md border-t border-gray-200 p-3 shadow-2xl animate-slideDown font-montserrat">
+    <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white/95 backdrop-blur-md border-t border-gray-200 px-4 pt-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-2xl animate-slideDown font-montserrat">
       <div className="flex items-center justify-between gap-3 max-w-lg mx-auto">
         
         {/* Lender Logo & Quick Info */}
@@ -60,7 +60,7 @@ export default function LoanMobileApplyBar({ lender }: LoanMobileApplyBarProps) 
               `Direct Application: ${lender.name} • Disbursal in ${lender.disbursalTime}`
             )
           }
-          className="bg-primary hover:bg-[#035259] active:scale-95 text-white font-bold text-xs py-2.5 px-4 rounded-xl flex items-center gap-1.5 shadow-md shrink-0 cursor-pointer transition-all"
+          className="bg-primary hover:bg-[#035259] active:scale-95 text-white font-bold text-xs py-2 px-4 min-h-[42px] rounded-xl flex items-center justify-center gap-1.5 shadow-md shrink-0 cursor-pointer transition-all"
         >
           <span>Apply</span>
           <ArrowRight className="w-3.5 h-3.5" />

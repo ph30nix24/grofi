@@ -41,17 +41,17 @@ export default function LoanProsConsSection({ lender }: LoanProsConsSectionProps
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
         
         {/* Pros Column */}
-        <div className="bg-emerald-50/50 rounded-3xl p-6 sm:p-8 border border-emerald-200 shadow-xs">
+        <div className="bg-emerald-50/50 rounded-3xl p-4 sm:p-8 border border-emerald-200 shadow-xs">
           <div className="flex items-center justify-between pb-4 mb-4 border-b border-emerald-200/60">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center">
                 <Check className="w-4 h-4 stroke-[3]" />
               </div>
-              <h3 className="font-bricolage font-bold text-xl text-emerald-950">
+              <h3 className="font-bricolage font-bold text-lg sm:text-xl text-emerald-950">
                 What We Like (Pros)
               </h3>
             </div>
-            <span className="text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded-full">
+            <span className="text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded-full shrink-0">
               {pros.length} Benefits
             </span>
           </div>
@@ -71,17 +71,17 @@ export default function LoanProsConsSection({ lender }: LoanProsConsSectionProps
         </div>
 
         {/* Cons Column */}
-        <div className="bg-rose-50/50 rounded-3xl p-6 sm:p-8 border border-rose-200 shadow-xs">
+        <div className="bg-rose-50/50 rounded-3xl p-4 sm:p-8 border border-rose-200 shadow-xs">
           <div className="flex items-center justify-between pb-4 mb-4 border-b border-rose-200/60">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-full bg-rose-600 text-white flex items-center justify-center">
                 <X className="w-4 h-4 stroke-[3]" />
               </div>
-              <h3 className="font-bricolage font-bold text-xl text-rose-950">
+              <h3 className="font-bricolage font-bold text-lg sm:text-xl text-rose-950">
                 Things to Keep in Mind (Cons)
               </h3>
             </div>
-            <span className="text-xs font-bold text-rose-800 bg-rose-100 px-2.5 py-1 rounded-full">
+            <span className="text-xs font-bold text-rose-800 bg-rose-100 px-2.5 py-1 rounded-full shrink-0">
               {cons.length} Considerations
             </span>
           </div>
@@ -103,8 +103,8 @@ export default function LoanProsConsSection({ lender }: LoanProsConsSectionProps
       </div>
 
       {/* Editorial Transparency Note */}
-      <div className="mt-8 text-center text-xs text-gray-500 flex items-center justify-center gap-2">
-        <ShieldCheck className="w-4 h-4 text-primary" />
+      <div className="mt-8 text-center text-xs text-gray-500 flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2">
+        <ShieldCheck className="w-4 h-4 text-primary shrink-0" />
         <span>
           Independent Editorial Policy: Grofi never charges borrowers for loan recommendations. Our comparisons are completely objective.
         </span>

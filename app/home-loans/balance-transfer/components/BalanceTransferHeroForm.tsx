@@ -19,6 +19,15 @@ export default function BalanceTransferHeroForm() {
   const [currentRate, setCurrentRate] = useState<number>(9.25);
   const [newRate] = useState<number>(7.25); // Target benchmark rate
 
+  // Slider limits and dynamic fill percentages
+  const loanMin = 1000000;
+  const loanMax = 20000000;
+  const loanPct = Math.min(100, Math.max(0, ((outstandingLoan - loanMin) / (loanMax - loanMin)) * 100));
+
+  const currentRateMin = 7.5;
+  const currentRateMax = 11.5;
+  const currentRatePct = Math.min(100, Math.max(0, ((currentRate - currentRateMin) / (currentRateMax - currentRateMin)) * 100));
+
   // Quick calculations for instant gratification
   const remainingYears = 18;
   const n = remainingYears * 12;
@@ -138,12 +147,16 @@ export default function BalanceTransferHeroForm() {
           </div>
           <input
             type="range"
-            min={1000000}
-            max={20000000}
+            min={loanMin}
+            max={loanMax}
             step={250000}
             value={outstandingLoan}
+            aria-label="Outstanding Loan Balance"
             onChange={(e) => setOutstandingLoan(Number(e.target.value))}
-            className="w-full accent-primary h-1.5 bg-gray-200 rounded-lg cursor-pointer"
+            className="w-full custom-range-slider cursor-pointer"
+            style={{
+              background: `linear-gradient(to right, #02474D 0%, #02474D ${loanPct}%, #E2E8F0 ${loanPct}%, #E2E8F0 100%)`,
+            }}
           />
         </div>
 
@@ -159,12 +172,16 @@ export default function BalanceTransferHeroForm() {
           </div>
           <input
             type="range"
-            min={7.5}
-            max={11.5}
+            min={currentRateMin}
+            max={currentRateMax}
             step={0.05}
             value={currentRate}
+            aria-label="Current Interest Rate"
             onChange={(e) => setCurrentRate(Number(e.target.value))}
-            className="w-full accent-amber-600 h-1.5 bg-gray-200 rounded-lg cursor-pointer"
+            className="w-full custom-range-slider custom-range-slider-amber cursor-pointer"
+            style={{
+              background: `linear-gradient(to right, #d97706 0%, #d97706 ${currentRatePct}%, #E2E8F0 ${currentRatePct}%, #E2E8F0 100%)`,
+            }}
           />
           <div className="flex justify-between text-[10px] text-gray-400 mt-1">
             <span>7.50%</span>

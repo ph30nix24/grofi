@@ -93,7 +93,7 @@ export default function BankWhyChooseSection({
   };
 
   return (
-    <section className="py-16 sm:py-20 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto border-t border-gray-200">
+    <section className="py-16 sm:py-20 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto border-t border-gray-200 w-full min-w-0 overflow-x-hidden">
       {/* ── Section Header ────────────────────────────────────────── */}
       <div className="text-center max-w-3xl mx-auto mb-10">
         <div className="inline-flex items-center gap-2 bg-[#EBF4ED] text-primary px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide border border-primary/15 font-montserrat shadow-2xs mb-3">
@@ -101,7 +101,7 @@ export default function BankWhyChooseSection({
           <span>OFFICIAL PARTNER PERKS &amp; PRIVILEGES</span>
         </div>
 
-        <h2 className="font-bricolage font-extrabold text-2xl sm:text-4xl text-gray-900 tracking-tight">
+        <h2 className="font-bricolage font-extrabold text-2xl sm:text-4xl text-gray-900 tracking-tight wrap-break-word">
           Why Choose <span className="text-primary">{bankData.bankName}</span> Credit Cards?
         </h2>
 
@@ -115,13 +115,13 @@ export default function BankWhyChooseSection({
       </div>
 
       {/* ── Key Metrics Strip ─────────────────────────────────────── */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4 mb-10">
-        <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-gray-200 shadow-2xs">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4 mb-10 w-full min-w-0">
+        <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-gray-200 shadow-2xs min-w-0">
           <div className="flex items-center gap-1.5 text-amber-600 text-xs font-bold font-montserrat mb-1">
-            <Crown className="w-3.5 h-3.5" />
-            <span>Top Reward Rate</span>
+            <Crown className="w-3.5 h-3.5 shrink-0" />
+            <span className="truncate">Top Reward Rate</span>
           </div>
-          <p className="font-bricolage font-bold text-base sm:text-lg text-gray-900">
+          <p className="font-bricolage font-bold text-base sm:text-lg text-gray-900 truncate">
             {bankData.keyMetrics.maxRewardRate}
           </p>
           <span className="text-[10px] text-gray-500 font-montserrat block truncate mt-0.5">
@@ -129,10 +129,10 @@ export default function BankWhyChooseSection({
           </span>
         </div>
 
-        <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-gray-200 shadow-2xs">
+        <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-gray-200 shadow-2xs min-w-0">
           <div className="flex items-center gap-1.5 text-sky-600 text-xs font-bold font-montserrat mb-1">
-            <Plane className="w-3.5 h-3.5" />
-            <span>Airport Lounges</span>
+            <Plane className="w-3.5 h-3.5 shrink-0" />
+            <span className="truncate">Airport Lounges</span>
           </div>
           <p className="font-bricolage font-bold text-base sm:text-lg text-gray-900 truncate">
             {bankData.keyMetrics.domesticLounge.split("(")[0].trim()}
@@ -142,12 +142,12 @@ export default function BankWhyChooseSection({
           </span>
         </div>
 
-        <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-gray-200 shadow-2xs">
+        <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-gray-200 shadow-2xs min-w-0">
           <div className="flex items-center gap-1.5 text-violet-600 text-xs font-bold font-montserrat mb-1">
-            <Zap className="w-3.5 h-3.5" />
-            <span>RuPay UPI</span>
+            <Zap className="w-3.5 h-3.5 shrink-0" />
+            <span className="truncate">RuPay UPI</span>
           </div>
-          <p className="font-bricolage font-bold text-base sm:text-lg text-gray-900">
+          <p className="font-bricolage font-bold text-base sm:text-lg text-gray-900 truncate">
             Scan &amp; Pay Active
           </p>
           <span className="text-[10px] text-gray-500 font-montserrat block truncate mt-0.5">
@@ -155,12 +155,12 @@ export default function BankWhyChooseSection({
           </span>
         </div>
 
-        <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-gray-200 shadow-2xs">
+        <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-gray-200 shadow-2xs min-w-0">
           <div className="flex items-center gap-1.5 text-teal-600 text-xs font-bold font-montserrat mb-1">
-            <Globe className="w-3.5 h-3.5" />
-            <span>Forex Markup</span>
+            <Globe className="w-3.5 h-3.5 shrink-0" />
+            <span className="truncate">Forex Markup</span>
           </div>
-          <p className="font-bricolage font-bold text-base sm:text-lg text-gray-900">
+          <p className="font-bricolage font-bold text-base sm:text-lg text-gray-900 truncate">
             {bankData.keyMetrics.forexMarkup}
           </p>
           <span className="text-[10px] text-gray-500 font-montserrat block truncate mt-0.5">
@@ -168,10 +168,10 @@ export default function BankWhyChooseSection({
           </span>
         </div>
 
-        <div className="col-span-2 md:col-span-1 bg-white p-3.5 sm:p-4 rounded-2xl border border-gray-200 shadow-2xs">
+        <div className="col-span-2 md:col-span-1 bg-white p-3.5 sm:p-4 rounded-2xl border border-gray-200 shadow-2xs min-w-0">
           <div className="flex items-center gap-1.5 text-emerald-600 text-xs font-bold font-montserrat mb-1">
-            <Tag className="w-3.5 h-3.5" />
-            <span>Fee Waivers</span>
+            <Tag className="w-3.5 h-3.5 shrink-0" />
+            <span className="truncate">Fee Waivers</span>
           </div>
           <p className="font-bricolage font-bold text-base sm:text-lg text-gray-900 truncate">
             {bankData.keyMetrics.feeWaiver.split("annual")[0].trim()}
@@ -182,55 +182,57 @@ export default function BankWhyChooseSection({
         </div>
       </div>
 
-      {/* ── Category Filter Tabs ──────────────────────────────────── */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-8 no-scrollbar">
-        {CATEGORY_FILTERS.map((cat) => {
-          const Icon = cat.icon;
-          const isActive = activeCategory === cat.id;
-          return (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold font-montserrat transition-all whitespace-nowrap cursor-pointer shrink-0 ${
-                isActive
-                  ? "bg-primary text-white shadow-xs"
-                  : "bg-white text-gray-600 hover:text-gray-900 border border-gray-200/80 hover:bg-gray-50"
-              }`}
-            >
-              <Icon className="w-3.5 h-3.5" />
-              <span>{cat.label}</span>
-            </button>
-          );
-        })}
+      {/* ── Category Filter Tabs (Bounded horizontal scroll on mobile) ── */}
+      <div className="w-full min-w-0 overflow-x-auto pb-3 mb-8 scrollbar-hidden -mx-4 px-4 sm:mx-0 sm:px-0">
+        <div className="flex items-center gap-2 w-max">
+          {CATEGORY_FILTERS.map((cat) => {
+            const Icon = cat.icon;
+            const isActive = activeCategory === cat.id;
+            return (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={`inline-flex items-center gap-2 px-3.5 py-2 min-h-10 rounded-xl text-xs font-semibold font-montserrat transition-all whitespace-nowrap cursor-pointer shrink-0 ${
+                  isActive
+                    ? "bg-primary text-white shadow-xs"
+                    : "bg-white text-gray-600 hover:text-gray-900 border border-gray-200/80 hover:bg-gray-50"
+                }`}
+              >
+                <Icon className="w-3.5 h-3.5" />
+                <span>{cat.label}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* ── Features & Benefits Cards Grid ────────────────────────── */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-12 w-full min-w-0">
         {filteredFeatures.map((feature) => (
           <div
             key={feature.id}
-            className="bg-white rounded-3xl p-6 border border-gray-200/90 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between"
+            className="bg-white rounded-3xl p-5 sm:p-6 border border-gray-200/90 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between w-full min-w-0"
           >
-            <div>
+            <div className="min-w-0">
               {/* Icon & Category Pill */}
               <div className="flex items-center justify-between gap-2 mb-4">
                 <div
-                  className={`w-11 h-11 rounded-2xl flex items-center justify-center border ${getIconBackground(
+                  className={`w-11 h-11 rounded-2xl flex items-center justify-center border shrink-0 ${getIconBackground(
                     feature.category
                   )}`}
                 >
                   {getFeatureIcon(feature.category)}
                 </div>
-                <span className="bg-[#EBF4ED] text-primary text-[10px] font-bold px-2.5 py-1 rounded-full font-montserrat border border-primary/10 tracking-wide uppercase">
+                <span className="bg-[#EBF4ED] text-primary text-[10px] font-bold px-2.5 py-1 rounded-full font-montserrat border border-primary/10 tracking-wide uppercase truncate">
                   {feature.tag}
                 </span>
               </div>
 
               {/* Title & Summary */}
-              <h3 className="font-bricolage font-bold text-lg text-gray-900 mb-2 leading-snug">
+              <h3 className="font-bricolage font-bold text-lg text-gray-900 mb-2 leading-snug wrap-break-word">
                 {feature.title}
               </h3>
-              <p className="text-xs text-gray-600 font-montserrat leading-relaxed mb-4">
+              <p className="text-xs text-gray-600 font-montserrat leading-relaxed mb-4 wrap-break-word">
                 {feature.summary}
               </p>
 
@@ -384,31 +386,31 @@ export default function BankWhyChooseSection({
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full min-w-0">
             {bankData.flagshipCards.map((card, idx) => (
               <div
                 key={idx}
-                className="p-4 rounded-2xl bg-[#FDFBF7] border border-gray-200/80 hover:border-primary/40 transition-colors flex flex-col justify-between"
+                className="p-4 sm:p-5 rounded-2xl bg-[#FDFBF7] border border-gray-200/80 hover:border-primary/40 transition-colors flex flex-col justify-between w-full min-w-0"
               >
-                <div>
+                <div className="min-w-0">
                   <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-white border border-gray-200 text-gray-700 font-montserrat">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-white border border-gray-200 text-gray-700 font-montserrat truncate max-w-35">
                       {card.category}
                     </span>
-                    <span className="text-xs font-bold text-primary font-montserrat">
+                    <span className="text-xs font-bold text-primary font-montserrat shrink-0">
                       {card.annualFee}
                     </span>
                   </div>
-                  <h4 className="font-bricolage font-bold text-sm text-gray-900 mb-1">
+                  <h4 className="font-bricolage font-bold text-sm text-gray-900 mb-1 wrap-break-word">
                     {card.name}
                   </h4>
-                  <p className="text-xs text-gray-600 font-montserrat leading-relaxed mb-3">
+                  <p className="text-xs text-gray-600 font-montserrat leading-relaxed mb-3 wrap-break-word">
                     {card.highlight}
                   </p>
                 </div>
 
-                <div className="pt-2 border-t border-gray-200/60 flex items-center justify-between">
-                  <span className="text-[11px] text-gray-500 font-montserrat font-medium">
+                <div className="pt-2 border-t border-gray-200/60 flex items-center justify-between gap-2">
+                  <span className="text-[11px] text-gray-500 font-montserrat font-medium truncate">
                     Instant video KYC
                   </span>
                   <ApplyTriggerButton
@@ -416,7 +418,7 @@ export default function BankWhyChooseSection({
                     cardSubtitle={`${bankData.bankName} • ${card.category}`}
                     label="Apply Now"
                     variant="primary"
-                    className="py-1 px-3 text-xs"
+                    className="py-2 px-3.5 min-h-9 text-xs font-semibold shrink-0"
                   />
                 </div>
               </div>

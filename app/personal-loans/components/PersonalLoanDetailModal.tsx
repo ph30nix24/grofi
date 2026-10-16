@@ -64,7 +64,12 @@ export default function PersonalLoanDetailModal({
   ] as const;
 
   return (
-    <div className="fixed inset-0 z-100 flex items-center justify-center p-3 sm:p-6 bg-black/70 backdrop-blur-xs animate-fadeIn font-montserrat">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="lender-detail-title"
+      className="fixed inset-0 z-100 flex items-center justify-center p-3 sm:p-6 bg-black/70 backdrop-blur-xs animate-fadeIn font-montserrat"
+    >
       <div className="absolute inset-0" onClick={onClose} />
 
       <div className="bg-white rounded-3xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl relative border border-gray-200 z-10 animate-scaleUp overflow-hidden">
@@ -111,7 +116,7 @@ export default function PersonalLoanDetailModal({
                 )}
               </div>
 
-              <h3 className="font-bricolage font-bold text-xl sm:text-2xl text-gray-900 leading-tight">
+              <h3 id="lender-detail-title" className="font-bricolage font-bold text-xl sm:text-2xl text-gray-900 leading-tight">
                 {lender.name}
               </h3>
               <p className="text-xs text-gray-600 mt-0.5 leading-snug">
@@ -439,10 +444,10 @@ export default function PersonalLoanDetailModal({
         </div>
 
         {/* Modal Bottom Action Bar */}
-        <div className="p-4 sm:p-5 border-t border-gray-100 bg-gray-50 flex items-center justify-between gap-4">
-          <div>
+        <div className="p-4 sm:p-5 border-t border-gray-100 bg-gray-50 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
+          <div className="flex items-center justify-between sm:block">
             <span className="text-[11px] text-gray-500 block">Lowest Rate Starting From</span>
-            <span className="font-bricolage font-extrabold text-lg text-primary">
+            <span className="font-bricolage font-extrabold text-base sm:text-lg text-primary">
               {typeof lender.interestRate?.min === "number" ? `${lender.interestRate.min}% p.a.` : "Competitive Rates"}
             </span>
           </div>
@@ -450,7 +455,7 @@ export default function PersonalLoanDetailModal({
           <div className="flex items-center gap-2">
             <button
               onClick={onClose}
-              className="text-xs font-bold text-gray-600 hover:text-gray-900 px-4 py-2.5 bg-white border border-gray-200 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer"
+              className="text-xs font-bold text-gray-600 hover:text-gray-900 px-4 py-2.5 bg-white border border-gray-200 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer shrink-0"
             >
               Close
             </button>
@@ -459,10 +464,10 @@ export default function PersonalLoanDetailModal({
                 onClose();
                 openApplyModal(lender.name, lender.tagline);
               }}
-              className="bg-primary hover:bg-[#035259] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center gap-1.5 cursor-pointer"
+              className="flex-1 sm:flex-initial bg-primary hover:bg-[#035259] text-white font-bold text-xs sm:text-sm px-4 sm:px-6 py-2.5 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer text-center"
             >
-              <span>Apply with {lender.name.replace(/Personal Loan/i, "").trim()}</span>
-              <ArrowRight className="w-4 h-4" />
+              <span className="truncate">Apply with {lender.name.replace(/Personal Loan/i, "").trim()}</span>
+              <ArrowRight className="w-4 h-4 shrink-0" />
             </button>
           </div>
         </div>

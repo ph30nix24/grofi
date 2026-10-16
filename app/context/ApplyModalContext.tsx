@@ -234,7 +234,7 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
 
       {/* ── Popup Form Modal ── */}
       {isOpen && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-6 bg-black/65 backdrop-blur-sm animate-fadeIn">
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-3 sm:p-6 bg-black/65 backdrop-blur-sm animate-fadeIn">
           
           {/* Backdrop click dismiss */}
           <div
@@ -242,7 +242,7 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
             onClick={closeApplyModal}
           />
 
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative border border-gray-100 z-10 animate-scaleUp overflow-hidden">
+          <div className="bg-white rounded-3xl max-w-md w-full p-5 sm:p-8 shadow-2xl relative border border-gray-100 z-10 animate-scaleUp max-h-[92vh] overflow-y-auto scrollbar-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             
             {/* Background decorative glow */}
             <div className="absolute -top-16 -right-16 w-44 h-44 bg-linear-to-br from-primary/10 to-gold/15 rounded-full blur-2xl pointer-events-none" />
@@ -250,7 +250,7 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
             {/* Close button */}
             <button
               onClick={closeApplyModal}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-800 transition-colors cursor-pointer z-10"
+              className="absolute top-4 right-4 sm:top-5 sm:right-5 w-10 h-10 min-w-[40px] min-h-[40px] rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-800 transition-colors cursor-pointer z-10 touch-manipulation"
               aria-label="Close dialog"
             >
               <X className="w-4 h-4" />
@@ -259,13 +259,13 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
             {!isSubmitted ? (
               <div>
                 {/* Modal Header */}
-                <div className="mb-6">
+                <div className="mb-5 sm:mb-6 pr-6">
                   <div className="inline-flex items-center gap-1.5 bg-[#EBF4ED] text-primary text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-primary/15 mb-2.5">
                     <Sparkles className="w-3 h-3 text-gold" />
                     Instant Application
                   </div>
 
-                  <h3 className="font-bricolage font-bold text-2xl text-gray-900 leading-tight">
+                  <h3 className="font-bricolage font-bold text-xl sm:text-2xl text-gray-900 leading-tight">
                     Apply for <span className="text-primary">{productName}</span>
                   </h3>
                   <p className="text-xs text-gray-500 font-montserrat mt-1 leading-relaxed">
@@ -274,7 +274,7 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
                   
                   {/* Full Name */}
                   <div>
@@ -291,7 +291,7 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
                           if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
                         }}
                         placeholder="Enter your full name"
-                        className={`w-full bg-gray-50 border rounded-xl pl-10 pr-4 py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white transition-all font-montserrat ${
+                        className={`w-full bg-gray-50 border rounded-xl pl-10 pr-4 py-2.5 sm:py-3 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white transition-all font-montserrat ${
                           errors.name
                             ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
                             : "border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/10"
@@ -311,7 +311,7 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
                       Mobile Number <span className="text-red-500">*</span>
                     </label>
                     <div className="relative flex">
-                      <div className="bg-gray-100 border border-r-0 border-gray-200 rounded-l-xl px-3 py-3 text-xs sm:text-sm font-bold text-gray-600 flex items-center gap-1.5 select-none">
+                      <div className="bg-gray-100 border border-r-0 border-gray-200 rounded-l-xl px-3 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-gray-600 flex items-center gap-1.5 select-none font-montserrat">
                         <Phone className="w-3.5 h-3.5 text-primary" />
                         <span>+91</span>
                       </div>
@@ -325,7 +325,7 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
                           if (errors.phone) setErrors((prev) => ({ ...prev, phone: undefined }));
                         }}
                         placeholder="98765 43210"
-                        className={`flex-1 bg-gray-50 border rounded-r-xl px-3.5 py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white transition-all font-montserrat tracking-wider ${
+                        className={`flex-1 bg-gray-50 border rounded-r-xl px-3.5 py-2.5 sm:py-3 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white transition-all font-montserrat tracking-wider ${
                           errors.phone
                             ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
                             : "border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/10"
@@ -352,7 +352,7 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
                           setSelectedProduct(e.target.value);
                           setProductName(e.target.value);
                         }}
-                        className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-10 pr-9 py-3 text-xs sm:text-sm font-semibold text-gray-900 focus:outline-none focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/10 transition-all font-montserrat appearance-none cursor-pointer"
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-10 pr-9 py-2.5 sm:py-3 text-base sm:text-sm font-semibold text-gray-900 focus:outline-none focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/10 transition-all font-montserrat appearance-none cursor-pointer"
                       >
                         {allProductCategories.map((group) => (
                           <optgroup key={group.category} label={group.category} className="font-bold text-gray-900 bg-gray-100">
@@ -385,7 +385,7 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-primary hover:bg-primary/90 text-white font-montserrat font-bold text-sm py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all duration-200 cursor-pointer disabled:opacity-75 group mt-2"
+                    className="w-full min-h-[48px] bg-primary hover:bg-primary/90 text-white font-montserrat font-bold text-sm py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all duration-200 cursor-pointer disabled:opacity-75 group mt-2 touch-manipulation active:scale-[0.99]"
                   >
                     {isSubmitting ? (
                       <>
@@ -486,7 +486,7 @@ export function ApplyModalProvider({ children }: { children: React.ReactNode }) 
                 {/* Done Action Button */}
                 <button
                   onClick={closeApplyModal}
-                  className="w-full bg-linear-to-r from-primary to-[#035259] hover:from-primary/95 hover:to-primary text-white font-montserrat font-bold text-xs sm:text-sm py-3.5 px-6 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer"
+                  className="w-full min-h-[44px] bg-linear-to-r from-primary to-[#035259] hover:from-primary/95 hover:to-primary text-white font-montserrat font-bold text-xs sm:text-sm py-3.5 px-6 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer touch-manipulation active:scale-[0.99]"
                 >
                   Done
                 </button>

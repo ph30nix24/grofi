@@ -24,7 +24,7 @@ export default function ApplyTriggerButton({
   const { openApplyModal } = useApplyModal();
 
   const baseStyles =
-    "inline-flex items-center justify-center gap-1.5 font-montserrat font-semibold text-xs sm:text-sm py-2 px-4 rounded-xl transition-all cursor-pointer whitespace-nowrap active:scale-[0.98]";
+    "inline-flex items-center justify-center gap-1.5 font-montserrat font-semibold text-xs sm:text-sm min-h-[38px] py-2 px-4 rounded-xl transition-all cursor-pointer whitespace-nowrap active:scale-[0.98]";
 
   const variantStyles = {
     emerald: "bg-[#10B981] hover:bg-[#059669] text-white shadow-xs",

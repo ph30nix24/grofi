@@ -35,11 +35,11 @@ export default function BlogCard({
 
   if (viewMode === "list") {
     return (
-      <article className="group bg-white rounded-2xl border border-gray-200/80 shadow-2xs hover:shadow-md hover:border-primary/30 transition-all duration-300 overflow-hidden flex flex-col md:flex-row font-montserrat">
+      <article className="group bg-white rounded-2xl border border-gray-200/80 shadow-2xs hover:shadow-md hover:border-primary/30 transition-all duration-300 overflow-hidden flex flex-col md:flex-row font-montserrat w-full min-w-0 max-w-full">
         {/* Image / Graphic */}
         <Link
           href={`/blogs/${blog.slug}`}
-          className="relative md:w-72 lg:w-80 h-48 md:h-auto shrink-0 overflow-hidden block"
+          className="relative w-full md:w-72 lg:w-80 h-48 md:h-auto shrink-0 overflow-hidden block min-w-0"
         >
           <BlogImage
             src={blog.image}
@@ -50,12 +50,12 @@ export default function BlogCard({
         </Link>
 
         {/* Content body */}
-        <div className="flex-1 p-5 sm:p-6 flex flex-col justify-between">
+        <div className="flex-1 p-5 sm:p-6 flex flex-col justify-between w-full min-w-0 max-w-full">
           <div>
             {/* Top row: Category badge, Read time, Date */}
             <div className="flex flex-wrap items-center gap-2 mb-3">
               <span
-                className="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wide inline-flex items-center"
+                className="px-2.5 py-0.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wide inline-flex items-center shrink-0"
                 style={{
                   backgroundColor: blog.categoryBg || "#F4F2EC",
                   color: blog.categoryColor || "#02474D",
@@ -64,30 +64,30 @@ export default function BlogCard({
                 {blog.category}
               </span>
 
-              <span className="text-gray-300">•</span>
+              <span className="text-gray-300 shrink-0">•</span>
 
-              <div className="flex items-center gap-1 text-xs text-gray-500 font-medium">
-                <Clock className="w-3.5 h-3.5 text-gray-400" />
+              <div className="flex items-center gap-1 text-xs sm:text-sm text-gray-500 font-medium shrink-0">
+                <Clock className="w-3.5 h-3.5 text-gray-400 shrink-0" />
                 <span>{blog.readTime || "5 min read"}</span>
               </div>
 
-              <span className="text-gray-300">•</span>
+              <span className="text-gray-300 shrink-0">•</span>
 
-              <div className="flex items-center gap-1 text-xs text-gray-500">
-                <Calendar className="w-3.5 h-3.5 text-gray-400" />
+              <div className="flex items-center gap-1 text-xs sm:text-sm text-gray-500 shrink-0">
+                <Calendar className="w-3.5 h-3.5 text-gray-400 shrink-0" />
                 <span>{formattedDate}</span>
               </div>
             </div>
 
             {/* Title */}
-            <h2 className="text-lg sm:text-xl font-bold font-bricolage text-[#02282C] group-hover:text-primary transition-colors line-clamp-2 mb-2 leading-snug">
+            <h2 className="text-lg xs:text-xl sm:text-2xl font-bold font-bricolage text-[#02282C] group-hover:text-primary transition-colors line-clamp-2 mb-2 leading-snug wrap-break-word">
               <Link href={`/blogs/${blog.slug}`} className="focus:outline-hidden">
                 {blog.title}
               </Link>
             </h2>
 
             {/* Excerpt */}
-            <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed mb-4">
+            <p className="text-xs xs:text-sm sm:text-base text-gray-600 line-clamp-2 leading-relaxed mb-4 wrap-break-word">
               {blog.excerpt}
             </p>
 
@@ -99,7 +99,7 @@ export default function BlogCard({
                     key={tag}
                     onClick={() => onSelectTag?.(tag)}
                     type="button"
-                    className="inline-flex items-center gap-1 text-[11px] font-medium bg-gray-50 hover:bg-gray-100 text-gray-600 px-2 py-0.5 rounded-md border border-gray-200/60 transition-colors"
+                    className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-medium bg-gray-50 hover:bg-gray-100 text-gray-600 px-2 py-1 rounded-md border border-gray-200/60 transition-colors touch-manipulation cursor-pointer"
                   >
                     <Tag className="w-2.5 h-2.5 text-gray-400" />
                     {tag}
@@ -110,17 +110,17 @@ export default function BlogCard({
           </div>
 
           {/* Bottom row: Author and Read CTA */}
-          <div className="pt-3 border-t border-gray-100 flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs font-bricolage">
+          <div className="pt-3 border-t border-gray-100 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs sm:text-sm font-bricolage shrink-0">
                 {"G"}
               </div>
-              <div className="text-left">
-                <p className="text-xs font-semibold text-gray-900 leading-tight">
+              <div className="text-left min-w-0">
+                <p className="text-xs sm:text-sm font-semibold text-gray-900 leading-tight truncate">
                   {"Grofi Editorial"}
                 </p>
                 {blog.authorRole && (
-                  <p className="text-[11px] text-gray-500 leading-tight">
+                  <p className="text-[11px] sm:text-xs text-gray-500 leading-tight truncate">
                     {blog.authorRole}
                   </p>
                 )}
@@ -129,7 +129,7 @@ export default function BlogCard({
 
             <Link
               href={`/blogs/${blog.slug}`}
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-primary group-hover:text-gold transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-primary group-hover:text-gold transition-colors py-1 px-2.5 min-h-11 touch-manipulation shrink-0"
             >
               <span>Read Guide</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -142,11 +142,11 @@ export default function BlogCard({
 
   // Grid view (Default)
   return (
-    <article className="group bg-white rounded-2xl border border-gray-200/80 shadow-2xs hover:shadow-md hover:border-primary/30 transition-all duration-300 overflow-hidden flex flex-col font-montserrat h-full">
+    <article className="group bg-white rounded-2xl border border-gray-200/80 shadow-2xs hover:shadow-md hover:border-primary/30 transition-all duration-300 overflow-hidden flex flex-col font-montserrat h-full w-full min-w-0 max-w-full">
       {/* Image / Thematic Graphic */}
       <Link
         href={`/blogs/${blog.slug}`}
-        className="relative aspect-16/9 w-full overflow-hidden block"
+        className="relative aspect-video w-full overflow-hidden block min-w-0"
       >
         <BlogImage
           src={blog.image}
@@ -157,7 +157,7 @@ export default function BlogCard({
         {/* Floating Category Tag inside image top */}
         <div className="absolute top-3 left-3 z-10">
           <span
-            className="px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wide shadow-xs backdrop-blur-md"
+            className="px-2.5 py-1 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wide shadow-xs backdrop-blur-md"
             style={{
               backgroundColor: blog.categoryBg || "rgba(255, 255, 255, 0.9)",
               color: blog.categoryColor || "#02474D",
@@ -169,30 +169,30 @@ export default function BlogCard({
       </Link>
 
       {/* Content body */}
-      <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+      <div className="p-4 sm:p-5 lg:p-6 flex-1 flex flex-col justify-between w-full min-w-0 max-w-full">
         <div>
           {/* Metadata chips */}
-          <div className="flex items-center gap-2 text-xs text-gray-500 mb-2.5">
-            <div className="flex items-center gap-1 font-medium">
-              <Clock className="w-3.5 h-3.5 text-gray-400" />
+          <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 mb-2.5 flex-wrap">
+            <div className="flex items-center gap-1 font-medium shrink-0">
+              <Clock className="w-3.5 h-3.5 text-gray-400 shrink-0" />
               <span>{blog.readTime || "5 min read"}</span>
             </div>
-            <span className="text-gray-300">•</span>
-            <div className="flex items-center gap-1">
-              <Calendar className="w-3.5 h-3.5 text-gray-400" />
+            <span className="text-gray-300 shrink-0">•</span>
+            <div className="flex items-center gap-1 shrink-0">
+              <Calendar className="w-3.5 h-3.5 text-gray-400 shrink-0" />
               <span>{formattedDate}</span>
             </div>
           </div>
 
           {/* Title */}
-          <h2 className="text-lg font-bold font-bricolage text-[#02282C] group-hover:text-primary transition-colors line-clamp-2 mb-2 leading-snug">
+          <h2 className="text-base xs:text-lg sm:text-xl font-bold font-bricolage text-[#02282C] group-hover:text-primary transition-colors line-clamp-2 mb-2 leading-snug wrap-break-word">
             <Link href={`/blogs/${blog.slug}`} className="focus:outline-hidden">
               {blog.title}
             </Link>
           </h2>
 
           {/* Excerpt */}
-          <p className="text-gray-600 text-sm line-clamp-3 leading-relaxed mb-4">
+          <p className="text-xs xs:text-sm sm:text-base text-gray-600 line-clamp-3 leading-relaxed mb-4 wrap-break-word">
             {blog.excerpt}
           </p>
 
@@ -204,7 +204,7 @@ export default function BlogCard({
                   key={tag}
                   onClick={() => onSelectTag?.(tag)}
                   type="button"
-                  className="inline-flex items-center gap-1 text-[11px] font-medium bg-gray-50 hover:bg-gray-100 text-gray-600 px-2 py-0.5 rounded-md border border-gray-200/60 transition-colors"
+                  className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-medium bg-gray-50 hover:bg-gray-100 text-gray-600 px-2 py-1 rounded-md border border-gray-200/60 transition-colors touch-manipulation cursor-pointer"
                 >
                   <Tag className="w-2.5 h-2.5 text-gray-400" />
                   {tag}
@@ -215,17 +215,17 @@ export default function BlogCard({
         </div>
 
         {/* Footer: Author & Link */}
-        <div className="pt-3 border-t border-gray-100 flex items-center justify-between mt-auto">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs font-bricolage">
+        <div className="pt-3 border-t border-gray-100 flex items-center justify-between mt-auto gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <div className="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs sm:text-sm font-bricolage shrink-0">
               {"G"}
             </div>
-            <div className="text-left">
-              <p className="text-xs font-semibold text-gray-900 leading-tight truncate max-w-[120px]">
+            <div className="text-left min-w-0">
+              <p className="text-xs sm:text-sm font-semibold text-gray-900 leading-tight truncate max-w-30">
                 {"Grofi Editorial"}
               </p>
               {blog.authorRole && (
-                <p className="text-[10px] text-gray-500 leading-tight truncate max-w-[120px]">
+                <p className="text-[10px] sm:text-xs text-gray-500 leading-tight truncate max-w-30">
                   {blog.authorRole}
                 </p>
               )}
@@ -234,7 +234,7 @@ export default function BlogCard({
 
           <Link
             href={`/blogs/${blog.slug}`}
-            className="inline-flex items-center gap-1 text-xs font-bold text-primary group-hover:text-gold transition-colors"
+            className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-primary group-hover:text-gold transition-colors py-1 px-2.5 min-h-11 touch-manipulation shrink-0"
           >
             <span>Read</span>
             <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />

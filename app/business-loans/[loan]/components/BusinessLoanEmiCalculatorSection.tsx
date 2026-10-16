@@ -124,6 +124,10 @@ export default function BusinessLoanEmiCalculatorSection({ lender }: BusinessLoa
     setTenureYears(Math.min(4, maxTenureYears));
   };
 
+  const amountPct = maxSanction > 100000 ? Math.min(100, Math.max(0, ((loanAmount - 100000) / (maxSanction - 100000)) * 100)) : 0;
+  const ratePct = maxRate > minRate ? Math.min(100, Math.max(0, ((interestRate - minRate) / (maxRate - minRate)) * 100)) : 0;
+  const tenurePct = maxTenureYears > 1 ? Math.min(100, Math.max(0, ((tenureYears - 1) / (maxTenureYears - 1)) * 100)) : 0;
+
   return (
     <section id="emi-calculator" className="py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 border-t border-gray-200 font-montserrat">
       
@@ -174,12 +178,16 @@ export default function BusinessLoanEmiCalculatorSection({ lender }: BusinessLoa
 
             <input
               type="range"
+              aria-label="Required Loan Quantum"
               min={100000}
               max={maxSanction}
               step={50000}
               value={loanAmount}
               onChange={(e) => setLoanAmount(Number(e.target.value))}
-              className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+              style={{
+                background: `linear-gradient(to right, #02474D 0%, #02474D ${amountPct}%, #E2E8F0 ${amountPct}%, #E2E8F0 100%)`,
+              }}
+              className="custom-range-slider"
             />
 
             <div className="flex justify-between text-[11px] text-gray-400 font-medium">
@@ -220,12 +228,16 @@ export default function BusinessLoanEmiCalculatorSection({ lender }: BusinessLoa
 
             <input
               type="range"
+              aria-label="Interest Rate"
               min={minRate}
               max={maxRate}
               step={0.1}
               value={interestRate}
               onChange={(e) => setInterestRate(Number(e.target.value))}
-              className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+              style={{
+                background: `linear-gradient(to right, #02474D 0%, #02474D ${ratePct}%, #E2E8F0 ${ratePct}%, #E2E8F0 100%)`,
+              }}
+              className="custom-range-slider"
             />
 
             <div className="flex justify-between text-[11px] text-gray-400 font-medium">
@@ -248,12 +260,16 @@ export default function BusinessLoanEmiCalculatorSection({ lender }: BusinessLoa
 
             <input
               type="range"
+              aria-label="Repayment Tenure"
               min={1}
               max={maxTenureYears}
               step={1}
               value={tenureYears}
               onChange={(e) => setTenureYears(Number(e.target.value))}
-              className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+              style={{
+                background: `linear-gradient(to right, #02474D 0%, #02474D ${tenurePct}%, #E2E8F0 ${tenurePct}%, #E2E8F0 100%)`,
+              }}
+              className="custom-range-slider"
             />
 
             <div className="flex justify-between text-[11px] text-gray-400 font-medium">

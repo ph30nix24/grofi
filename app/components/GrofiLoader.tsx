@@ -135,7 +135,7 @@ export default function GrofiLoader({
         <div className="flex flex-col items-center justify-center gap-2.5">
           <div className="relative">
             <span
-              className={`font-bricolage font-extrabold ${sizeClasses.text} animate-grofi-shimmer bg-clip-text text-transparent bg-gradient-to-r from-[#02474D] via-[#B69226] to-[#02474D]`}
+              className={`font-bricolage font-extrabold ${sizeClasses.text} animate-grofi-shimmer bg-clip-text text-transparent bg-linear-to-r from-[#02474D] via-[#B69226] to-[#02474D]`}
             >
               {text}
             </span>

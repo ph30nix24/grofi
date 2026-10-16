@@ -300,11 +300,12 @@ export default function LoanAgainstPropertyCalculator() {
                   max={150000000}
                   step={500000}
                   value={loanAmount}
+                  aria-label="Loan Amount"
                   onChange={(e) => setLoanAmount(Number(e.target.value))}
                   style={{
                     background: `linear-gradient(to right, #02474D 0%, #02474D ${amountPercent}%, #E2E8F0 ${amountPercent}%, #E2E8F0 100%)`,
                   }}
-                  className="custom-range-slider"
+                  className="w-full custom-range-slider cursor-pointer"
                 />
                 <div className="flex items-center justify-between text-xs text-gray-500 font-medium">
                   <span>Min: ₹10 Lakhs</span>
@@ -362,11 +363,12 @@ export default function LoanAgainstPropertyCalculator() {
                   max={15.0}
                   step={0.05}
                   value={interestRate}
+                  aria-label="Interest Rate"
                   onChange={(e) => setInterestRate(Number(e.target.value))}
                   style={{
-                    background: `linear-gradient(to right, #02474D 0%, #02474D ${ratePercent}%, #E2E8F0 ${ratePercent}%, #E2E8F0 100%)`,
+                    background: `linear-gradient(to right, #d97706 0%, #d97706 ${ratePercent}%, #E2E8F0 ${ratePercent}%, #E2E8F0 100%)`,
                   }}
-                  className="custom-range-slider"
+                  className="w-full custom-range-slider custom-range-slider-amber cursor-pointer"
                 />
                 <div className="flex items-center justify-between text-xs text-gray-500 font-medium">
                   <span>Min: 8.50%</span>
@@ -429,11 +431,12 @@ export default function LoanAgainstPropertyCalculator() {
                   max={20}
                   step={1}
                   value={tenureYears}
+                  aria-label="Loan Tenure"
                   onChange={(e) => setTenureYears(Number(e.target.value))}
                   style={{
                     background: `linear-gradient(to right, #02474D 0%, #02474D ${tenurePercent}%, #E2E8F0 ${tenurePercent}%, #E2E8F0 100%)`,
                   }}
-                  className="custom-range-slider"
+                  className="w-full custom-range-slider cursor-pointer"
                 />
                 <div className="flex items-center justify-between text-xs text-gray-500 font-medium">
                   <span>Min: 1 Year</span>
@@ -634,11 +637,12 @@ export default function LoanAgainstPropertyCalculator() {
                   max={250000000}
                   step={500000}
                   value={propertyMarketValue}
+                  aria-label="Property Fair Market Valuation"
                   onChange={(e) => setPropertyMarketValue(Number(e.target.value))}
                   style={{
                     background: `linear-gradient(to right, #02474D 0%, #02474D ${propertyPercent}%, #E2E8F0 ${propertyPercent}%, #E2E8F0 100%)`,
                   }}
-                  className="custom-range-slider"
+                  className="w-full custom-range-slider cursor-pointer"
                 />
                 <div className="flex items-center justify-between text-xs text-gray-500 font-medium">
                   <span>Min: ₹25 Lakhs</span>
@@ -693,11 +697,12 @@ export default function LoanAgainstPropertyCalculator() {
                   max={2500000}
                   step={10000}
                   value={monthlyIncome}
+                  aria-label="Net Monthly Income"
                   onChange={(e) => setMonthlyIncome(Number(e.target.value))}
                   style={{
-                    background: `linear-gradient(to right, #02474D 0%, #02474D ${incomePercent}%, #E2E8F0 ${incomePercent}%, #E2E8F0 100%)`,
+                    background: `linear-gradient(to right, #059669 0%, #059669 ${incomePercent}%, #E2E8F0 ${incomePercent}%, #E2E8F0 100%)`,
                   }}
-                  className="custom-range-slider"
+                  className="w-full custom-range-slider custom-range-slider-emerald cursor-pointer"
                 />
                 <div className="flex items-center justify-between text-xs text-gray-500 font-medium">
                   <span>Min: ₹30k / mo</span>
@@ -736,11 +741,12 @@ export default function LoanAgainstPropertyCalculator() {
                   max={500000}
                   step={5000}
                   value={existingEmis}
+                  aria-label="Existing Monthly Loan EMIs"
                   onChange={(e) => setExistingEmis(Number(e.target.value))}
                   style={{
-                    background: `linear-gradient(to right, #02474D 0%, #02474D ${emisPercent}%, #E2E8F0 ${emisPercent}%, #E2E8F0 100%)`,
+                    background: `linear-gradient(to right, #d97706 0%, #d97706 ${emisPercent}%, #E2E8F0 ${emisPercent}%, #E2E8F0 100%)`,
                   }}
-                  className="custom-range-slider"
+                  className="w-full custom-range-slider custom-range-slider-amber cursor-pointer"
                 />
                 <div className="flex items-center justify-between text-xs text-gray-500 font-medium">
                   <span>Min: ₹0</span>

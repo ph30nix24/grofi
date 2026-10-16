@@ -91,57 +91,57 @@ export default function PersonalLoanHero() {
             </div>
 
             {/* Key Value Stat Cards (2x2 Grid) */}
-            <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="bg-white/85 backdrop-blur-xs p-3.5 rounded-2xl border border-gray-200/80 shadow-2xs hover:shadow-xs transition-shadow">
+            <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
+              <div className="bg-white/85 backdrop-blur-xs p-3 sm:p-3.5 rounded-2xl border border-gray-200/80 shadow-2xs hover:shadow-xs transition-shadow">
                 <div className="flex items-center gap-1.5 mb-1">
-                  <TrendingDown className="w-3.5 h-3.5 text-emerald-700" />
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
+                  <TrendingDown className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500 truncate">
                     Rates From
                   </span>
                 </div>
-                <div className="font-bricolage font-bold text-lg sm:text-xl text-gray-900">
+                <div className="font-bricolage font-bold text-base sm:text-lg lg:text-xl text-gray-900 leading-tight">
                   9.99% <span className="text-xs font-normal text-gray-500">p.a.</span>
                 </div>
-                <p className="text-[10px] text-gray-500 mt-0.5">Reducing balance</p>
+                <p className="text-[10px] text-gray-500 mt-0.5 truncate">Reducing balance</p>
               </div>
 
-              <div className="bg-white/85 backdrop-blur-xs p-3.5 rounded-2xl border border-gray-200/80 shadow-2xs hover:shadow-xs transition-shadow">
+              <div className="bg-white/85 backdrop-blur-xs p-3 sm:p-3.5 rounded-2xl border border-gray-200/80 shadow-2xs hover:shadow-xs transition-shadow">
                 <div className="flex items-center gap-1.5 mb-1">
-                  <Percent className="w-3.5 h-3.5 text-blue-700" />
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
+                  <Percent className="w-3.5 h-3.5 text-blue-700 shrink-0" />
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500 truncate">
                     Max Sanction
                   </span>
                 </div>
-                <div className="font-bricolage font-bold text-lg sm:text-xl text-gray-900">
+                <div className="font-bricolage font-bold text-base sm:text-lg lg:text-xl text-gray-900 leading-tight">
                   ₹50 Lakhs
                 </div>
-                <p className="text-[10px] text-gray-500 mt-0.5">Zero collateral</p>
+                <p className="text-[10px] text-gray-500 mt-0.5 truncate">Zero collateral</p>
               </div>
 
-              <div className="bg-white/85 backdrop-blur-xs p-3.5 rounded-2xl border border-gray-200/80 shadow-2xs hover:shadow-xs transition-shadow">
+              <div className="bg-white/85 backdrop-blur-xs p-3 sm:p-3.5 rounded-2xl border border-gray-200/80 shadow-2xs hover:shadow-xs transition-shadow">
                 <div className="flex items-center gap-1.5 mb-1">
-                  <Zap className="w-3.5 h-3.5 text-amber-700" />
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
+                  <Zap className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500 truncate">
                     Disbursal Speed
                   </span>
                 </div>
-                <div className="font-bricolage font-bold text-lg sm:text-xl text-gray-900">
+                <div className="font-bricolage font-bold text-base sm:text-lg lg:text-xl text-gray-900 leading-tight">
                   10 Seconds
                 </div>
-                <p className="text-[10px] text-gray-500 mt-0.5">Pre-approved profiles</p>
+                <p className="text-[10px] text-gray-500 mt-0.5 truncate">Pre-approved profiles</p>
               </div>
 
-              <div className="bg-white/85 backdrop-blur-xs p-3.5 rounded-2xl border border-gray-200/80 shadow-2xs hover:shadow-xs transition-shadow">
+              <div className="bg-white/85 backdrop-blur-xs p-3 sm:p-3.5 rounded-2xl border border-gray-200/80 shadow-2xs hover:shadow-xs transition-shadow">
                 <div className="flex items-center gap-1.5 mb-1">
-                  <ShieldCheck className="w-3.5 h-3.5 text-purple-700" />
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
+                  <ShieldCheck className="w-3.5 h-3.5 text-purple-700 shrink-0" />
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500 truncate">
                     Score Impact
                   </span>
                 </div>
-                <div className="font-bricolage font-bold text-lg sm:text-xl text-gray-900">
+                <div className="font-bricolage font-bold text-base sm:text-lg lg:text-xl text-gray-900 leading-tight">
                   ₹0 / Zero Hit
                 </div>
-                <p className="text-[10px] text-gray-500 mt-0.5">Soft inquiry</p>
+                <p className="text-[10px] text-gray-500 mt-0.5 truncate">Soft inquiry</p>
               </div>
             </div>
 

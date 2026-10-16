@@ -14,7 +14,7 @@ export default function LoanPreApprovedBanner({ lender }: LoanPreApprovedBannerP
 
   return (
     <section className="py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 font-montserrat">
-      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-primary via-[#023b40] to-primary p-8 sm:p-12 text-white shadow-2xl">
+      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-primary via-[#023b40] to-primary p-5 sm:p-12 text-white shadow-2xl">
         
         {/* Decorative lighting background */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-gold/20 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
@@ -60,7 +60,7 @@ export default function LoanPreApprovedBanner({ lender }: LoanPreApprovedBannerP
                 `Pre-approved Check: ${lender.name} • Soft Inquiry`
               )
             }
-            className="bg-white hover:bg-gray-100 text-primary font-bold text-xs sm:text-sm py-4 px-8 rounded-xl flex items-center gap-2 shadow-lg hover:shadow-xl transition-all cursor-pointer group active:scale-98"
+            className="w-full sm:w-auto bg-white hover:bg-gray-100 text-primary font-bold text-xs sm:text-sm py-3.5 sm:py-4 px-6 sm:px-8 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all cursor-pointer group active:scale-98"
           >
             <span>Check Pre-Approved Eligibility Now</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

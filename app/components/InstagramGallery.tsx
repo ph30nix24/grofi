@@ -36,7 +36,7 @@ export function InstagramReelSkeleton({
     <div
       className={`${
         viewMode === "carousel"
-          ? "snap-start shrink-0 w-67.5 sm:w-72.5 md:w-77.5"
+          ? "snap-start shrink-0 w-65 xs:w-[280px] sm:w-75 md:w-[320px]"
           : "w-full"
       } aspect-9/16 aspect-reel min-h-115 rounded-3xl relative overflow-hidden bg-linear-to-b from-[#0e1e21] via-[#091517] to-[#040a0b] border border-gray-200/40 shadow-md p-5 flex flex-col justify-between select-none ${
         index % 4 === 1
@@ -181,10 +181,22 @@ export default function InstagramGallery({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [activeModalReel, displayReels]);
 
+  // Lock background scroll when reel watch modal is open
+  useEffect(() => {
+    if (activeModalReel) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [activeModalReel]);
+
   return (
     <section
       id="insta-reels"
-      className="py-22 px-4 sm:px-6 relative bg-linear-to-b from-[#F3F0DF]/30 via-white to-[#F3F0DF]/40 overflow-hidden font-montserrat"
+      className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative bg-linear-to-b from-[#F3F0DF]/30 via-white to-[#F3F0DF]/40 overflow-hidden font-montserrat"
     >
       {/* ── Background Ambient Lighting ───────────────────────────────── */}
       <div className="absolute top-12 left-10 w-96 h-96 bg-linear-to-br from-purple-500/10 via-pink-500/10 to-transparent rounded-full blur-3xl pointer-events-none" />
@@ -257,8 +269,9 @@ export default function InstagramGallery({
           {/* View Mode Toggle */}
           <div className="bg-white p-1 rounded-2xl shadow-xs border border-gray-200/80 inline-flex items-center gap-1">
             <button
+              type="button"
               onClick={() => setViewMode("carousel")}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl font-montserrat text-xs font-semibold transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3.5 py-2 min-h-10 rounded-xl font-montserrat text-xs font-semibold transition-all cursor-pointer touch-manipulation ${
                 viewMode === "carousel"
                   ? "bg-primary text-white shadow-xs"
                   : "text-gray-600 hover:text-primary hover:bg-gray-50"
@@ -268,8 +281,9 @@ export default function InstagramGallery({
               <span>Carousel Slider</span>
             </button>
             <button
+              type="button"
               onClick={() => setViewMode("grid")}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl font-montserrat text-xs font-semibold transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3.5 py-2 min-h-10 rounded-xl font-montserrat text-xs font-semibold transition-all cursor-pointer touch-manipulation ${
                 viewMode === "grid"
                   ? "bg-primary text-white shadow-xs"
                   : "text-gray-600 hover:text-primary hover:bg-gray-50"
@@ -284,16 +298,18 @@ export default function InstagramGallery({
           {viewMode === "carousel" && (
             <div className="flex items-center gap-2">
               <button
+                type="button"
                 onClick={() => scroll("left")}
                 aria-label="Scroll left"
-                className="w-10 h-10 rounded-2xl bg-white hover:bg-primary text-gray-700 hover:text-white border border-gray-200 shadow-xs flex items-center justify-center transition-all hover:scale-105 cursor-pointer"
+                className="w-11 h-11 min-w-11 min-h-11 rounded-2xl bg-white hover:bg-primary text-gray-700 hover:text-white border border-gray-200 shadow-xs flex items-center justify-center transition-all hover:scale-105 cursor-pointer touch-manipulation"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
+                type="button"
                 onClick={() => scroll("right")}
                 aria-label="Scroll right"
-                className="w-10 h-10 rounded-2xl bg-white hover:bg-primary text-gray-700 hover:text-white border border-gray-200 shadow-xs flex items-center justify-center transition-all hover:scale-105 cursor-pointer"
+                className="w-11 h-11 min-w-11 min-h-11 rounded-2xl bg-white hover:bg-primary text-gray-700 hover:text-white border border-gray-200 shadow-xs flex items-center justify-center transition-all hover:scale-105 cursor-pointer touch-manipulation"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
@@ -332,7 +348,7 @@ export default function InstagramGallery({
                 onClick={() => setActiveModalReel(reel)}
                 className={`${
                   viewMode === "carousel"
-                    ? "snap-start shrink-0 w-67.5 sm:w-72.5 md:w-77.5"
+                    ? "snap-start shrink-0 w-65 xs:w-[280px] sm:w-75 md:w-80"
                     : "w-full"
                 } aspect-9/16 aspect-reel min-h-115 rounded-3xl relative overflow-hidden group cursor-pointer border border-gray-200/90 shadow-md hover:shadow-2xl hover:border-primary/40 transition-all duration-300 hover:-translate-y-2 select-none`}
               >
@@ -436,7 +452,7 @@ export default function InstagramGallery({
                     onClick={(e) => e.stopPropagation()}
                     aria-label="Open on Instagram"
                     title="Open on Instagram"
-                    className="w-9 h-9 rounded-full bg-black/50 backdrop-blur-md text-white flex items-center justify-center hover:bg-[#E1306C] hover:scale-110 transition-all cursor-pointer shadow-md"
+                    className="w-10 h-10 rounded-full bg-black/60 backdrop-blur-md text-white flex items-center justify-center hover:bg-[#E1306C] hover:scale-110 transition-all cursor-pointer shadow-md touch-manipulation"
                   >
                     <ExternalLink className="w-4 h-4" />
                   </a>
@@ -447,7 +463,7 @@ export default function InstagramGallery({
                     onClick={(e) => handleCopyLink(reel.permalink, reel.id, e)}
                     aria-label="Copy reel link"
                     title="Copy link"
-                    className="w-9 h-9 rounded-full bg-black/50 backdrop-blur-md text-white flex items-center justify-center hover:bg-gold hover:scale-110 transition-all cursor-pointer shadow-md"
+                    className="w-10 h-10 rounded-full bg-black/60 backdrop-blur-md text-white flex items-center justify-center hover:bg-gold hover:scale-110 transition-all cursor-pointer shadow-md touch-manipulation"
                   >
                     {isCopied ? (
                       <Check className="w-4 h-4 text-emerald-400" />
@@ -604,7 +620,7 @@ export default function InstagramGallery({
             </button>
 
             {/* ── Left Player: Clean Instagram Embed Frame with Skeleton ── */}
-            <div className="w-full md:w-87.5 lg:w-95 h-130 sm:h-145 bg-slate-950 relative flex items-center justify-center shrink-0 overflow-hidden">
+            <div className="w-full md:w-87.5 lg:w-95 h-120 sm:h-145 bg-slate-950 relative flex items-center justify-center shrink-0 overflow-hidden">
               {!modalIframeLoaded && (
                 <div className="absolute inset-0 z-10 bg-linear-to-b from-[#0e1e21] via-[#091517] to-[#040a0b] flex flex-col items-center justify-center p-6 text-center overflow-hidden">
                   {/* Real Instagram poster preview behind shimmer while player loads */}

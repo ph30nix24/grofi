@@ -239,15 +239,15 @@ export default function CreditCardFAQSection({
     filteredFAQs.every((item) => openItems[item.id]);
 
   return (
-    <div className="mt-16 pt-14 border-t border-gray-200/80">
+    <div className="mt-10 sm:mt-16 pt-10 sm:pt-14 border-t border-gray-200/80 w-full min-w-0">
       {/* ── HEADER ──────────────────────────────────────────────────────── */}
-      <div className="text-center max-w-3xl mx-auto mb-10">
-        <div className="inline-flex items-center gap-2 bg-[#EBF4ED] text-primary px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide border border-primary/15 font-montserrat shadow-2xs mb-3.5">
+      <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
+        <div className="inline-flex items-center gap-2 bg-[#EBF4ED] text-primary px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide border border-primary/15 font-montserrat shadow-2xs mb-3">
           <Sparkles className="w-3.5 h-3.5 text-gold animate-pulse" />
           <span>KNOWLEDGE BASE & EXPERT FAQS</span>
         </div>
 
-        <h3 className="font-bricolage font-extrabold text-2xl sm:text-4xl text-gray-900 tracking-tight">
+        <h3 className="font-bricolage font-extrabold text-2xl sm:text-3xl md:text-4xl text-gray-900 tracking-tight leading-tight">
           Frequently Asked Questions About{" "}
           <span className="text-primary relative inline-block">
             Credit Cards
@@ -255,45 +255,46 @@ export default function CreditCardFAQSection({
           </span>
         </h3>
 
-        <p className="text-xs sm:text-base text-gray-600 font-montserrat mt-3 leading-relaxed">
+        <p className="text-xs sm:text-base text-gray-600 font-montserrat mt-2.5 sm:mt-3 leading-relaxed">
           Everything you need to know before applying in India — from CIBIL requirements and Lifetime Free cards to RuPay UPI integration.
         </p>
 
         {/* Trust Badges */}
-        <div className="mt-5 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs text-gray-600 font-montserrat">
-          <div className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-full border border-gray-200 shadow-2xs">
-            <ShieldCheck className="w-4 h-4 text-emerald-600" />
+        <div className="mt-4 sm:mt-5 flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:gap-6 text-[11px] sm:text-xs text-gray-600 font-montserrat">
+          <div className="flex items-center gap-1.5 bg-white px-2.5 sm:px-3 py-1.5 rounded-full border border-gray-200 shadow-2xs">
+            <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 shrink-0" />
             <span>Zero CIBIL Impact for Soft Checks</span>
           </div>
-          <div className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-full border border-gray-200 shadow-2xs">
-            <CheckCircle2 className="w-4 h-4 text-primary" />
+          <div className="flex items-center gap-1.5 bg-white px-2.5 sm:px-3 py-1.5 rounded-full border border-gray-200 shadow-2xs">
+            <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary shrink-0" />
             <span>100% Free & Transparent Advice</span>
           </div>
-          <div className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-full border border-gray-200 shadow-2xs">
-            <Zap className="w-4 h-4 text-amber-500" />
+          <div className="flex items-center gap-1.5 bg-white px-2.5 sm:px-3 py-1.5 rounded-full border border-gray-200 shadow-2xs">
+            <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 shrink-0" />
             <span>Updated for 2026 RBI Guidelines</span>
           </div>
         </div>
       </div>
 
       {/* ── SEARCH & TOPIC BAR ───────────────────────────────────────────── */}
-      <div className="max-w-5xl mx-auto mb-8 space-y-4">
+      <div className="max-w-5xl mx-auto mb-6 sm:mb-8 space-y-3 sm:space-y-4 w-full min-w-0">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           {/* Live Search Input */}
           <div className="relative w-full sm:max-w-md">
-            <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search questions (e.g. CIBIL, RuPay UPI, Lifetime Free)..."
-              className="w-full bg-white border border-gray-200 pl-10 pr-9 py-2.5 rounded-xl text-xs sm:text-sm font-montserrat placeholder:text-gray-400 focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all shadow-2xs"
+              placeholder="Search questions (e.g. CIBIL, UPI, LTF)..."
+              className="w-full bg-white border border-gray-200 pl-10 pr-9 py-2.5 min-h-10.5 rounded-xl text-xs sm:text-sm font-montserrat placeholder:text-gray-400 focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all shadow-2xs"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-0.5 rounded-full hover:bg-gray-100"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 w-7 h-7 flex items-center justify-center rounded-full hover:bg-gray-100 cursor-pointer"
                 title="Clear search"
+                aria-label="Clear search input"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -307,7 +308,7 @@ export default function CreditCardFAQSection({
             </span>
             <button
               onClick={allExpanded ? handleCollapseAll : handleExpandAll}
-              className="text-xs font-semibold text-primary hover:text-primary/80 font-montserrat px-3 py-1.5 rounded-lg border border-primary/20 hover:bg-primary/5 transition-colors cursor-pointer flex items-center gap-1.5"
+              className="text-xs font-semibold text-primary hover:text-primary/80 font-montserrat px-3 py-2 min-h-9 rounded-lg border border-primary/20 hover:bg-primary/5 transition-colors cursor-pointer flex items-center gap-1.5"
             >
               <span>{allExpanded ? "Collapse All" : "Expand All"}</span>
               <ChevronDown
@@ -320,37 +321,39 @@ export default function CreditCardFAQSection({
         </div>
 
         {/* Category Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hidden">
-          {CATEGORIES.map((cat) => {
-            const isActive = selectedCategory === cat.id;
-            return (
-              <button
-                key={cat.id}
-                onClick={() => setSelectedCategory(cat.id)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold font-montserrat whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
-                  isActive
-                    ? "bg-primary text-white shadow-sm"
-                    : "bg-white hover:bg-gray-100 text-gray-600 border border-gray-200 shadow-2xs"
-                }`}
-              >
-                <span>{cat.label}</span>
-                <span
-                  className={`text-[10px] px-1.5 py-0.5 rounded-full ${
+        <div className="w-full min-w-0 overflow-x-auto pb-2 scrollbar-hidden -mx-4 px-4 sm:mx-0 sm:px-0">
+          <div className="flex items-center gap-2 w-max sm:w-auto sm:justify-center">
+            {CATEGORIES.map((cat) => {
+              const isActive = selectedCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className={`px-3.5 py-2 min-h-9 rounded-xl text-xs font-semibold font-montserrat whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
                     isActive
-                      ? "bg-white/20 text-white"
-                      : "bg-gray-100 text-gray-500"
+                      ? "bg-primary text-white shadow-sm"
+                      : "bg-white hover:bg-gray-100 text-gray-600 border border-gray-200 shadow-2xs"
                   }`}
                 >
-                  {cat.count}
-                </span>
-              </button>
-            );
-          })}
+                  <span>{cat.label}</span>
+                  <span
+                    className={`text-[10px] px-1.5 py-0.5 rounded-full ${
+                      isActive
+                        ? "bg-white/20 text-white"
+                        : "bg-gray-100 text-gray-500"
+                    }`}
+                  >
+                    {cat.count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 
       {/* ── FAQ CARDS ACCORDION ─────────────────────────────────────────── */}
-      <div className="max-w-5xl mx-auto space-y-4">
+      <div className="max-w-5xl mx-auto space-y-4 w-full min-w-0">
         {filteredFAQs.length === 0 ? (
           <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center max-w-md mx-auto">
             <HelpCircle className="w-10 h-10 text-gray-300 mx-auto mb-3" />
@@ -391,52 +394,52 @@ export default function CreditCardFAQSection({
                   type="button"
                   onClick={() => toggleItem(item.id)}
                   aria-expanded={isOpen}
-                  className="w-full text-left p-5 sm:p-6 flex items-start gap-3.5 sm:gap-4 cursor-pointer select-none group"
+                  className="w-full text-left p-3.5 sm:p-5 md:p-6 flex items-start gap-2.5 sm:gap-4 cursor-pointer select-none group"
                 >
                   {/* Topic Icon Container */}
                   <div
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border transition-transform duration-200 group-hover:scale-105 ${item.iconBg}`}
+                    className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0 border transition-transform duration-200 group-hover:scale-105 ${item.iconBg}`}
                   >
-                    <Icon className={`w-5 h-5 ${item.iconColor}`} />
+                    <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${item.iconColor}`} />
                   </div>
 
                   {/* Question & Summary */}
-                  <div className="flex-1 min-w-0 pr-2">
-                    <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                  <div className="flex-1 min-w-0 pr-1 sm:pr-2">
+                    <div className="flex items-center gap-1.5 sm:gap-2 mb-1 sm:mb-1.5 flex-wrap">
                       <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-2 py-0.5 rounded-md font-montserrat">
                         {item.categoryLabel}
                       </span>
                       {/* High-value quick takeaway badge */}
-                      <span className="text-[11px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200/60 px-2.5 py-0.5 rounded-md font-montserrat inline-flex items-center gap-1">
+                      <span className="text-[10px] sm:text-[11px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200/60 px-2 sm:px-2.5 py-0.5 rounded-md font-montserrat inline-flex items-center gap-1 max-w-full">
                         <Sparkles className="w-3 h-3 text-emerald-600 shrink-0" />
-                        <span className="truncate max-w-70 sm:max-w-none">
+                        <span className="truncate max-w-50 xs:max-w-xs sm:max-w-none">
                           {item.quickTakeaway}
                         </span>
                       </span>
                     </div>
 
-                    <h4 className="font-bricolage font-bold text-base sm:text-lg text-gray-900 group-hover:text-primary transition-colors leading-snug">
+                    <h4 className="font-bricolage font-bold text-sm sm:text-base md:text-lg text-gray-900 group-hover:text-primary transition-colors leading-snug">
                       {item.question}
                     </h4>
                   </div>
 
                   {/* Toggle Chevron */}
                   <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
+                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
                       isOpen
                         ? "bg-primary text-white rotate-180"
                         : "bg-gray-100 text-gray-400 group-hover:text-gray-700 group-hover:bg-gray-200"
                     }`}
                   >
-                    <ChevronDown className="w-4 h-4" />
+                    <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </div>
                 </button>
 
                 {/* Accordion Expandable Content */}
                 {isOpen && (
-                  <div className="px-5 pb-6 sm:px-6 sm:pb-6 pt-1 border-t border-gray-100 animate-fadeIn">
+                  <div className="px-3.5 pb-5 sm:px-6 sm:pb-6 pt-1 border-t border-gray-100 animate-fadeIn">
                     {/* Detailed Answer Paragraphs */}
-                    <div className="space-y-3 pt-3">
+                    <div className="space-y-2.5 sm:space-y-3 pt-3">
                       {item.answer.map((paragraph, index) => (
                         <p
                           key={index}
@@ -448,7 +451,7 @@ export default function CreditCardFAQSection({
                     </div>
 
                     {/* Pro Tip / Grofi Insider Callout */}
-                    <div className="mt-4 bg-[#FEF6E4]/70 border border-amber-300/60 rounded-xl p-3.5 sm:p-4 flex items-start gap-3">
+                    <div className="mt-4 bg-[#FEF6E4]/70 border border-amber-300/60 rounded-xl p-3 sm:p-4 flex items-start gap-2.5 sm:gap-3">
                       <div className="w-7 h-7 rounded-lg bg-amber-200/60 text-amber-900 flex items-center justify-center shrink-0 mt-0.5">
                         <Lightbulb className="w-4 h-4 text-amber-800" />
                       </div>
@@ -463,7 +466,7 @@ export default function CreditCardFAQSection({
                     </div>
 
                     {/* Helpfulness Feedback Row */}
-                    <div className="mt-5 pt-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3 text-xs text-gray-500 font-montserrat">
+                    <div className="mt-5 pt-3 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-gray-500 font-montserrat">
                       <div className="flex items-center gap-2">
                         {feedback ? (
                           <span className="text-emerald-700 font-medium inline-flex items-center gap-1.5 animate-fadeIn">
@@ -475,14 +478,14 @@ export default function CreditCardFAQSection({
                             <span>Was this explanation helpful?</span>
                             <button
                               onClick={() => handleFeedback(item.id, "yes")}
-                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-gray-100 hover:bg-emerald-50 hover:text-emerald-700 transition-colors text-[11px] font-semibold cursor-pointer"
+                              className="inline-flex items-center gap-1 px-2.5 py-1.5 min-h-7.5 rounded-md bg-gray-100 hover:bg-emerald-50 hover:text-emerald-700 transition-colors text-[11px] font-semibold cursor-pointer"
                             >
                               <ThumbsUp className="w-3 h-3" />
                               Yes
                             </button>
                             <button
                               onClick={() => handleFeedback(item.id, "no")}
-                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-gray-100 hover:bg-rose-50 hover:text-rose-700 transition-colors text-[11px] font-semibold cursor-pointer"
+                              className="inline-flex items-center gap-1 px-2.5 py-1.5 min-h-7.5 rounded-md bg-gray-100 hover:bg-rose-50 hover:text-rose-700 transition-colors text-[11px] font-semibold cursor-pointer"
                             >
                               <ThumbsDown className="w-3 h-3" />
                               No
@@ -494,9 +497,9 @@ export default function CreditCardFAQSection({
                       {onCheckOffers && (
                         <button
                           onClick={onCheckOffers}
-                          className="text-primary hover:text-primary/80 font-semibold inline-flex items-center gap-1 hover:underline cursor-pointer ml-auto"
+                          className="text-primary hover:text-primary/80 font-semibold inline-flex items-center gap-1 hover:underline cursor-pointer sm:ml-auto w-fit"
                         >
-                          Check cards matching this criterion
+                          <span>Check cards matching this criterion</span>
                           <ArrowRight className="w-3 h-3" />
                         </button>
                       )}

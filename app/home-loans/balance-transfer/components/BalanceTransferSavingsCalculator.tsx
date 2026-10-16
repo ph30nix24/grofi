@@ -176,6 +176,12 @@ export default function BalanceTransferSavingsCalculator() {
     };
   }, [outstandingBalance, currentRate, newRate, remainingYears, topUpAmount]);
 
+  const balancePct = Math.min(100, Math.max(0, ((outstandingBalance - 1000000) / (30000000 - 1000000)) * 100));
+  const currentRatePct = Math.min(100, Math.max(0, ((currentRate - 7.5) / (12.0 - 7.5)) * 100));
+  const remainingYearsPct = Math.min(100, Math.max(0, ((remainingYears - 2) / (30 - 2)) * 100));
+  const newRatePct = Math.min(100, Math.max(0, ((newRate - 7.0) / (9.5 - 7.0)) * 100));
+  const topUpPct = Math.min(100, Math.max(0, (topUpAmount / 10000000) * 100));
+
   return (
     <section id="savings-calculator" className="py-12 sm:py-16 bg-[#F8F6F0] border-t border-b border-gray-200/70 font-montserrat">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -232,12 +238,16 @@ export default function BalanceTransferSavingsCalculator() {
 
                 <input
                   type="range"
+                  aria-label="Outstanding Loan Balance"
                   min={1000000}
                   max={30000000}
                   step={250000}
                   value={outstandingBalance}
                   onChange={(e) => setOutstandingBalance(Number(e.target.value))}
-                  className="w-full accent-primary h-2 bg-gray-200 rounded-lg cursor-pointer"
+                  style={{
+                    background: `linear-gradient(to right, #02474D 0%, #02474D ${balancePct}%, #E2E8F0 ${balancePct}%, #E2E8F0 100%)`,
+                  }}
+                  className="custom-range-slider"
                 />
                 <div className="flex justify-between text-[11px] text-gray-400 mt-1">
                   <span>₹10 Lakhs</span>
@@ -259,12 +269,16 @@ export default function BalanceTransferSavingsCalculator() {
 
                 <input
                   type="range"
+                  aria-label="Existing Interest Rate"
                   min={7.5}
                   max={12.0}
                   step={0.05}
                   value={currentRate}
                   onChange={(e) => setCurrentRate(Number(e.target.value))}
-                  className="w-full accent-amber-600 h-2 bg-gray-200 rounded-lg cursor-pointer"
+                  style={{
+                    background: `linear-gradient(to right, #d97706 0%, #d97706 ${currentRatePct}%, #E2E8F0 ${currentRatePct}%, #E2E8F0 100%)`,
+                  }}
+                  className="custom-range-slider custom-range-slider-amber"
                 />
                 <div className="flex justify-between text-[11px] text-gray-400 mt-1">
                   <span>7.50%</span>
@@ -304,12 +318,16 @@ export default function BalanceTransferSavingsCalculator() {
 
                 <input
                   type="range"
+                  aria-label="Remaining Loan Tenure"
                   min={2}
                   max={30}
                   step={1}
                   value={remainingYears}
                   onChange={(e) => setRemainingYears(Number(e.target.value))}
-                  className="w-full accent-primary h-2 bg-gray-200 rounded-lg cursor-pointer"
+                  style={{
+                    background: `linear-gradient(to right, #02474D 0%, #02474D ${remainingYearsPct}%, #E2E8F0 ${remainingYearsPct}%, #E2E8F0 100%)`,
+                  }}
+                  className="custom-range-slider"
                 />
               </div>
 
@@ -344,12 +362,16 @@ export default function BalanceTransferSavingsCalculator() {
 
                 <input
                   type="range"
+                  aria-label="New Takeover Interest Rate"
                   min={7.0}
                   max={9.5}
                   step={0.05}
                   value={newRate}
                   onChange={(e) => setNewRate(Number(e.target.value))}
-                  className="w-full accent-emerald-600 h-2 bg-gray-200 rounded-lg cursor-pointer"
+                  style={{
+                    background: `linear-gradient(to right, #059669 0%, #059669 ${newRatePct}%, #E2E8F0 ${newRatePct}%, #E2E8F0 100%)`,
+                  }}
+                  className="custom-range-slider custom-range-slider-emerald"
                 />
               </div>
 
@@ -369,12 +391,16 @@ export default function BalanceTransferSavingsCalculator() {
 
                 <input
                   type="range"
+                  aria-label="Additional Top-Up Loan"
                   min={0}
                   max={10000000}
                   step={100000}
                   value={topUpAmount}
                   onChange={(e) => setTopUpAmount(Number(e.target.value))}
-                  className="w-full accent-gold h-2 bg-gray-200 rounded-lg cursor-pointer"
+                  style={{
+                    background: `linear-gradient(to right, #B69226 0%, #B69226 ${topUpPct}%, #E2E8F0 ${topUpPct}%, #E2E8F0 100%)`,
+                  }}
+                  className="custom-range-slider custom-range-slider-gold"
                 />
                 <div className="flex justify-between text-[11px] text-gray-400 mt-1">
                   <span>₹0 (No Top-Up)</span>

@@ -78,6 +78,14 @@ export default function ClaimSimulator() {
   const [bankRecoveredAmt, setBankRecoveredAmt] = useState<number>(0);
   const [isVoluntaryTransfer, setIsVoluntaryTransfer] = useState<boolean>(false);
 
+  // Dynamic slider percentages
+  const lossMin = 5000;
+  const lossMax = 200000;
+  const lossPct = Math.min(100, Math.max(0, ((customLoss - lossMin) / (lossMax - lossMin)) * 100));
+
+  const bankRecoveryMax = Math.max(5000, customLoss);
+  const bankRecoveryPct = Math.min(100, Math.max(0, (bankRecoveredAmt / bankRecoveryMax) * 100));
+
   // Payout calculation for custom mode
   const policySumInsured = 100000;
   const netUnrecoveredLoss = Math.max(0, customLoss - bankRecoveredAmt);
@@ -225,12 +233,16 @@ export default function ClaimSimulator() {
                 </div>
                 <input
                   type="range"
-                  min="5000"
-                  max="200000"
-                  step="5000"
+                  min={lossMin}
+                  max={lossMax}
+                  step={5000}
                   value={customLoss}
+                  aria-label="Simulated Unauthorized Fraud Loss Amount"
                   onChange={(e) => setCustomLoss(Number(e.target.value))}
-                  className="custom-range-slider"
+                  className="w-full custom-range-slider custom-range-slider-amber cursor-pointer"
+                  style={{
+                    background: `linear-gradient(to right, #f59e0b 0%, #f59e0b ${lossPct}%, rgba(255,255,255,0.2) ${lossPct}%, rgba(255,255,255,0.2) 100%)`,
+                  }}
                 />
                 <div className="flex justify-between text-[10px] text-white/50 mt-1">
                   <span>₹5,000</span>
@@ -250,12 +262,16 @@ export default function ClaimSimulator() {
                 </div>
                 <input
                   type="range"
-                  min="0"
+                  min={0}
                   max={customLoss}
-                  step="5000"
+                  step={5000}
                   value={bankRecoveredAmt}
+                  aria-label="Amount Recovered by Bank or Merchant"
                   onChange={(e) => setBankRecoveredAmt(Number(e.target.value))}
-                  className="custom-range-slider"
+                  className="w-full custom-range-slider cursor-pointer"
+                  style={{
+                    background: `linear-gradient(to right, #38bdf8 0%, #38bdf8 ${bankRecoveryPct}%, rgba(255,255,255,0.2) ${bankRecoveryPct}%, rgba(255,255,255,0.2) 100%)`,
+                  }}
                 />
                 <div className="flex justify-between text-[10px] text-white/50 mt-1">
                   <span>₹0 (Zero Bank Recovery)</span>

@@ -199,7 +199,7 @@ export default function SearchBox({
     <div ref={containerRef} className={`relative w-full z-50 ${className}`}>
       {/* ── Main Input Pill ── */}
       <div
-        className={`flex items-center gap-2.5 bg-white border rounded-full px-4 py-2 sm:py-2.5 shadow-sm transition-all duration-200 ${
+        className={`flex items-center gap-2.5 bg-white border rounded-full px-3.5 sm:px-4 py-2 sm:py-2.5 min-h-11 shadow-sm transition-all duration-200 ${
           isOpen
             ? "border-primary/60 shadow-md ring-2 ring-primary/10"
             : "border-gray-200 hover:border-gray-300 hover:shadow"
@@ -230,7 +230,7 @@ export default function SearchBox({
               setTotalCount(0);
               inputRef.current?.focus();
             }}
-            className="w-5 h-5 rounded-full hover:bg-gray-100 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors shrink-0 cursor-pointer"
+            className="w-6 h-6 rounded-full hover:bg-gray-100 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors shrink-0 cursor-pointer"
             aria-label="Clear search"
           >
             <X className="w-3.5 h-3.5" />
@@ -246,7 +246,7 @@ export default function SearchBox({
         <button
           type="button"
           onClick={() => handleSubmit()}
-          className="w-8 h-8 rounded-full bg-primary hover:bg-gold flex items-center justify-center transition-all duration-300 shrink-0 cursor-pointer shadow-sm hover:scale-105 active:scale-95 group/btn"
+          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-primary hover:bg-gold flex items-center justify-center transition-all duration-300 shrink-0 cursor-pointer shadow-sm hover:scale-105 active:scale-95 group/btn"
           aria-label="Search credit cards"
         >
           <ArrowRight className="w-3.5 h-3.5 text-white transition-transform group-hover/btn:translate-x-0.5" />
@@ -255,7 +255,7 @@ export default function SearchBox({
 
       {/* ── Dropdown Suggestions / Live Results ── */}
       {isOpen && (
-        <div className="absolute left-0 top-full mt-2 w-full sm:w-[500px] md:w-[540px] max-w-[94vw] bg-white border border-gray-200/90 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.22)] z-50 overflow-hidden max-h-[440px] flex flex-col animate-fadeIn ring-1 ring-black/5">
+        <div className="absolute left-0 top-full mt-2 w-full sm:w-125 md:w-135 max-w-[94vw] bg-white border border-gray-200/90 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.22)] z-50 overflow-hidden max-h-[70vh] sm:max-h-110 flex flex-col animate-fadeIn ring-1 ring-black/5">
 
           {/* STATE 1: Empty Query - Quick Filters & Popular Banks */}
           {!query.trim() && (
@@ -411,7 +411,7 @@ export default function SearchBox({
                       {/* Right: Badge / Details */}
                       <div className="flex flex-col items-end gap-1 shrink-0 pl-2">
                         {card.badge && (
-                          <span className="inline-block text-[10px] font-semibold text-primary bg-[#EBF4ED] px-2 py-0.5 rounded-full border border-primary/20 max-w-[140px] truncate">
+                          <span className="inline-block text-[10px] font-semibold text-primary bg-[#EBF4ED] px-2 py-0.5 rounded-full border border-primary/20 max-w-35 truncate">
                             {card.badge}
                           </span>
                         )}

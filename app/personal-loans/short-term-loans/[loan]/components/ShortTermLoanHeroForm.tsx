@@ -261,7 +261,10 @@ export default function ShortTermLoanHeroForm({ lender }: ShortTermLoanHeroFormP
               step={maxAmt > 100000 ? 5000 : 1000}
               value={loanAmount}
               onChange={(e) => setLoanAmount(Number(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+              style={{
+                background: `linear-gradient(to right, #02474D 0%, #02474D ${maxAmt > minAmt ? Math.min(100, Math.max(0, ((loanAmount - minAmt) / (maxAmt - minAmt)) * 100)) : 0}%, #E2E8F0 ${maxAmt > minAmt ? Math.min(100, Math.max(0, ((loanAmount - minAmt) / (maxAmt - minAmt)) * 100)) : 0}%, #E2E8F0 100%)`,
+              }}
+              className="custom-range-slider"
             />
 
             <div className="flex flex-wrap gap-1.5 pt-1">

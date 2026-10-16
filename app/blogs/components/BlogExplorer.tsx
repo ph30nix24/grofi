@@ -219,22 +219,22 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 font-montserrat">
+    <div className="lg:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 font-montserrat w-full min-w-0 max-w-full">
       {/* Featured Blog Spotlight (When in default unfiltered view) */}
       {featuredBlog && (
-        <section className="mb-12">
+        <section className="mb-12 w-full min-w-0 max-w-full">
           <div className="flex items-center gap-2 mb-4">
-            <span className="w-2.5 h-2.5 rounded-full bg-gold" />
-            <h2 className="text-xs font-bold uppercase tracking-wider text-gray-500 font-montserrat">
+            <span className="w-2.5 h-2.5 rounded-full bg-gold shrink-0" />
+            <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-gray-500 font-montserrat truncate">
               Featured Editorial Spotlight
             </h2>
           </div>
 
-          <div className="group relative bg-white rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden grid grid-cols-1 lg:grid-cols-12">
-            {/* Visual Header / Graphic (5 cols) */}
+          <div className="group relative bg-white rounded-2xl sm:rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden grid grid-cols-1 lg:grid-cols-12 w-full min-w-0 max-w-full">
+            {/* Visual Header / Graphic (6 cols) */}
             <Link
               href={`/blogs/${featuredBlog.slug}`}
-              className="lg:col-span-6 relative aspect-16/10 lg:aspect-auto min-h-65 lg:min-h-90 block overflow-hidden"
+              className="lg:col-span-6 relative aspect-video xs:aspect-[16/10] lg:aspect-auto min-h-50 xs:min-h-[240px] lg:min-h-90 w-full min-w-0 max-w-full block overflow-hidden shrink-0"
             >
               <BlogImage
                 src={featuredBlog.image}
@@ -242,9 +242,9 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
                 category={featuredBlog.category}
                 className="h-full w-full object-cover"
               />
-              <div className="absolute top-4 left-4 z-10">
+              <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4 z-10">
                 <span
-                  className="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-sm"
+                  className="px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs md:text-sm font-extrabold uppercase tracking-wider shadow-sm"
                   style={{
                     backgroundColor: featuredBlog.categoryBg || "#EFF6FF",
                     color: featuredBlog.categoryColor || "#1D4ED8",
@@ -256,46 +256,46 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
             </Link>
 
             {/* Content Details (6 cols) */}
-            <div className="lg:col-span-6 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
-              <div>
+            <div className="lg:col-span-6 p-5 sm:p-7 lg:p-10 flex flex-col justify-between w-full min-w-0 max-w-full">
+              <div className="w-full min-w-0">
                 {/* Meta details */}
-                <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500 mb-3 font-medium">
-                  <div className="flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5 text-gray-400" />
+                <div className="flex flex-wrap items-center gap-x-2.5 sm:gap-x-3 gap-y-1.5 text-xs sm:text-sm text-gray-500 mb-3 font-medium min-w-0 max-w-full">
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <Clock className="w-3.5 h-3.5 text-gray-400 shrink-0" />
                     <span>{featuredBlog.readTime || "5 min read"}</span>
                   </div>
-                  <span className="text-gray-300">•</span>
-                  <div className="flex items-center gap-1.5">
-                    <Calendar className="w-3.5 h-3.5 text-gray-400" />
+                  <span className="text-gray-300 hidden xs:inline shrink-0">•</span>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <Calendar className="w-3.5 h-3.5 text-gray-400 shrink-0" />
                     <span>{formatDate(featuredBlog.createdAt)}</span>
                   </div>
-                  <span className="text-gray-300">•</span>
-                  <span className="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md font-semibold text-[11px]">
+                  <span className="text-gray-300 hidden xs:inline shrink-0">•</span>
+                  <span className="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md font-semibold text-[11px] sm:text-xs shrink-0">
                     Verified Research
                   </span>
                 </div>
 
                 {/* Title */}
-                <h3 className="text-2xl sm:text-3xl font-extrabold font-bricolage text-[#02282C] group-hover:text-primary transition-colors leading-tight mb-4">
+                <h3 className="text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-extrabold font-bricolage text-[#02282C] group-hover:text-primary transition-colors leading-tight mb-3 sm:mb-4 wrap-break-word w-full min-w-0">
                   <Link href={`/blogs/${featuredBlog.slug}`}>
                     {featuredBlog.title}
                   </Link>
                 </h3>
 
                 {/* Excerpt */}
-                <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-6 line-clamp-3">
+                <p className="text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed mb-5 sm:mb-6 line-clamp-3 wrap-break-word w-full min-w-0">
                   {featuredBlog.excerpt}
                 </p>
 
                 {/* Tags */}
                 {featuredBlog.tags && featuredBlog.tags.length > 0 && (
-                  <div className="flex flex-wrap items-center gap-2 mb-6">
+                  <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-6">
                     {featuredBlog.tags.map((t) => (
                       <button
                         key={t}
                         onClick={() => setSelectedTag(t)}
                         type="button"
-                        className="inline-flex items-center gap-1 text-xs font-medium bg-[#F4F2EC] hover:bg-[#eae6db] text-gray-700 px-2.5 py-1 rounded-lg transition-colors"
+                        className="inline-flex items-center gap-1 text-[11px] sm:text-xs md:text-sm font-medium bg-[#F4F2EC] hover:bg-[#eae6db] text-gray-700 px-2.5 py-1 rounded-lg transition-colors touch-manipulation cursor-pointer"
                       >
                         <Tag className="w-3 h-3 text-gold" />
                         {t}
@@ -306,17 +306,17 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
               </div>
 
               {/* Author and Action CTA */}
-              <div className="pt-4 border-t border-gray-100 flex flex-wrap items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm font-bricolage shadow-xs">
+              <div className="pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 w-full min-w-0">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm sm:text-base font-bricolage shadow-xs shrink-0">
                     { "G" }
                   </div>
-                  <div>
-                    <p className="text-sm font-bold text-gray-900 leading-tight">
+                  <div className="min-w-0">
+                    <p className="text-sm sm:text-base font-bold text-gray-900 leading-tight truncate">
                       {"Grofi Team"}
                     </p>
                     {featuredBlog.authorRole && (
-                      <p className="text-xs text-gray-500 leading-tight">
+                      <p className="text-xs sm:text-sm text-gray-500 leading-tight truncate">
                         {featuredBlog.authorRole}
                       </p>
                     )}
@@ -325,10 +325,10 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
 
                 <Link
                   href={`/blogs/${featuredBlog.slug}`}
-                  className="inline-flex items-center gap-2 bg-primary hover:bg-[#03363b] text-white px-5 py-2.5 rounded-xl font-bold text-sm transition-all shadow-2xs hover:shadow-md group-hover:translate-x-0.5"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-primary hover:bg-[#03363b] text-white px-5 py-3 sm:py-2.5 rounded-xl font-bold text-sm sm:text-base transition-all shadow-2xs hover:shadow-md touch-manipulation active:scale-[0.99] shrink-0"
                 >
                   <span>Read Full Guide</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 shrink-0" />
                 </Link>
               </div>
             </div>
@@ -337,23 +337,23 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
       )}
 
       {/* Filter & Search Toolbar */}
-      <div id="articles-list-section" className="scroll-mt-24 space-y-4 mb-8">
+      <div id="articles-list-section" className="scroll-mt-24 space-y-4 mb-8 w-full min-w-0 max-w-full">
         {/* Row 1: Search, Sort, View mode */}
-        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-gray-200/80 shadow-2xs flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between">
+        <div className="bg-white p-3.5 sm:p-5 rounded-2xl border border-gray-200/80 shadow-2xs flex flex-col md:flex-row gap-3 sm:gap-4 items-stretch md:items-center justify-between w-full min-w-0 max-w-full">
           {/* Search input */}
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <div className="relative flex-1 w-full min-w-0 max-w-full md:max-w-md">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by topic, keyword, or author..."
-              className="w-full pl-10 pr-9 py-2.5 text-sm bg-gray-50 hover:bg-gray-100/80 focus:bg-white rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-hidden transition-all text-gray-900 placeholder:text-gray-400"
+              className="w-full pl-10 pr-10 py-2.5 text-base sm:text-sm bg-gray-50 hover:bg-gray-100/80 focus:bg-white rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-hidden transition-all text-gray-900 placeholder:text-gray-400"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-0.5"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 w-8 h-8 flex items-center justify-center rounded-lg touch-manipulation cursor-pointer"
                 aria-label="Clear search"
               >
                 <X className="w-4 h-4" />
@@ -362,9 +362,9 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
           </div>
 
           {/* Right controls: Sort and View mode */}
-          <div className="flex items-center justify-between sm:justify-end gap-3">
+          <div className="flex items-center justify-between sm:justify-end gap-2.5 sm:gap-3 w-full min-w-0 max-w-full md:w-auto">
             {/* Sort Dropdown */}
-            <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
+            <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600 flex-1 sm:flex-none min-w-0">
               <SlidersHorizontal className="w-4 h-4 text-gray-400 shrink-0" />
               <select
                 value={sortBy}
@@ -373,7 +373,7 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
                     e.target.value as "newest" | "oldest" | "readTime" | "title"
                   )
                 }
-                className="bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-800 text-xs sm:text-sm font-semibold rounded-xl px-3 py-2.5 outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/20 cursor-pointer"
+                className="w-full sm:w-auto bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-800 text-base sm:text-sm font-semibold rounded-xl px-3 py-2.5 outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/20 cursor-pointer min-h-10.5 touch-manipulation truncate"
               >
                 <option value="newest">Latest Published</option>
                 <option value="oldest">Oldest First</option>
@@ -383,10 +383,10 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
             </div>
 
             {/* Grid vs List toggle */}
-            <div className="flex items-center bg-gray-100 p-1 rounded-xl border border-gray-200">
+            <div className="flex items-center bg-gray-100 p-1 rounded-xl border border-gray-200 shrink-0">
               <button
                 onClick={() => setViewMode("grid")}
-                className={`p-1.5 rounded-lg transition-colors ${
+                className={`w-9 h-9 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg transition-colors touch-manipulation cursor-pointer ${
                   viewMode === "grid"
                     ? "bg-white text-primary shadow-xs font-bold"
                     : "text-gray-500 hover:text-gray-800"
@@ -398,7 +398,7 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
               </button>
               <button
                 onClick={() => setViewMode("list")}
-                className={`p-1.5 rounded-lg transition-colors ${
+                className={`w-9 h-9 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg transition-colors touch-manipulation cursor-pointer ${
                   viewMode === "list"
                     ? "bg-white text-primary shadow-xs font-bold"
                     : "text-gray-500 hover:text-gray-800"
@@ -413,20 +413,26 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
         </div>
 
         {/* Row 2: Dynamic Category Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+        <div
+          role="tablist"
+          aria-label="Blog categories"
+          className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hidden scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden -mx-4 px-4 sm:mx-0 sm:px-0 w-[calc(100%+2rem)] sm:w-full max-w-[calc(100%+2rem)] sm:max-w-full min-w-0"
+        >
           {categories.map((cat) => {
             const isActive = selectedCategory.toLowerCase() === cat.id.toLowerCase();
             return (
               <button
                 key={cat.id}
+                role="tab"
+                aria-selected={isActive}
                 onClick={() => {
                   setSelectedCategory(cat.id);
                   setSelectedTag(null);
                 }}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-2 ${
+                className={`min-h-10.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-2 touch-manipulation shrink-0 ${
                   isActive
                     ? "bg-primary text-white shadow-sm ring-2 ring-primary/20"
-                    : "bg-white hover:bg-[#F4F2EC] text-gray-700 border border-gray-200/90"
+                    : "bg-white hover:bg-[#F4F2EC] text-gray-700 border border-gray-200/90 active:bg-gray-100"
                 }`}
               >
                 <span>{cat.label}</span>
@@ -446,15 +452,15 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
 
         {/* Row 3: Quick Tag Pills from Database Blogs */}
         {allTags.length > 0 && (
-          <div className="flex items-center gap-1.5 flex-wrap pt-1 text-xs">
-            <span className="text-gray-400 font-medium text-[11px] mr-1">Popular Topics:</span>
+          <div className="flex items-center gap-1.5 flex-wrap pt-1 text-xs w-full min-w-0">
+            <span className="text-gray-400 font-medium text-[11px] mr-1 shrink-0">Popular Topics:</span>
             {allTags.map((t) => {
               const isTagActive = selectedTag?.toLowerCase() === t.toLowerCase();
               return (
                 <button
                   key={t}
                   onClick={() => setSelectedTag(isTagActive ? null : t)}
-                  className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all cursor-pointer border ${
+                  className={`min-h-8 px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all cursor-pointer border touch-manipulation inline-flex items-center gap-1 shrink-0 ${
                     isTagActive
                       ? "bg-gold text-[#02282C] border-gold font-bold shadow-2xs"
                       : "bg-white hover:bg-gray-100 text-gray-600 border-gray-200"
@@ -469,22 +475,23 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
 
         {/* Active Tag filter indicator */}
         {selectedTag && (
-          <div className="flex items-center gap-2 pt-1 text-xs">
-            <span className="text-gray-500">Filtered by topic:</span>
-            <span className="inline-flex items-center gap-1.5 bg-gold/15 text-gold-900 border border-gold/30 px-2.5 py-1 rounded-lg font-bold">
-              <Tag className="w-3 h-3 text-gold" />
-              {selectedTag}
+          <div className="flex flex-wrap items-center gap-2 pt-1 text-xs w-full min-w-0">
+            <span className="text-gray-500 shrink-0">Filtered by topic:</span>
+            <span className="inline-flex items-center gap-1.5 bg-gold/15 text-gold-900 border border-gold/30 px-2.5 py-1 rounded-lg font-bold shrink-0">
+              <Tag className="w-3 h-3 text-gold shrink-0" />
+              <span>{selectedTag}</span>
               <button
                 onClick={() => setSelectedTag(null)}
-                className="hover:text-red-700 ml-0.5 cursor-pointer"
+                className="hover:text-red-700 ml-0.5 cursor-pointer touch-manipulation p-1"
                 title="Remove tag filter"
+                aria-label="Remove tag filter"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
             </span>
             <button
               onClick={() => setSelectedTag(null)}
-              className="text-xs text-primary underline hover:text-[#03363b] ml-1"
+              className="text-xs text-primary underline hover:text-[#03363b] ml-1 touch-manipulation py-1 cursor-pointer shrink-0"
             >
               Clear
             </button>
@@ -497,8 +504,8 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
         <div
           className={
             viewMode === "grid"
-              ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-16"
-              : "space-y-6 mb-16"
+              ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-16 w-full min-w-0 max-w-full"
+              : "space-y-6 mb-16 w-full min-w-0 max-w-full"
           }
         >
           {remainingBlogs.map((blog) => (
@@ -512,19 +519,19 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
         </div>
       ) : (
         /* Empty results state */
-        <div className="bg-white rounded-3xl border border-gray-200 p-8 sm:p-12 text-center max-w-lg mx-auto mb-16">
+        <div className="bg-white rounded-3xl border border-gray-200 p-8 sm:p-12 text-center max-w-lg mx-auto mb-16 w-full min-w-0">
           <div className="w-12 h-12 rounded-2xl bg-gray-100 text-gray-500 flex items-center justify-center mx-auto mb-4">
             <Search className="w-6 h-6" />
           </div>
-          <h3 className="text-lg font-bold font-bricolage text-gray-900 mb-1">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold font-bricolage text-gray-900 mb-1 wrap-break-word">
             No Articles Found
           </h3>
-          <p className="text-gray-500 text-sm mb-5">
+          <p className="text-sm sm:text-base text-gray-500 mb-5 wrap-break-word">
             We couldn&apos;t find any articles matching your search query or filters.
           </p>
           <button
             onClick={handleResetFilters}
-            className="inline-flex items-center gap-2 bg-primary hover:bg-[#03363b] text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition-colors cursor-pointer"
+            className="min-h-11 inline-flex items-center gap-2 bg-primary hover:bg-[#03363b] text-white text-xs sm:text-sm md:text-base font-bold px-5 py-2.5 rounded-xl transition-colors cursor-pointer touch-manipulation"
           >
             Reset All Filters
           </button>
@@ -532,33 +539,33 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
       )}
 
       {/* Newsletter & Knowledge Brief Subscription Callout */}
-      <section className="bg-linear-to-br from-[#02282C] via-[#02474D] to-[#0A5C63] rounded-3xl p-6 sm:p-10 text-white relative overflow-hidden shadow-lg mb-8">
+      <section className="bg-linear-to-br from-[#02282C] via-[#02474D] to-[#0A5C63] rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 text-white relative overflow-hidden shadow-lg mb-8 w-full min-w-0 max-w-full">
         {/* Ambient glow */}
         <div className="absolute top-0 right-0 w-80 h-80 bg-gold/15 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 max-w-2xl">
-          <div className="inline-flex items-center gap-1.5 bg-white/10 border border-white/20 text-gold px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
-            <Sparkles className="w-3.5 h-3.5" />
+        <div className="relative z-10 max-w-2xl w-full min-w-0">
+          <div className="inline-flex items-center gap-1.5 bg-white/10 border border-white/20 text-gold px-3 py-1 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider mb-4">
+            <Sparkles className="w-3.5 h-3.5 shrink-0" />
             <span>Grofi Money Brief</span>
           </div>
 
-          <h3 className="text-2xl sm:text-3xl font-extrabold font-bricolage tracking-tight mb-2">
-            Stay Ahead of Credit Card & Loan Changes
+          <h3 className="text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-extrabold font-bricolage tracking-tight mb-2 wrap-break-word">
+            Stay Ahead of Credit Card &amp; Loan Changes
           </h3>
-          <p className="text-white/80 text-sm sm:text-base leading-relaxed mb-6 font-montserrat">
+          <p className="text-white/80 text-sm sm:text-base lg:text-lg leading-relaxed mb-6 font-montserrat wrap-break-word">
             Get concise, data-backed breakdowns of credit card reward devaluations, bank repo rate adjustments, and CIBIL score algorithms delivered every week. Zero spam.
           </p>
 
           {newsletterSubmitted ? (
-            <div className="flex items-center gap-2.5 bg-emerald-500/20 border border-emerald-400/40 text-emerald-200 px-4 py-3 rounded-xl text-sm font-semibold">
+            <div className="flex items-center gap-2.5 bg-emerald-500/20 border border-emerald-400/40 text-emerald-200 px-4 py-3 rounded-xl text-sm sm:text-base font-semibold">
               <CheckCircle2 className="w-5 h-5 text-emerald-300 shrink-0" />
               <span>Thank you! You are now subscribed to the Grofi Financial Briefing.</span>
             </div>
           ) : (
-            <div>
-              <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3">
-                <div className="relative flex-1">
-                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <div className="w-full min-w-0">
+              <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3 w-full min-w-0">
+                <div className="relative flex-1 w-full min-w-0">
+                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                   <input
                     type="email"
                     required
@@ -566,18 +573,18 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
                     value={newsletterEmail}
                     onChange={(e) => setNewsletterEmail(e.target.value)}
                     placeholder="Enter your email address..."
-                    className="w-full pl-10 pr-4 py-3 text-sm bg-white text-gray-900 rounded-xl outline-hidden focus:ring-2 focus:ring-gold disabled:opacity-60"
+                    className="w-full pl-10 pr-4 py-3 text-base sm:text-sm bg-white text-gray-900 rounded-xl outline-hidden focus:ring-2 focus:ring-gold disabled:opacity-60"
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={newsletterSubmitting}
-                  className="bg-gold hover:bg-[#c9a52f] text-[#02282C] px-6 py-3 rounded-xl font-bold text-sm transition-colors cursor-pointer shrink-0 shadow-sm disabled:opacity-60"
+                  className="w-full sm:w-auto min-h-12 bg-gold hover:bg-[#c9a52f] text-[#02282C] px-6 py-3 rounded-xl font-bold text-sm sm:text-base transition-colors cursor-pointer shrink-0 shadow-sm disabled:opacity-60 touch-manipulation active:scale-[0.99]"
                 >
                   {newsletterSubmitting ? "Subscribing..." : "Subscribe Free"}
                 </button>
               </form>
-              <p className="text-[11px] text-white/50 mt-2">
+              <p className="text-xs sm:text-sm text-white/60 mt-2 text-center sm:text-left">
                 By subscribing, you agree to receive financial updates and accept our{" "}
                 <Link href="/privacy-policy" className="text-white/80 hover:text-white underline">
                   Privacy Policy

@@ -69,7 +69,7 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
   const getDisbursalRank = (timeStr?: string): number => {
     if (!timeStr) return 99;
     const l = timeStr.toLowerCase();
-    if (l.includes("10 sec") || l.includes("3 sec") || l.includes("second")) return 1;
+    if (l.includes("10 sec") || l.includes("3 sec") || l.includes("second") || l.includes("instant")) return 1;
     if (l.includes("minute") || l.includes("20 min")) return 2;
     if (l.includes("1 hour") || l.includes("4 hour") || l.includes("under")) return 3;
     if (l.includes("same day") || l.includes("24 hr")) return 4;
@@ -300,8 +300,8 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
         <div className="bg-white rounded-3xl p-4 sm:p-5 border border-gray-200/90 shadow-sm mb-8 space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 items-center">
             
-            {/* Search Input (5 Cols) */}
-            <div className="lg:col-span-4 relative">
+            {/* Search Input */}
+            <div className="sm:col-span-2 lg:col-span-4 relative">
               <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
@@ -320,6 +320,7 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                     setCurrentPage(1);
                   }}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1 cursor-pointer"
+                  aria-label="Clear search query"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -327,7 +328,7 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
             </div>
 
             {/* Bank Type Dropdown (2 Cols) */}
-            <div className="lg:col-span-2 relative">
+            <div className="sm:col-span-1 lg:col-span-2 relative">
               <select
                 value={selectedBankType}
                 onChange={(e) => {
@@ -345,7 +346,7 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
             </div>
 
             {/* Min Loan Limit (2 Cols) */}
-            <div className="lg:col-span-2 relative">
+            <div className="sm:col-span-1 lg:col-span-2 relative">
               <select
                 value={selectedLoanAmount}
                 onChange={(e) => {
@@ -363,7 +364,7 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
             </div>
 
             {/* Min CIBIL (2 Cols) */}
-            <div className="lg:col-span-2 relative">
+            <div className="sm:col-span-1 lg:col-span-2 relative">
               <select
                 value={selectedMinCibil}
                 onChange={(e) => {
@@ -382,7 +383,7 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
             </div>
 
             {/* Sort Dropdown (2 Cols) */}
-            <div className="lg:col-span-2 relative">
+            <div className="sm:col-span-1 lg:col-span-2 relative">
               <select
                 value={sortBy}
                 onChange={(e) => {
@@ -411,8 +412,8 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
 
           {/* Active filter count & reset */}
           {hasActiveFilters && (
-            <div className="pt-2 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
-              <div className="flex items-center gap-2">
+            <div className="pt-2 border-t border-gray-100 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-500">
+              <div className="flex flex-wrap items-center gap-1.5">
                 <span>Active filters:</span>
                 {selectedCategory !== "all" && (
                   <span className="bg-primary/10 text-primary px-2 py-0.5 rounded-md font-semibold text-[11px]">
@@ -464,72 +465,78 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                     {/* Top Accent Strip */}
                     <div className="h-1.5 w-full bg-linear-to-r from-primary via-emerald-600 to-[#B69226]" />
 
-                    <Link href={`/personal-loans/${lender.id}`}>
-                      <div className="p-5 sm:p-6">
-                        
-                        {/* Card Header: Logo, Badges, Compare Checkbox */}
-                        <div className="flex items-start justify-between gap-3 mb-4">
-                          <div className="w-14 h-14 rounded-2xl bg-white border border-gray-200 p-2 flex items-center justify-center shrink-0 shadow-2xs">
-                            <Image
-                              src={lender.logo}
-                              alt={lender.name}
-                              width={52}
-                              height={52}
-                              className="max-h-full max-w-full object-contain"
+                    <div className="p-5 sm:p-6">
+                      
+                      {/* Card Header: Logo, Badges, Compare Checkbox */}
+                      <div className="flex items-start justify-between gap-3 mb-4">
+                        <Link
+                          href={`/personal-loans/${lender.id}`}
+                          className="w-14 h-14 rounded-2xl bg-white border border-gray-200 p-2 flex items-center justify-center shrink-0 shadow-2xs hover:border-primary transition-colors"
+                        >
+                          <Image
+                            src={lender.logo}
+                            alt={lender.name}
+                            width={52}
+                            height={52}
+                            className="max-h-full max-w-full object-contain"
+                          />
+                        </Link>
+
+                        <div className="flex flex-col items-end gap-1.5">
+                          {/* Compare Checkbox */}
+                          <label
+                            onClick={(e) => e.stopPropagation()}
+                            className="flex items-center gap-1.5 text-[11px] font-semibold text-gray-500 cursor-pointer select-none hover:text-primary"
+                          >
+                            <input
+                              type="checkbox"
+                              checked={checked}
+                              onChange={() => toggleCompare(lender)}
+                              className="w-3.5 h-3.5 rounded text-primary focus:ring-primary accent-primary cursor-pointer"
                             />
-                          </div>
+                            <span>Compare</span>
+                          </label>
 
-                          <div className="flex flex-col items-end gap-1.5">
-                            {/* Compare Checkbox */}
-                            <label className="flex items-center gap-1.5 text-[11px] font-semibold text-gray-500 cursor-pointer select-none hover:text-primary">
-                              <input
-                                type="checkbox"
-                                checked={checked}
-                                onChange={() => toggleCompare(lender)}
-                                className="w-3.5 h-3.5 rounded text-primary focus:ring-primary accent-primary cursor-pointer"
-                              />
-                              <span>Compare</span>
-                            </label>
-
-                            {/* Badge */}
-                            {lender.badge && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
-                                {lender.badge}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Bank Name & Rating */}
-                        <div className="mb-4">
-                          <div className="flex items-center justify-between gap-2">
-                            <h3 className="font-bricolage font-bold text-lg sm:text-xl text-gray-900 group-hover:text-primary transition-colors leading-snug">
-                              {lender.name}
-                            </h3>
-                          </div>
-
-                          <div className="flex items-center gap-2 mt-1">
-                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-gray-100 text-gray-700">
-                              {lender.bankType || "Bank"}
+                          {/* Badge */}
+                          {lender.badge && (
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
+                              {lender.badge}
                             </span>
-                            {lender.rating && (
-                              <span className="flex items-center gap-1 text-xs font-bold text-gray-700 bg-amber-50/70 px-2 py-0.5 rounded-md">
-                                <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                                <span>{lender.rating}</span>
-                                {lender.reviewCount && (
-                                  <span className="text-gray-400 font-normal">({lender.reviewCount})</span>
-                                )}
-                              </span>
-                            )}
-                          </div>
+                          )}
+                        </div>
+                      </div>
 
-                          <p className="text-xs text-gray-500 mt-2 line-clamp-2 leading-relaxed">
-                            {lender.tagline}
-                          </p>
+                      {/* Bank Name & Rating */}
+                      <div className="mb-4">
+                        <Link href={`/personal-loans/${lender.id}`} className="block group/title">
+                          <h3 className="font-bricolage font-bold text-lg sm:text-xl text-gray-900 group-hover/title:text-primary transition-colors leading-snug">
+                            {lender.name}
+                          </h3>
+                        </Link>
+
+                        <div className="flex items-center gap-2 mt-1">
+                          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-gray-100 text-gray-700">
+                            {lender.bankType || "Bank"}
+                          </span>
+                          {lender.rating && (
+                            <span className="flex items-center gap-1 text-xs font-bold text-gray-700 bg-amber-50/70 px-2 py-0.5 rounded-md">
+                              <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                              <span>{lender.rating}</span>
+                              {lender.reviewCount && (
+                                <span className="text-gray-400 font-normal">({lender.reviewCount})</span>
+                              )}
+                            </span>
+                          )}
                         </div>
 
-                        {/* Key Financial Metrics Matrix */}
-                        <div className="grid grid-cols-2 gap-2 bg-[#FDFBF7] p-3 rounded-2xl border border-gray-200/70 mb-4">
+                        <p className="text-xs text-gray-500 mt-2 line-clamp-2 leading-relaxed">
+                          {lender.tagline}
+                        </p>
+                      </div>
+
+                      {/* Key Financial Metrics Matrix */}
+                      <Link href={`/personal-loans/${lender.id}`} className="block">
+                        <div className="grid grid-cols-2 gap-2 bg-[#FDFBF7] p-3 rounded-2xl border border-gray-200/70 mb-4 hover:border-primary/30 transition-colors">
                           <div className="p-1">
                             <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
                               Interest Rate
@@ -582,9 +589,9 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                           <span>Min CIBIL: <strong className="text-gray-800 font-bold">{lender.minCreditScore}+</strong></span>
                           <span>Salary: <strong className="text-gray-800 font-bold">{lender.minIncome.split("(")[0]}</strong></span>
                         </div>
+                      </Link>
 
-                      </div>
-                    </Link>
+                    </div>
 
                     {/* Card Actions Footer */}
                     <div className="p-4 bg-gray-50/80 border-t border-gray-100 flex items-center gap-2">
@@ -622,8 +629,11 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                     className="bg-white rounded-3xl p-5 sm:p-6 border border-gray-200/90 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6"
                   >
                     {/* Bank Info */}
-                    <div className="flex items-start gap-4 min-w-70 max-w-sm">
-                      <div className="w-14 h-14 rounded-2xl bg-white border border-gray-200 p-2 flex items-center justify-center shrink-0 shadow-2xs">
+                    <div className="flex items-start gap-4 w-full lg:w-auto lg:min-w-70 max-w-sm">
+                      <Link
+                        href={`/personal-loans/${lender.id}`}
+                        className="w-14 h-14 rounded-2xl bg-white border border-gray-200 p-2 flex items-center justify-center shrink-0 shadow-2xs hover:border-primary transition-colors"
+                      >
                         <Image
                           src={lender.logo}
                           alt={lender.name}
@@ -631,7 +641,7 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                           height={52}
                           className="max-h-full max-w-full object-contain"
                         />
-                      </div>
+                      </Link>
 
                       <div>
                         <div className="flex items-center gap-2 mb-1">
@@ -644,9 +654,11 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                             </span>
                           )}
                         </div>
-                        <h3 className="font-bricolage font-bold text-base sm:text-lg text-gray-900 leading-tight">
-                          {lender.name}
-                        </h3>
+                        <Link href={`/personal-loans/${lender.id}`} className="hover:text-primary transition-colors">
+                          <h3 className="font-bricolage font-bold text-base sm:text-lg text-gray-900 leading-tight">
+                            {lender.name}
+                          </h3>
+                        </Link>
                         <p className="text-xs text-gray-500 mt-1 line-clamp-1">{lender.tagline}</p>
                       </div>
                     </div>
@@ -684,7 +696,10 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
 
                     {/* Actions & Compare */}
                     <div className="flex flex-row lg:flex-col items-center lg:items-end gap-2.5 w-full lg:w-auto shrink-0 justify-between lg:justify-center pt-3 lg:pt-0 border-t lg:border-t-0 border-gray-100">
-                      <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 cursor-pointer select-none hover:text-primary">
+                      <label
+                        onClick={(e) => e.stopPropagation()}
+                        className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 cursor-pointer select-none hover:text-primary"
+                      >
                         <input
                           type="checkbox"
                           checked={checked}
@@ -728,7 +743,7 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                 <span className="font-bold text-gray-900">{totalItems}</span> lenders
               </div>
 
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 flex-wrap justify-center">
                 {/* Previous Button */}
                 <button
                   type="button"
@@ -742,7 +757,7 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                 </button>
 
                 {/* Page Numbers */}
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 flex-wrap justify-center">
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => {
                     const isActive = pageNum === safeCurrentPage;
                     return (

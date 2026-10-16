@@ -169,6 +169,27 @@ export default function LoanAgainstPropertyLoanCalculator({
     surplusDeposit,
   ]);
 
+  // Slider limits and dynamic fill percentages
+  const loanMin = 1000000;
+  const loanMax = maxSanctionCap;
+  const loanPct = loanMax > loanMin ? Math.min(100, Math.max(0, ((loanAmount - loanMin) / (loanMax - loanMin)) * 100)) : 0;
+
+  const tenureMin = 1;
+  const tenureMax = maxTenureYears;
+  const tenurePct = tenureMax > tenureMin ? Math.min(100, Math.max(0, ((tenureYears - tenureMin) / (tenureMax - tenureMin)) * 100)) : 0;
+
+  const rateMin = minLenderRate - 0.5;
+  const rateMax = maxLenderRate + 2.5;
+  const ratePct = rateMax > rateMin ? Math.min(100, Math.max(0, ((interestRate - rateMin) / (rateMax - rateMin)) * 100)) : 0;
+
+  const propertyMin = 2000000;
+  const propertyMax = 200000000;
+  const propertyPct = propertyMax > propertyMin ? Math.min(100, Math.max(0, ((propertyValue - propertyMin) / (propertyMax - propertyMin)) * 100)) : 0;
+
+  const surplusMin = 100000;
+  const surplusMax = ltvCalculation.eligibleSanction || 5000000;
+  const surplusPct = surplusMax > surplusMin ? Math.min(100, Math.max(0, ((surplusDeposit - surplusMin) / (surplusMax - surplusMin)) * 100)) : 0;
+
   return (
     <section
       id="lap-calculator"
@@ -253,12 +274,16 @@ export default function LoanAgainstPropertyLoanCalculator({
 
               <input
                 type="range"
-                min={1000000}
-                max={maxSanctionCap}
+                min={loanMin}
+                max={loanMax}
                 step={500000}
                 value={loanAmount}
+                aria-label="Mortgage Loan Amount"
                 onChange={(e) => setLoanAmount(Number(e.target.value))}
-                className="w-full accent-primary h-2 bg-gray-200 rounded-lg cursor-pointer"
+                className="w-full custom-range-slider cursor-pointer"
+                style={{
+                  background: `linear-gradient(to right, #02474D 0%, #02474D ${loanPct}%, #E2E8F0 ${loanPct}%, #E2E8F0 100%)`,
+                }}
               />
               <div className="flex justify-between text-[10px] text-gray-400">
                 <span>Min ₹10 Lakhs</span>
@@ -296,12 +321,16 @@ export default function LoanAgainstPropertyLoanCalculator({
 
               <input
                 type="range"
-                min={1}
-                max={maxTenureYears}
+                min={tenureMin}
+                max={tenureMax}
                 step={1}
                 value={tenureYears}
+                aria-label="Loan Tenure"
                 onChange={(e) => setTenureYears(Number(e.target.value))}
-                className="w-full accent-primary h-2 bg-gray-200 rounded-lg cursor-pointer"
+                className="w-full custom-range-slider cursor-pointer"
+                style={{
+                  background: `linear-gradient(to right, #02474D 0%, #02474D ${tenurePct}%, #E2E8F0 ${tenurePct}%, #E2E8F0 100%)`,
+                }}
               />
               <div className="flex justify-between text-[10px] text-gray-400">
                 <span>1 Year</span>
@@ -320,12 +349,16 @@ export default function LoanAgainstPropertyLoanCalculator({
 
               <input
                 type="range"
-                min={minLenderRate - 0.5}
-                max={maxLenderRate + 2.5}
+                min={rateMin}
+                max={rateMax}
                 step={0.05}
                 value={interestRate}
+                aria-label="Annual Interest Rate"
                 onChange={(e) => setInterestRate(Number(e.target.value))}
-                className="w-full accent-primary h-2 bg-gray-200 rounded-lg cursor-pointer"
+                className="w-full custom-range-slider custom-range-slider-amber cursor-pointer"
+                style={{
+                  background: `linear-gradient(to right, #d97706 0%, #d97706 ${ratePct}%, #E2E8F0 ${ratePct}%, #E2E8F0 100%)`,
+                }}
               />
               <div className="flex justify-between text-[10px] text-gray-400">
                 <span>Lender Floor: {minLenderRate}%</span>
@@ -529,12 +562,16 @@ export default function LoanAgainstPropertyLoanCalculator({
 
               <input
                 type="range"
-                min={2000000}
-                max={200000000}
+                min={propertyMin}
+                max={propertyMax}
                 step={500000}
                 value={propertyValue}
+                aria-label="Fair Market Value of Property"
                 onChange={(e) => setPropertyValue(Number(e.target.value))}
-                className="w-full accent-primary h-2 bg-gray-200 rounded-lg cursor-pointer"
+                className="w-full custom-range-slider cursor-pointer"
+                style={{
+                  background: `linear-gradient(to right, #02474D 0%, #02474D ${propertyPct}%, #E2E8F0 ${propertyPct}%, #E2E8F0 100%)`,
+                }}
               />
               <div className="flex justify-between text-[10px] text-gray-400">
                 <span>Min ₹20 Lakhs</span>
@@ -556,12 +593,16 @@ export default function LoanAgainstPropertyLoanCalculator({
 
               <input
                 type="range"
-                min={100000}
-                max={ltvCalculation.eligibleSanction || 5000000}
+                min={surplusMin}
+                max={surplusMax}
                 step={100000}
                 value={surplusDeposit}
+                aria-label="Average Surplus Cash Deposited in OD Account"
                 onChange={(e) => setSurplusDeposit(Number(e.target.value))}
-                className="w-full accent-teal-600 h-2 bg-gray-200 rounded-lg cursor-pointer"
+                className="w-full custom-range-slider cursor-pointer"
+                style={{
+                  background: `linear-gradient(to right, #02474D 0%, #02474D ${surplusPct}%, #E2E8F0 ${surplusPct}%, #E2E8F0 100%)`,
+                }}
               />
               <p className="text-[11px] text-gray-500 leading-normal">
                 By parking emergency or business liquidity in your Property Overdraft account, interest is computed strictly on the net debit balance on a daily basis.

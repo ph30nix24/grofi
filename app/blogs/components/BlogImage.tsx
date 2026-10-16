@@ -58,7 +58,7 @@ export default function BlogImage({ src, alt, category, className = "" }: BlogIm
   if (hasError || !src) {
     return (
       <div
-        className={`relative w-full h-full overflow-hidden bg-gradient-to-br ${theme.bg} flex items-center justify-center select-none ${className}`}
+        className={`relative w-full h-full overflow-hidden bg-linear-to-br ${theme.bg} flex items-center justify-center select-none ${className}`}
         style={{ backgroundImage: theme.pattern }}
       >
         {/* Subtle decorative grid overlay */}

@@ -28,7 +28,7 @@ export default function ConsentCheckbox({
     <div className={`space-y-1.5 ${className}`}>
       <label
         htmlFor={id}
-        className="flex items-start gap-2.5 cursor-pointer text-left select-none group"
+        className="flex items-start gap-2.5 cursor-pointer text-left select-none group touch-manipulation"
       >
         <div className="relative flex items-center justify-center shrink-0 mt-0.5">
           <input
@@ -37,7 +37,7 @@ export default function ConsentCheckbox({
             checked={checked}
             onChange={(e) => onChange(e.target.checked)}
             disabled={disabled}
-            className="w-4 h-4 rounded border-gray-300 text-[#02474D] focus:ring-[#02474D] focus:ring-offset-0 transition-colors cursor-pointer accent-[#02474D]"
+            className="w-4 h-4 rounded border-gray-300 text-[#02474D] focus:ring-[#02474D] focus:ring-offset-0 transition-colors cursor-pointer accent-[#02474D] touch-manipulation"
           />
         </div>
         <span className="text-[11px] sm:text-xs text-gray-600 leading-snug">

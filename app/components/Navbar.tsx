@@ -626,7 +626,7 @@ export default function Navbar() {
           {/* Hamburger Menu Toggle (< lg) */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden w-10 h-10 rounded-xl bg-white/90 hover:bg-white text-gray-700 hover:text-primary flex items-center justify-center border border-[#DDE3C1] shadow-2xs transition-colors cursor-pointer"
+            className="lg:hidden w-11 h-11 rounded-xl bg-white/90 hover:bg-white text-gray-700 hover:text-primary flex items-center justify-center border border-[#DDE3C1] shadow-2xs transition-colors cursor-pointer touch-manipulation"
             aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
           >
             {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -646,7 +646,7 @@ export default function Navbar() {
           />
 
           {/* Slide-in Drawer Container */}
-          <div className="fixed top-0 right-0 w-[88vw] max-w-90 sm:max-w-sm h-dvh bg-[#FDFBF7] shadow-2xl z-10000 flex flex-col border-l border-[#DDE3C1] animate-slideInRight font-montserrat overflow-hidden">
+          <div className="fixed top-0 right-0 w-[88vw] max-w-85 sm:max-w-sm h-dvh bg-[#FDFBF7] shadow-2xl z-10000 flex flex-col border-l border-[#DDE3C1] animate-slideInRight font-montserrat overflow-hidden">
 
             {/* Drawer Header */}
             <div className="p-4 sm:p-5 flex items-center justify-between border-b border-[#DDE3C1] bg-[#F3F0DF] shrink-0">
@@ -661,10 +661,10 @@ export default function Navbar() {
               </Link>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-9 h-9 rounded-xl bg-white hover:bg-gray-100 text-gray-700 flex items-center justify-center border border-[#DDE3C1] shadow-2xs transition-colors cursor-pointer"
+                className="w-10 h-10 rounded-xl bg-white hover:bg-gray-100 text-gray-700 flex items-center justify-center border border-[#DDE3C1] shadow-2xs transition-colors cursor-pointer touch-manipulation"
                 aria-label="Close navigation menu"
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
@@ -762,14 +762,15 @@ export default function Navbar() {
 
                                   {hasSubItems && (
                                     <button
+                                      type="button"
                                       onClick={() =>
                                         setExpandedMobileBank(isBankExpanded ? null : bank.label)
                                       }
-                                      className="p-1 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-800 cursor-pointer"
-                                      aria-label={`Toggle ${displayName}`}
+                                      className="p-2 min-h-9 min-w-9 flex items-center justify-center rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-800 cursor-pointer touch-manipulation"
+                                      aria-label={`Toggle ${displayName} options`}
                                     >
                                       <ChevronDown
-                                        className={`w-3.5 h-3.5 transition-transform ${isBankExpanded ? "rotate-180 text-primary" : ""
+                                        className={`w-4 h-4 transition-transform ${isBankExpanded ? "rotate-180 text-primary" : ""
                                           }`}
                                       />
                                     </button>

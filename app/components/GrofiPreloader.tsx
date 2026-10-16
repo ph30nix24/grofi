@@ -37,7 +37,7 @@ export default function GrofiPreloader({
 
   return (
     <div
-      className={`fixed inset-0 z-[99999] transition-opacity duration-500 ease-out ${
+      className={`fixed inset-0 z-99999 transition-opacity duration-500 ease-out ${
         isFading ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
     >

@@ -56,8 +56,8 @@ export default function PersonalLoanCompareDock({
                 </div>
                 <button
                   onClick={() => onRemove(lender.id)}
-                  className="text-gray-400 hover:text-white p-0.5 rounded-full hover:bg-gray-700 cursor-pointer ml-1"
-                  aria-label={`Remove ${lender.name}`}
+                  className="text-gray-400 hover:text-white w-6 h-6 rounded-full hover:bg-gray-700 cursor-pointer flex items-center justify-center shrink-0 ml-1 transition-colors"
+                  aria-label={`Remove ${lender.name} from comparison`}
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -73,18 +73,18 @@ export default function PersonalLoanCompareDock({
         </div>
 
         {/* Right: Actions */}
-        <div className="flex items-center gap-2 w-full sm:w-auto justify-end shrink-0">
+        <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end shrink-0">
           <button
             onClick={onClear}
             className="text-xs text-gray-400 hover:text-red-400 transition-colors px-2 py-1.5 flex items-center gap-1 cursor-pointer font-medium"
           >
             <Trash2 className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Clear</span>
+            <span className="inline">Clear</span>
           </button>
 
           <button
             onClick={onOpenCompareModal}
-            className="bg-primary hover:bg-[#035259] text-white font-bold text-xs sm:text-sm px-4 sm:px-5 py-2 rounded-xl flex items-center gap-1.5 shadow-md hover:shadow-lg transition-all cursor-pointer group"
+            className="bg-primary hover:bg-[#035259] text-white font-bold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-xl flex items-center gap-1.5 shadow-md hover:shadow-lg transition-all cursor-pointer group"
           >
             <span>Compare Now</span>
             <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />

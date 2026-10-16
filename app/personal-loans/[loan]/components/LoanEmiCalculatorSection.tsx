@@ -118,6 +118,10 @@ export default function LoanEmiCalculatorSection({ lender }: LoanEmiCalculatorSe
     setTenureYears(Math.min(5, maxTenureYears));
   };
 
+  const amountPct = maxSanction > 50000 ? Math.min(100, Math.max(0, ((loanAmount - 50000) / (maxSanction - 50000)) * 100)) : 0;
+  const ratePct = maxRate > minRate ? Math.min(100, Math.max(0, ((interestRate - minRate) / (maxRate - minRate)) * 100)) : 0;
+  const tenurePct = maxTenureYears > 1 ? Math.min(100, Math.max(0, ((tenureYears - 1) / (maxTenureYears - 1)) * 100)) : 0;
+
   return (
     <section id="emi-calculator" className="py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 border-t border-gray-200 font-montserrat">
       
@@ -139,7 +143,7 @@ export default function LoanEmiCalculatorSection({ lender }: LoanEmiCalculatorSe
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
         {/* Left Column: Sliders & Controls (7 cols) */}
-        <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-gray-200/90 shadow-sm space-y-7">
+        <div className="lg:col-span-7 bg-white rounded-3xl p-4 sm:p-8 border border-gray-200/90 shadow-sm space-y-6 sm:space-y-7">
           
           <div className="flex items-center justify-between pb-2 border-b border-gray-100">
             <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
@@ -156,24 +160,28 @@ export default function LoanEmiCalculatorSection({ lender }: LoanEmiCalculatorSe
 
           {/* SLIDER 1: LOAN AMOUNT */}
           <div className="space-y-3">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
               <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
                 <IndianRupee className="w-4 h-4 text-primary" />
                 <span>Required Loan Amount</span>
               </label>
-              <div className="bg-[#EBF4ED] text-primary font-bricolage font-extrabold text-lg sm:text-xl px-4 py-1.5 rounded-xl border border-primary/20">
+              <div className="bg-[#EBF4ED] text-primary font-bricolage font-extrabold text-base sm:text-xl px-3.5 sm:px-4 py-1.5 rounded-xl border border-primary/20 shrink-0">
                 ₹{formatINR(loanAmount)}
               </div>
             </div>
 
             <input
               type="range"
+              aria-label="Required Loan Amount"
               min={50000}
               max={maxSanction}
               step={25000}
               value={loanAmount}
               onChange={(e) => setLoanAmount(Number(e.target.value))}
-              className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+              style={{
+                background: `linear-gradient(to right, #02474D 0%, #02474D ${amountPct}%, #E2E8F0 ${amountPct}%, #E2E8F0 100%)`,
+              }}
+              className="custom-range-slider"
             />
 
             <div className="flex justify-between text-[11px] text-gray-400 font-medium">
@@ -188,7 +196,7 @@ export default function LoanEmiCalculatorSection({ lender }: LoanEmiCalculatorSe
                   key={amt}
                   type="button"
                   onClick={() => setLoanAmount(amt)}
-                  className={`text-xs font-bold px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
+                  className={`text-xs font-bold px-3 py-1.5 min-h-[34px] rounded-xl transition-all cursor-pointer ${
                     loanAmount === amt
                       ? "bg-primary text-white shadow-2xs"
                       : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -202,24 +210,28 @@ export default function LoanEmiCalculatorSection({ lender }: LoanEmiCalculatorSe
 
           {/* SLIDER 2: INTEREST RATE */}
           <div className="space-y-3">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
               <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
                 <Percent className="w-4 h-4 text-primary" />
                 <span>Interest Rate (p.a.)</span>
               </label>
-              <div className="bg-[#EBF4ED] text-primary font-bricolage font-extrabold text-lg sm:text-xl px-4 py-1.5 rounded-xl border border-primary/20">
+              <div className="bg-[#EBF4ED] text-primary font-bricolage font-extrabold text-base sm:text-xl px-3.5 sm:px-4 py-1.5 rounded-xl border border-primary/20 shrink-0">
                 {interestRate.toFixed(2)}%
               </div>
             </div>
 
             <input
               type="range"
+              aria-label="Interest Rate"
               min={minRate}
               max={maxRate}
               step={0.1}
               value={interestRate}
               onChange={(e) => setInterestRate(Number(e.target.value))}
-              className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+              style={{
+                background: `linear-gradient(to right, #02474D 0%, #02474D ${ratePct}%, #E2E8F0 ${ratePct}%, #E2E8F0 100%)`,
+              }}
+              className="custom-range-slider"
             />
 
             <div className="flex justify-between text-[11px] text-gray-400 font-medium">
@@ -230,24 +242,28 @@ export default function LoanEmiCalculatorSection({ lender }: LoanEmiCalculatorSe
 
           {/* SLIDER 3: TENURE */}
           <div className="space-y-3">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2">
               <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
                 <Calendar className="w-4 h-4 text-primary" />
                 <span>Repayment Tenure</span>
               </label>
-              <div className="bg-[#EBF4ED] text-primary font-bricolage font-extrabold text-lg sm:text-xl px-4 py-1.5 rounded-xl border border-primary/20">
+              <div className="bg-[#EBF4ED] text-primary font-bricolage font-extrabold text-base sm:text-xl px-3.5 sm:px-4 py-1.5 rounded-xl border border-primary/20 shrink-0">
                 {tenureYears} {tenureYears === 1 ? "Year" : "Years"} ({tenureYears * 12} Mos)
               </div>
             </div>
 
             <input
               type="range"
+              aria-label="Repayment Tenure"
               min={1}
               max={maxTenureYears}
               step={1}
               value={tenureYears}
               onChange={(e) => setTenureYears(Number(e.target.value))}
-              className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+              style={{
+                background: `linear-gradient(to right, #02474D 0%, #02474D ${tenurePct}%, #E2E8F0 ${tenurePct}%, #E2E8F0 100%)`,
+              }}
+              className="custom-range-slider"
             />
 
             <div className="flex justify-between text-[11px] text-gray-400 font-medium">
@@ -276,16 +292,16 @@ export default function LoanEmiCalculatorSection({ lender }: LoanEmiCalculatorSe
         </div>
 
         {/* Right Column: Calculated Results Summary & CTA (5 cols) */}
-        <div className="lg:col-span-5 bg-gradient-to-br from-gray-50 via-white to-gray-50 rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-sm space-y-6">
+        <div className="lg:col-span-5 bg-gradient-to-br from-gray-50 via-white to-gray-50 rounded-3xl p-4 sm:p-8 border border-gray-200 shadow-sm space-y-5 sm:space-y-6">
           
           {/* Main EMI Highlight Box */}
-          <div className="bg-gradient-to-br from-primary to-[#035259] rounded-2xl p-6 text-white text-center shadow-lg relative overflow-hidden">
+          <div className="bg-gradient-to-br from-primary to-[#035259] rounded-2xl p-5 sm:p-6 text-white text-center shadow-lg relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gold/15 rounded-full blur-2xl pointer-events-none" />
             
             <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-200 block mb-1">
               Calculated Monthly EMI
             </span>
-            <div className="font-bricolage font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
+            <div className="font-bricolage font-extrabold text-2xl sm:text-4xl text-white tracking-tight">
               ₹{formatINR(monthlyEmi)}
             </div>
             <p className="text-[11px] text-emerald-100/80 mt-1 font-medium">
@@ -354,7 +370,7 @@ export default function LoanEmiCalculatorSection({ lender }: LoanEmiCalculatorSe
                 `EMI Application: ₹${formatINR(monthlyEmi)}/mo for ₹${formatINR(loanAmount)}`
               )
             }
-            className="w-full bg-primary hover:bg-[#035259] text-white font-bold text-xs sm:text-sm py-4 px-6 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer active:scale-98"
+            className="w-full bg-primary hover:bg-[#035259] text-white font-bold text-xs sm:text-sm py-3.5 sm:py-4 px-6 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer active:scale-98"
           >
             <span>Apply for this EMI (₹{formatINR(monthlyEmi)}/mo)</span>
             <ArrowRight className="w-4 h-4" />
@@ -373,7 +389,7 @@ export default function LoanEmiCalculatorSection({ lender }: LoanEmiCalculatorSe
 
             {showAmortization && (
               <div className="mt-3 overflow-x-auto text-[11px] border border-gray-200 rounded-xl bg-white shadow-2xs">
-                <table className="w-full text-left">
+                <table className="w-full min-w-[300px] text-left whitespace-nowrap">
                   <thead className="bg-gray-50 border-b border-gray-200 text-gray-500 font-bold uppercase text-[9px]">
                     <tr>
                       <th className="p-2">Mo</th>

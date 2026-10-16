@@ -43,6 +43,28 @@ function parseFeeNumber(feeStr?: string): number {
   return match ? parseInt(match[1], 10) : 0;
 }
 
+// Canonical bank slug helper to prevent route breakages on single-word issuers
+function getBankSlug(issuer?: string): string {
+  if (!issuer) return "other-bank";
+  const clean = issuer.toLowerCase().trim();
+  if (clean.includes("hdfc")) return "hdfc-bank";
+  if (clean.includes("sbi")) return "sbi-bank";
+  if (clean.includes("icici")) return "icici-bank";
+  if (clean.includes("axis")) return "axis-bank";
+  if (clean.includes("au")) return "au-bank";
+  if (clean.includes("idfc")) return "idfc-bank";
+  if (clean.includes("indusind")) return "indusind-bank";
+  if (clean.includes("yes")) return "yes-bank";
+  if (clean.includes("federal")) return "federal-bank";
+  if (clean.includes("bob") || clean.includes("baroda")) return "bob-bank";
+  if (clean.includes("hsbc")) return "hsbc-bank";
+  if (clean.includes("kotak")) return "kotak-bank";
+  if (clean.includes("canara")) return "canara-bank";
+  if (clean.includes("punjab") || clean.includes("pnb")) return "pnb-bank";
+  if (clean.includes("union")) return "union-bank";
+  return clean.replace(/\s+/g, "-");
+}
+
 // Categories list
 const CATEGORY_TABS = [
   { id: "all", label: "All Cards", icon: CreditCardIcon },
@@ -250,7 +272,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full min-w-0 max-w-full overflow-x-hidden">
       {/* ── HERO BANNER ──────────────────────────────────────────────── */}
       <section className="relative pt-10 pb-12 sm:pt-14 sm:pb-16 px-4 sm:px-6 md:px-8 bg-linear-to-b from-[#F3F0DF]/70 via-[#F3F0DF]/30 to-white overflow-hidden border-b border-[#DDE3C1]/60">
 
@@ -270,15 +292,15 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
           </nav>
 
           {/* Badge */}
-          <div className="flex justify-center mb-4">
-            <div className="inline-flex items-center gap-2 bg-[#EBF4ED] text-primary text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-primary/20 shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-gold" />
-              <span>India&apos;s Most Comprehensive Credit Card Hub</span>
+          <div className="flex justify-center mb-3 sm:mb-4">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#EBF4ED] text-primary text-[10px] sm:text-xs font-bold uppercase tracking-wider sm:tracking-widest px-3.5 sm:px-4 py-1.5 rounded-full border border-primary/20 shadow-2xs text-center max-w-full">
+              <Sparkles className="w-3.5 h-3.5 text-gold shrink-0" />
+              <span className="truncate sm:whitespace-normal">India&apos;s Most Comprehensive Credit Card Hub</span>
             </div>
           </div>
 
           {/* Heading */}
-          <h1 className="font-bricolage font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-primary leading-tight max-w-4xl mx-auto">
+          <h1 className="font-bricolage font-bold text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-primary leading-tight max-w-4xl mx-auto">
             Find the Best{" "}
             <span className="text-gold relative inline-block">
               Credit Cards
@@ -288,56 +310,56 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
           </h1>
 
           {/* Decorative diamond line */}
-          <div className="flex items-center justify-center gap-3 my-4">
-            <div className="w-16 h-px bg-linear-to-r from-transparent to-primary/30" />
+          <div className="flex items-center justify-center gap-3 my-3 sm:my-4">
+            <div className="w-12 sm:w-16 h-px bg-linear-to-r from-transparent to-primary/30" />
             <div className="w-2 h-2 rotate-45 bg-primary/60 rounded-xs" />
-            <div className="w-16 h-px bg-linear-to-l from-transparent to-primary/30" />
+            <div className="w-12 sm:w-16 h-px bg-linear-to-l from-transparent to-primary/30" />
           </div>
 
-          <p className="text-sm sm:text-base text-gray-700 leading-relaxed font-montserrat max-w-2xl mx-auto">
+          <p className="text-xs sm:text-base text-gray-700 leading-relaxed font-montserrat max-w-2xl mx-auto px-2 sm:px-0">
             Compare annual fees, SmartBuy rewards, airport lounge access, UPI RuPay perks, and welcome benefits across 10+ major partner banks. 100% transparent and free.
           </p>
 
-          {/* Quick stats pill strip */}
-          <div className="flex flex-wrap gap-3 sm:gap-4 max-w-3xl mx-auto mt-8">
-            <div className="w-[calc(50%-0.5rem)] sm:flex-1 bg-white/80 backdrop-blur-xs p-3 sm:p-4 rounded-2xl border border-[#DDE3C1] shadow-2xs">
-              <span className="font-bricolage font-bold text-xl sm:text-2xl text-primary block">
+          {/* Quick stats grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 max-w-3xl mx-auto mt-6 sm:mt-8">
+            <div className="bg-white/80 backdrop-blur-xs p-3 sm:p-4 rounded-2xl border border-[#DDE3C1] shadow-2xs text-center">
+              <span className="font-bricolage font-bold text-lg sm:text-2xl text-primary block">
                 {initialCards.length}+
               </span>
-              <span className="text-[11px] font-semibold text-gray-600 uppercase tracking-wider block font-montserrat mt-0.5">
+              <span className="text-[10px] sm:text-[11px] font-semibold text-gray-600 uppercase tracking-wider block font-montserrat mt-0.5">
                 Verified Cards
               </span>
             </div>
-            <div className="w-[calc(50%-0.5rem)] sm:flex-1 bg-white/80 backdrop-blur-xs p-3 sm:p-4 rounded-2xl border border-[#DDE3C1] shadow-2xs">
-              <span className="font-bricolage font-bold text-xl sm:text-2xl text-gold block">
+            <div className="bg-white/80 backdrop-blur-xs p-3 sm:p-4 rounded-2xl border border-[#DDE3C1] shadow-2xs text-center">
+              <span className="font-bricolage font-bold text-lg sm:text-2xl text-gold block">
                 10+
               </span>
-              <span className="text-[11px] font-semibold text-gray-600 uppercase tracking-wider block font-montserrat mt-0.5">
-                Top Partner Banks
+              <span className="text-[10px] sm:text-[11px] font-semibold text-gray-600 uppercase tracking-wider block font-montserrat mt-0.5">
+                Partner Banks
               </span>
             </div>
-            <div className="w-[calc(50%-0.5rem)] sm:flex-1 bg-white/80 backdrop-blur-xs p-3 sm:p-4 rounded-2xl border border-[#DDE3C1] shadow-2xs">
-              <span className="font-bricolage font-bold text-xl sm:text-2xl text-emerald-700 block">
+            <div className="bg-white/80 backdrop-blur-xs p-3 sm:p-4 rounded-2xl border border-[#DDE3C1] shadow-2xs text-center">
+              <span className="font-bricolage font-bold text-lg sm:text-2xl text-emerald-700 block">
                 33.3%
               </span>
-              <span className="text-[11px] font-semibold text-gray-600 uppercase tracking-wider block font-montserrat mt-0.5">
+              <span className="text-[10px] sm:text-[11px] font-semibold text-gray-600 uppercase tracking-wider block font-montserrat mt-0.5">
                 Max Reward Rate
               </span>
             </div>
-            <div className="w-[calc(50%-0.5rem)] sm:flex-1 bg-white/80 backdrop-blur-xs p-3 sm:p-4 rounded-2xl border border-[#DDE3C1] shadow-2xs">
-              <span className="font-bricolage font-bold text-xl sm:text-2xl text-primary block">
+            <div className="bg-white/80 backdrop-blur-xs p-3 sm:p-4 rounded-2xl border border-[#DDE3C1] shadow-2xs text-center">
+              <span className="font-bricolage font-bold text-lg sm:text-2xl text-primary block">
                 ₹0
               </span>
-              <span className="text-[11px] font-semibold text-gray-600 uppercase tracking-wider block font-montserrat mt-0.5">
+              <span className="text-[10px] sm:text-[11px] font-semibold text-gray-600 uppercase tracking-wider block font-montserrat mt-0.5">
                 Customer Fees
               </span>
             </div>
           </div>
 
           {/* Instant Search Bar */}
-          <div className="max-w-2xl mx-auto mt-8">
-            <div className="relative flex items-center bg-white rounded-2xl shadow-md border border-gray-200/90 p-1.5 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all">
-              <Search className="w-5 h-5 text-gray-400 ml-3 shrink-0" />
+          <div className="max-w-2xl mx-auto mt-6 sm:mt-8">
+            <div className="relative flex items-center bg-white rounded-2xl shadow-md border border-gray-200/90 p-1 sm:p-1.5 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all">
+              <Search className="w-4 sm:w-5 h-4 sm:h-5 text-gray-400 ml-3 shrink-0 pointer-events-none" />
               <input
                 type="text"
                 value={searchQuery}
@@ -345,8 +367,8 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                   setSearchQuery(e.target.value);
                   setVisibleCount(12);
                 }}
-                placeholder="Search by card name, bank (e.g. HDFC, SBI, Axis), or perk (e.g. lounge, cashback)..."
-                className="w-full px-3 py-2.5 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none font-montserrat"
+                placeholder="Search cards, bank (HDFC, SBI...), or perks..."
+                className="w-full px-2.5 sm:px-3 py-2.5 min-h-10.5 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none font-montserrat"
               />
               {searchQuery && (
                 <button
@@ -354,7 +376,8 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                     setSearchQuery("");
                     setVisibleCount(12);
                   }}
-                  className="p-1.5 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 mr-1"
+                  className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 mr-1 shrink-0 cursor-pointer"
+                  aria-label="Clear search input"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -366,47 +389,49 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
       </section>
 
       {/* ── FILTER & EXPLORER SECTION ─────────────────────────────────── */}
-      <section id="cards-explorer-section" className="py-10 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
+      <section id="cards-explorer-section" className="py-8 sm:py-10 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto w-full min-w-0">
 
         {/* ── Category Filter Tabs ───────────────────────────────────── */}
-        <div className="flex items-center justify-start sm:justify-center overflow-x-auto pb-3 gap-2 scrollbar-hidden">
-          {CATEGORY_TABS.map((tab) => {
-            const Icon = tab.icon;
-            const isActive = selectedCategory === tab.id;
-            const count = categoryCounts[tab.id] ?? 0;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => {
-                  setSelectedCategory(tab.id);
-                  setVisibleCount(12);
-                }}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-montserrat text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap cursor-pointer shrink-0 shadow-2xs ${isActive
-                  ? "bg-primary text-white shadow-md shadow-primary/20"
-                  : "bg-white text-gray-700 hover:text-primary hover:bg-gray-50 border border-gray-200"
-                  }`}
-              >
-                <Icon className={`w-4 h-4 ${isActive ? "text-gold" : "text-gray-500"}`} />
-                <span>{tab.label}</span>
-                <span
-                  className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono font-bold ${isActive ? "bg-white/20 text-white" : "bg-gray-100 text-gray-600"
+        <div className="w-full min-w-0 overflow-x-auto pb-3 scrollbar-hidden -mx-4 px-4 sm:mx-0 sm:px-0">
+          <div className="flex items-center gap-2 w-max sm:w-auto sm:justify-center">
+            {CATEGORY_TABS.map((tab) => {
+              const Icon = tab.icon;
+              const isActive = selectedCategory === tab.id;
+              const count = categoryCounts[tab.id] ?? 0;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => {
+                    setSelectedCategory(tab.id);
+                    setVisibleCount(12);
+                  }}
+                  className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 min-h-9.5 sm:min-h-10.5 rounded-xl font-montserrat text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap cursor-pointer shrink-0 shadow-2xs ${isActive
+                    ? "bg-primary text-white shadow-md shadow-primary/20"
+                    : "bg-white text-gray-700 hover:text-primary hover:bg-gray-50 border border-gray-200"
                     }`}
                 >
-                  {count}
-                </span>
-              </button>
-            );
-          })}
+                  <Icon className={`w-3.5 sm:w-4 h-3.5 sm:h-4 ${isActive ? "text-gold" : "text-gray-500"}`} />
+                  <span>{tab.label}</span>
+                  <span
+                    className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono font-bold ${isActive ? "bg-white/20 text-white" : "bg-gray-100 text-gray-600"
+                      }`}
+                  >
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* ── Secondary Filters & Controls Bar ───────────────────────── */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-4 mt-6 shadow-xs flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+        <div className="bg-white rounded-2xl border border-gray-200 p-3.5 sm:p-4 mt-6 shadow-xs flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3.5 sm:gap-4 w-full min-w-0">
 
           {/* Dropdown Filters Group */}
-          <div className="flex flex-col sm:flex-row gap-3 flex-1">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 flex-1">
 
             {/* Bank Filter */}
-            <div className="relative flex-1">
+            <div className="relative">
               <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1 font-montserrat">
                 Issuing Bank
               </label>
@@ -417,7 +442,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                     setSelectedBank(e.target.value);
                     setVisibleCount(12);
                   }}
-                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 min-h-10 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat"
                 >
                   <option value="all">All Banks ({initialCards.length})</option>
                   {uniqueBanks.map(([issuer, count]) => (
@@ -431,7 +456,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
             </div>
 
             {/* Annual Fee Filter */}
-            <div className="relative flex-1">
+            <div className="relative">
               <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1 font-montserrat">
                 Annual Fee Range
               </label>
@@ -442,7 +467,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                     setSelectedFee(e.target.value);
                     setVisibleCount(12);
                   }}
-                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 min-h-10 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat"
                 >
                   {FEE_FILTERS.map((f) => (
                     <option key={f.id} value={f.id}>
@@ -455,7 +480,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
             </div>
 
             {/* Network Filter */}
-            <div className="relative flex-1">
+            <div className="relative">
               <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1 font-montserrat">
                 Card Network
               </label>
@@ -466,7 +491,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                     setSelectedNetwork(e.target.value);
                     setVisibleCount(12);
                   }}
-                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 min-h-10 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat"
                 >
                   {NETWORK_FILTERS.map((n) => (
                     <option key={n.id} value={n.id}>
@@ -481,10 +506,10 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
           </div>
 
           {/* Right Controls: Sort & View Mode & Reset */}
-          <div className="flex items-end gap-3 shrink-0 pt-2 lg:pt-0 border-t lg:border-t-0 border-gray-100">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 pt-3 lg:pt-0 border-t lg:border-t-0 border-gray-100">
 
             {/* Sort Dropdown */}
-            <div>
+            <div className="flex-1 sm:flex-initial">
               <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1 font-montserrat">
                 Sort By
               </label>
@@ -495,7 +520,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                     setSortBy(e.target.value as "popular" | "fee-asc" | "fee-desc" | "name-asc");
                     setVisibleCount(12);
                   }}
-                  className="bg-gray-50 border border-gray-200 rounded-xl pl-3 pr-8 py-2.5 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat"
+                  className="w-full sm:w-auto bg-gray-50 border border-gray-200 rounded-xl pl-3 pr-8 py-2.5 min-h-10 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat"
                 >
                   <option value="popular">Most Popular</option>
                   <option value="fee-asc">Annual Fee: Low to High</option>
@@ -506,38 +531,40 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
               </div>
             </div>
 
-            {/* View Mode Toggle */}
-            <div className="flex bg-gray-100 p-1 rounded-xl border border-gray-200">
-              <button
-                onClick={() => setViewMode("grid")}
-                className={`p-2 rounded-lg transition-all ${viewMode === "grid" ? "bg-white text-primary shadow-xs font-bold" : "text-gray-500 hover:text-gray-900"
-                  }`}
-                title="Grid View"
-                aria-label="Grid View"
-              >
-                <LayoutGrid className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => setViewMode("list")}
-                className={`p-2 rounded-lg transition-all ${viewMode === "list" ? "bg-white text-primary shadow-xs font-bold" : "text-gray-500 hover:text-gray-900"
-                  }`}
-                title="List View"
-                aria-label="List View"
-              >
-                <List className="w-4 h-4" />
-              </button>
-            </div>
+            {/* View Mode & Reset Controls Group */}
+            <div className="flex items-center justify-between sm:justify-end gap-2.5 shrink-0">
+              <div className="flex bg-gray-100 p-1 rounded-xl border border-gray-200">
+                <button
+                  onClick={() => setViewMode("grid")}
+                  className={`p-2 min-h-9 min-w-9 flex items-center justify-center rounded-lg transition-all ${viewMode === "grid" ? "bg-white text-primary shadow-xs font-bold" : "text-gray-500 hover:text-gray-900"
+                    }`}
+                  title="Grid View"
+                  aria-label="Grid View"
+                >
+                  <LayoutGrid className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => setViewMode("list")}
+                  className={`p-2 min-h-9 min-w-9 flex items-center justify-center rounded-lg transition-all ${viewMode === "list" ? "bg-white text-primary shadow-xs font-bold" : "text-gray-500 hover:text-gray-900"
+                    }`}
+                  title="List View"
+                  aria-label="List View"
+                >
+                  <List className="w-4 h-4" />
+                </button>
+              </div>
 
-            {/* Clear Filters Button */}
-            {isFiltersActive && (
-              <button
-                onClick={clearAllFilters}
-                className="py-2.5 px-3 text-xs font-bold text-red-600 hover:bg-red-50 rounded-xl border border-red-200 transition-colors flex items-center gap-1 font-montserrat cursor-pointer whitespace-nowrap"
-              >
-                <X className="w-3.5 h-3.5" />
-                <span>Reset</span>
-              </button>
-            )}
+              {/* Clear Filters Button */}
+              {isFiltersActive && (
+                <button
+                  onClick={clearAllFilters}
+                  className="py-2 px-3 min-h-9 text-xs font-bold text-red-600 hover:bg-red-50 rounded-xl border border-red-200 transition-colors flex items-center gap-1 font-montserrat cursor-pointer whitespace-nowrap active:scale-95"
+                >
+                  <X className="w-3.5 h-3.5" />
+                  <span>Reset</span>
+                </button>
+              )}
+            </div>
 
           </div>
 
@@ -571,17 +598,18 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
 
         {/* ── CARDS DISPLAY: GRID VIEW ───────────────────────────────── */}
         {viewMode === "grid" && sortedCards.length > 0 && (
-          <div className="flex flex-wrap gap-6 sm:gap-8 mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8 mt-6 w-full min-w-0">
             {visibleCards.map((card) => {
               const isCompared = compareList.some((c) => c.id === card.id);
+              const bankSlug = getBankSlug(card.issuer);
 
               return (
                 <div
                   key={card.id}
-                  className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.334rem)] bg-white rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1 relative"
+                  className="w-full bg-white rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1 relative"
                 >
                   {/* Top Graphic Section */}
-                  <div className="p-5 pb-3">
+                  <div className="p-4 sm:p-5 pb-3">
 
                     {/* Bank Row & Compare Checkbox */}
                     <div className="flex items-center justify-between gap-2 mb-3.5">
@@ -600,19 +628,19 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                       {/* Compare toggle */}
                       <button
                         onClick={() => toggleCompare(card)}
-                        className={`text-[11px] font-bold font-montserrat px-2.5 py-1 rounded-lg border transition-all flex items-center gap-1 cursor-pointer ${isCompared
+                        className={`text-[11px] font-bold font-montserrat px-3 py-1.5 min-h-9 rounded-lg border transition-all flex items-center gap-1.5 cursor-pointer active:scale-95 ${isCompared
                           ? "bg-primary text-white border-primary"
                           : "bg-gray-50 text-gray-600 border-gray-200 hover:border-primary/40 hover:text-primary"
                           }`}
                       >
-                        <Scale className="w-3 h-3" />
+                        <Scale className="w-3.5 h-3.5" />
                         <span>{isCompared ? "Compared" : "Compare"}</span>
                       </button>
                     </div>
 
                     {/* Card Graphic Mockup */}
                     <div className={`relative w-full aspect-[1.586/1] rounded-2xl overflow-hidden drop-shadow-lg drop-shadow-gray-100`}>
-                      <Link href={`/credit-cards/${card.issuer.split(" ")[0].toLocaleLowerCase()}-${card.issuer.split(" ")[1].toLocaleLowerCase()}/${card.id}`}>
+                      <Link href={`/credit-cards/${bankSlug}/${card.id}`}>
                         <Image
                           src={card.cardImage || ""}
                           alt={card.name}
@@ -624,15 +652,17 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                     </div>
 
                     {/* Badge & Title */}
-                    <div className="mt-4">
+                    <div className="mt-3.5 sm:mt-4">
                       {card.badge && (
-                        <div className="inline-block text-[10px] font-bold text-primary bg-[#EBF4ED] px-2.5 py-0.5 rounded-full border border-primary/15 mb-2 truncate max-w-full">
+                        <div className="inline-block text-[10px] font-bold text-primary bg-[#EBF4ED] px-2.5 py-0.5 rounded-full border border-primary/15 mb-1.5 sm:mb-2 truncate max-w-full">
                           {card.badge}
                         </div>
                       )}
-                      <h3 className="font-bricolage font-bold text-lg text-gray-900 leading-snug line-clamp-1 group-hover:text-primary transition-colors">
-                        {card.name}
-                      </h3>
+                      <Link href={`/credit-cards/${bankSlug}/${card.id}`} className="block">
+                        <h3 className="font-bricolage font-bold text-base sm:text-lg text-gray-900 leading-snug line-clamp-1 group-hover:text-primary transition-colors">
+                          {card.name}
+                        </h3>
+                      </Link>
                       <p className="text-xs text-gray-500 font-montserrat mt-0.5 truncate">
                         {card.categoryLabel || card.issuer} • {card.network}
                       </p>
@@ -640,7 +670,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
 
                     {/* Key Metrics Grid */}
                     <div className="flex gap-2 mt-3.5 pt-3 border-t border-gray-100">
-                      <div className="flex-1 bg-gray-50/90 rounded-xl p-2.5 border border-gray-100">
+                      <div className="flex-1 bg-gray-50/90 rounded-xl p-2 sm:p-2.5 border border-gray-100">
                         <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
                           Annual Fee
                         </span>
@@ -648,7 +678,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                           {card.annualFee || "Nil"}
                         </span>
                       </div>
-                      <div className="flex-1 bg-gray-50/90 rounded-xl p-2.5 border border-gray-100">
+                      <div className="flex-1 bg-gray-50/90 rounded-xl p-2 sm:p-2.5 border border-gray-100">
                         <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
                           Reward Rate
                         </span>
@@ -676,10 +706,10 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                   </div>
 
                   {/* Card Actions Footer */}
-                  <div className="p-4 bg-gray-50/80 border-t border-gray-100 flex items-center gap-2">
+                  <div className="p-3.5 sm:p-4 bg-gray-50/80 border-t border-gray-100 flex items-center gap-2">
                     <button
                       onClick={() => setSelectedCardForModal(card)}
-                      className="flex-1 text-xs font-bold text-primary bg-white hover:bg-primary/5 py-2.5 px-3 rounded-xl border border-primary/20 transition-all text-center cursor-pointer font-montserrat shadow-2xs"
+                      className="flex-1 text-xs font-bold text-primary bg-white hover:bg-primary/5 py-3 px-3 min-h-10.5 rounded-xl border border-primary/20 transition-all text-center cursor-pointer font-montserrat shadow-2xs active:scale-98"
                     >
                       Details
                     </button>
@@ -687,7 +717,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                       onClick={() =>
                         openApplyModal(card.name, `${card.issuer} • ${card.badge || card.categoryLabel || "Credit Card"}`)
                       }
-                      className="flex-1 text-xs font-bold text-white bg-primary hover:bg-primary/90 py-2.5 px-3 rounded-xl shadow-md transition-all flex items-center justify-center gap-1 group/btn cursor-pointer font-montserrat"
+                      className="flex-1 text-xs font-bold text-white bg-primary hover:bg-primary/90 py-3 px-3 min-h-10.5 rounded-xl shadow-md transition-all flex items-center justify-center gap-1 group/btn cursor-pointer font-montserrat active:scale-98"
                     >
                       <span>Apply</span>
                       <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1" />
@@ -702,28 +732,30 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
 
         {/* ── CARDS DISPLAY: LIST VIEW ───────────────────────────────── */}
         {viewMode === "list" && sortedCards.length > 0 && (
-          <div className="flex flex-col gap-4 mt-6">
+          <div className="flex flex-col gap-4 mt-6 w-full min-w-0">
             {visibleCards.map((card) => {
               const isCompared = compareList.some((c) => c.id === card.id);
+              const bankSlug = getBankSlug(card.issuer);
 
               return (
                 <div
                   key={card.id}
-                  className="bg-white rounded-2xl border border-gray-200 p-4 sm:p-5 shadow-xs hover:shadow-lg transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-5 group"
+                  className="bg-white rounded-2xl border border-gray-200 p-4 sm:p-5 shadow-xs hover:shadow-lg transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4 sm:gap-5 group"
                 >
                   {/* Left: Card Thumbnail & Bank Info */}
-                  <div className="flex items-center gap-4 w-full md:w-1/3">
+                  <div className="flex items-center gap-3.5 sm:gap-4 w-full md:w-1/3">
                     <div className="w-24 sm:w-28 shrink-0">
-                      <div className={`relative w-full aspect-[1.586/1] rounded-2xl overflow-hidden shadow-lg bg-gray-100`}>
-                        <Image
-                          src={card.cardImage || ''}
-                          alt={card.name}
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          className="object-contain transition-transform duration-500 hover:scale-[1.03]"
-
-                        />
-                      </div>
+                      <Link href={`/credit-cards/${bankSlug}/${card.id}`} className="block">
+                        <div className={`relative w-full aspect-[1.586/1] rounded-2xl overflow-hidden shadow-lg bg-gray-100`}>
+                          <Image
+                            src={card.cardImage || ''}
+                            alt={card.name}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="object-contain transition-transform duration-500 hover:scale-[1.03]"
+                          />
+                        </div>
+                      </Link>
                     </div>
                     <div className="min-w-0 flex-1">
                       {card.badge && (
@@ -731,9 +763,11 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                           {card.badge}
                         </span>
                       )}
-                      <h3 className="font-bricolage font-bold text-base text-gray-900 group-hover:text-primary transition-colors truncate">
-                        {card.name}
-                      </h3>
+                      <Link href={`/credit-cards/${bankSlug}/${card.id}`} className="block">
+                        <h3 className="font-bricolage font-bold text-base text-gray-900 group-hover:text-primary transition-colors truncate">
+                          {card.name}
+                        </h3>
+                      </Link>
                       <p className="text-xs text-gray-500 font-montserrat truncate">
                         {card.issuer} • {card.network}
                       </p>
@@ -741,8 +775,8 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                   </div>
 
                   {/* Center: Key Perks & Fee Metrics */}
-                  <div className="flex flex-wrap sm:flex-nowrap gap-3 w-full md:w-5/12 text-left border-y md:border-y-0 md:border-x border-gray-100 py-3 md:py-0 md:px-4">
-                    <div className="w-[calc(50%-0.5rem)] sm:flex-1">
+                  <div className="flex flex-wrap sm:flex-nowrap gap-2.5 sm:gap-3 w-full md:w-5/12 text-left border-y md:border-y-0 md:border-x border-gray-100 py-3 md:py-0 md:px-4">
+                    <div className="w-[calc(50%-0.375rem)] sm:flex-1">
                       <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
                         Annual Fee
                       </span>
@@ -750,7 +784,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                         {card.annualFee || "Nil"}
                       </span>
                     </div>
-                    <div className="w-[calc(50%-0.5rem)] sm:flex-1">
+                    <div className="w-[calc(50%-0.375rem)] sm:flex-1">
                       <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
                         Joining Fee
                       </span>
@@ -769,10 +803,10 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                   </div>
 
                   {/* Right: Actions */}
-                  <div className="flex items-center gap-2.5 w-full md:w-auto shrink-0 justify-end">
+                  <div className="flex items-center gap-2 w-full md:w-auto shrink-0 justify-between md:justify-end mt-1 md:mt-0">
                     <button
                       onClick={() => toggleCompare(card)}
-                      className={`text-xs font-bold font-montserrat px-3 py-2.5 rounded-xl border transition-all flex items-center gap-1.5 cursor-pointer ${isCompared
+                      className={`flex-1 md:flex-initial text-xs font-bold font-montserrat px-3 py-2.5 min-h-10 rounded-xl border transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${isCompared
                         ? "bg-primary text-white border-primary"
                         : "bg-gray-50 text-gray-600 border-gray-200 hover:text-primary"
                         }`}
@@ -782,7 +816,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                     </button>
                     <button
                       onClick={() => setSelectedCardForModal(card)}
-                      className="text-xs font-bold text-primary bg-white hover:bg-primary/5 py-2.5 px-3.5 rounded-xl border border-primary/20 transition-all font-montserrat cursor-pointer"
+                      className="flex-1 md:flex-initial text-xs font-bold text-primary bg-white hover:bg-primary/5 py-2.5 px-3.5 min-h-10 rounded-xl border border-primary/20 transition-all font-montserrat cursor-pointer text-center active:scale-95"
                     >
                       Details
                     </button>
@@ -790,7 +824,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                       onClick={() =>
                         openApplyModal(card.name, `${card.issuer} • ${card.badge || "Credit Card"}`)
                       }
-                      className="text-xs font-bold text-white bg-primary hover:bg-primary/90 py-2.5 px-4 rounded-xl shadow-md transition-all flex items-center gap-1 font-montserrat cursor-pointer"
+                      className="flex-1 md:flex-initial text-xs font-bold text-white bg-primary hover:bg-primary/90 py-2.5 px-4 min-h-10 rounded-xl shadow-md transition-all flex items-center justify-center gap-1 font-montserrat cursor-pointer active:scale-98"
                     >
                       <span>Apply</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -805,10 +839,10 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
 
         {/* ── Load More Button ────────────────────────────────────────── */}
         {visibleCount < sortedCards.length && (
-          <div className="text-center mt-12">
+          <div className="text-center mt-8 sm:mt-12">
             <button
               onClick={() => setVisibleCount((prev) => prev + 12)}
-              className="bg-white hover:bg-gray-50 text-primary border border-primary/30 font-bold font-montserrat text-xs sm:text-sm px-8 py-3.5 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer inline-flex items-center gap-2"
+              className="w-full sm:w-auto bg-white hover:bg-gray-50 text-primary border border-primary/30 font-bold font-montserrat text-xs sm:text-sm px-6 sm:px-8 py-3.5 min-h-11.5 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer inline-flex items-center justify-center gap-2 active:scale-98"
             >
               <span>Load More Credit Cards ({sortedCards.length - visibleCount} remaining)</span>
               <ChevronDown className="w-4 h-4" />
@@ -817,18 +851,18 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
         )}
 
         {/* ── PRE-APPROVED VALUE BANNER ───────────────────────────────── */}
-        <div className="mt-16 bg-linear-to-r from-primary via-[#04363a] to-primary rounded-3xl p-8 sm:p-10 text-white shadow-xl flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden">
+        <div className="mt-12 sm:mt-16 bg-linear-to-r from-primary via-[#04363a] to-primary rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 text-white shadow-xl flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden w-full min-w-0">
           <div className="absolute right-0 top-0 w-80 h-80 bg-gold/15 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 max-w-2xl">
+          <div className="relative z-10 max-w-2xl text-center lg:text-left">
             <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md px-3.5 py-1 rounded-full text-xs font-semibold text-[#B6CC9A] mb-3">
               <ShieldCheck className="w-4 h-4 text-gold" />
-              100% Free • No Impact on Credit Score
+              <span>100% Free • No Impact on Credit Score</span>
             </div>
-            <h3 className="font-bricolage font-bold text-2xl sm:text-3xl text-white">
+            <h3 className="font-bricolage font-bold text-xl sm:text-2xl md:text-3xl text-white leading-tight">
               Not sure which card is right for you?
             </h3>
-            <p className="text-white/70 text-sm font-montserrat mt-2 leading-relaxed">
+            <p className="text-white/70 text-xs sm:text-sm font-montserrat mt-2 leading-relaxed">
               Check your pre-approved credit card offers across 10+ partner banks instantly based on your income and spending preferences with zero paperwork.
             </p>
           </div>
@@ -841,9 +875,9 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                   "Check pre-approved luxury, travel, and cashback credit cards tailored for you."
                 )
               }
-              className="bg-gold hover:bg-gold/90 text-white text-sm font-bold px-7 py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer whitespace-nowrap font-montserrat"
+              className="w-full sm:w-auto bg-gold hover:bg-gold/90 text-white text-xs sm:text-sm font-bold px-6 sm:px-7 py-3.5 min-h-11.5 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer whitespace-nowrap font-montserrat active:scale-98"
             >
-              Check Pre-Approved Offers
+              <span>Check Pre-Approved Offers</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>

@@ -190,9 +190,9 @@ export default function ShortTermLoanEmiCalculatorSection({
               value={loanAmount}
               onChange={(e) => setLoanAmount(Number(e.target.value))}
               style={{
-                background: `linear-linear(to right, #035259 ${amountPct}%, #e5e7eb ${amountPct}%)`,
+                background: `linear-gradient(to right, #02474D 0%, #02474D ${amountPct}%, #E2E8F0 ${amountPct}%, #E2E8F0 100%)`,
               }}
-              className="w-full h-2 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#035259] [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[#035259] [&::-moz-range-thumb]:border-none"
+              className="custom-range-slider"
             />
 
             <div className="flex items-center justify-between text-xs text-gray-400 font-medium">
@@ -240,9 +240,9 @@ export default function ShortTermLoanEmiCalculatorSection({
               value={tenureMonths}
               onChange={(e) => setTenureMonths(Number(e.target.value))}
               style={{
-                background: `linear-linear(to right, #d97706 ${tenurePct}%, #e5e7eb ${tenurePct}%)`,
+                background: `linear-gradient(to right, #d97706 0%, #d97706 ${tenurePct}%, #E2E8F0 ${tenurePct}%, #E2E8F0 100%)`,
               }}
-              className="w-full h-2 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#d97706] [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[#d97706] [&::-moz-range-thumb]:border-none"
+              className="custom-range-slider custom-range-slider-amber"
             />
 
             <div className="flex items-center justify-between text-xs text-gray-400 font-medium">
@@ -290,9 +290,9 @@ export default function ShortTermLoanEmiCalculatorSection({
               value={interestRate}
               onChange={(e) => setInterestRate(Number(e.target.value))}
               style={{
-                background: `linear-linear(to right, #059669 ${ratePct}%, #e5e7eb ${ratePct}%)`,
+                background: `linear-gradient(to right, #059669 0%, #059669 ${ratePct}%, #E2E8F0 ${ratePct}%, #E2E8F0 100%)`,
               }}
-              className="w-full h-2 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#059669] [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[#059669] [&::-moz-range-thumb]:border-none"
+              className="custom-range-slider custom-range-slider-emerald"
             />
 
             <div className="flex items-center justify-between text-xs text-gray-400 font-medium">

@@ -125,7 +125,7 @@ export default async function BlogPage() {
   return (
     <>
       <JsonLd schema={jsonLd} />
-      <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
+      <main className="flex flex-col min-h-screen bg-[#FDFBF7] overflow-x-clip">
         <Navbar />
         <BlogHero totalBlogs={blogs.length} />
         <Suspense

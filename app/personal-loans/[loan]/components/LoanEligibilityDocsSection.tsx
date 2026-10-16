@@ -77,14 +77,14 @@ export default function LoanEligibilityDocsSection({ lender }: LoanEligibilityDo
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             
             {/* Minimum Income */}
-            <div className="bg-white rounded-3xl p-6 border border-gray-200/90 shadow-2xs">
+            <div className="bg-white rounded-3xl p-4 sm:p-6 border border-gray-200/90 shadow-2xs">
               <div className="w-9 h-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-3">
                 <IndianRupee className="w-5 h-5 text-primary" />
               </div>
               <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block">
                 Minimum Monthly Income
               </span>
-              <div className="font-bricolage font-bold text-lg sm:text-xl text-gray-900 mt-1">
+              <div className="font-bricolage font-bold text-base sm:text-xl text-gray-900 mt-1">
                 {minIncome}
               </div>
               <p className="text-xs text-gray-500 mt-1">
@@ -93,14 +93,14 @@ export default function LoanEligibilityDocsSection({ lender }: LoanEligibilityDo
             </div>
 
             {/* Age Bracket */}
-            <div className="bg-white rounded-3xl p-6 border border-gray-200/90 shadow-2xs">
+            <div className="bg-white rounded-3xl p-4 sm:p-6 border border-gray-200/90 shadow-2xs">
               <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-700 flex items-center justify-center mb-3">
                 <Calendar className="w-5 h-5 text-amber-700" />
               </div>
               <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block">
                 Applicant Age Bracket
               </span>
-              <div className="font-bricolage font-bold text-lg sm:text-xl text-gray-900 mt-1">
+              <div className="font-bricolage font-bold text-base sm:text-xl text-gray-900 mt-1">
                 {ageBracket}
               </div>
               <p className="text-xs text-gray-500 mt-1">
@@ -109,14 +109,14 @@ export default function LoanEligibilityDocsSection({ lender }: LoanEligibilityDo
             </div>
 
             {/* Employment Type */}
-            <div className="bg-white rounded-3xl p-6 border border-gray-200/90 shadow-2xs">
+            <div className="bg-white rounded-3xl p-4 sm:p-6 border border-gray-200/90 shadow-2xs">
               <div className="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-700 flex items-center justify-center mb-3">
                 <Briefcase className="w-5 h-5 text-emerald-600" />
               </div>
               <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block">
                 Employment Status
               </span>
-              <div className="font-bricolage font-bold text-lg sm:text-xl text-gray-900 mt-1">
+              <div className="font-bricolage font-bold text-base sm:text-xl text-gray-900 mt-1">
                 Salaried / Professional
               </div>
               <p className="text-xs text-gray-500 mt-1">
@@ -125,7 +125,7 @@ export default function LoanEligibilityDocsSection({ lender }: LoanEligibilityDo
             </div>
 
             {/* Work Stability */}
-            <div className="bg-white rounded-3xl p-6 border border-gray-200/90 shadow-2xs">
+            <div className="bg-white rounded-3xl p-4 sm:p-6 border border-gray-200/90 shadow-2xs">
               <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-700 flex items-center justify-center mb-3">
                 <Building className="w-5 h-5 text-blue-600" />
               </div>
@@ -143,18 +143,18 @@ export default function LoanEligibilityDocsSection({ lender }: LoanEligibilityDo
           </div>
 
           {/* CIBIL Credit Score Meter Box */}
-          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-gray-200/90 shadow-2xs">
-            <div className="flex items-center justify-between gap-3 mb-2">
+          <div className="bg-white rounded-3xl p-4 sm:p-7 border border-gray-200/90 shadow-2xs">
+            <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 mb-2">
               <div>
                 <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block">
                   CIBIL Score Benchmark
                 </span>
-                <h3 className="font-bricolage font-bold text-xl text-gray-900 mt-0.5">
+                <h3 className="font-bricolage font-bold text-lg sm:text-xl text-gray-900 mt-0.5">
                   {minScore}+ Recommended for Lowest Rates
                 </h3>
               </div>
 
-              <span className="text-xs font-bold text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full">
+              <span className="text-xs font-bold text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full shrink-0">
                 Prime Approval
               </span>
             </div>
@@ -171,7 +171,7 @@ export default function LoanEligibilityDocsSection({ lender }: LoanEligibilityDo
               <div className="w-[20%] bg-emerald-500" title="Excellent (750-900)" />
             </div>
 
-            <div className="flex justify-between text-[11px] text-gray-500 font-semibold">
+            <div className="flex justify-between text-[10px] sm:text-[11px] text-gray-500 font-semibold gap-1">
               <span className="text-rose-600">300 (Poor)</span>
               <span className="text-amber-600">650 (Fair)</span>
               <span className="text-teal-700">750 (Good)</span>
@@ -182,7 +182,7 @@ export default function LoanEligibilityDocsSection({ lender }: LoanEligibilityDo
         </div>
 
         {/* Right Column: Required Documents Checklist + Pre-approval CTA (5 cols) */}
-        <div id="documents" className="lg:col-span-5 bg-gradient-to-b from-gray-50 via-white to-gray-50 rounded-3xl p-6 sm:p-8 border border-gray-200/90 shadow-sm flex flex-col justify-between">
+        <div id="documents" className="lg:col-span-5 bg-gradient-to-b from-gray-50 via-white to-gray-50 rounded-3xl p-4 sm:p-8 border border-gray-200/90 shadow-sm flex flex-col justify-between">
           
           <div>
             <div className="flex items-center gap-2 mb-3">

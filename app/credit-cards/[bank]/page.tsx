@@ -124,7 +124,7 @@ export default async function SelectedBankCreditCard({ params }: {
     return (
         <>
             <JsonLd schema={jsonLd} />
-            <main className="flex flex-col min-h-screen bg-[#FDFBF7]">
+            <main className="flex flex-col min-h-screen bg-[#FDFBF7] w-full max-w-full overflow-x-hidden">
                 <Navbar />
                 <BankHero
                     bankName={bank}

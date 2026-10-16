@@ -105,21 +105,21 @@ const comparisonPoints = [
 
 export default function WhyChooseUs() {
   return (
-    <section id="why-choose-us" className="py-22 px-6 relative bg-linear-to-b from-[#F3F0DF]/30 via-white to-[#F3F0DF]/40 overflow-hidden">
+    <section id="why-choose-us" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative bg-linear-to-b from-[#F3F0DF]/30 via-white to-[#F3F0DF]/40 overflow-hidden">
       
       {/* Decorative background glow */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-225 h-125 bg-linear-to-br from-[#B6CC9A]/20 via-primary/5 to-transparent rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-212.5 h-125 bg-linear-to-br from-[#B6CC9A]/20 via-primary/5 to-transparent rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
         {/* ── Section Header ───────────────────────────────────────────── */}
-        <div className="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 bg-[#EBF4ED] text-primary text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-primary/20 mb-4">
             <Sparkles className="w-3.5 h-3.5 text-gold" />
             The Grofi Advantage
           </div>
 
-          <h2 className="font-bricolage font-bold text-3xl md:text-4xl xl:text-5xl text-primary leading-tight">
+          <h2 className="font-bricolage font-bold text-3xl sm:text-4xl lg:text-5xl text-primary leading-tight">
             Why Millions Trust{" "}
             <span className="text-gold relative inline-block">
               Grofi
@@ -141,11 +141,11 @@ export default function WhyChooseUs() {
         </div>
 
         {/* ── 6 Core Benefits Grid ─────────────────────────────────────── */}
-        <div className="flex flex-wrap gap-8 mb-16">
+        <div className="flex flex-wrap gap-6 sm:gap-8 mb-12 sm:mb-16">
           {benefits.map((b, idx) => (
             <div
               key={b.id}
-              className={`w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.334rem)] bg-white rounded-3xl p-8 border border-gray-100 shadow-md hover:shadow-2xl hover:border-primary/25 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5 relative overflow-hidden reveal-on-scroll ${
+              className={`w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1.334rem)] bg-white rounded-3xl p-5 sm:p-7 lg:p-8 border border-gray-100 shadow-md hover:shadow-2xl hover:border-primary/25 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5 relative overflow-hidden reveal-on-scroll ${
                 idx % 3 === 1 ? "delay-100" : idx % 3 === 2 ? "delay-200" : ""
               }`}
             >
@@ -154,9 +154,9 @@ export default function WhyChooseUs() {
 
               <div>
                 {/* Top bar with icon & badge */}
-                <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center justify-between mb-5 sm:mb-6">
                   <div
-                    className={`w-14 h-14 rounded-2xl ${b.iconBg} ${b.iconColor} flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shadow-xs`}
+                    className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl ${b.iconBg} ${b.iconColor} flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shadow-xs`}
                   >
                     {b.icon}
                   </div>
@@ -168,7 +168,7 @@ export default function WhyChooseUs() {
                 </div>
 
                 {/* Title */}
-                <h3 className="font-bricolage font-bold text-xl text-gray-900 mb-3 group-hover:text-primary transition-colors leading-snug">
+                <h3 className="font-bricolage font-bold text-lg sm:text-xl text-gray-900 mb-2.5 group-hover:text-primary transition-colors leading-snug">
                   {b.title}
                 </h3>
 
@@ -179,7 +179,7 @@ export default function WhyChooseUs() {
               </div>
 
               {/* Bottom check pill */}
-              <div className="mt-6 pt-4 border-t border-gray-100 flex items-center gap-2 text-xs font-semibold text-emerald-700">
+              <div className="mt-5 sm:mt-6 pt-4 border-t border-gray-100 flex items-center gap-2 text-xs font-semibold text-emerald-700">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span>Verified by Grofi Quality Standard</span>
               </div>
@@ -188,17 +188,17 @@ export default function WhyChooseUs() {
         </div>
 
         {/* ── Stats Strip ──────────────────────────────────────────────── */}
-        <div className="bg-primary text-white rounded-3xl p-8 sm:p-10 shadow-xl mb-16 relative overflow-hidden reveal-scale delay-150">
+        <div className="bg-primary text-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl mb-12 sm:mb-16 relative overflow-hidden reveal-scale delay-150">
           <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-60 h-60 bg-gold/15 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="flex flex-wrap gap-8 relative z-10">
+          <div className="flex flex-wrap gap-6 sm:gap-8 relative z-10">
             {stats.map((s, idx) => (
-              <div key={idx} className="w-[calc(50%-1rem)] md:flex-1 flex flex-col items-center text-center">
-                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center mb-3">
+              <div key={idx} className="w-[calc(50%-0.75rem)] md:flex-1 flex flex-col items-center text-center">
+                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center mb-2.5">
                   {s.icon}
                 </div>
-                <p className="font-bricolage font-bold text-3xl sm:text-4xl text-white tracking-tight">
+                <p className="font-bricolage font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight truncate max-w-full">
                   {s.value}
                 </p>
                 <p className="text-xs sm:text-sm text-white/70 font-medium font-montserrat mt-1">
@@ -210,9 +210,9 @@ export default function WhyChooseUs() {
         </div>
 
         {/* ── Comparison: Traditional Banks vs Grofi ───────────────────── */}
-        <div className="bg-white rounded-3xl p-6 sm:p-10 border border-gray-100 shadow-lg mb-16 reveal-on-scroll delay-200">
-          <div className="text-center max-w-2xl mx-auto mb-8">
-            <h3 className="font-bricolage font-bold text-2xl sm:text-3xl text-primary">
+        <div className="bg-white rounded-3xl p-4 sm:p-8 lg:p-10 border border-gray-100 shadow-lg mb-12 sm:mb-16 reveal-on-scroll delay-200">
+          <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
+            <h3 className="font-bricolage font-bold text-xl sm:text-2xl lg:text-3xl text-primary">
               How Grofi Compares
             </h3>
             <p className="text-xs sm:text-sm text-gray-500 font-montserrat mt-1">
@@ -220,13 +220,19 @@ export default function WhyChooseUs() {
             </p>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm font-montserrat">
+          {/* Mobile Swipe Cue */}
+          <div className="flex items-center justify-between sm:hidden text-[11px] text-gray-500 font-montserrat mb-2 px-1">
+            <span>Direct Comparison</span>
+            <span className="font-semibold text-primary">Swipe horizontally →</span>
+          </div>
+
+          <div className="overflow-x-auto rounded-2xl border border-gray-150/80">
+            <table className="w-full min-w-135 text-left text-xs sm:text-sm font-montserrat">
               <thead>
-                <tr className="border-b border-gray-200 text-xs uppercase tracking-wider text-gray-400">
-                  <th className="pb-4 font-bold">Feature</th>
-                  <th className="pb-4 font-bold text-gray-500">Traditional Banks</th>
-                  <th className="pb-4 font-bold text-primary bg-[#EBF4ED]/50 px-4 rounded-t-xl">
+                <tr className="border-b border-gray-200 bg-gray-50/70 text-xs uppercase tracking-wider text-gray-500">
+                  <th className="py-3 px-3.5 sm:px-4 font-bold">Feature</th>
+                  <th className="py-3 px-3.5 sm:px-4 font-bold text-gray-500">Traditional Banks</th>
+                  <th className="py-3 px-3.5 sm:px-4 font-bold text-primary bg-[#EBF4ED]/70">
                     With Grofi
                   </th>
                 </tr>
@@ -234,12 +240,12 @@ export default function WhyChooseUs() {
               <tbody className="divide-y divide-gray-100 text-xs sm:text-sm">
                 {comparisonPoints.map((row, i) => (
                   <tr key={i} className="hover:bg-gray-50/50 transition-colors">
-                    <td className="py-4 font-bold text-gray-800">{row.feature}</td>
-                    <td className="py-4 text-gray-500 flex items-center gap-2">
-                      <span className="text-red-500 font-bold">✕</span> {row.traditional}
+                    <td className="py-3.5 px-3.5 sm:px-4 font-bold text-gray-800 whitespace-nowrap">{row.feature}</td>
+                    <td className="py-3.5 px-3.5 sm:px-4 text-gray-500">
+                      <span className="text-red-500 font-bold mr-1.5">✕</span> {row.traditional}
                     </td>
-                    <td className="py-4 font-semibold text-primary bg-[#EBF4ED]/30 px-4">
-                      <span className="inline-flex items-center gap-2 text-emerald-700 font-bold">
+                    <td className="py-3.5 px-3.5 sm:px-4 font-semibold text-primary bg-[#EBF4ED]/30">
+                      <span className="inline-flex items-center gap-1.5 text-emerald-700 font-bold">
                         <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                         {row.grofi}
                       </span>
@@ -252,24 +258,25 @@ export default function WhyChooseUs() {
         </div>
 
         {/* ── Bottom Call To Action ────────────────────────────────────── */}
-        <div className="text-center bg-linear-to-r from-[#F3F0DF] via-[#ECE9CF] to-[#DDE3C1] rounded-3xl p-8 sm:p-12 border border-[#a5c490]/40 shadow-md reveal-scale delay-150">
-          <h3 className="font-bricolage font-bold text-2xl sm:text-3xl xl:text-4xl text-primary">
+        <div className="text-center bg-linear-to-r from-[#F3F0DF] via-[#ECE9CF] to-[#DDE3C1] rounded-3xl p-6 sm:p-10 lg:p-12 border border-[#a5c490]/40 shadow-md reveal-scale delay-150">
+          <h3 className="font-bricolage font-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl text-primary">
             Ready to Find Your Ideal Financial Product?
           </h3>
           <p className="text-xs sm:text-sm text-black/60 font-montserrat mt-2 max-w-xl mx-auto">
             Join over 200,000+ satisfied borrowers and credit card holders across India. Check your pre-approved offers in seconds.
           </p>
 
-          <div className="mt-8 flex flex-wrap justify-center items-center gap-4">
+          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4">
             <a
               href="#products"
-              className="bg-primary hover:bg-primary/90 text-white text-sm font-bold px-8 py-3.5 rounded-xl inline-flex items-center gap-2 shadow-lg transition-all cursor-pointer"
+              className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white text-xs sm:text-sm font-bold px-8 py-3.5 min-h-11 rounded-xl inline-flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer touch-manipulation"
             >
-              Explore Products <ArrowRight className="w-4 h-4" />
+              <span>Explore Products</span>
+              <ArrowRight className="w-4 h-4" />
             </a>
             <a
               href="#emi-calculator"
-              className="border-2 border-primary text-primary hover:bg-primary/10 text-sm font-bold px-8 py-3.5 rounded-xl inline-flex items-center gap-2 transition-all cursor-pointer"
+              className="w-full sm:w-auto border-2 border-primary text-primary hover:bg-primary/10 text-xs sm:text-sm font-bold px-8 py-3.5 min-h-11 rounded-xl inline-flex items-center justify-center gap-2 transition-all cursor-pointer touch-manipulation"
             >
               Calculate Loan EMI
             </a>

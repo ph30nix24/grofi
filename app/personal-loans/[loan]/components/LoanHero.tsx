@@ -69,7 +69,7 @@ export default function LoanHero({ lender }: LoanHeroProps) {
             Personal Loans
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-          <span className="text-primary font-bold truncate max-w-[240px] sm:max-w-none">
+          <span className="text-primary font-bold truncate max-w-[160px] sm:max-w-none">
             {lender.name}
           </span>
         </nav>
@@ -129,68 +129,68 @@ export default function LoanHero({ lender }: LoanHeroProps) {
             </div>
 
             {/* Core Metrics 3x2 Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
-              <div className="bg-white p-3.5 rounded-2xl border border-gray-200 shadow-2xs">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3 pt-2">
+              <div className="bg-white p-3 sm:p-3.5 rounded-2xl border border-gray-200 shadow-2xs">
                 <div className="flex items-center gap-1.5 text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1">
                   <Percent className="w-3 h-3 text-primary" />
                   <span>Interest Rate</span>
                 </div>
-                <div className="font-bricolage font-extrabold text-base sm:text-lg text-primary">
+                <div className="font-bricolage font-extrabold text-sm sm:text-base lg:text-lg text-primary break-words leading-tight">
                   {rateText}
                 </div>
                 <span className="text-[10px] text-gray-500">Monthly Reducing</span>
               </div>
 
-              <div className="bg-white p-3.5 rounded-2xl border border-gray-200 shadow-2xs">
+              <div className="bg-white p-3 sm:p-3.5 rounded-2xl border border-gray-200 shadow-2xs">
                 <div className="flex items-center gap-1.5 text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1">
                   <IndianRupee className="w-3 h-3 text-emerald-600" />
                   <span>Max Loan Limit</span>
                 </div>
-                <div className="font-bricolage font-extrabold text-base sm:text-lg text-gray-900">
+                <div className="font-bricolage font-extrabold text-sm sm:text-base lg:text-lg text-gray-900 leading-tight">
                   {lender.maxAmount}
                 </div>
                 <span className="text-[10px] text-gray-500">Collateral Free</span>
               </div>
 
-              <div className="bg-white p-3.5 rounded-2xl border border-gray-200 shadow-2xs">
+              <div className="bg-white p-3 sm:p-3.5 rounded-2xl border border-gray-200 shadow-2xs">
                 <div className="flex items-center gap-1.5 text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1">
                   <Zap className="w-3 h-3 text-amber-500" />
                   <span>Disbursal Time</span>
                 </div>
-                <div className="font-bricolage font-extrabold text-base sm:text-lg text-amber-900">
+                <div className="font-bricolage font-extrabold text-sm sm:text-base lg:text-lg text-amber-900 leading-tight">
                   {lender.disbursalTime}
                 </div>
                 <span className="text-[10px] text-gray-500">Direct to Account</span>
               </div>
 
-              <div className="bg-white p-3.5 rounded-2xl border border-gray-200 shadow-2xs">
+              <div className="bg-white p-3 sm:p-3.5 rounded-2xl border border-gray-200 shadow-2xs">
                 <div className="flex items-center gap-1.5 text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1">
                   <Clock className="w-3 h-3 text-blue-500" />
                   <span>Starting EMI</span>
                 </div>
-                <div className="font-bricolage font-extrabold text-base sm:text-lg text-emerald-800">
+                <div className="font-bricolage font-extrabold text-sm sm:text-base lg:text-lg text-emerald-800 leading-tight">
                   ₹{lender.startingEmiPerLakh} / Lakh
                 </div>
                 <span className="text-[10px] text-gray-500">For 5 Years Tenure</span>
               </div>
 
-              <div className="bg-white p-3.5 rounded-2xl border border-gray-200 shadow-2xs">
+              <div className="bg-white p-3 sm:p-3.5 rounded-2xl border border-gray-200 shadow-2xs">
                 <div className="flex items-center gap-1.5 text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1">
                   <Clock className="w-3 h-3 text-teal-600" />
                   <span>Repayment Tenure</span>
                 </div>
-                <div className="font-bricolage font-extrabold text-base sm:text-lg text-gray-900">
+                <div className="font-bricolage font-extrabold text-sm sm:text-base lg:text-lg text-gray-900 leading-tight">
                   {lender.tenure}
                 </div>
                 <span className="text-[10px] text-gray-500">Flexible Repayment</span>
               </div>
 
-              <div className="bg-white p-3.5 rounded-2xl border border-gray-200 shadow-2xs">
+              <div className="bg-white p-3 sm:p-3.5 rounded-2xl border border-gray-200 shadow-2xs">
                 <div className="flex items-center gap-1.5 text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-1">
                   <ShieldCheck className="w-3 h-3 text-primary" />
                   <span>Min CIBIL Score</span>
                 </div>
-                <div className="font-bricolage font-extrabold text-base sm:text-lg text-primary">
+                <div className="font-bricolage font-extrabold text-sm sm:text-base lg:text-lg text-primary leading-tight">
                   {lender.minCreditScore}+
                 </div>
                 <span className="text-[10px] text-gray-500">Higher = Lower Rates</span>
@@ -210,7 +210,7 @@ export default function LoanHero({ lender }: LoanHeroProps) {
             )}
 
             {/* Primary Action Buttons */}
-            <div className="pt-2 flex flex-wrap items-center gap-3">
+            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <button
                 type="button"
                 onClick={() => {
@@ -226,34 +226,36 @@ export default function LoanHero({ lender }: LoanHeroProps) {
                     );
                   }
                 }}
-                className="bg-primary hover:bg-[#035259] text-white font-bold text-xs sm:text-sm py-4 px-7 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer active:scale-98 group"
+                className="w-full sm:w-auto bg-primary hover:bg-[#035259] text-white font-bold text-xs sm:text-sm py-3.5 sm:py-4 px-6 sm:px-7 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer active:scale-98 group"
               >
                 <span>Check Pre-Approved Offer</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </button>
 
-              <button
-                type="button"
-                onClick={scrollToCalculator}
-                className="bg-white hover:bg-gray-50 text-gray-800 border border-gray-300 font-bold text-xs sm:text-sm py-4 px-6 rounded-xl flex items-center justify-center gap-2 shadow-2xs hover:border-gray-400 transition-all cursor-pointer"
-              >
-                <Calculator className="w-4 h-4 text-primary" />
-                <span>Calculate EMI</span>
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={scrollToCalculator}
+                  className="flex-1 sm:flex-initial bg-white hover:bg-gray-50 text-gray-800 border border-gray-300 font-bold text-xs sm:text-sm py-3.5 sm:py-4 px-5 sm:px-6 rounded-xl flex items-center justify-center gap-2 shadow-2xs hover:border-gray-400 transition-all cursor-pointer"
+                >
+                  <Calculator className="w-4 h-4 text-primary" />
+                  <span>Calculate EMI</span>
+                </button>
 
-              <button
-                type="button"
-                onClick={handleShare}
-                className="bg-white hover:bg-gray-100 text-gray-600 border border-gray-200 p-4 rounded-xl transition-all shadow-2xs cursor-pointer"
-                title="Share this loan details"
-                aria-label="Share"
-              >
-                {copied ? (
-                  <Check className="w-4 h-4 text-emerald-600" />
-                ) : (
-                  <Share2 className="w-4 h-4" />
-                )}
-              </button>
+                <button
+                  type="button"
+                  onClick={handleShare}
+                  className="bg-white hover:bg-gray-100 text-gray-600 border border-gray-200 p-3.5 sm:p-4 rounded-xl transition-all shadow-2xs cursor-pointer shrink-0"
+                  title="Share this loan details"
+                  aria-label="Share"
+                >
+                  {copied ? (
+                    <Check className="w-4 h-4 text-emerald-600" />
+                  ) : (
+                    <Share2 className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
             </div>
 
             {/* Trust Assurance Strip */}

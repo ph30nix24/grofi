@@ -76,7 +76,7 @@ export default function LoanDisbursalStepsSection({ lender }: LoanDisbursalSteps
           return (
             <div
               key={idx}
-              className={`bg-white rounded-3xl p-6 border transition-all duration-300 shadow-2xs hover:shadow-lg flex flex-col justify-between relative group ${
+              className={`bg-white rounded-3xl p-4 sm:p-6 border transition-all duration-300 shadow-2xs hover:shadow-lg flex flex-col justify-between relative group ${
                 step.highlight
                   ? "border-primary/40 ring-2 ring-primary/5 bg-gradient-to-b from-emerald-50/30 via-white to-white"
                   : "border-gray-200/90"
@@ -99,7 +99,7 @@ export default function LoanDisbursalStepsSection({ lender }: LoanDisbursalSteps
                 </div>
 
                 {/* Step Title & Desc */}
-                <h3 className="font-bricolage font-bold text-lg text-gray-900 mb-2 leading-snug">
+                <h3 className="font-bricolage font-bold text-base sm:text-lg text-gray-900 mb-2 leading-snug">
                   {step.title}
                 </h3>
                 <p className="text-xs text-gray-600 leading-relaxed">
@@ -117,7 +117,7 @@ export default function LoanDisbursalStepsSection({ lender }: LoanDisbursalSteps
       </div>
 
       {/* Bottom CTA Box */}
-      <div className="mt-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-primary via-[#023b40] to-primary text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+      <div className="mt-10 p-5 sm:p-8 rounded-3xl bg-gradient-to-r from-primary via-[#023b40] to-primary text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
         <div className="space-y-1 text-center sm:text-left">
           <h3 className="font-bricolage font-bold text-xl sm:text-2xl text-white">
             Ready to Check Your Pre-Approved Limit?
@@ -135,7 +135,7 @@ export default function LoanDisbursalStepsSection({ lender }: LoanDisbursalSteps
               `Fast-track Application: Disbursal in ${lender.disbursalTime}`
             )
           }
-          className="bg-white hover:bg-gray-100 text-primary font-bold text-xs sm:text-sm py-3.5 px-6 rounded-xl flex items-center gap-2 shadow-md hover:shadow-lg transition-all shrink-0 cursor-pointer"
+          className="w-full sm:w-auto bg-white hover:bg-gray-100 text-primary font-bold text-xs sm:text-sm py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all shrink-0 cursor-pointer"
         >
           <span>Apply Online Now</span>
           <ArrowRight className="w-4 h-4" />

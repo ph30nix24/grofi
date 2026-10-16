@@ -113,6 +113,10 @@ export default function InstantLoanEmiCalculator() {
     }
   }, [loanAmount]);
 
+  const amountPct = Math.min(100, Math.max(0, ((loanAmount - 10000) / (4000000 - 10000)) * 100));
+  const ratePct = Math.min(100, Math.max(0, ((interestRate - 8.5) / (36 - 8.5)) * 100));
+  const tenurePct = Math.min(100, Math.max(0, ((tenureMonths - 3) / (60 - 3)) * 100));
+
   return (
     <section id="instant-emi-calculator-section" className="py-14 sm:py-20 bg-linear-to-b from-[#FDFBF7] via-white to-[#FDFBF7] border-t border-gray-200/60 font-montserrat">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -150,12 +154,16 @@ export default function InstantLoanEmiCalculator() {
 
               <input
                 type="range"
+                aria-label="Instant Loan Amount Needed"
                 min={10000}
                 max={4000000}
                 step={5000}
                 value={loanAmount}
                 onChange={(e) => setLoanAmount(Number(e.target.value))}
-                className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                style={{
+                  background: `linear-gradient(to right, #02474D 0%, #02474D ${amountPct}%, #E2E8F0 ${amountPct}%, #E2E8F0 100%)`,
+                }}
+                className="custom-range-slider"
               />
 
               <div className="flex justify-between text-[11px] text-gray-400 font-medium">
@@ -198,12 +206,16 @@ export default function InstantLoanEmiCalculator() {
 
               <input
                 type="range"
+                aria-label="Interest Rate"
                 min={8.5}
                 max={36}
                 step={0.1}
                 value={interestRate}
                 onChange={(e) => setInterestRate(Number(e.target.value))}
-                className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
+                style={{
+                  background: `linear-gradient(to right, #059669 0%, #059669 ${ratePct}%, #E2E8F0 ${ratePct}%, #E2E8F0 100%)`,
+                }}
+                className="custom-range-slider custom-range-slider-emerald"
               />
 
               <div className="flex justify-between text-[11px] text-gray-400 font-medium">
@@ -246,12 +258,16 @@ export default function InstantLoanEmiCalculator() {
 
               <input
                 type="range"
+                aria-label="Loan Duration"
                 min={3}
                 max={60}
                 step={1}
                 value={tenureMonths}
                 onChange={(e) => setTenureMonths(Number(e.target.value))}
-                className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-gold"
+                style={{
+                  background: `linear-gradient(to right, #B69226 0%, #B69226 ${tenurePct}%, #E2E8F0 ${tenurePct}%, #E2E8F0 100%)`,
+                }}
+                className="custom-range-slider custom-range-slider-gold"
               />
 
               <div className="flex justify-between text-[11px] text-gray-400 font-medium">

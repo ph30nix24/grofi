@@ -280,12 +280,16 @@ export default function ShortTermLoanHeroForm() {
 
             <input
               type="range"
+              aria-label="Required Short-Term Loan Amount"
               min={1000}
               max={500000}
               step={1000}
               value={loanAmount}
               onChange={(e) => setLoanAmount(Number(e.target.value))}
-              className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+              style={{
+                background: `linear-gradient(to right, #02474D 0%, #02474D ${Math.min(100, Math.max(0, ((loanAmount - 1000) / (500000 - 1000)) * 100))}%, #E2E8F0 ${Math.min(100, Math.max(0, ((loanAmount - 1000) / (500000 - 1000)) * 100))}%, #E2E8F0 100%)`,
+              }}
+              className="custom-range-slider"
             />
             <div className="flex justify-between text-[10px] text-gray-400 mt-0.5">
               <span>₹1,000 (Micro)</span>

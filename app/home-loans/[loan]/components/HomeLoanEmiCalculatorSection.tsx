@@ -147,6 +147,18 @@ export default function HomeLoanEmiCalculatorSection({ lender }: HomeLoanEmiCalc
     return `₹${formatINR(val)}`;
   };
 
+  const amountPct = Math.min(100000000, maxSanction) > 1000000
+    ? Math.min(100, Math.max(0, ((loanAmount - 1000000) / (Math.min(100000000, maxSanction) - 1000000)) * 100))
+    : 0;
+  const ratePct = maxRate > minRate ? Math.min(100, Math.max(0, ((interestRate - minRate) / (maxRate - minRate)) * 100)) : 0;
+  const tenurePct = maxTenureYears > 5 ? Math.min(100, Math.max(0, ((tenureYears - 5) / (maxTenureYears - 5)) * 100)) : 0;
+
+  const existingPrincipalPct = Math.min(100, Math.max(0, ((existingPrincipal - 1000000) / (20000000 - 1000000)) * 100));
+  const existingRatePct = Math.min(100, Math.max(0, ((existingRate - 7.5) / (11.0 - 7.5)) * 100));
+  const newRatePct = Math.min(100, Math.max(0, ((newRate - minRate) / 1.5) * 100));
+  const remainingTenurePct = Math.min(100, Math.max(0, ((remainingTenure - 3) / (25 - 3)) * 100));
+  const overdraftSurplusPct = Math.min(100, Math.max(0, (overdraftSurplus / 2000000) * 100));
+
   return (
     <section id="emi-calculator" className="py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 border-t border-gray-200 font-montserrat">
       {/* Header */}
@@ -231,12 +243,16 @@ export default function HomeLoanEmiCalculatorSection({ lender }: HomeLoanEmiCalc
 
                 <input
                   type="range"
+                  aria-label="Sanction Loan Amount"
                   min={1000000}
                   max={Math.min(100000000, maxSanction)}
                   step={200000}
                   value={loanAmount}
                   onChange={(e) => setLoanAmount(Number(e.target.value))}
-                  className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                  style={{
+                    background: `linear-gradient(to right, #02474D 0%, #02474D ${amountPct}%, #E2E8F0 ${amountPct}%, #E2E8F0 100%)`,
+                  }}
+                  className="custom-range-slider"
                 />
 
                 <div className="flex justify-between text-[11px] text-gray-400 font-medium">
@@ -277,12 +293,16 @@ export default function HomeLoanEmiCalculatorSection({ lender }: HomeLoanEmiCalc
 
                 <input
                   type="range"
+                  aria-label="Interest Rate"
                   min={minRate}
                   max={maxRate}
                   step={0.05}
                   value={interestRate}
                   onChange={(e) => setInterestRate(Number(e.target.value))}
-                  className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                  style={{
+                    background: `linear-gradient(to right, #02474D 0%, #02474D ${ratePct}%, #E2E8F0 ${ratePct}%, #E2E8F0 100%)`,
+                  }}
+                  className="custom-range-slider"
                 />
 
                 <div className="flex justify-between text-[11px] text-gray-400 font-medium">
@@ -305,12 +325,16 @@ export default function HomeLoanEmiCalculatorSection({ lender }: HomeLoanEmiCalc
 
                 <input
                   type="range"
+                  aria-label="Repayment Tenure"
                   min={5}
                   max={maxTenureYears}
                   step={1}
                   value={tenureYears}
                   onChange={(e) => setTenureYears(Number(e.target.value))}
-                  className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                  style={{
+                    background: `linear-gradient(to right, #02474D 0%, #02474D ${tenurePct}%, #E2E8F0 ${tenurePct}%, #E2E8F0 100%)`,
+                  }}
+                  className="custom-range-slider"
                 />
 
                 <div className="flex justify-between text-[11px] text-gray-400 font-medium">
@@ -517,12 +541,16 @@ export default function HomeLoanEmiCalculatorSection({ lender }: HomeLoanEmiCalc
                 </div>
                 <input
                   type="range"
+                  aria-label="Outstanding Loan Balance"
                   min={1000000}
                   max={20000000}
                   step={250000}
                   value={existingPrincipal}
                   onChange={(e) => setExistingPrincipal(Number(e.target.value))}
-                  className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                  style={{
+                    background: `linear-gradient(to right, #02474D 0%, #02474D ${existingPrincipalPct}%, #E2E8F0 ${existingPrincipalPct}%, #E2E8F0 100%)`,
+                  }}
+                  className="custom-range-slider"
                 />
                 <div className="flex justify-between text-[11px] text-gray-400">
                   <span>₹10 Lakhs</span>
@@ -543,12 +571,16 @@ export default function HomeLoanEmiCalculatorSection({ lender }: HomeLoanEmiCalc
                   </div>
                   <input
                     type="range"
+                    aria-label="Current Rate"
                     min={7.5}
                     max={11.0}
                     step={0.05}
                     value={existingRate}
                     onChange={(e) => setExistingRate(Number(e.target.value))}
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-500"
+                    style={{
+                      background: `linear-gradient(to right, #DC2626 0%, #DC2626 ${existingRatePct}%, #E2E8F0 ${existingRatePct}%, #E2E8F0 100%)`,
+                    }}
+                    className="custom-range-slider custom-range-slider-red"
                   />
                 </div>
 
@@ -563,12 +595,16 @@ export default function HomeLoanEmiCalculatorSection({ lender }: HomeLoanEmiCalc
                   </div>
                   <input
                     type="range"
+                    aria-label="New Rate"
                     min={minRate}
                     max={minRate + 1.5}
                     step={0.05}
                     value={newRate}
                     onChange={(e) => setNewRate(Number(e.target.value))}
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                    style={{
+                      background: `linear-gradient(to right, #059669 0%, #059669 ${newRatePct}%, #E2E8F0 ${newRatePct}%, #E2E8F0 100%)`,
+                    }}
+                    className="custom-range-slider custom-range-slider-emerald"
                   />
                 </div>
               </div>
@@ -585,12 +621,16 @@ export default function HomeLoanEmiCalculatorSection({ lender }: HomeLoanEmiCalc
                 </div>
                 <input
                   type="range"
+                  aria-label="Remaining Tenure"
                   min={3}
                   max={25}
                   step={1}
                   value={remainingTenure}
                   onChange={(e) => setRemainingTenure(Number(e.target.value))}
-                  className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                  style={{
+                    background: `linear-gradient(to right, #02474D 0%, #02474D ${remainingTenurePct}%, #E2E8F0 ${remainingTenurePct}%, #E2E8F0 100%)`,
+                  }}
+                  className="custom-range-slider"
                 />
               </div>
 
@@ -612,12 +652,16 @@ export default function HomeLoanEmiCalculatorSection({ lender }: HomeLoanEmiCalc
                   </div>
                   <input
                     type="range"
+                    aria-label="Average Surplus Savings Parked"
                     min={0}
                     max={2000000}
                     step={50000}
                     value={overdraftSurplus}
                     onChange={(e) => setOverdraftSurplus(Number(e.target.value))}
-                    className="w-full h-2 bg-purple-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+                    style={{
+                      background: `linear-gradient(to right, #9333ea 0%, #9333ea ${overdraftSurplusPct}%, #E2E8F0 ${overdraftSurplusPct}%, #E2E8F0 100%)`,
+                    }}
+                    className="custom-range-slider custom-range-slider-purple"
                   />
                   <p className="text-[11px] text-purple-900 leading-snug">
                     Parking this surplus in your overdraft account saves an additional{" "}

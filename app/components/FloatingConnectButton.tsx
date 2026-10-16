@@ -232,10 +232,10 @@ export default function FloatingConnectButton() {
 
   return (
     <>
-      {/* ── Floating Button Anchored at Right Center (Rotated 90°) ── */}
+      {/* ── Floating Button Anchored at Right Center (Rotated 90° on Desktop/Tablet) ── */}
       <aside
         aria-label="Connect with us floating action"
-        className="fixed right-0 top-1/2 z-40 select-none"
+        className="hidden md:block fixed right-0 top-1/2 z-40 select-none pointer-events-none"
         style={{
           transform: "rotate(90deg) translate(50%, 0)",
           transformOrigin: "top right",
@@ -246,7 +246,7 @@ export default function FloatingConnectButton() {
           onClick={() => setIsOpen(true)}
           aria-label="Click to connect with us"
           title="Click to connect with us"
-          className="group flex items-center gap-1.5 sm:gap-2.5 bg-linear-to-r from-[#02474D] via-[#02373C] to-[#035259] text-white hover:text-[#DDE3C1] px-2.5 sm:px-4 py-1.5 sm:py-2.5 rounded-b-2xl border-b-2 border-l-2 border-r-2 border-t-0 border-[#B69226]/80 hover:border-[#B69226] shadow-2xl shadow-[#02474D]/40 hover:shadow-[#02474D]/60 hover:translate-y-1 transition-all duration-300 cursor-pointer"
+          className="pointer-events-auto group flex items-center gap-1.5 sm:gap-2.5 bg-linear-to-r from-[#02474D] via-[#02373C] to-[#035259] text-white hover:text-[#DDE3C1] px-2.5 sm:px-4 py-1.5 sm:py-2.5 rounded-b-2xl border-b-2 border-l-2 border-r-2 border-t-0 border-[#B69226]/80 hover:border-[#B69226] shadow-2xl shadow-[#02474D]/40 hover:shadow-[#02474D]/60 hover:translate-y-1 transition-all duration-300 cursor-pointer"
         >
           {/* Pulsing Live Advisor indicator */}
           <span className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5 shrink-0">
@@ -285,7 +285,7 @@ export default function FloatingConnectButton() {
           />
 
           {/* Modal Container */}
-          <div className="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-6 shadow-2xl relative border border-gray-100 z-10 animate-scaleUp max-h-[92vh] overflow-y-auto scrollbar-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-6 shadow-2xl relative border border-gray-100 z-10 animate-scaleUp max-h-[92vh] overflow-y-auto scrollbar-hidden scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             {/* Background decorative glows */}
             <div className="absolute -top-16 -right-16 w-48 h-48 bg-linear-to-br from-primary/10 to-[#B69226]/15 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-linear-to-tr from-primary/10 to-emerald-400/10 rounded-full blur-3xl pointer-events-none" />
@@ -294,7 +294,7 @@ export default function FloatingConnectButton() {
             <button
               type="button"
               onClick={handleClose}
-              className="absolute top-4 right-4 sm:top-5 sm:right-5 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-900 transition-colors cursor-pointer z-10"
+              className="absolute top-3.5 right-3.5 sm:top-5 sm:right-5 w-10 h-10 min-w-10 min-h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-900 transition-colors cursor-pointer z-10 touch-manipulation"
               aria-label="Close dialog"
             >
               <X className="w-4 h-4" />
@@ -341,7 +341,7 @@ export default function FloatingConnectButton() {
                                 setErrors((prev) => ({ ...prev, service: undefined }));
                               }
                             }}
-                            className={`p-2.5 sm:p-3 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between relative ${
+                            className={`p-2.5 sm:p-3 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between relative touch-manipulation ${
                               isSelected
                                 ? "bg-linear-to-b from-[#02474D]/10 to-[#02474D]/5 border-[#02474D] ring-2 ring-[#02474D]/20 shadow-sm"
                                 : "bg-gray-50/80 hover:bg-gray-100/80 border-gray-200"
@@ -349,7 +349,7 @@ export default function FloatingConnectButton() {
                           >
                             {isSelected && (
                               <div className="absolute top-2 right-2 w-4 h-4 rounded-full bg-[#02474D] text-white flex items-center justify-center">
-                                <Check className="w-2.5 h-2.5 stroke-[3]" />
+                                <Check className="w-2.5 h-2.5 stroke-3" />
                               </div>
                             )}
                             <div
@@ -399,7 +399,7 @@ export default function FloatingConnectButton() {
                           if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
                         }}
                         placeholder="Enter your full name"
-                        className={`w-full bg-gray-50 border rounded-xl pl-10 pr-4 py-2.5 sm:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white transition-all font-montserrat ${
+                        className={`w-full bg-gray-50 border rounded-xl pl-10 pr-4 py-2.5 sm:py-3 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white transition-all font-montserrat ${
                           errors.name
                             ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
                             : "border-gray-200 focus:border-[#02474D] focus:ring-2 focus:ring-[#02474D]/10"
@@ -433,7 +433,7 @@ export default function FloatingConnectButton() {
                           if (errors.phone) setErrors((prev) => ({ ...prev, phone: undefined }));
                         }}
                         placeholder="98765 43210"
-                        className={`flex-1 bg-gray-50 border rounded-r-xl px-3.5 py-2.5 sm:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white transition-all font-montserrat tracking-wider ${
+                        className={`flex-1 bg-gray-50 border rounded-r-xl px-3.5 py-2.5 sm:py-3 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white transition-all font-montserrat tracking-wider ${
                           errors.phone
                             ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
                             : "border-gray-200 focus:border-[#02474D] focus:ring-2 focus:ring-[#02474D]/10"
@@ -473,7 +473,7 @@ export default function FloatingConnectButton() {
                           }
                         }}
                         placeholder="Enter score (e.g. 750) or pick below"
-                        className={`w-full bg-gray-50 border rounded-xl pl-10 pr-4 py-2.5 sm:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white transition-all font-montserrat ${
+                        className={`w-full bg-gray-50 border rounded-xl pl-10 pr-4 py-2.5 sm:py-3 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white transition-all font-montserrat ${
                           errors.cibilScore
                             ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
                             : "border-gray-200 focus:border-[#02474D] focus:ring-2 focus:ring-[#02474D]/10"
@@ -495,7 +495,7 @@ export default function FloatingConnectButton() {
                                 setErrors((prev) => ({ ...prev, cibilScore: undefined }));
                               }
                             }}
-                            className={`text-[11px] font-montserrat font-medium px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${
+                            className={`text-[11px] font-montserrat font-medium px-2.5 py-1 min-h-8 rounded-lg border transition-all cursor-pointer touch-manipulation ${
                               isPresetActive
                                 ? "bg-[#02474D] text-white border-[#02474D]"
                                 : "bg-gray-100 hover:bg-gray-200/80 text-gray-600 border-gray-200"
@@ -531,7 +531,7 @@ export default function FloatingConnectButton() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-[#02474D] hover:bg-[#035961] text-white font-montserrat font-bold text-sm py-3 px-6 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-[#02474D]/25 transition-all duration-200 cursor-pointer disabled:opacity-75 group mt-1.5"
+                    className="w-full min-h-12 bg-[#02474D] hover:bg-[#035961] text-white font-montserrat font-bold text-sm py-3 px-6 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-[#02474D]/25 transition-all duration-200 cursor-pointer disabled:opacity-75 group mt-1.5 touch-manipulation active:scale-[0.99]"
                   >
                     {isSubmitting ? (
                       <>

@@ -85,13 +85,13 @@ export default function CardHero({ card, bankSlug }: CardHeroProps) {
           
           {/* Left Column: Physical Card Graphic Showcase (5 cols on lg) */}
           <div className="lg:col-span-5 flex flex-col items-center">
-            <div className="relative w-full max-w-95 sm:max-w-105 aspect-[1.586/1] group transition-transform duration-500 hover:scale-[1.02]">
+            <div className="relative w-full max-w-sm sm:max-w-105 aspect-[1.586/1] group transition-transform duration-500 hover:scale-[1.02]">
               
               {/* Dynamic Luxury Ambient Glow */}
               <div className="absolute -inset-2 bg-linear-to-r from-primary/20 via-gold/25 to-primary/20 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
 
               {/* Physical Card Representation */}
-              <div className="relative w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden drop-shadow-2xl drop-shadow-white/20 flex flex-col justify-between p-5 sm:p-0 text-white select-none">
+              <div className="relative w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden drop-shadow-2xl flex flex-col justify-between text-white select-none">
                 
                 {card.cardImage ? (
                   <Image
@@ -100,10 +100,13 @@ export default function CardHero({ card, bankSlug }: CardHeroProps) {
                     fill
                     sizes="(max-width: 768px) 100vw, 420px"
                     priority
-                    className="object-contain drop-shadow-xl rounded-xl"
+                    className="object-contain drop-shadow-xl rounded-2xl sm:rounded-3xl"
                   />
                 ) : (
-                  <>
+                  <div className="w-full h-full bg-linear-to-br from-[#023338] via-primary to-[#012225] border border-white/15 p-5 sm:p-6 flex flex-col justify-between relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-inner">
+                    {/* Subtle metallic texture accent */}
+                    <div className="absolute -right-8 -top-8 w-40 h-40 bg-gold/15 rounded-full blur-2xl pointer-events-none" />
+
                     {/* Top Row: Issuer Logo & Contactless */}
                     <div className="flex items-center justify-between relative z-10">
                       <div className="flex items-center gap-2">
@@ -132,7 +135,7 @@ export default function CardHero({ card, bankSlug }: CardHeroProps) {
                       </div>
                     </div>
 
-                    {/* Middle: EMV Chip & Holographic texture */}
+                    {/* Middle: EMV Chip & Category */}
                     <div className="my-auto relative z-10 flex items-center justify-between">
                       {/* EMV Metallic Chip Graphic */}
                       <div className="w-11 h-8 rounded-md bg-linear-to-tr from-amber-300 via-yellow-400 to-amber-500 border border-amber-200/60 shadow-inner flex items-center justify-around px-1">
@@ -165,7 +168,7 @@ export default function CardHero({ card, bankSlug }: CardHeroProps) {
                         </div>
                       </div>
                     </div>
-                  </>
+                  </div>
                 )}
               </div>
             </div>
@@ -339,7 +342,10 @@ export default function CardHero({ card, bankSlug }: CardHeroProps) {
                 onClick={() => {
                   const target = document.getElementById("rewards-calculator");
                   if (target) {
-                    target.scrollIntoView({ behavior: "smooth" });
+                    const navOffset = window.innerWidth < 640 ? 120 : 150;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+                    window.scrollTo({ top: offsetPosition, behavior: "smooth" });
                   } else {
                     openApplyModal(card.name, "Check Pre-Approved Eligibility");
                   }

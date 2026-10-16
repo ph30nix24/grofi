@@ -120,13 +120,13 @@ export default function BankFAQSection({ bankName, faqs }: BankFAQSectionProps) 
     filteredFaqs.length > 0 && filteredFaqs.every((item) => openFaqItems[item.id]);
 
   return (
-    <section className="py-16 sm:py-20 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto border-t border-gray-200">
+    <section className="py-16 sm:py-20 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto border-t border-gray-200 w-full min-w-0 overflow-x-hidden">
       <div className="text-center max-w-3xl mx-auto mb-10">
         <div className="inline-flex items-center gap-2 bg-[#EBF4ED] text-primary px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide border border-primary/15 font-montserrat shadow-2xs mb-3">
           <HelpCircle className="w-3.5 h-3.5 text-gold" />
           <span>FREQUENTLY ASKED QUESTIONS</span>
         </div>
-        <h2 className="font-bricolage font-extrabold text-2xl sm:text-4xl text-gray-900 tracking-tight">
+        <h2 className="font-bricolage font-extrabold text-2xl sm:text-4xl text-gray-900 tracking-tight wrap-break-word">
           Frequently Asked Questions About <span className="text-primary">{bankName} Cards</span>
         </h2>
         <p className="text-xs sm:text-sm text-gray-600 font-montserrat mt-2">
@@ -135,21 +135,22 @@ export default function BankFAQSection({ bankName, faqs }: BankFAQSectionProps) 
       </div>
 
       {/* Search FAQs & Controls */}
-      <div className="max-w-4xl mx-auto mb-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="max-w-4xl mx-auto mb-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 w-full min-w-0">
         <div className="relative w-full sm:max-w-md">
-          <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
             value={faqSearchQuery}
             onChange={(e) => setFaqSearchQuery(e.target.value)}
             placeholder={`Search ${bankName} questions (e.g. CIBIL, annual fee, UPI)...`}
-            className="w-full bg-white border border-gray-200 pl-10 pr-9 py-2.5 rounded-xl text-xs sm:text-sm font-montserrat placeholder:text-gray-400 focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all shadow-2xs"
+            className="w-full min-h-10.5 bg-white border border-gray-200 pl-10 pr-10 py-2 rounded-xl text-xs sm:text-sm font-montserrat placeholder:text-gray-400 focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all shadow-2xs"
           />
           {faqSearchQuery && (
             <button
               onClick={() => setFaqSearchQuery("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-0.5 rounded-full hover:bg-gray-100 cursor-pointer"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 cursor-pointer"
               title="Clear search"
+              aria-label="Clear search"
             >
               <X className="w-3.5 h-3.5" />
             </button>
@@ -158,7 +159,7 @@ export default function BankFAQSection({ bankName, faqs }: BankFAQSectionProps) 
 
         <button
           onClick={allFaqsExpanded ? handleCollapseAllFaqs : handleExpandAllFaqs}
-          className="text-xs font-semibold text-primary hover:text-primary/80 font-montserrat px-3.5 py-2 rounded-lg border border-primary/20 hover:bg-primary/5 transition-colors cursor-pointer flex items-center gap-1.5 shrink-0 self-end sm:self-auto"
+          className="text-xs font-semibold text-primary hover:text-primary/80 font-montserrat min-h-9.5 px-3.5 py-2 rounded-xl border border-primary/20 hover:bg-primary/5 transition-colors cursor-pointer flex items-center justify-center gap-1.5 shrink-0 self-end sm:self-auto"
         >
           <span>{allFaqsExpanded ? "Collapse All" : "Expand All"}</span>
           <ChevronDown
@@ -201,13 +202,13 @@ export default function BankFAQSection({ bankName, faqs }: BankFAQSectionProps) 
                 <button
                   type="button"
                   onClick={() => toggleFaq(faq.id)}
-                  className="w-full text-left p-5 flex items-center justify-between gap-4 cursor-pointer select-none group"
+                  className="w-full text-left p-4 sm:p-5 flex items-start justify-between gap-3 sm:gap-4 cursor-pointer select-none group"
                 >
-                  <h3 className="font-bricolage font-bold text-base sm:text-lg text-gray-900 group-hover:text-primary transition-colors leading-snug">
+                  <h3 className="font-bricolage font-bold text-sm sm:text-base md:text-lg text-gray-900 group-hover:text-primary transition-colors leading-snug wrap-break-word">
                     {faq.question}
                   </h3>
                   <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
+                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 transition-all duration-300 ${
                       isOpen
                         ? "bg-primary text-white rotate-180"
                         : "bg-gray-100 text-gray-400 group-hover:text-gray-700"
@@ -218,12 +219,12 @@ export default function BankFAQSection({ bankName, faqs }: BankFAQSectionProps) 
                 </button>
 
                 {isOpen && (
-                  <div className="px-5 pb-5 pt-1 border-t border-gray-100 animate-fadeIn space-y-3">
+                  <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-1 border-t border-gray-100 animate-fadeIn space-y-3">
                     <div className="space-y-2 pt-2">
                       {faq.answer.map((p, idx) => (
                         <p
                           key={idx}
-                          className="text-xs sm:text-sm text-gray-700 font-montserrat leading-relaxed"
+                          className="text-xs sm:text-sm text-gray-700 font-montserrat leading-relaxed wrap-break-word"
                         >
                           {p}
                         </p>
@@ -233,18 +234,18 @@ export default function BankFAQSection({ bankName, faqs }: BankFAQSectionProps) 
                     {faq.proTip && (
                       <div className="mt-3 bg-[#FEF6E4]/70 border border-amber-300/60 rounded-xl p-3 flex items-start gap-2.5">
                         <Lightbulb className="w-4 h-4 text-amber-800 shrink-0 mt-0.5" />
-                        <p className="text-xs text-amber-950 font-montserrat leading-relaxed">
+                        <p className="text-xs text-amber-950 font-montserrat leading-relaxed wrap-break-word">
                           <strong>Grofi Pro Tip:</strong> {faq.proTip}
                         </p>
                       </div>
                     )}
 
                     {/* Feedback row */}
-                    <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500 font-montserrat">
-                      <div className="flex items-center gap-2">
+                    <div className="pt-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-500 font-montserrat">
+                      <div className="flex flex-wrap items-center gap-2">
                         {feedback ? (
                           <span className="text-emerald-700 font-medium inline-flex items-center gap-1">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                             Thank you for your feedback!
                           </span>
                         ) : (
@@ -254,18 +255,18 @@ export default function BankFAQSection({ bankName, faqs }: BankFAQSectionProps) 
                               onClick={() =>
                                 setHelpfulFeedback((prev) => ({ ...prev, [faq.id]: "yes" }))
                               }
-                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-gray-100 hover:bg-emerald-50 hover:text-emerald-700 transition-colors text-[11px] font-semibold cursor-pointer"
+                              className="inline-flex items-center gap-1 min-h-8 px-2.5 py-1 rounded-lg bg-gray-100 hover:bg-emerald-50 hover:text-emerald-700 transition-colors text-xs font-semibold cursor-pointer active:scale-95"
                             >
-                              <ThumbsUp className="w-3 h-3" />
+                              <ThumbsUp className="w-3 h-3 shrink-0" />
                               Yes
                             </button>
                             <button
                               onClick={() =>
                                 setHelpfulFeedback((prev) => ({ ...prev, [faq.id]: "no" }))
                               }
-                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-gray-100 hover:bg-rose-50 hover:text-rose-700 transition-colors text-[11px] font-semibold cursor-pointer"
+                              className="inline-flex items-center gap-1 min-h-8 px-2.5 py-1 rounded-lg bg-gray-100 hover:bg-rose-50 hover:text-rose-700 transition-colors text-xs font-semibold cursor-pointer active:scale-95"
                             >
-                              <ThumbsDown className="w-3 h-3" />
+                              <ThumbsDown className="w-3 h-3 shrink-0" />
                               No
                             </button>
                           </>

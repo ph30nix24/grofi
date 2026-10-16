@@ -39,7 +39,7 @@ export default function ContentImage({
 
   const content = (
     <>
-      <div className="relative w-full overflow-hidden flex items-center justify-center p-3 sm:p-5 bg-white">
+      <div className="relative w-full overflow-hidden flex items-center justify-center p-2 xs:p-3 sm:p-5 bg-white">
         {!isLoaded && (
           <div className="absolute inset-0 bg-gray-100 animate-pulse flex items-center justify-center">
             <span className="text-xs text-gray-400 font-montserrat">Loading graphic...</span>
@@ -53,7 +53,7 @@ export default function ContentImage({
           loading="lazy"
           onLoad={() => setIsLoaded(true)}
           onError={() => setHasError(true)}
-          className={`w-full h-auto max-h-[580px] object-contain rounded-xl sm:rounded-2xl mx-auto transition-opacity duration-300 ${
+          className={`w-full h-auto max-h-145 object-contain rounded-xl sm:rounded-2xl mx-auto transition-opacity duration-300 ${
             isLoaded ? "opacity-100" : "opacity-0"
           }`}
         />
@@ -65,9 +65,9 @@ export default function ContentImage({
           rel="noopener noreferrer"
           title="Open original high-res image"
           aria-label="Open original image in new tab"
-          className="absolute top-4 right-4 p-2 sm:px-3 sm:py-1.5 rounded-xl bg-gray-900/70 hover:bg-primary text-white backdrop-blur-md opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all duration-200 flex items-center gap-1.5 text-xs font-medium shadow-md"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 min-h-11 min-w-11 p-2.5 sm:px-3 sm:py-2 rounded-xl bg-gray-900/75 hover:bg-primary text-white backdrop-blur-md opacity-80 sm:opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all duration-200 flex items-center justify-center gap-1.5 text-xs font-medium shadow-md touch-manipulation cursor-pointer"
         >
-          <Maximize2 className="w-3.5 h-3.5" />
+          <Maximize2 className="w-4 h-4" />
           <span className="hidden sm:inline font-montserrat">View full</span>
         </a>
       </div>

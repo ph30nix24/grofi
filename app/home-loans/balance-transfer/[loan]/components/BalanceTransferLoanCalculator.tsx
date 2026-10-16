@@ -34,6 +34,27 @@ export default function BalanceTransferLoanCalculator({
   const [topUpAmount, setTopUpAmount] = useState<number>(0);
   const [showBreakup, setShowBreakup] = useState<boolean>(false);
 
+  // Slider limits and percentage fills
+  const balanceMin = 1000000;
+  const balanceMax = 30000000;
+  const balancePct = Math.min(100, Math.max(0, ((outstandingBalance - balanceMin) / (balanceMax - balanceMin)) * 100));
+
+  const currentRateMin = 8.0;
+  const currentRateMax = 12.0;
+  const currentRatePct = Math.min(100, Math.max(0, ((currentRate - currentRateMin) / (currentRateMax - currentRateMin)) * 100));
+
+  const minSliderRate = Math.max(6.8, minLenderRate - 0.5);
+  const maxSliderRate = Math.max(10.0, maxLenderRate + 0.5);
+  const newRatePct = Math.min(100, Math.max(0, ((newRate - minSliderRate) / (maxSliderRate - minSliderRate)) * 100));
+
+  const tenureMin = 5;
+  const tenureMax = maxTenureAllowed;
+  const tenurePct = Math.min(100, Math.max(0, ((remainingYears - tenureMin) / (tenureMax - tenureMin)) * 100));
+
+  const topUpMin = 0;
+  const topUpMax = 10000000;
+  const topUpPct = Math.min(100, Math.max(0, ((topUpAmount - topUpMin) / (topUpMax - topUpMin)) * 100));
+
   // Amount Presets
   const amountPresets = [
     { label: "₹30L", value: 3000000 },
@@ -181,8 +202,12 @@ export default function BalanceTransferLoanCalculator({
               max={30000000}
               step={200000}
               value={outstandingBalance}
+              aria-label="Outstanding Loan Principal"
               onChange={(e) => setOutstandingBalance(Number(e.target.value))}
-              className="w-full accent-primary h-2 bg-gray-200 rounded-lg cursor-pointer"
+              className="w-full custom-range-slider cursor-pointer"
+              style={{
+                background: `linear-gradient(to right, #02474D 0%, #02474D ${balancePct}%, #E2E8F0 ${balancePct}%, #E2E8F0 100%)`,
+              }}
             />
             {/* Quick Presets */}
             <div className="flex items-center gap-2 mt-2 overflow-x-auto pb-1 scrollbar-none">
@@ -219,8 +244,12 @@ export default function BalanceTransferLoanCalculator({
               max={12.0}
               step={0.05}
               value={currentRate}
+              aria-label="Current Bank Interest Rate"
               onChange={(e) => setCurrentRate(Number(e.target.value))}
-              className="w-full accent-amber-600 h-2 bg-gray-200 rounded-lg cursor-pointer"
+              className="w-full custom-range-slider custom-range-slider-amber cursor-pointer"
+              style={{
+                background: `linear-gradient(to right, #d97706 0%, #d97706 ${currentRatePct}%, #E2E8F0 ${currentRatePct}%, #E2E8F0 100%)`,
+              }}
             />
             <div className="flex justify-between text-[11px] text-gray-400 mt-1">
               <span>8.0% (Competitive)</span>
@@ -246,12 +275,16 @@ export default function BalanceTransferLoanCalculator({
             </div>
             <input
               type="range"
-              min={Math.max(6.8, minLenderRate - 0.5)}
-              max={Math.max(10.0, maxLenderRate + 0.5)}
+              min={minSliderRate}
+              max={maxSliderRate}
               step={0.05}
               value={newRate}
+              aria-label={`New Rate at ${lender.name}`}
               onChange={(e) => setNewRate(Number(e.target.value))}
-              className="w-full accent-primary h-2 bg-gray-200 rounded-lg cursor-pointer"
+              className="w-full custom-range-slider custom-range-slider-emerald cursor-pointer"
+              style={{
+                background: `linear-gradient(to right, #059669 0%, #059669 ${newRatePct}%, #E2E8F0 ${newRatePct}%, #E2E8F0 100%)`,
+              }}
             />
             <div className="flex justify-between text-[11px] text-gray-400 mt-1">
               <span>Min: {minLenderRate}%</span>
@@ -276,8 +309,12 @@ export default function BalanceTransferLoanCalculator({
               max={maxTenureAllowed}
               step={1}
               value={remainingYears}
+              aria-label="Remaining Loan Tenure"
               onChange={(e) => setRemainingYears(Number(e.target.value))}
-              className="w-full accent-primary h-2 bg-gray-200 rounded-lg cursor-pointer"
+              className="w-full custom-range-slider cursor-pointer"
+              style={{
+                background: `linear-gradient(to right, #02474D 0%, #02474D ${tenurePct}%, #E2E8F0 ${tenurePct}%, #E2E8F0 100%)`,
+              }}
             />
             <div className="flex items-center gap-2 mt-2">
               {tenurePresets.map((t) => (
@@ -319,8 +356,12 @@ export default function BalanceTransferLoanCalculator({
                 max={10000000}
                 step={100000}
                 value={topUpAmount}
+                aria-label="Add-on Top-Up Loan"
                 onChange={(e) => setTopUpAmount(Number(e.target.value))}
-                className="w-full accent-emerald-600 h-2 bg-gray-200 rounded-lg cursor-pointer"
+                className="w-full custom-range-slider custom-range-slider-emerald cursor-pointer"
+                style={{
+                  background: `linear-gradient(to right, #059669 0%, #059669 ${topUpPct}%, #E2E8F0 ${topUpPct}%, #E2E8F0 100%)`,
+                }}
               />
               <p className="text-[11px] text-gray-500 mt-1">
                 Top-up sanctioned at home loan takeover rate ({newRate}%). Max permissible: {lender.maxTopUpAmount}.

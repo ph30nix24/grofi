@@ -38,12 +38,12 @@ export default function PersonalLoanHeroForm() {
   const [cibilScore, setCibilScore] = useState("750+");
   const [consentGiven, setConsentGiven] = useState(false);
   
-  const [errors, setErrors] = useState<{ name?: string; phone?: string; consent?: string }>({});
+  const [errors, setErrors] = useState<{ name?: string; phone?: string; consent?: string; general?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const validateForm = () => {
-    const newErrors: { name?: string; phone?: string; consent?: string } = {};
+    const newErrors: { name?: string; phone?: string; consent?: string; general?: string } = {};
 
     if (!name.trim()) {
       newErrors.name = "Please enter your full name";
@@ -84,6 +84,7 @@ export default function PersonalLoanHeroForm() {
           phone: phone.replace(/\D/g, ""),
           loanAmount: `₹${formatINR(loanAmount)}`,
           employmentType,
+          monthlyIncome,
           cibilScore,
           estimatedEmi: `₹${formatINR(estimatedEmi)}/mo`,
           page: typeof window !== "undefined" ? window.location.pathname : undefined,
@@ -99,7 +100,8 @@ export default function PersonalLoanHeroForm() {
 
       setIsSubmitted(true);
     } catch (err) {
-      setErrors((prev) => ({ ...prev, phone: err instanceof Error ? err.message : "Submission failed. Please try again." }));    } finally {
+      setErrors((prev) => ({ ...prev, general: err instanceof Error ? err.message : "Submission failed. Please try again." }));
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -110,6 +112,7 @@ export default function PersonalLoanHeroForm() {
     setPhone("");
     setLoanAmount(500000);
     setEmploymentType("salaried");
+    setMonthlyIncome("₹50,000 - ₹1,00,000");
     setCibilScore("750+");
     setConsentGiven(false);
     setErrors({});
@@ -122,7 +125,7 @@ export default function PersonalLoanHeroForm() {
   );
 
   return (
-    <div className="bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-7 shadow-2xl border border-gray-200/90 relative overflow-hidden text-left font-montserrat">
+    <div className="bg-white/95 backdrop-blur-md rounded-3xl p-4 sm:p-7 shadow-2xl border border-gray-200/90 relative overflow-hidden text-left font-montserrat">
       {/* Background subtle ambient glow */}
       <div className="absolute -top-12 -right-12 w-44 h-44 bg-gold/15 rounded-full blur-2xl pointer-events-none" />
 
@@ -144,19 +147,28 @@ export default function PersonalLoanHeroForm() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             
+            {/* General Submission Error Banner */}
+            {errors.general && (
+              <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700 font-medium animate-fadeIn">
+                {errors.general}
+              </div>
+            )}
+
             {/* Full Name */}
             <div>
-              <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+              <label htmlFor="personal-loan-name" className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
                 Full Name <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <User className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
+                  id="personal-loan-name"
                   type="text"
                   value={name}
                   onChange={(e) => {
                     setName(e.target.value);
                     if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
+                    if (errors.general) setErrors((prev) => ({ ...prev, general: undefined }));
                   }}
                   placeholder="Enter your full name"
                   className={`w-full bg-gray-50 border rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white transition-all ${
@@ -173,7 +185,7 @@ export default function PersonalLoanHeroForm() {
 
             {/* Mobile Number */}
             <div>
-              <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+              <label htmlFor="personal-loan-phone" className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
                 Mobile Number <span className="text-red-500">*</span>
               </label>
               <div className="relative flex">
@@ -182,6 +194,7 @@ export default function PersonalLoanHeroForm() {
                   <span>+91</span>
                 </div>
                 <input
+                  id="personal-loan-phone"
                   type="tel"
                   maxLength={10}
                   value={phone}
@@ -189,6 +202,7 @@ export default function PersonalLoanHeroForm() {
                     const val = e.target.value.replace(/\D/g, "");
                     setPhone(val);
                     if (errors.phone) setErrors((prev) => ({ ...prev, phone: undefined }));
+                    if (errors.general) setErrors((prev) => ({ ...prev, general: undefined }));
                   }}
                   placeholder="98765 43210"
                   className={`flex-1 bg-gray-50 border rounded-r-xl px-3.5 py-2.5 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white transition-all tracking-wider ${
@@ -220,7 +234,7 @@ export default function PersonalLoanHeroForm() {
                     key={preset.label}
                     type="button"
                     onClick={() => setLoanAmount(preset.value)}
-                    className={`py-1.5 px-2 rounded-lg text-xs font-bold border transition-all cursor-pointer text-center ${
+                    className={`min-h-9 py-1.5 px-2 rounded-lg text-xs font-bold border transition-all cursor-pointer text-center flex items-center justify-center ${
                       loanAmount === preset.value
                         ? "bg-primary text-white border-primary shadow-xs"
                         : "bg-gray-50 text-gray-600 border-gray-200 hover:border-gray-300"

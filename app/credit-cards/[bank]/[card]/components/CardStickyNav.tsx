@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { CardStructure } from "./type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
@@ -11,10 +11,10 @@ interface CardStickyNavProps {
 
 const NAV_ITEMS = [
   { id: "overview", label: "Overview" },
-  { id: "rewards-calculator", label: "Rewards & Calculator" },
+  { id: "rewards-calculator", label: "Reward Engine" },
   { id: "fees-charges", label: "Fees & Charges" },
-  { id: "lounge-travel", label: "Airport Lounge" },
-  { id: "highlights", label: "Key Highlights" },
+  { id: "lounge-travel", label: "Lounge & Travel" },
+  { id: "highlights", label: "Highlights" },
   { id: "pros-cons", label: "Pros & Cons" },
   { id: "eligibility", label: "Eligibility" },
   { id: "faqs", label: "FAQs" },
@@ -25,14 +25,18 @@ export default function CardStickyNav({ card }: CardStickyNavProps) {
   const { openApplyModal } = useApplyModal();
   const [activeSection, setActiveSection] = useState("overview");
   const [isScrolled, setIsScrolled] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
   useEffect(() => {
     const handleScroll = () => {
       // Toggle compact card apply header when scrolled past hero
-      setIsScrolled(window.scrollY > 450);
+      setIsScrolled(window.scrollY > 400);
 
       // Highlight active section based on scroll position
-      const scrollPos = window.scrollY + 160;
+      const offset = window.innerWidth < 640 ? 120 : 150;
+      const scrollPos = window.scrollY + offset;
+
       for (const item of NAV_ITEMS) {
         const el = document.getElementById(item.id);
         if (el) {
@@ -50,10 +54,22 @@ export default function CardStickyNav({ card }: CardStickyNavProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Smooth scroll active button into view on mobile
+  useEffect(() => {
+    const btn = buttonRefs.current[activeSection];
+    if (btn && scrollContainerRef.current) {
+      btn.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }
+  }, [activeSection]);
+
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      const navOffset = 140;
+      const navOffset = window.innerWidth < 640 ? 110 : 140;
       const elementPosition = el.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - navOffset;
 
@@ -66,37 +82,49 @@ export default function CardStickyNav({ card }: CardStickyNavProps) {
   };
 
   return (
-    <div className="sticky top-18 sm:top-21 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200/90 shadow-xs transition-all duration-300">
+    <nav
+      aria-label="Section Quick Jump Navigation"
+      className="sticky top-14 sm:top-16 lg:top-16 z-40 bg-white/95 backdrop-blur-xl border-b border-gray-200/90 shadow-[0_2px_10px_rgba(0,0,0,0.03)] transition-all duration-300"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-between gap-4">
         
-        {/* Horizontal Scrollable Nav Links */}
-        <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto scrollbar-hidden py-3 text-xs font-montserrat font-semibold">
+        {/* Horizontal Scrollable Nav Links with Smooth Touch Momentum */}
+        <div
+          ref={scrollContainerRef}
+          className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto scrollbar-hidden py-2.5 sm:py-3 text-xs font-montserrat font-semibold w-full md:w-auto -mx-1 px-1 scroll-smooth"
+        >
           {NAV_ITEMS.map((item) => {
             const isActive = activeSection === item.id;
             return (
               <button
                 key={item.id}
+                ref={(el) => {
+                  buttonRefs.current[item.id] = el;
+                }}
+                type="button"
                 onClick={() => scrollToSection(item.id)}
-                className={`px-3 py-1.5 rounded-full whitespace-nowrap transition-all cursor-pointer ${
+                aria-current={isActive ? "true" : undefined}
+                className={`px-3.5 py-1.5 rounded-full whitespace-nowrap transition-all duration-200 cursor-pointer text-xs shrink-0 flex items-center gap-1.5 ${
                   isActive
-                    ? "bg-primary text-white shadow-2xs font-bold"
-                    : "text-gray-600 hover:text-gray-950 hover:bg-gray-100/80"
+                    ? "bg-primary text-white shadow-xs font-bold ring-2 ring-primary/20 scale-[1.02]"
+                    : "text-gray-600 hover:text-gray-950 hover:bg-gray-100"
                 }`}
               >
-                {item.label}
+                {isActive && <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0" />}
+                <span>{item.label}</span>
               </button>
             );
           })}
         </div>
 
-        {/* Right side: Mini CTA Dock (visible on scroll) */}
+        {/* Right side: Mini CTA Dock (visible on desktop scroll) */}
         <div
           className={`hidden md:flex items-center gap-3 shrink-0 py-2 transition-all duration-300 ${
             isScrolled ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-2"
           }`}
         >
           <div className="text-right">
-            <span className="block text-xs font-bricolage font-bold text-gray-900 truncate max-w-45">
+            <span className="block text-xs font-bricolage font-bold text-gray-900 truncate max-w-44">
               {card.name}
             </span>
             <span className="block text-[11px] text-gray-500 font-montserrat">
@@ -112,7 +140,7 @@ export default function CardStickyNav({ card }: CardStickyNavProps) {
                 `${card.issuer} • ${card.badge || "Credit Card"}`
               )
             }
-            className="bg-primary hover:bg-[#035259] text-white text-xs font-bold font-montserrat px-4 py-2 rounded-xl flex items-center gap-1.5 shadow-md transition-all cursor-pointer active:scale-95"
+            className="bg-primary hover:bg-[#035259] active:scale-95 text-white text-xs font-bold font-montserrat px-4 py-2 rounded-xl flex items-center gap-1.5 shadow-md transition-all cursor-pointer"
           >
             <span>Apply Now</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -120,6 +148,6 @@ export default function CardStickyNav({ card }: CardStickyNavProps) {
         </div>
 
       </div>
-    </div>
+    </nav>
   );
 }

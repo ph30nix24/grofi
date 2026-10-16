@@ -7,7 +7,6 @@ import {
   X,
   ChevronDown,
   Lightbulb,
-  CheckCircle2,
   ThumbsUp,
   ThumbsDown,
 } from "lucide-react";
@@ -28,12 +27,12 @@ interface CardFaqSectionProps {
 export default function CardFaqSection({ card, extraFaqs }: CardFaqSectionProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [openItems, setOpenItems] = useState<Record<string, boolean>>({
-    faq_0: true,
-    faq_1: true,
+    faq_annual_fee: true,
+    faq_reward_points: true,
   });
   const [feedbackState, setFeedbackState] = useState<Record<string, "yes" | "no">>({});
 
-  // Default curated FAQs for this card
+  // Curated FAQs for this specific card
   const faqs: FaqItem[] = useMemo(() => {
     const list: FaqItem[] = [
       {
@@ -42,19 +41,19 @@ export default function CardFaqSection({ card, extraFaqs }: CardFaqSectionProps)
         answer: [
           `The annual renewal fee for ${card.name} is ${card.annualFee || "Nil"}.`,
           card.feeWaiver
-            ? `You can have this fee completely waived by meeting the annual spend milestone: ${card.feeWaiver}. Spends across retail, online, dining, and utility payments count towards this milestone.`
+            ? `You can have this fee completely waived by meeting the annual spend milestone: ${card.feeWaiver}. Spends across retail, online shopping, travel, dining, and utility payments count towards this milestone.`
             : `Please check your official card statement for milestone fee waiver notifications or contact ${card.issuer} customer support.`,
         ],
-        proTip: `Plan large expenses (such as school fees, insurance, electronics, and travel bookings) on this card to comfortably cross the fee waiver milestone.`,
+        proTip: `Plan large expenses (such as school fees, insurance premiums, consumer electronics, and holiday travel) on this card to comfortably cross the annual waiver milestone.`,
       },
       {
         id: "faq_reward_points",
-        question: `What is the reward rate on ${card.name} and how do I redeem points?`,
+        question: `What is the reward yield on ${card.name} and how do I redeem points?`,
         answer: [
-          `The ${card.name} features: ${card.rewardRate?.headline || "attractive reward yields across all purchases"}.`,
-          `Base reward: ${card.rewardRate?.base || "Standard reward rate on retail spends"}.`,
-          `Accelerated reward: ${card.rewardRate?.accelerated || "Higher rewards on partner merchants and travel"}.`,
-          `Reward points can be redeemed directly via the ${card.issuer} netbanking portal or mobile app for statement cash credit, flight tickets, hotel stays, or brand shopping vouchers.`,
+          `The ${card.name} features: ${card.rewardRate?.headline || "competitive reward yields across eligible card transactions"}.`,
+          `Base reward: ${card.rewardRate?.base || "Standard reward rate on regular retail purchases"}.`,
+          `Accelerated reward: ${card.rewardRate?.accelerated || "Higher rewards on partner merchants, dining & travel"}.`,
+          `Reward points can be redeemed directly via the ${card.issuer} netbanking portal or mobile app for statement cash credit, flight tickets, hotel bookings, or brand shopping vouchers.`,
         ],
         proTip: `For highest value per point, redeem your ${card.rewardRate?.rewardCurrency || "points"} for airline air-miles or direct flight and hotel bookings.`,
       },
@@ -66,9 +65,9 @@ export default function CardFaqSection({ card, extraFaqs }: CardFaqSectionProps)
           `International Lounges: ${card.loungeAccess?.international || "Not available"}. If international lounge access is bundled, generate your digital Priority Pass / LoungeKey barcode through your cardholder portal.`,
           card.loungeAccess?.spendCondition
             ? `Note: ${card.loungeAccess.spendCondition}`
-            : `Access is complimentary as per published card tier guidelines.`,
+            : `Access is complimentary subject to published card tier guidelines.`,
         ],
-        proTip: `Download the lounge network companion app (such as DreamFolks or Priority Pass) before traveling to check lounge capacity and location in advance.`,
+        proTip: `Download the lounge companion app (such as DreamFolks or Priority Pass) before traveling to check lounge capacity and terminal locations in advance.`,
       },
       {
         id: "faq_cibil",
@@ -104,187 +103,142 @@ export default function CardFaqSection({ card, extraFaqs }: CardFaqSectionProps)
     return list;
   }, [card, extraFaqs]);
 
-  // Filtered FAQs
+  // Filter FAQs based on search
   const filteredFaqs = useMemo(() => {
     if (!searchQuery.trim()) return faqs;
-    const q = searchQuery.toLowerCase().trim();
+    const q = searchQuery.toLowerCase();
     return faqs.filter(
       (f) =>
         f.question.toLowerCase().includes(q) ||
-        f.answer.some((line) => line.toLowerCase().includes(q))
+        f.answer.some((a) => a.toLowerCase().includes(q)) ||
+        (f.proTip && f.proTip.toLowerCase().includes(q))
     );
   }, [faqs, searchQuery]);
 
-  const toggleFaq = (id: string) => {
-    setOpenItems((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+  const toggleItem = (id: string) => {
+    setOpenItems((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const handleExpandAll = () => {
-    const allOpen: Record<string, boolean> = {};
-    filteredFaqs.forEach((f) => (allOpen[f.id] = true));
-    setOpenItems(allOpen);
+  const setFeedback = (id: string, val: "yes" | "no") => {
+    setFeedbackState((prev) => ({ ...prev, [id]: val }));
   };
-
-  const handleCollapseAll = () => setOpenItems({});
-
-  const allExpanded =
-    filteredFaqs.length > 0 && filteredFaqs.every((f) => openItems[f.id]);
 
   return (
-    <section id="faqs" className="py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 border-t border-gray-200">
-      
+    <section
+      id="faqs"
+      aria-label="Frequently Asked Questions"
+      className="py-12 sm:py-16 md:py-20 max-w-5xl mx-auto px-4 sm:px-6 md:px-8 border-t border-gray-200/90"
+    >
       {/* Header */}
-      <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
-        <div className="inline-flex items-center gap-2 bg-[#EBF4ED] text-primary px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide border border-primary/15 font-montserrat shadow-2xs mb-3">
-          <HelpCircle className="w-3.5 h-3.5 text-gold" />
+      <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+        <div className="inline-flex items-center gap-2 bg-[#EBF4ED] text-primary px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide border border-primary/15 font-montserrat shadow-2xs mb-3.5">
+          <HelpCircle className="w-3.5 h-3.5 text-gold shrink-0" />
           <span>FREQUENTLY ASKED QUESTIONS</span>
         </div>
-        <h2 className="font-bricolage font-extrabold text-2xl sm:text-4xl text-gray-900 tracking-tight">
+        
+        <h2 className="font-bricolage font-extrabold text-2xl sm:text-4xl lg:text-5xl text-gray-900 tracking-tight leading-tight">
           Everything You Need to Know About <span className="text-primary">{card.name}</span>
         </h2>
-        <p className="text-xs sm:text-sm text-gray-600 font-montserrat mt-2">
-          Clear answers to common questions regarding annual fees, reward redemption, lounge rules, and delivery.
+        
+        <p className="text-xs sm:text-sm md:text-base text-gray-600 font-montserrat mt-3 leading-relaxed">
+          Clear answers on fee waivers, reward points redemption, lounge rules, and approval timelines.
         </p>
-      </div>
 
-      {/* Search Bar & Expand/Collapse Controls */}
-      <div className="max-w-4xl mx-auto mb-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <div className="relative w-full sm:max-w-md">
-          <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+        {/* Search Bar */}
+        <div className="relative max-w-xl mx-auto mt-6">
+          <Search className="w-4 h-4 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search questions (e.g. fee waiver, lounge, CIBIL)..."
-            className="w-full bg-white border border-gray-200 pl-10 pr-9 py-2.5 rounded-xl text-xs sm:text-sm font-montserrat placeholder:text-gray-400 focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all shadow-2xs"
+            placeholder="Search FAQs (e.g., fee waiver, lounge, CIBIL, points)..."
+            aria-label="Search FAQs"
+            className="w-full bg-white pl-11 pr-10 py-3.5 rounded-2xl border border-gray-200/90 text-xs sm:text-sm font-montserrat text-gray-900 shadow-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
           />
           {searchQuery && (
             <button
+              type="button"
               onClick={() => setSearchQuery("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-0.5 rounded-full hover:bg-gray-100 cursor-pointer"
+              aria-label="Clear search"
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 rounded-lg cursor-pointer"
             >
-              <X className="w-3.5 h-3.5" />
+              <X className="w-4 h-4" />
             </button>
           )}
         </div>
-
-        <button
-          onClick={allExpanded ? handleCollapseAll : handleExpandAll}
-          className="text-xs font-semibold text-primary hover:text-primary/80 font-montserrat px-3.5 py-2 rounded-lg border border-primary/20 hover:bg-primary/5 transition-colors cursor-pointer flex items-center gap-1.5 shrink-0 self-end sm:self-auto"
-        >
-          <span>{allExpanded ? "Collapse All" : "Expand All"}</span>
-          <ChevronDown
-            className={`w-3.5 h-3.5 transition-transform duration-200 ${
-              allExpanded ? "rotate-180" : ""
-            }`}
-          />
-        </button>
       </div>
 
       {/* Accordion List */}
-      <div className="max-w-4xl mx-auto space-y-3.5">
-        {filteredFaqs.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-gray-200 p-8 text-center">
-            <HelpCircle className="w-8 h-8 text-gray-300 mx-auto mb-2" />
-            <p className="font-bricolage font-bold text-gray-800 text-sm">
-              No matching questions found
-            </p>
-            <button
-              onClick={() => setSearchQuery("")}
-              className="mt-2 text-xs font-bold text-primary hover:underline font-montserrat cursor-pointer"
-            >
-              Reset search
-            </button>
-          </div>
-        ) : (
+      <div className="space-y-3.5 sm:space-y-4">
+        {filteredFaqs.length > 0 ? (
           filteredFaqs.map((faq) => {
-            const isOpen = !!openItems[faq.id];
+            const isOpen = Boolean(openItems[faq.id]);
             const feedback = feedbackState[faq.id];
 
             return (
               <div
                 key={faq.id}
-                className={`bg-white rounded-2xl border transition-all duration-300 shadow-2xs overflow-hidden ${
-                  isOpen
-                    ? "border-primary/40 ring-2 ring-primary/5 shadow-md"
-                    : "border-gray-200/90 hover:border-gray-300"
-                }`}
+                className="bg-white rounded-2xl sm:rounded-3xl border border-gray-200/90 shadow-2xs overflow-hidden transition-all duration-200"
               >
                 <button
                   type="button"
-                  onClick={() => toggleFaq(faq.id)}
-                  className="w-full text-left p-5 flex items-center justify-between gap-4 cursor-pointer select-none group"
+                  onClick={() => toggleItem(faq.id)}
+                  aria-expanded={isOpen}
+                  className="w-full p-4 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/60 transition-colors"
                 >
-                  <h3 className="font-bricolage font-bold text-base sm:text-lg text-gray-900 group-hover:text-primary transition-colors leading-snug">
+                  <span className="font-bricolage font-bold text-base sm:text-lg text-gray-900 leading-snug">
                     {faq.question}
-                  </h3>
-                  <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
-                      isOpen
-                        ? "bg-primary text-white rotate-180"
-                        : "bg-gray-100 text-gray-400 group-hover:text-gray-700"
-                    }`}
-                  >
+                  </span>
+                  <div className={`w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center shrink-0 text-gray-600 transition-transform duration-200 ${isOpen ? "rotate-180 bg-primary/10 text-primary" : ""}`}>
                     <ChevronDown className="w-4 h-4" />
                   </div>
                 </button>
 
                 {isOpen && (
-                  <div className="px-5 pb-5 pt-1 border-t border-gray-100 animate-fadeIn space-y-3">
-                    <div className="space-y-2 pt-2">
-                      {faq.answer.map((p, idx) => (
-                        <p
-                          key={idx}
-                          className="text-xs sm:text-sm text-gray-700 font-montserrat leading-relaxed"
-                        >
-                          {p}
-                        </p>
-                      ))}
-                    </div>
+                  <div className="px-4 pb-5 sm:px-6 sm:pb-6 pt-1 text-xs sm:text-sm text-gray-600 font-montserrat space-y-3 border-t border-gray-100">
+                    {faq.answer.map((para, pIdx) => (
+                      <p key={pIdx} className="leading-relaxed">
+                        {para}
+                      </p>
+                    ))}
 
                     {faq.proTip && (
-                      <div className="mt-3 bg-[#FEF6E4]/70 border border-amber-300/60 rounded-xl p-3 flex items-start gap-2.5">
-                        <Lightbulb className="w-4 h-4 text-amber-800 shrink-0 mt-0.5" />
-                        <p className="text-xs text-amber-950 font-montserrat leading-relaxed">
+                      <div className="p-3.5 sm:p-4 rounded-xl bg-amber-50/70 border border-amber-200/80 flex items-start gap-2.5 text-amber-950 mt-3">
+                        <Lightbulb className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                        <span className="text-xs leading-relaxed">
                           <strong>Grofi Pro Tip:</strong> {faq.proTip}
-                        </p>
+                        </span>
                       </div>
                     )}
 
                     {/* Feedback row */}
-                    <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500 font-montserrat">
+                    <div className="flex items-center justify-between pt-3 border-t border-gray-100 text-[11px] text-gray-400">
+                      <span>Was this answer helpful?</span>
                       <div className="flex items-center gap-2">
-                        {feedback ? (
-                          <span className="text-emerald-700 font-medium inline-flex items-center gap-1">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                            Thank you for your feedback!
-                          </span>
-                        ) : (
-                          <>
-                            <span>Was this answer helpful?</span>
-                            <button
-                              onClick={() =>
-                                setFeedbackState((prev) => ({ ...prev, [faq.id]: "yes" }))
-                              }
-                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-gray-100 hover:bg-emerald-50 hover:text-emerald-700 transition-colors text-[11px] font-semibold cursor-pointer"
-                            >
-                              <ThumbsUp className="w-3 h-3" />
-                              Yes
-                            </button>
-                            <button
-                              onClick={() =>
-                                setFeedbackState((prev) => ({ ...prev, [faq.id]: "no" }))
-                              }
-                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-gray-100 hover:bg-rose-50 hover:text-rose-700 transition-colors text-[11px] font-semibold cursor-pointer"
-                            >
-                              <ThumbsDown className="w-3 h-3" />
-                              No
-                            </button>
-                          </>
-                        )}
+                        <button
+                          type="button"
+                          onClick={() => setFeedback(faq.id, "yes")}
+                          className={`flex items-center gap-1 px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${
+                            feedback === "yes"
+                              ? "bg-emerald-50 text-emerald-700 border-emerald-300 font-bold"
+                              : "hover:bg-gray-100 border-gray-200 text-gray-600"
+                          }`}
+                        >
+                          <ThumbsUp className="w-3 h-3" />
+                          <span>Yes</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setFeedback(faq.id, "no")}
+                          className={`flex items-center gap-1 px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${
+                            feedback === "no"
+                              ? "bg-rose-50 text-rose-700 border-rose-300 font-bold"
+                              : "hover:bg-gray-100 border-gray-200 text-gray-600"
+                          }`}
+                        >
+                          <ThumbsDown className="w-3 h-3" />
+                          <span>No</span>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -292,6 +246,19 @@ export default function CardFaqSection({ card, extraFaqs }: CardFaqSectionProps)
               </div>
             );
           })
+        ) : (
+          <div className="text-center py-12 bg-white rounded-3xl border border-gray-200 p-8 space-y-3">
+            <p className="text-sm font-montserrat text-gray-600">
+              No questions found matching &ldquo;<span className="font-bold text-gray-900">{searchQuery}</span>&rdquo;.
+            </p>
+            <button
+              type="button"
+              onClick={() => setSearchQuery("")}
+              className="text-xs font-bold text-primary hover:underline font-montserrat cursor-pointer"
+            >
+              Reset Search &amp; View All FAQs
+            </button>
+          </div>
         )}
       </div>
 

@@ -40,6 +40,15 @@ export default function BalanceTransferLoanHeroForm({
   const targetRate = lender.interestRate?.min ?? 7.25;
   const maxAmount = lender.maxAmountNum || 100000000;
 
+  // Slider limits and dynamic fill percentages
+  const loanMin = 1000000;
+  const loanMax = Math.min(20000000, maxAmount);
+  const loanPct = loanMax > loanMin ? Math.min(100, Math.max(0, ((outstandingLoan - loanMin) / (loanMax - loanMin)) * 100)) : 0;
+
+  const currentRateMin = 8.0;
+  const currentRateMax = 12.0;
+  const currentRatePct = Math.min(100, Math.max(0, ((currentRate - currentRateMin) / (currentRateMax - currentRateMin)) * 100));
+
   // Presets for quick loan selection
   const presets = useMemo(() => {
     const list = [
@@ -237,12 +246,16 @@ export default function BalanceTransferLoanHeroForm({
               </div>
               <input
                 type="range"
-                min={1000000}
-                max={Math.min(20000000, maxAmount)}
+                min={loanMin}
+                max={loanMax}
                 step={200000}
                 value={outstandingLoan}
+                aria-label="Outstanding Balance"
                 onChange={(e) => setOutstandingLoan(Number(e.target.value))}
-                className="w-full accent-primary h-1.5 bg-gray-200 rounded-lg cursor-pointer"
+                className="w-full custom-range-slider cursor-pointer"
+                style={{
+                  background: `linear-gradient(to right, #02474D 0%, #02474D ${loanPct}%, #E2E8F0 ${loanPct}%, #E2E8F0 100%)`,
+                }}
               />
               <div className="flex items-center gap-1.5 mt-1.5 overflow-x-auto pb-0.5 scrollbar-none">
                 {presets.map((p) => (
@@ -274,12 +287,16 @@ export default function BalanceTransferLoanHeroForm({
               </div>
               <input
                 type="range"
-                min={8.0}
-                max={12.0}
+                min={currentRateMin}
+                max={currentRateMax}
                 step={0.05}
                 value={currentRate}
+                aria-label="Current Interest Rate"
                 onChange={(e) => setCurrentRate(Number(e.target.value))}
-                className="w-full accent-amber-600 h-1.5 bg-gray-200 rounded-lg cursor-pointer"
+                className="w-full custom-range-slider custom-range-slider-amber cursor-pointer"
+                style={{
+                  background: `linear-gradient(to right, #d97706 0%, #d97706 ${currentRatePct}%, #E2E8F0 ${currentRatePct}%, #E2E8F0 100%)`,
+                }}
               />
             </div>
 

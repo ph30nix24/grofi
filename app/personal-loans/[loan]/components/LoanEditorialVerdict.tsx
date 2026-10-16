@@ -46,7 +46,7 @@ export default function LoanEditorialVerdict({ lender }: LoanEditorialVerdictPro
         <div className="lg:col-span-7 space-y-6">
           
           {/* Main Editorial Card */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200/90 shadow-sm relative overflow-hidden">
+          <div className="bg-white rounded-3xl p-4 sm:p-8 border border-gray-200/90 shadow-sm relative overflow-hidden">
             <div className="inline-flex items-center gap-2 bg-[#EBF4ED] text-primary px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide border border-primary/15 shadow-2xs mb-4">
               <Award className="w-3.5 h-3.5 text-gold" />
               <span>GROFI EDITORIAL VERDICT</span>
@@ -63,7 +63,7 @@ export default function LoanEditorialVerdict({ lender }: LoanEditorialVerdictPro
 
             {/* Best Suited For Box */}
             {lender.recommendedFor && (
-              <div className="mt-6 p-4.5 rounded-2xl bg-gradient-to-r from-amber-50/80 via-[#FEF6E4] to-amber-50/80 border border-amber-200/80 flex items-start gap-3.5">
+              <div className="mt-6 p-3.5 sm:p-4.5 rounded-2xl bg-gradient-to-r from-amber-50/80 via-[#FEF6E4] to-amber-50/80 border border-amber-200/80 flex items-start gap-3.5">
                 <div className="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-900 flex items-center justify-center shrink-0 mt-0.5">
                   <Target className="w-5 h-5 text-amber-700" />
                 </div>
@@ -81,18 +81,18 @@ export default function LoanEditorialVerdict({ lender }: LoanEditorialVerdictPro
 
           {/* Key Product Features Grid */}
           {lender.features && lender.features.length > 0 && (
-            <div className="bg-gradient-to-br from-emerald-50/60 via-white to-emerald-50/30 rounded-3xl p-6 sm:p-8 border border-emerald-200 shadow-sm">
-              <div className="flex items-center justify-between gap-3 mb-4">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-600/10 text-emerald-800 flex items-center justify-center">
+            <div className="bg-gradient-to-br from-emerald-50/60 via-white to-emerald-50/30 rounded-3xl p-4 sm:p-8 border border-emerald-200 shadow-sm">
+              <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 mb-4">
+                <div className="flex items-center gap-2 min-w-0">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-600/10 text-emerald-800 flex items-center justify-center shrink-0">
                     <Sparkles className="w-4 h-4 text-emerald-700" />
                   </div>
-                  <h3 className="font-bricolage font-bold text-lg sm:text-xl text-emerald-950">
+                  <h3 className="font-bricolage font-bold text-base sm:text-xl text-emerald-950 leading-snug">
                     Key Advantages & Product Highlights
                   </h3>
                 </div>
 
-                <span className="text-[11px] font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded-full">
+                <span className="text-[11px] font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded-full shrink-0">
                   Highlights
                 </span>
               </div>
@@ -121,26 +121,26 @@ export default function LoanEditorialVerdict({ lender }: LoanEditorialVerdictPro
         </div>
 
         {/* Right Column: Scorecard & Benchmark Meter (5 cols) */}
-        <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border border-gray-200/90 shadow-sm">
+        <div className="lg:col-span-5 bg-white rounded-3xl p-4 sm:p-8 border border-gray-200/90 shadow-sm">
           
           {/* Header Score summary */}
-          <div className="flex items-center justify-between pb-6 border-b border-gray-100">
+          <div className="flex items-center justify-between pb-6 border-b border-gray-100 gap-3">
             <div>
               <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block">
                 BENCHMARK SCORE
               </span>
-              <h3 className="font-bricolage font-extrabold text-xl text-gray-900 mt-0.5">
+              <h3 className="font-bricolage font-extrabold text-lg sm:text-xl text-gray-900 mt-0.5">
                 Grofi Lender Rating
               </h3>
             </div>
 
-            <div className="flex items-center gap-2 bg-[#EBF4ED] border border-primary/20 rounded-2xl px-4 py-2.5">
-              <Star className="w-5 h-5 fill-amber-500 text-amber-500" />
+            <div className="flex items-center gap-2 bg-[#EBF4ED] border border-primary/20 rounded-2xl px-3 sm:px-4 py-2 sm:py-2.5 shrink-0">
+              <Star className="w-4 sm:w-5 h-4 sm:h-5 fill-amber-500 text-amber-500" />
               <div>
-                <span className="font-bricolage font-extrabold text-2xl text-primary leading-none">
+                <span className="font-bricolage font-extrabold text-xl sm:text-2xl text-primary leading-none">
                   {overallRating}
                 </span>
-                <span className="text-[11px] text-gray-500 font-bold ml-0.5">
+                <span className="text-[10px] sm:text-[11px] text-gray-500 font-bold ml-0.5">
                   / 5.0
                 </span>
               </div>
@@ -153,12 +153,12 @@ export default function LoanEditorialVerdict({ lender }: LoanEditorialVerdictPro
               const Icon = item.icon;
               return (
                 <div key={idx}>
-                  <div className="flex items-center justify-between text-xs font-semibold text-gray-700 mb-1.5">
-                    <span className="flex items-center gap-1.5">
-                      <Icon className="w-3.5 h-3.5 text-primary" />
-                      <span>{item.label}</span>
+                  <div className="flex items-center justify-between gap-2 text-xs font-semibold text-gray-700 mb-1.5">
+                    <span className="flex items-center gap-1.5 min-w-0 truncate">
+                      <Icon className="w-3.5 h-3.5 text-primary shrink-0" />
+                      <span className="truncate">{item.label}</span>
                     </span>
-                    <span className="font-bold text-gray-900">{item.score} / 10</span>
+                    <span className="font-bold text-gray-900 shrink-0">{item.score} / 10</span>
                   </div>
 
                   <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">

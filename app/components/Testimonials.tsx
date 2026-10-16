@@ -15,6 +15,7 @@ import {
   MessageSquareHeart,
   BadgeCheck,
 } from "lucide-react";
+import { useApplyModal } from "../context/ApplyModalContext";
 
 type TestimonialCategory = "all" | "personal" | "credit-card" | "business" | "home";
 
@@ -135,6 +136,7 @@ const categoryTabs: { id: TestimonialCategory; label: string; icon: React.ReactN
 ];
 
 export default function Testimonials() {
+  const { openApplyModal } = useApplyModal();
   const [selectedTab, setSelectedTab] = useState<TestimonialCategory>("all");
 
   const filteredTestimonials = testimonials.filter((t) => {
@@ -143,7 +145,7 @@ export default function Testimonials() {
   });
 
   return (
-    <section id="testimonials" className="py-22 px-6 relative bg-linear-to-b from-[#F3F0DF]/40 via-white to-[#F3F0DF]/30 overflow-hidden">
+    <section id="testimonials" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative bg-linear-to-b from-[#F3F0DF]/40 via-white to-[#F3F0DF]/30 overflow-hidden">
       
       {/* Decorative background glow */}
       <div className="absolute top-20 left-1/2 -translate-x-1/2 w-212.5 h-125 bg-linear-to-br from-[#B6CC9A]/15 via-primary/5 to-transparent rounded-full blur-3xl pointer-events-none" />
@@ -151,13 +153,13 @@ export default function Testimonials() {
       <div className="max-w-7xl mx-auto relative z-10">
         
         {/* ── Section Header ───────────────────────────────────────────── */}
-        <div className="text-center max-w-3xl mx-auto mb-14 reveal-on-scroll">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 bg-[#EBF4ED] text-primary text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-primary/20 mb-4">
             <Sparkles className="w-3.5 h-3.5 text-gold" />
             Verified Customer Stories
           </div>
 
-          <h2 className="font-bricolage font-bold text-3xl md:text-4xl xl:text-5xl text-primary leading-tight">
+          <h2 className="font-bricolage font-bold text-3xl sm:text-4xl lg:text-5xl text-primary leading-tight">
             Loved by Customers,{" "}
             <span className="text-gold relative inline-block">
               Trusted by 2L+
@@ -179,14 +181,14 @@ export default function Testimonials() {
         </div>
 
         {/* ── Overall Rating & Trust Summary Badge ─────────────────────── */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100 mb-12 flex flex-col md:flex-row items-center justify-between gap-6 max-w-4xl mx-auto reveal-scale delay-100">
-          <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-primary text-white flex flex-col items-center justify-center font-bricolage font-bold text-2xl shadow-md">
+        <div className="bg-white rounded-3xl p-4 sm:p-6 lg:p-8 shadow-sm border border-gray-100 mb-10 sm:mb-12 flex flex-col md:flex-row items-center justify-between gap-5 sm:gap-6 max-w-4xl mx-auto reveal-scale delay-100">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4">
+            <div className="w-16 h-16 rounded-2xl bg-primary text-white flex flex-col items-center justify-center font-bricolage font-bold text-2xl shadow-md shrink-0">
               4.9
               <span className="text-[10px] font-sans font-normal opacity-80">/ 5.0</span>
             </div>
             <div>
-              <div className="flex items-center gap-1 text-amber-400">
+              <div className="flex items-center justify-center sm:justify-start gap-1 text-amber-400">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-amber-400" />
                 ))}
@@ -200,7 +202,7 @@ export default function Testimonials() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3 border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-6">
+          <div className="flex items-center gap-3 border-t md:border-t-0 md:border-l border-gray-100 pt-4 md:pt-0 md:pl-6 w-full md:w-auto justify-center">
             <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700 bg-emerald-50 px-3.5 py-2 rounded-xl border border-emerald-200/60">
               <BadgeCheck className="w-4 h-4 text-emerald-600 shrink-0" />
               <span>100% Genuine Borrower Reviews</span>
@@ -209,15 +211,21 @@ export default function Testimonials() {
         </div>
 
         {/* ── Category Filter Tabs ─────────────────────────────────────── */}
-        <div className="flex justify-center mb-12 reveal-on-scroll delay-150">
-          <div className="bg-white p-1.5 rounded-2xl shadow-sm border border-gray-200/80 inline-flex gap-2 max-w-full overflow-x-auto">
+        <div className="flex justify-center mb-10 sm:mb-12 reveal-on-scroll delay-150">
+          <div
+            role="tablist"
+            aria-label="Testimonial Categories"
+            className="bg-white p-1.5 rounded-2xl shadow-sm border border-gray-200/80 inline-flex gap-1.5 sm:gap-2 max-w-full overflow-x-auto scrollbar-hidden"
+          >
             {categoryTabs.map((tab) => {
               const isActive = selectedTab === tab.id;
               return (
                 <button
                   key={tab.id}
+                  role="tab"
+                  aria-selected={isActive}
                   onClick={() => setSelectedTab(tab.id)}
-                  className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-montserrat text-xs sm:text-sm font-semibold transition-all duration-300 whitespace-nowrap cursor-pointer ${
+                  className={`flex items-center gap-2 px-4 sm:px-5 py-2.5 min-h-11 rounded-xl font-montserrat text-xs sm:text-sm font-semibold transition-all duration-300 whitespace-nowrap cursor-pointer touch-manipulation ${
                     isActive
                       ? "bg-primary text-white shadow-md shadow-primary/20"
                       : "text-gray-600 hover:text-primary hover:bg-gray-50"
@@ -232,16 +240,16 @@ export default function Testimonials() {
         </div>
 
         {/* ── Testimonials Grid ────────────────────────────────────────── */}
-        <div className="flex flex-wrap gap-8">
+        <div className="flex flex-wrap gap-6 sm:gap-8">
           {filteredTestimonials.map((t, idx) => (
             <div
               key={t.id}
-              className={`w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.334rem)] bg-white rounded-3xl p-7 border border-gray-100 shadow-md hover:shadow-2xl hover:border-primary/25 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5 relative reveal-on-scroll ${
+              className={`w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1.334rem)] bg-white rounded-3xl p-5 sm:p-6 lg:p-7 border border-gray-100 shadow-md hover:shadow-2xl hover:border-primary/25 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1.5 relative reveal-on-scroll ${
                 idx % 3 === 1 ? "delay-100" : idx % 3 === 2 ? "delay-200" : ""
               }`}
             >
               {/* Top Quote Icon Accent */}
-              <div className="absolute top-6 right-6 text-primary/10 group-hover:text-primary/20 transition-colors">
+              <div className="absolute top-6 right-6 text-primary/10 group-hover:text-primary/20 transition-colors pointer-events-none">
                 <Quote className="w-10 h-10" />
               </div>
 
@@ -266,7 +274,7 @@ export default function Testimonials() {
                 </div>
 
                 {/* Review Headline */}
-                <h3 className="font-bricolage font-bold text-lg text-gray-900 mb-2 leading-snug group-hover:text-primary transition-colors">
+                <h3 className="font-bricolage font-bold text-base sm:text-lg text-gray-900 mb-2 leading-snug group-hover:text-primary transition-colors">
                   &ldquo;{t.title}&rdquo;
                 </h3>
 
@@ -278,7 +286,7 @@ export default function Testimonials() {
 
               {/* Author Footer */}
               <div className="mt-6 pt-5 border-t border-gray-100 flex items-center gap-3.5">
-                <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-primary/20 shrink-0 shadow-xs">
+                <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-primary/20 shrink-0 shadow-xs">
                   <Image
                     src={t.avatar}
                     alt={t.name}
@@ -304,13 +312,13 @@ export default function Testimonials() {
         </div>
 
         {/* ── Trust Verification Banner ─────────────────────────────────── */}
-        <div className="mt-16 bg-white/80 backdrop-blur border border-primary/15 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left reveal-scale delay-150">
+        <div className="mt-12 sm:mt-16 bg-white/80 backdrop-blur border border-primary/15 rounded-3xl p-5 sm:p-7 lg:p-8 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-5 sm:gap-6 text-center sm:text-left reveal-scale delay-150">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-2xl bg-[#EBF4ED] flex items-center justify-center text-primary shrink-0">
               <MessageSquareHeart className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="font-bricolage font-bold text-lg text-gray-900">
+              <h4 className="font-bricolage font-bold text-base sm:text-lg text-gray-900">
                 Have you applied with Grofi?
               </h4>
               <p className="text-xs text-gray-500 font-montserrat mt-0.5">
@@ -319,12 +327,19 @@ export default function Testimonials() {
             </div>
           </div>
 
-          <a
-            href="#eligibility"
-            className="bg-primary hover:bg-primary/90 text-white text-xs sm:text-sm font-bold px-6 py-3 rounded-xl inline-flex items-center gap-2 shadow-md transition-all whitespace-nowrap cursor-pointer"
+          <button
+            type="button"
+            onClick={() =>
+              openApplyModal(
+                "General Pre-Approved Offers",
+                "Instant eligibility check across 50+ partner banks."
+              )
+            }
+            className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white text-xs sm:text-sm font-bold px-6 py-3.5 rounded-xl inline-flex items-center justify-center gap-2 shadow-md transition-all whitespace-nowrap cursor-pointer touch-manipulation min-h-11"
           >
-            Check Your Eligibility <ArrowRight className="w-4 h-4" />
-          </a>
+            <span>Check Your Eligibility</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
 
       </div>

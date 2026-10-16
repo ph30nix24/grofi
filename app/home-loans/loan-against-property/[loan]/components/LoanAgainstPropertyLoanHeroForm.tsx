@@ -82,6 +82,15 @@ export default function LoanAgainstPropertyLoanHeroForm({
   const factor = Math.pow(1 + r, tenureMonths);
   const estimatedEmi = Math.round((effectiveLoan * r * factor) / (factor - 1));
 
+  // Slider limits and dynamic fill percentages
+  const propertyMin = 2000000;
+  const propertyMax = 200000000;
+  const propertyPct = Math.min(100, Math.max(0, ((propertyValue - propertyMin) / (propertyMax - propertyMin)) * 100));
+
+  const loanMin = 1000000;
+  const loanMax = maxEligibleLoan;
+  const loanPct = loanMax > loanMin ? Math.min(100, Math.max(0, ((effectiveLoan - loanMin) / (loanMax - loanMin)) * 100)) : 0;
+
   // Property value presets
   const propertyPresets = [
     { label: "₹75L", value: 7500000 },
@@ -276,12 +285,16 @@ export default function LoanAgainstPropertyLoanHeroForm({
 
               <input
                 type="range"
-                min={2000000}
-                max={200000000}
+                min={propertyMin}
+                max={propertyMax}
                 step={500000}
                 value={propertyValue}
+                aria-label="Fair Market Value of Property"
                 onChange={(e) => setPropertyValue(Number(e.target.value))}
-                className="w-full accent-primary h-1.5 bg-gray-200 rounded-lg cursor-pointer"
+                className="w-full custom-range-slider cursor-pointer"
+                style={{
+                  background: `linear-gradient(to right, #02474D 0%, #02474D ${propertyPct}%, #E2E8F0 ${propertyPct}%, #E2E8F0 100%)`,
+                }}
               />
             </div>
 
@@ -295,12 +308,16 @@ export default function LoanAgainstPropertyLoanHeroForm({
               </div>
               <input
                 type="range"
-                min={1000000}
-                max={maxEligibleLoan}
+                min={loanMin}
+                max={loanMax}
                 step={500000}
                 value={effectiveLoan}
+                aria-label="Desired Loan Amount"
                 onChange={(e) => setRequestedLoan(Number(e.target.value))}
-                className="w-full accent-primary h-1.5 bg-gray-200 rounded-lg cursor-pointer"
+                className="w-full custom-range-slider cursor-pointer"
+                style={{
+                  background: `linear-gradient(to right, #02474D 0%, #02474D ${loanPct}%, #E2E8F0 ${loanPct}%, #E2E8F0 100%)`,
+                }}
               />
               <div className="flex justify-between text-[10px] text-gray-400 mt-0.5">
                 <span>Min ₹10 Lakhs</span>

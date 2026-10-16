@@ -67,6 +67,11 @@ export default function LoanAgainstPropertyHeroForm() {
   const ltvPercent = propertyType === "residential" ? 70 : propertyType === "commercial" ? 60 : 50;
   const maxLoanEligible = Math.round(propertyValue * (ltvPercent / 100));
 
+  // Slider limits and dynamic percentage fill
+  const propertyMin = 2500000;
+  const propertyMax = 150000000;
+  const propertyPct = Math.min(100, Math.max(0, ((propertyValue - propertyMin) / (propertyMax - propertyMin)) * 100));
+
   // Base interest rate estimate: ~9.25% p.a.
   const interestRate = 9.25;
   const monthlyRate = interestRate / 12 / 100;
@@ -272,12 +277,16 @@ export default function LoanAgainstPropertyHeroForm() {
             </div>
             <input
               type="range"
-              min={2500000}
-              max={150000000}
+              min={propertyMin}
+              max={propertyMax}
               step={500000}
               value={propertyValue}
+              aria-label="Estimated Property Value"
               onChange={(e) => setPropertyValue(Number(e.target.value))}
-              className="w-full accent-primary cursor-pointer h-2 bg-gray-200 rounded-lg appearance-none"
+              className="w-full custom-range-slider cursor-pointer"
+              style={{
+                background: `linear-gradient(to right, #02474D 0%, #02474D ${propertyPct}%, #E2E8F0 ${propertyPct}%, #E2E8F0 100%)`,
+              }}
             />
             {/* Quick value presets */}
             <div className="flex items-center justify-between gap-1 mt-1.5">

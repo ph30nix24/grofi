@@ -32,11 +32,11 @@ export default function PersonalLoanEligibilityGuide() {
         </div>
 
         {/* Profile Switcher Pills */}
-        <div className="flex justify-center mb-8">
-          <div className="bg-gray-100 p-1.5 rounded-2xl flex items-center gap-1 border border-gray-200">
+        <div className="flex justify-center mb-8 px-2 sm:px-0">
+          <div className="bg-gray-100 p-1 sm:p-1.5 rounded-2xl flex flex-col sm:flex-row items-center gap-1 border border-gray-200 w-full sm:w-auto max-w-sm sm:max-w-none">
             <button
               onClick={() => setProfileType("salaried")}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`w-full sm:w-auto flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                 profileType === "salaried"
                   ? "bg-primary text-white shadow-xs"
                   : "text-gray-600 hover:text-gray-900"
@@ -48,7 +48,7 @@ export default function PersonalLoanEligibilityGuide() {
 
             <button
               onClick={() => setProfileType("selfEmployed")}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`w-full sm:w-auto flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                 profileType === "selfEmployed"
                   ? "bg-primary text-white shadow-xs"
                   : "text-gray-600 hover:text-gray-900"
@@ -71,41 +71,41 @@ export default function PersonalLoanEligibilityGuide() {
             </h3>
 
             <div className="space-y-4 text-xs sm:text-sm">
-              <div className="flex items-start justify-between p-3.5 bg-white rounded-2xl border border-gray-100">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 p-3.5 bg-white rounded-2xl border border-gray-100">
                 <span className="font-semibold text-gray-500">Age Requirement:</span>
-                <span className="font-bold text-gray-900 text-right">
+                <span className="font-bold text-gray-900 sm:text-right">
                   {profileType === "salaried" ? "21 to 60 Years" : "23 to 65 Years"}
                 </span>
               </div>
 
-              <div className="flex items-start justify-between p-3.5 bg-white rounded-2xl border border-gray-100">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 p-3.5 bg-white rounded-2xl border border-gray-100">
                 <span className="font-semibold text-gray-500">Minimum Net Income:</span>
-                <span className="font-bold text-emerald-800 text-right">
+                <span className="font-bold text-emerald-800 sm:text-right">
                   {profileType === "salaried"
                     ? "₹25,000/mo (₹50k in metros like Mumbai, Delhi)"
                     : "Annual Net Profit ≥ ₹3,50,000 (ITR)"}
                 </span>
               </div>
 
-              <div className="flex items-start justify-between p-3.5 bg-white rounded-2xl border border-gray-100">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 p-3.5 bg-white rounded-2xl border border-gray-100">
                 <span className="font-semibold text-gray-500">Minimum CIBIL Score:</span>
-                <span className="font-bold text-primary text-right">
+                <span className="font-bold text-primary sm:text-right">
                   720+ (750+ qualifies for prime corporate rate bracket)
                 </span>
               </div>
 
-              <div className="flex items-start justify-between p-3.5 bg-white rounded-2xl border border-gray-100">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 p-3.5 bg-white rounded-2xl border border-gray-100">
                 <span className="font-semibold text-gray-500">Work Experience / Vintage:</span>
-                <span className="font-bold text-gray-900 text-right">
+                <span className="font-bold text-gray-900 sm:text-right">
                   {profileType === "salaried"
                     ? "Min 2 years total, min 6 mos with current employer"
                     : "Min 3 consecutive years in same business"}
                 </span>
               </div>
 
-              <div className="flex items-start justify-between p-3.5 bg-white rounded-2xl border border-gray-100">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 p-3.5 bg-white rounded-2xl border border-gray-100">
                 <span className="font-semibold text-gray-500">Banking Relationship:</span>
-                <span className="font-bold text-gray-900 text-right">
+                <span className="font-bold text-gray-900 sm:text-right">
                   Salary credit / current account in an active Indian scheduled bank
                 </span>
               </div>

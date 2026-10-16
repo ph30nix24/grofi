@@ -23,22 +23,22 @@ export default function BankHero({ bankName, bankSlug, cards }: BankHeroProps) {
   ).length;
 
   return (
-    <section className="relative pt-8 pb-12 sm:pt-12 sm:pb-16 px-4 sm:px-6 md:px-8 bg-linear-to-b from-[#F3F0DF]/80 via-[#F3F0DF]/35 to-white overflow-hidden border-b border-[#DDE3C1]/60">
+    <section className="relative pt-8 pb-12 sm:pt-12 sm:pb-16 px-4 sm:px-6 md:px-8 bg-linear-to-b from-[#F3F0DF]/80 via-[#F3F0DF]/35 to-white overflow-hidden border-b border-[#DDE3C1]/60 w-full min-w-0">
       {/* Ambient subtle glow lights */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-gold/15 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10 w-full min-w-0">
         {/* Breadcrumbs */}
-        <nav className="inline-flex items-center gap-2 text-xs font-semibold text-gray-500 mb-6 font-montserrat">
+        <nav className="inline-flex items-center gap-2 text-xs font-semibold text-gray-500 mb-6 font-montserrat flex-wrap">
           <Link href="/" className="hover:text-primary transition-colors">
             Home
           </Link>
-          <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+          <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
           <Link href="/credit-cards" className="hover:text-primary transition-colors">
             Credit Cards
           </Link>
-          <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+          <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
           <span className="text-primary font-bold">{bankName}</span>
         </nav>
 
@@ -77,40 +77,40 @@ export default function BankHero({ bankName, bankSlug, cards }: BankHeroProps) {
               Compare annual fees, lounge access, reward rates, RuPay UPI features, and welcome benefits across {bankName}&apos;s official card lineup. Apply online with instant eligibility check and zero impact on your CIBIL score.
             </p>
 
-            {/* Key stats pill strip */}
-            <div className="flex flex-wrap gap-3 max-w-xl mt-7">
-              <div className="flex-1 min-w-30 bg-white/90 backdrop-blur-xs p-3 rounded-2xl border border-[#DDE3C1] shadow-2xs">
+            {/* Key stats symmetrical grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 max-w-xl mt-7">
+              <div className="bg-white/90 backdrop-blur-xs p-3 rounded-2xl border border-[#DDE3C1] shadow-2xs text-center min-w-0">
                 <span className="font-bricolage font-bold text-xl sm:text-2xl text-primary block">
                   {totalCards}+
                 </span>
-                <span className="text-[10px] font-semibold text-gray-600 uppercase tracking-wider block font-montserrat mt-0.5">
+                <span className="text-[10px] font-semibold text-gray-600 uppercase tracking-wider block font-montserrat mt-0.5 truncate">
                   Verified Cards
                 </span>
               </div>
 
-              <div className="flex-1 min-w-30 bg-white/90 backdrop-blur-xs p-3 rounded-2xl border border-[#DDE3C1] shadow-2xs">
+              <div className="bg-white/90 backdrop-blur-xs p-3 rounded-2xl border border-[#DDE3C1] shadow-2xs text-center min-w-0">
                 <span className="font-bricolage font-bold text-xl sm:text-2xl text-gold block">
                   {freeCardsCount}
                 </span>
-                <span className="text-[10px] font-semibold text-gray-600 uppercase tracking-wider block font-montserrat mt-0.5">
+                <span className="text-[10px] font-semibold text-gray-600 uppercase tracking-wider block font-montserrat mt-0.5 truncate">
                   Lifetime Free
                 </span>
               </div>
 
-              <div className="flex-1 min-w-30 bg-white/90 backdrop-blur-xs p-3 rounded-2xl border border-[#DDE3C1] shadow-2xs">
+              <div className="bg-white/90 backdrop-blur-xs p-3 rounded-2xl border border-[#DDE3C1] shadow-2xs text-center min-w-0">
                 <span className="font-bricolage font-bold text-xl sm:text-2xl text-emerald-700 block">
                   Up to 33%
                 </span>
-                <span className="text-[10px] font-semibold text-gray-600 uppercase tracking-wider block font-montserrat mt-0.5">
+                <span className="text-[10px] font-semibold text-gray-600 uppercase tracking-wider block font-montserrat mt-0.5 truncate">
                   Reward Value
                 </span>
               </div>
 
-              <div className="flex-1 min-w-30 bg-white/90 backdrop-blur-xs p-3 rounded-2xl border border-[#DDE3C1] shadow-2xs">
+              <div className="bg-white/90 backdrop-blur-xs p-3 rounded-2xl border border-[#DDE3C1] shadow-2xs text-center min-w-0">
                 <span className="font-bricolage font-bold text-xl sm:text-2xl text-primary block">
                   ₹0 Fee
                 </span>
-                <span className="text-[10px] font-semibold text-gray-600 uppercase tracking-wider block font-montserrat mt-0.5">
+                <span className="text-[10px] font-semibold text-gray-600 uppercase tracking-wider block font-montserrat mt-0.5 truncate">
                   Soft Inquiry
                 </span>
               </div>

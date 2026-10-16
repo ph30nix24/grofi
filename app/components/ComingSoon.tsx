@@ -122,7 +122,7 @@ export default function ComingSoon({
   };
 
   return (
-    <div className="relative w-full overflow-hidden bg-gradient-to-b from-[#FDFBF7] via-[#F7F4EB] to-[#ECE7D6] font-montserrat">
+    <div className="relative w-full overflow-hidden bg-linear-to-b from-[#FDFBF7] via-[#F7F4EB] to-[#ECE7D6] font-montserrat">
       {/* Decorative ambient background glows */}
       <div className="absolute top-0 left-1/4 -translate-x-1/2 w-96 h-96 bg-[#02474D]/8 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-1/3 right-10 w-80 h-80 bg-[#B69226]/12 rounded-full blur-3xl pointer-events-none" />
@@ -162,7 +162,7 @@ export default function ComingSoon({
             {/* Main Heading */}
             <h1 className="font-bricolage text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold text-[#02474D] leading-[1.12] tracking-tight">
               {title} <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#B69226] via-[#d4ab33] to-[#997718]">
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-[#B69226] via-[#d4ab33] to-[#997718]">
                 {highlightedWord}
               </span>
             </h1>
@@ -253,7 +253,7 @@ export default function ComingSoon({
             <div className="flex flex-wrap items-center gap-3.5 pt-2">
               <Link
                 href="/credit-cards"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#B69226] to-[#a3801a] hover:from-[#c49e2e] hover:to-[#b38d21] text-white font-semibold text-sm shadow-md transition-all active:scale-[0.98]"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-linear-to-r from-[#B69226] to-[#a3801a] hover:from-[#c49e2e] hover:to-[#b38d21] text-white font-semibold text-sm shadow-md transition-all active:scale-[0.98]"
               >
                 <CreditCard className="w-4 h-4" />
                 <span>Explore 200+ Credit Cards</span>
@@ -274,13 +274,13 @@ export default function ComingSoon({
           <div className="lg:col-span-5 flex justify-center relative">
             
             {/* Soft decorative halo behind the illustration */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#02474D]/20 via-[#B69226]/20 to-transparent rounded-3xl blur-2xl transform -rotate-3 scale-95 pointer-events-none" />
+            <div className="absolute inset-0 bg-linear-to-tr from-[#02474D]/20 via-[#B69226]/20 to-transparent rounded-3xl blur-2xl transform -rotate-3 scale-95 pointer-events-none" />
 
             {/* Illustration Frame */}
             <div className="relative w-full max-w-md lg:max-w-none rounded-3xl p-3 sm:p-4 bg-white/70 backdrop-blur-xl border border-white/80 shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_20px_50px_rgba(2,71,77,0.15)]">
               
               {/* Illustration Image */}
-              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-[#f8f9fa] to-[#eef2f3]">
+              <div className="relative w-full aspect-4/3 rounded-2xl overflow-hidden bg-linear-to-br from-[#f8f9fa] to-[#eef2f3]">
                 <Image
                   src="/coming-soon.jpg"
                   alt="Feature Coming Soon illustration"

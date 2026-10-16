@@ -33,7 +33,7 @@ export default function LoanHeroForm({ lender }: LoanHeroFormProps) {
   const [monthlyIncome, setMonthlyIncome] = useState("₹50,000 - ₹1,00,000");
 
   const [consentGiven, setConsentGiven] = useState(false);
-  const [errors, setErrors] = useState<{ name?: string; phone?: string; consent?: string }>({});
+  const [errors, setErrors] = useState<{ name?: string; phone?: string; consent?: string; general?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -110,6 +110,7 @@ export default function LoanHeroForm({ lender }: LoanHeroFormProps) {
           lender: lender.name,
           loanAmount: `₹${formatINR(loanAmount)}`,
           employmentType,
+          monthlyIncome,
           estimatedEmi: `₹${formatINR(estimatedEmi)}/mo`,
           page: typeof window !== "undefined" ? window.location.pathname : undefined,
           consentGiven: true,
@@ -122,7 +123,7 @@ export default function LoanHeroForm({ lender }: LoanHeroFormProps) {
       }
       setIsSubmitted(true);
     } catch (err) {
-      setErrors((prev) => ({ ...prev, phone: err instanceof Error ? err.message : "Submission failed. Please try again." }));
+      setErrors((prev) => ({ ...prev, general: err instanceof Error ? err.message : "Submission failed. Please try again." }));
     } finally {
       setIsSubmitting(false);
     }
@@ -141,7 +142,7 @@ export default function LoanHeroForm({ lender }: LoanHeroFormProps) {
   return (
     <div
       id="hero-apply-form"
-      className="bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-7 shadow-2xl border border-gray-200/90 relative overflow-hidden text-left font-montserrat"
+      className="bg-white/95 backdrop-blur-md rounded-3xl p-4 sm:p-7 shadow-2xl border border-gray-200/90 relative overflow-hidden text-left font-montserrat"
     >
       {/* Background subtle ambient glow */}
       <div className="absolute -top-12 -right-12 w-44 h-44 bg-gold/15 rounded-full blur-2xl pointer-events-none" />
@@ -176,14 +177,23 @@ export default function LoanHeroForm({ lender }: LoanHeroFormProps) {
 
           <form onSubmit={handleSubmit} className="space-y-3.5">
             
+            {/* General Submission Error Banner */}
+            {errors.general && (
+              <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700 flex items-start gap-2">
+                <span className="font-bold shrink-0">Error:</span>
+                <span>{errors.general}</span>
+              </div>
+            )}
+
             {/* Full Name */}
             <div>
-              <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+              <label htmlFor="loan-hero-name" className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1 cursor-pointer">
                 Full Name <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <User className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
+                  id="loan-hero-name"
                   type="text"
                   value={name}
                   onChange={(e) => {
@@ -205,7 +215,7 @@ export default function LoanHeroForm({ lender }: LoanHeroFormProps) {
 
             {/* Mobile Number */}
             <div>
-              <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+              <label htmlFor="loan-hero-phone" className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1 cursor-pointer">
                 Mobile Number <span className="text-red-500">*</span>
               </label>
               <div className="relative flex">
@@ -214,6 +224,7 @@ export default function LoanHeroForm({ lender }: LoanHeroFormProps) {
                   <span>+91</span>
                 </div>
                 <input
+                  id="loan-hero-phone"
                   type="tel"
                   maxLength={10}
                   value={phone}
@@ -252,7 +263,7 @@ export default function LoanHeroForm({ lender }: LoanHeroFormProps) {
                     key={preset.label}
                     type="button"
                     onClick={() => setLoanAmount(preset.value)}
-                    className={`py-1.5 px-1 rounded-lg text-xs font-bold border transition-all cursor-pointer text-center ${
+                    className={`py-1.5 px-1 min-h-[36px] rounded-lg text-xs font-bold border transition-all cursor-pointer text-center ${
                       loanAmount === preset.value
                         ? "bg-primary text-white border-primary shadow-xs"
                         : "bg-gray-50 text-gray-600 border-gray-200 hover:border-gray-300"

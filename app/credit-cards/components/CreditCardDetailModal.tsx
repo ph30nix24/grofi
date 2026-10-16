@@ -26,20 +26,21 @@ export default function CreditCardDetailModal({
   if (!card) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/65 backdrop-blur-xs animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-6 bg-black/65 backdrop-blur-xs animate-fadeIn">
       <div className="fixed inset-0" onClick={onClose} />
-      <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[92vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative border border-gray-100 animate-scaleUp z-10">
+      <div className="bg-white rounded-2xl sm:rounded-3xl max-w-2xl w-full max-h-[92vh] overflow-y-auto p-4.5 sm:p-6 md:p-8 shadow-2xl relative border border-gray-100 animate-scaleUp z-10">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 transition-colors cursor-pointer z-10"
+          className="absolute top-3.5 right-3.5 sm:top-5 sm:right-5 w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 transition-colors cursor-pointer z-10"
+          aria-label="Close card details"
         >
           <X className="w-4 h-4" />
         </button>
 
         {/* Modal Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6 pb-6 border-b border-gray-100">
-          <div className="w-28 sm:w-36 shrink-0">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4 mb-5 pb-5 border-b border-gray-100 pr-0 sm:pr-8">
+          <div className="w-32 sm:w-36 shrink-0">
             <div className="relative w-full aspect-[1.586/1] rounded-2xl overflow-hidden shadow-lg bg-gray-100">
               <Image
                 src={card.cardImage || ""}
@@ -51,10 +52,10 @@ export default function CreditCardDetailModal({
             </div>
           </div>
           <div className="min-w-0 flex-1">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-primary bg-[#EBF4ED] px-3 py-1 rounded-full border border-primary/15 inline-block mb-2 font-montserrat">
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-primary bg-[#EBF4ED] px-3 py-1 rounded-full border border-primary/15 inline-block mb-1.5 sm:mb-2 font-montserrat">
               {card.issuer}
             </span>
-            <h3 className="font-bricolage font-bold text-2xl text-gray-900 leading-tight">
+            <h3 className="font-bricolage font-bold text-xl sm:text-2xl text-gray-900 leading-tight">
               {card.name}
             </h3>
             <p className="text-xs text-gray-500 font-montserrat mt-1">
@@ -65,10 +66,10 @@ export default function CreditCardDetailModal({
 
         {/* Welcome Benefit Callout */}
         {card.welcomeBenefits && card.welcomeBenefits.length > 0 && (
-          <div className="bg-amber-50/80 border border-amber-200/80 rounded-2xl p-4 mb-6">
+          <div className="bg-amber-50/80 border border-amber-200/80 rounded-2xl p-3.5 sm:p-4 mb-5">
             <div className="flex items-center gap-2 text-xs font-bold text-amber-900 uppercase tracking-wider font-montserrat">
-              <Gift className="w-4 h-4 text-amber-600" />
-              Welcome Benefit
+              <Gift className="w-4 h-4 text-amber-600 shrink-0" />
+              <span>Welcome Benefit</span>
             </div>
             <p className="text-xs font-semibold text-amber-950 mt-1 font-montserrat leading-relaxed">
               {card.welcomeBenefits.join(" • ")}
@@ -77,8 +78,8 @@ export default function CreditCardDetailModal({
         )}
 
         {/* Fee & Charges Matrix */}
-        <div className="flex flex-wrap gap-3 mb-6">
-          <div className="w-[calc(50%-0.375rem)] sm:flex-1 bg-gray-50 p-3 rounded-xl border border-gray-100">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 mb-5">
+          <div className="bg-gray-50 p-3 rounded-xl border border-gray-100">
             <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
               Joining Fee
             </span>
@@ -86,7 +87,7 @@ export default function CreditCardDetailModal({
               {card.joiningFee}
             </span>
           </div>
-          <div className="w-[calc(50%-0.375rem)] sm:flex-1 bg-gray-50 p-3 rounded-xl border border-gray-100">
+          <div className="bg-gray-50 p-3 rounded-xl border border-gray-100">
             <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
               Annual Fee
             </span>
@@ -94,18 +95,18 @@ export default function CreditCardDetailModal({
               {card.annualFee}
             </span>
           </div>
-          <div className="w-[calc(50%-0.375rem)] sm:flex-1 bg-gray-50 p-3 rounded-xl border border-gray-100">
+          <div className="bg-gray-50 p-3 rounded-xl border border-gray-100">
             <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
               Fee Waiver
             </span>
             <span
-              className="text-xs font-bold text-gray-900 block mt-0.5 font-montserrat truncate"
+              className="text-xs font-bold text-gray-900 block mt-0.5 font-montserrat line-clamp-2 leading-tight"
               title={card.feeWaiver || "None"}
             >
               {card.feeWaiver || "Not applicable"}
             </span>
           </div>
-          <div className="w-[calc(50%-0.375rem)] sm:flex-1 bg-gray-50 p-3 rounded-xl border border-gray-100">
+          <div className="bg-gray-50 p-3 rounded-xl border border-gray-100">
             <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat">
               Forex Markup
             </span>
@@ -117,10 +118,10 @@ export default function CreditCardDetailModal({
 
         {/* Reward System Breakdown */}
         {card.rewardRate && (
-          <div className="mb-6 p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200/80">
+          <div className="mb-5 p-3.5 sm:p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200/80">
             <h4 className="text-xs font-bold text-emerald-950 uppercase tracking-wider font-montserrat flex items-center gap-1.5 mb-2.5">
-              <Sparkles className="w-4 h-4 text-emerald-600" />
-              Reward Structure &amp; Redemption
+              <Sparkles className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Reward Structure &amp; Redemption</span>
             </h4>
             <div className="space-y-2 text-xs font-montserrat text-emerald-900">
               {card.rewardRate.headline && (
@@ -150,22 +151,22 @@ export default function CreditCardDetailModal({
 
         {/* Airport Lounge Privileges */}
         {card.loungeAccess && (
-          <div className="mb-6 p-4 rounded-2xl bg-sky-50/60 border border-sky-200/80">
+          <div className="mb-5 p-3.5 sm:p-4 rounded-2xl bg-sky-50/60 border border-sky-200/80">
             <h4 className="text-xs font-bold text-sky-950 uppercase tracking-wider font-montserrat flex items-center gap-1.5 mb-2">
-              <Plane className="w-4 h-4 text-sky-600" />
-              Airport Lounge Privileges
+              <Plane className="w-4 h-4 text-sky-600 shrink-0" />
+              <span>Airport Lounge Privileges</span>
             </h4>
-            <div className="flex flex-wrap gap-3 text-xs font-montserrat text-sky-900">
-              <div className="w-full sm:w-[calc(50%-0.375rem)]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-montserrat text-sky-900">
+              <div>
                 <span className="font-bold block text-sky-950">Domestic Lounges:</span>
                 <p className="mt-0.5">{card.loungeAccess.domestic || "Not available"}</p>
               </div>
-              <div className="w-full sm:w-[calc(50%-0.375rem)]">
+              <div>
                 <span className="font-bold block text-sky-950">International Lounges:</span>
                 <p className="mt-0.5">{card.loungeAccess.international || "Not available"}</p>
               </div>
               {card.loungeAccess.spendCondition && (
-                <div className="w-full text-[11px] text-sky-700 bg-white/70 p-2 rounded-lg">
+                <div className="col-span-1 sm:col-span-2 text-[11px] text-sky-700 bg-white/70 p-2.5 rounded-lg">
                   <strong>Spend Condition:</strong> {card.loungeAccess.spendCondition}
                 </div>
               )}

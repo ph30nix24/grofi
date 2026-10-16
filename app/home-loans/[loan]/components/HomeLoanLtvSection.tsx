@@ -42,6 +42,8 @@ export default function HomeLoanLtvSection({ lender }: HomeLoanLtvSectionProps) 
     }).format(val);
   };
 
+  const propertyCostPct = Math.min(100, Math.max(0, ((propertyCost - 2000000) / (30000000 - 2000000)) * 100));
+
   return (
     <section id="ltv-overdraft" className="py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 border-t border-gray-200 font-montserrat">
       {/* Header */}
@@ -117,12 +119,16 @@ export default function HomeLoanLtvSection({ lender }: HomeLoanLtvSectionProps) 
 
               <input
                 type="range"
+                aria-label="Target Property Value"
                 min={2000000}
                 max={30000000}
                 step={250000}
                 value={propertyCost}
                 onChange={(e) => setPropertyCost(Number(e.target.value))}
-                className="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                style={{
+                  background: `linear-gradient(to right, #02474D 0%, #02474D ${propertyCostPct}%, #E2E8F0 ${propertyCostPct}%, #E2E8F0 100%)`,
+                }}
+                className="custom-range-slider"
               />
 
               <div className="grid grid-cols-2 gap-3 pt-2">

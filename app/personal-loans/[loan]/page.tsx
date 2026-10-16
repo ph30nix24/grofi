@@ -174,7 +174,7 @@ export default async function SelectedPersonalLoan({
     <>
       <JsonLd schema={jsonLd} />
 
-      <main className="flex flex-col min-h-screen bg-[#FDFBF7] text-gray-900 selection:bg-primary/20 selection:text-primary">
+      <main className="flex flex-col min-h-screen bg-[#FDFBF7] text-gray-900 selection:bg-primary/20 selection:text-primary pb-24 md:pb-0">
         <Navbar />
 
         {/* Hero Section with Live Lender Badges, Core Metrics & Preview */}

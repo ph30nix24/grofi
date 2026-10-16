@@ -102,16 +102,16 @@ export default function Footer() {
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* ── Top Newsletter / Rate Alert Bar ──────────────────────────── */}
-        <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 sm:p-10 border border-white/10 mb-16 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8 reveal-scale">
+        <div className="bg-white/5 backdrop-blur-md rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 border border-white/10 mb-12 sm:mb-16 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8 reveal-scale">
           <div className="max-w-xl text-center lg:text-left">
             <div className="inline-flex items-center gap-2 bg-[#B6CC9A]/15 text-[#B6CC9A] text-xs font-bold uppercase tracking-widest px-3.5 py-1 rounded-full border border-[#B6CC9A]/20 mb-3">
               <Sparkles className="w-3.5 h-3.5 text-gold" />
               Stay Ahead Financially
             </div>
-            <h3 className="font-bricolage font-bold text-2xl sm:text-3xl text-white">
+            <h3 className="font-bricolage font-bold text-xl sm:text-2xl lg:text-3xl text-white">
               Get Rate Cut Alerts &amp; Exclusive Offers
             </h3>
             <p className="text-white/60 text-xs sm:text-sm mt-1.5 leading-relaxed">
@@ -129,7 +129,7 @@ export default function Footer() {
               <div>
                 <div className="flex flex-col sm:flex-row gap-3 bg-white/10 p-2 rounded-2xl border border-white/15">
                   <div className="relative flex-1 flex items-center">
-                    <Mail className="absolute left-3.5 w-4 h-4 text-white/40" />
+                    <Mail className="absolute left-3.5 w-4 h-4 text-white/40 pointer-events-none" />
                     <input
                       type="email"
                       required
@@ -137,19 +137,19 @@ export default function Footer() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email address..."
-                      className="w-full pl-10 pr-4 py-3 bg-transparent text-white placeholder-white/40 text-xs sm:text-sm focus:outline-none disabled:opacity-60"
+                      className="w-full pl-10 pr-4 py-3 bg-transparent text-white placeholder-white/40 text-base sm:text-sm focus:outline-none disabled:opacity-60"
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="bg-gold hover:bg-gold/90 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer shrink-0 disabled:opacity-60"
+                    className="min-h-11 bg-gold hover:bg-gold/90 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer shrink-0 disabled:opacity-60 touch-manipulation active:scale-[0.98]"
                   >
                     {isSubmitting ? "Subscribing..." : "Subscribe"}
                     <Send className="w-3.5 h-3.5" />
                   </button>
                 </div>
-                <p className="text-[11px] text-white/50 mt-2 px-2">
+                <p className="text-[11px] text-white/50 mt-2 px-2 text-center sm:text-left">
                   By subscribing, you agree to receive email updates and accept our{" "}
                   <Link href="/privacy-policy" className="text-white/80 hover:text-white underline">
                     Privacy Policy
@@ -165,7 +165,7 @@ export default function Footer() {
         </div>
 
         {/* ── Main Footer Columns ──────────────────────────────────────── */}
-        <div className="flex flex-wrap gap-10 lg:gap-8 pb-14 border-b border-white/10 reveal-on-scroll delay-100">
+        <div className="flex flex-wrap gap-x-6 gap-y-10 lg:gap-8 pb-14 border-b border-white/10 reveal-on-scroll delay-100">
           
           {/* Column 1: Brand & Contact Info (4 cols equivalent) */}
           <div className="w-full lg:w-[calc(33.333%-1.334rem)] flex flex-col gap-6">
@@ -211,9 +211,11 @@ export default function Footer() {
             {/* Social Links */}
             <div className="flex items-center gap-3 pt-2">
               <a
-                href="#"
+                href="https://www.linkedin.com/company/grofi"
                 aria-label="LinkedIn"
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-gold text-white/80 hover:text-white flex items-center justify-center transition-all duration-200"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 min-w-10 min-h-10 rounded-xl bg-white/10 hover:bg-gold text-white/80 hover:text-white flex items-center justify-center transition-all duration-200 touch-manipulation"
               >
                 <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">
                   <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
@@ -223,7 +225,8 @@ export default function Footer() {
                 href="https://www.instagram.com/grofi_"
                 aria-label="Instagram"
                 target="_blank"
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-gold text-white/80 hover:text-white flex items-center justify-center transition-all duration-200"
+                rel="noopener noreferrer"
+                className="w-10 h-10 min-w-10 min-h-10 rounded-xl bg-white/10 hover:bg-gold text-white/80 hover:text-white flex items-center justify-center transition-all duration-200 touch-manipulation"
               >
                 <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
@@ -233,7 +236,8 @@ export default function Footer() {
                 href="https://www.facebook.com/people/GROFI/61585844205496/"
                 aria-label="Facebook"
                 target="_blank"
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-gold text-white/80 hover:text-white flex items-center justify-center transition-all duration-200"
+                rel="noopener noreferrer"
+                className="w-10 h-10 min-w-10 min-h-10 rounded-xl bg-white/10 hover:bg-gold text-white/80 hover:text-white flex items-center justify-center transition-all duration-200 touch-manipulation"
               >
                 <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">
                   <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z" />
@@ -243,7 +247,8 @@ export default function Footer() {
                 href="https://www.youtube.com/@Grofinance"
                 aria-label="YouTube"
                 target="_blank"
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-gold text-white/80 hover:text-white flex items-center justify-center transition-all duration-200"
+                rel="noopener noreferrer"
+                className="w-10 h-10 min-w-10 min-h-10 rounded-xl bg-white/10 hover:bg-gold text-white/80 hover:text-white flex items-center justify-center transition-all duration-200 touch-manipulation"
               >
                 <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">
                   <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
@@ -371,15 +376,15 @@ export default function Footer() {
         </div>
 
         {/* ── Bottom Copyright Bar ─────────────────────────────────────── */}
-        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60">
+        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/60 text-center sm:text-left">
           <p>
             &copy; {new Date().getFullYear()} Grofi Financial Technologies Pvt. Ltd. All rights reserved.
           </p>
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-[11px]">
-            <Link href="/privacy-policy" className="hover:text-gold transition-colors">Privacy Policy</Link>
-            <Link href="/privacy-policy#terms" className="hover:text-gold transition-colors">Terms of Service</Link>
-            <Link href="/secure-with-us" className="hover:text-gold transition-colors">Security Disclosures</Link>
-            <Link href="/privacy-policy#grievance-redressal" className="hover:text-gold transition-colors">Grievance Officer</Link>
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-x-4 gap-y-2 sm:gap-6 text-[11px]">
+            <Link href="/privacy-policy" className="hover:text-gold transition-colors py-1">Privacy Policy</Link>
+            <Link href="/privacy-policy#terms" className="hover:text-gold transition-colors py-1">Terms of Service</Link>
+            <Link href="/secure-with-us" className="hover:text-gold transition-colors py-1">Security Disclosures</Link>
+            <Link href="/privacy-policy#grievance-redressal" className="hover:text-gold transition-colors py-1">Grievance Officer</Link>
           </div>
         </div>
 

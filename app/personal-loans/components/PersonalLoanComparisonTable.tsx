@@ -18,6 +18,7 @@ export default function PersonalLoanComparisonTable({
 }: PersonalLoanComparisonTableProps) {
   const { openApplyModal } = useApplyModal();
   const [internalSelectedLender, setInternalSelectedLender] = useState<PersonalLoanLender | null>(null);
+  const [mobileView, setMobileView] = useState<"side-by-side" | "cards">("side-by-side");
 
   // Pagination state (6 items per page)
   const ITEMS_PER_PAGE = 6;
@@ -67,31 +68,73 @@ export default function PersonalLoanComparisonTable({
 
         {/* Responsive Table Card */}
         <div className="bg-white rounded-3xl border border-gray-200/80 shadow-md overflow-hidden">
-          {/* Desktop & Tablet Table (No horizontal scroll, fully responsive) */}
-          <div className="w-full">
-            <table className="hidden md:table w-full text-left text-xs sm:text-sm font-montserrat border-collapse">
+          {/* Mobile View Toggle Bar (visible < md) */}
+          <div className="md:hidden p-3.5 bg-gray-50/90 border-b border-gray-200/80 flex items-center justify-between gap-2">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-gray-500">
+              Mobile View:
+            </span>
+            <div className="flex items-center bg-gray-200/80 p-0.5 rounded-xl">
+              <button
+                type="button"
+                onClick={() => setMobileView("side-by-side")}
+                className={`px-3 py-1 text-[11px] font-bold rounded-lg transition-all cursor-pointer ${
+                  mobileView === "side-by-side"
+                    ? "bg-white text-primary shadow-2xs"
+                    : "text-gray-600 hover:text-gray-900"
+                }`}
+              >
+                Side-by-Side Table
+              </button>
+              <button
+                type="button"
+                onClick={() => setMobileView("cards")}
+                className={`px-3 py-1 text-[11px] font-bold rounded-lg transition-all cursor-pointer ${
+                  mobileView === "cards"
+                    ? "bg-white text-primary shadow-2xs"
+                    : "text-gray-600 hover:text-gray-900"
+                }`}
+              >
+                Card List
+              </button>
+            </div>
+          </div>
+
+          {/* Swipe guidance banner for mobile side-by-side mode */}
+          {mobileView === "side-by-side" && (
+            <div className="md:hidden flex items-center justify-between bg-emerald-50/90 border-b border-emerald-100 px-3.5 py-2 text-[11px] font-montserrat text-emerald-800">
+              <span className="font-semibold">Side-by-Side Matrix</span>
+              <span className="font-bold flex items-center gap-1 text-primary">← Swipe horizontally to compare →</span>
+            </div>
+          )}
+
+          {/* Desktop, Tablet & Mobile Side-by-Side Table */}
+          <div className={`${mobileView === "side-by-side" ? "block" : "hidden md:block"} w-full overflow-x-auto`}>
+            <table className="w-full min-w-162.5 sm:min-w-175 text-left text-xs sm:text-sm font-montserrat border-collapse">
               <thead>
                 <tr className="bg-gray-50/90 border-b border-gray-200 text-gray-500 font-bold uppercase tracking-wider text-[11px]">
-                  <th className="py-4 px-4 sm:px-6 w-[25%]">Bank / Lender</th>
-                  <th className="py-4 px-3 sm:px-4 w-[14%]">Interest Rate</th>
-                  <th className="py-4 px-3 sm:px-4 w-[13%]">Starting EMI / Lakh</th>
-                  <th className="py-4 px-3 sm:px-4 w-[12%]">Max Loan Limit</th>
-                  <th className="py-4 px-3 sm:px-4 w-[12%]">Disbursal Speed</th>
-                  <th className="py-4 px-3 sm:px-4 w-[14%]">Processing Fee</th>
-                  <th className="py-4 px-4 text-center w-[10%]">Action</th>
+                  <th className="sticky left-0 z-20 bg-gray-50/95 backdrop-blur-xs py-4 px-3 sm:px-6 w-[32%] sm:w-[25%] min-w-32.5 sm:min-w-40 whitespace-nowrap shadow-[3px_0_8px_-2px_rgba(0,0,0,0.06)] border-r border-gray-200/80">
+                    Bank / Lender
+                  </th>
+                  <th className="py-4 px-3 sm:px-4 w-[14%] whitespace-nowrap">Interest Rate</th>
+                  <th className="py-4 px-3 sm:px-4 w-[13%] whitespace-nowrap">Starting EMI / Lakh</th>
+                  <th className="py-4 px-3 sm:px-4 w-[12%] whitespace-nowrap">Max Loan Limit</th>
+                  <th className="py-4 px-3 sm:px-4 w-[12%] whitespace-nowrap">Disbursal Speed</th>
+                  <th className="py-4 px-3 sm:px-4 w-[14%] whitespace-nowrap">Processing Fee</th>
+                  <th className="py-4 px-4 text-center w-[10%] whitespace-nowrap">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 text-gray-700">
-                {paginatedLenders.map((lender) => (
+                {paginatedLenders.length > 0 ? (
+                  paginatedLenders.map((lender) => (
                   <tr
                     key={lender.id}
                     className="hover:bg-gray-50/80 transition-colors group cursor-pointer"
                     onClick={() => handleSelect(lender)}
                   >
-                    {/* Bank / Lender */}
-                    <td className="py-4 px-4 sm:px-6">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 p-1 flex items-center justify-center shrink-0 shadow-2xs">
+                    {/* Bank / Lender - Sticky on left for mobile and tablet side-by-side swipe */}
+                    <td className="sticky left-0 z-10 bg-white/95 backdrop-blur-xs py-4 px-3 sm:px-6 shadow-[3px_0_8px_-2px_rgba(0,0,0,0.06)] border-r border-gray-100">
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white border border-gray-200 p-1 flex items-center justify-center shrink-0 shadow-2xs">
                           <Image
                             src={lender.logo}
                             alt={lender.name}
@@ -101,17 +144,17 @@ export default function PersonalLoanComparisonTable({
                           />
                         </div>
                         <div className="min-w-0 flex-1">
-                          <div className="flex flex-wrap items-center gap-1.5">
-                            <span className="font-bricolage font-bold text-sm sm:text-base text-gray-900 group-hover:text-primary transition-colors leading-snug">
+                          <div className="flex flex-wrap items-center gap-1">
+                            <span className="font-bricolage font-bold text-xs sm:text-base text-gray-900 group-hover:text-primary transition-colors leading-snug">
                               {lender.name}
                             </span>
                             {lender.badge && (
-                              <span className="shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200/80">
+                              <span className="shrink-0 text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200/80">
                                 {lender.badge}
                               </span>
                             )}
                           </div>
-                          <span className="text-[11px] text-gray-400 block uppercase font-semibold mt-0.5">
+                          <span className="text-[10px] sm:text-[11px] text-gray-400 block uppercase font-semibold mt-0.5 truncate">
                             {lender.bankType || "Bank"} • Min CIBIL {lender.minCreditScore}+
                           </span>
                         </div>
@@ -166,13 +209,21 @@ export default function PersonalLoanComparisonTable({
                       </div>
                     </td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={7} className="py-12 text-center text-gray-500 text-xs font-montserrat">
+                    No lender rate matrix data currently available.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
 
-            {/* Mobile View (Cards for mobile - no horizontal scroll) */}
-            <div className="md:hidden divide-y divide-gray-100">
-              {paginatedLenders.map((lender) => (
+          {/* Mobile View (Cards list - shown when mobileView === 'cards') */}
+          <div className={`${mobileView === "cards" ? "block md:hidden" : "hidden"} divide-y divide-gray-100`}>
+            {paginatedLenders.length > 0 ? (
+              paginatedLenders.map((lender) => (
                 <div
                   key={lender.id}
                   className="p-4 hover:bg-gray-50/80 transition-colors cursor-pointer"
@@ -244,7 +295,7 @@ export default function PersonalLoanComparisonTable({
                     <button
                       type="button"
                       onClick={() => handleSelect(lender)}
-                      className="flex-1 text-xs font-semibold text-gray-600 bg-white border border-gray-200 py-2 rounded-xl hover:bg-gray-50 transition-colors"
+                      className="flex-1 text-xs font-semibold text-gray-600 bg-white border border-gray-200 py-2 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer"
                     >
                       Details
                     </button>
@@ -258,32 +309,43 @@ export default function PersonalLoanComparisonTable({
                     </button>
                   </div>
                 </div>
-              ))}
-            </div>
+              ))
+            ) : (
+              <div className="p-8 text-center text-gray-500 text-xs font-montserrat">
+                No lender rate matrix data currently available.
+              </div>
+            )}
           </div>
+        </div>
 
-          {/* Pagination Controls */}
-          {totalPages > 1 && (
-            <div className="p-4 bg-white border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-montserrat">
-              <span className="text-gray-500 font-medium">
-                Showing <strong className="text-gray-900 font-bold">{startIndex + 1}</strong>–<strong className="text-gray-900 font-bold">{endIndex}</strong> of <strong className="text-gray-900 font-bold">{totalItems}</strong> lenders
-              </span>
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="p-4 bg-white border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-montserrat">
+            <span className="text-gray-500 font-medium">
+              {totalItems > 0 ? (
+                <>
+                  Showing <strong className="text-gray-900 font-bold">{startIndex + 1}</strong>–<strong className="text-gray-900 font-bold">{endIndex}</strong> of <strong className="text-gray-900 font-bold">{totalItems}</strong> lenders
+                </>
+              ) : (
+                "0 lenders"
+              )}
+            </span>
 
-              <div className="flex items-center gap-1.5">
-                {/* Previous Button */}
-                <button
-                  type="button"
-                  onClick={() => handlePageChange(safeCurrentPage - 1)}
-                  disabled={safeCurrentPage === 1}
-                  className="flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed bg-white text-gray-700 border-gray-200 hover:bg-gray-50 shadow-2xs"
-                  aria-label="Previous page"
-                >
-                  <ChevronLeft className="w-3.5 h-3.5" />
-                  <span>Previous</span>
-                </button>
+            <div className="flex items-center gap-1.5 flex-wrap justify-center">
+              {/* Previous Button */}
+              <button
+                type="button"
+                onClick={() => handlePageChange(safeCurrentPage - 1)}
+                disabled={safeCurrentPage === 1}
+                className="flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed bg-white text-gray-700 border-gray-200 hover:bg-gray-50 shadow-2xs"
+                aria-label="Previous page"
+              >
+                <ChevronLeft className="w-3.5 h-3.5" />
+                <span>Previous</span>
+              </button>
 
-                {/* Page Number Buttons */}
-                <div className="flex items-center gap-1">
+              {/* Page Number Buttons */}
+              <div className="flex items-center gap-1 flex-wrap justify-center">
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => {
                     const isActive = pageNum === safeCurrentPage;
                     return (

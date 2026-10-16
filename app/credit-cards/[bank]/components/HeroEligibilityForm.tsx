@@ -112,7 +112,7 @@ export default function HeroEligibilityForm({ bankName }: HeroEligibilityFormPro
   };
 
   return (
-    <div className="bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-7 shadow-xl border border-[#DDE3C1] relative overflow-hidden text-left">
+    <div className="bg-white/95 backdrop-blur-md rounded-3xl p-5 sm:p-7 shadow-xl border border-[#DDE3C1] relative overflow-hidden text-left w-full min-w-0">
       {/* Background subtle ambient glow */}
       <div className="absolute -top-12 -right-12 w-40 h-40 bg-gold/15 rounded-full blur-2xl pointer-events-none" />
 
@@ -121,10 +121,10 @@ export default function HeroEligibilityForm({ bankName }: HeroEligibilityFormPro
           {/* Header */}
           <div className="mb-5">
             <div className="inline-flex items-center gap-1.5 bg-[#EBF4ED] text-primary text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-primary/15 mb-2 font-montserrat">
-              <Sparkles className="w-3 h-3 text-gold" />
+              <Sparkles className="w-3 h-3 text-gold shrink-0" />
               <span>Instant Eligibility Check</span>
             </div>
-            <h3 className="font-bricolage font-bold text-xl sm:text-2xl text-gray-900 leading-tight">
+            <h3 className="font-bricolage font-bold text-xl sm:text-2xl text-gray-900 leading-tight wrap-break-word">
               Check Pre-Approved <span className="text-primary">{bankName}</span> Cards
             </h3>
             <p className="text-xs text-gray-500 font-montserrat mt-1">
@@ -148,7 +148,7 @@ export default function HeroEligibilityForm({ bankName }: HeroEligibilityFormPro
                     if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
                   }}
                   placeholder="e.g. Rahul Sharma"
-                  className={`w-full bg-gray-50 border rounded-xl pl-10 pr-4 py-2.5 sm:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white transition-all font-montserrat ${
+                  className={`w-full min-h-11 bg-gray-50 border rounded-xl pl-10 pr-4 py-2.5 sm:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white transition-all font-montserrat ${
                     errors.name
                       ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
                       : "border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/10"
@@ -168,8 +168,8 @@ export default function HeroEligibilityForm({ bankName }: HeroEligibilityFormPro
                 Mobile Number <span className="text-red-500">*</span>
               </label>
               <div className="relative flex">
-                <div className="bg-gray-100 border border-r-0 border-gray-200 rounded-l-xl px-3 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-gray-600 flex items-center gap-1 select-none">
-                  <Phone className="w-3.5 h-3.5 text-primary" />
+                <div className="bg-gray-100 border border-r-0 border-gray-200 rounded-l-xl px-3 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-gray-600 flex items-center gap-1 select-none min-h-11">
+                  <Phone className="w-3.5 h-3.5 text-primary shrink-0" />
                   <span>+91</span>
                 </div>
                 <input
@@ -182,7 +182,7 @@ export default function HeroEligibilityForm({ bankName }: HeroEligibilityFormPro
                     if (errors.phone) setErrors((prev) => ({ ...prev, phone: undefined }));
                   }}
                   placeholder="98765 43210"
-                  className={`flex-1 bg-gray-50 border rounded-r-xl px-3.5 py-2.5 sm:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white transition-all font-montserrat tracking-wider ${
+                  className={`flex-1 min-h-11 bg-gray-50 border rounded-r-xl px-3.5 py-2.5 sm:py-3 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white transition-all font-montserrat tracking-wider ${
                     errors.phone
                       ? "border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-100"
                       : "border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/10"
@@ -203,7 +203,7 @@ export default function HeroEligibilityForm({ bankName }: HeroEligibilityFormPro
                   Estimated CIBIL Score <span className="text-red-500">*</span>
                 </label>
                 <span className="text-[10px] text-emerald-700 font-semibold font-montserrat flex items-center gap-1">
-                  <ShieldCheck className="w-3 h-3" /> Soft Check Only
+                  <ShieldCheck className="w-3 h-3 shrink-0" /> Soft Check Only
                 </span>
               </div>
 
@@ -220,7 +220,7 @@ export default function HeroEligibilityForm({ bankName }: HeroEligibilityFormPro
                         setCustomScore("");
                         if (errors.score) setErrors((prev) => ({ ...prev, score: undefined }));
                       }}
-                      className={`flex-1 min-w-[calc(50%-0.25rem)] py-2 px-2.5 rounded-xl text-xs font-semibold font-montserrat transition-all text-center cursor-pointer border ${
+                      className={`flex-1 min-w-[calc(50%-0.25rem)] min-h-10 py-2 px-2.5 rounded-xl text-xs font-semibold font-montserrat transition-all text-center cursor-pointer border flex items-center justify-center ${
                         isSelected
                           ? "bg-primary text-white border-primary shadow-xs"
                           : "bg-gray-50 text-gray-700 hover:bg-gray-100 border-gray-200"
@@ -246,7 +246,7 @@ export default function HeroEligibilityForm({ bankName }: HeroEligibilityFormPro
                     if (errors.score) setErrors((prev) => ({ ...prev, score: undefined }));
                   }}
                   placeholder="Or enter exact CIBIL score (e.g. 780)"
-                  className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-10 pr-4 py-2 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white font-montserrat"
+                  className="w-full min-h-10.5 bg-gray-50 border border-gray-200 rounded-xl pl-10 pr-4 py-2 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white font-montserrat"
                 />
               </div>
 
@@ -274,7 +274,7 @@ export default function HeroEligibilityForm({ bankName }: HeroEligibilityFormPro
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-primary hover:bg-primary/90 text-white font-montserrat font-bold text-xs sm:text-sm py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-primary/20 transition-all cursor-pointer disabled:opacity-75 group active:scale-[0.98]"
+              className="w-full min-h-11.5 bg-primary hover:bg-primary/90 text-white font-montserrat font-bold text-xs sm:text-sm py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-primary/20 transition-all cursor-pointer disabled:opacity-75 group active:scale-[0.98]"
             >
               {isSubmitting ? (
                 <>
@@ -332,7 +332,7 @@ export default function HeroEligibilityForm({ bankName }: HeroEligibilityFormPro
 
           <button
             onClick={handleReset}
-            className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold py-3 rounded-xl transition-colors font-montserrat cursor-pointer flex items-center justify-center gap-1.5"
+            className="w-full min-h-11 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold py-3 px-4 rounded-xl transition-colors font-montserrat cursor-pointer flex items-center justify-center gap-1.5"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Check Another Profile</span>

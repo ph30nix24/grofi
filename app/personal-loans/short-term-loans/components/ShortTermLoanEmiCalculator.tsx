@@ -108,6 +108,10 @@ export default function ShortTermLoanEmiCalculator() {
 
   const monthlyRateText = (interestRate / 12).toFixed(2);
 
+  const amountPct = Math.min(100, Math.max(0, ((loanAmount - 5000) / (500000 - 5000)) * 100));
+  const tenurePct = Math.min(100, Math.max(0, ((tenureMonths - 1) / (24 - 1)) * 100));
+  const ratePct = Math.min(100, Math.max(0, ((interestRate - 10.0) / (32.0 - 10.0)) * 100));
+
   return (
     <section id="short-term-calculator-section" className="py-14 sm:py-20 bg-white border-t border-gray-200/60 font-montserrat">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -143,12 +147,16 @@ export default function ShortTermLoanEmiCalculator() {
 
               <input
                 type="range"
+                aria-label="Short-Term Borrowing Amount"
                 min={5000}
                 max={500000}
                 step={5000}
                 value={loanAmount}
                 onChange={(e) => setLoanAmount(Number(e.target.value))}
-                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                style={{
+                  background: `linear-gradient(to right, #02474D 0%, #02474D ${amountPct}%, #E2E8F0 ${amountPct}%, #E2E8F0 100%)`,
+                }}
+                className="custom-range-slider"
               />
 
               <div className="flex justify-between text-[11px] text-gray-400 mt-1">
@@ -187,12 +195,16 @@ export default function ShortTermLoanEmiCalculator() {
 
               <input
                 type="range"
+                aria-label="Tenure Months"
                 min={1}
                 max={24}
                 step={1}
                 value={tenureMonths}
                 onChange={(e) => setTenureMonths(Number(e.target.value))}
-                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                style={{
+                  background: `linear-gradient(to right, #B69226 0%, #B69226 ${tenurePct}%, #E2E8F0 ${tenurePct}%, #E2E8F0 100%)`,
+                }}
+                className="custom-range-slider custom-range-slider-gold"
               />
 
               <div className="flex justify-between text-[11px] text-gray-400 mt-1">
@@ -236,12 +248,16 @@ export default function ShortTermLoanEmiCalculator() {
 
               <input
                 type="range"
+                aria-label="Annual Interest Rate APR"
                 min={10.0}
                 max={32.0}
                 step={0.5}
                 value={interestRate}
                 onChange={(e) => setInterestRate(Number(e.target.value))}
-                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                style={{
+                  background: `linear-gradient(to right, #059669 0%, #059669 ${ratePct}%, #E2E8F0 ${ratePct}%, #E2E8F0 100%)`,
+                }}
+                className="custom-range-slider custom-range-slider-emerald"
               />
 
               <div className="flex justify-between text-[11px] text-gray-400 mt-1">

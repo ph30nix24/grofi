@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect, useCallback } from "react";
 import Image from "next/image";
 import {
   Sparkles,
@@ -209,7 +209,7 @@ const products: Product[] = [
     title: "Instant Micro Loan",
     tagline: "5-Minute Emergency Cash",
     category: "personal",
-    illustration: "/products/instant-loan.jpg",
+    illustration: "/products/instant-loan.webp",
     badge: "⏱️ 5-Min Paperless Transfer",
     badgeTone: "gold",
     metrics: {
@@ -242,11 +242,11 @@ const products: Product[] = [
   },
   {
     id: "loan-against-property",
-    slug: "/home-loans",
+    slug: "/home-loans/loan-against-property",
     title: "Loan Against Property",
     tagline: "High-Value Mortgage Funding",
     category: "home",
-    illustration: "/products/loan-against-property.jpg",
+    illustration: "/products/loan-against-property.webp",
     badge: "🏢 Up to ₹15 Cr High Value",
     badgeTone: "teal",
     metrics: {
@@ -279,11 +279,11 @@ const products: Product[] = [
   },
   {
     id: "home-loan-balance-transfer",
-    slug: "/home-loans",
+    slug: "/home-loans/balance-transfer",
     title: "Balance Transfer",
     tagline: "Cut Expensive Existing EMIs",
     category: "home",
-    illustration: "/products/balance-transfer.jpg",
+    illustration: "/products/balance-transfer.webp",
     badge: "📉 Save Up to ₹5L Interest",
     badgeTone: "emerald",
     metrics: {
@@ -320,7 +320,7 @@ const products: Product[] = [
     title: "Health Insurance",
     tagline: "Cashless Medical Protection",
     category: "cards-insurance",
-    illustration: "/products/health-insurance.jpg",
+    illustration: "/products/health-insurance.webp",
     badge: "🛡️ 10,000+ Cashless Hospitals",
     badgeTone: "purple",
     metrics: {
@@ -367,6 +367,27 @@ export default function ProductsSection() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [activeModalProduct, setActiveModalProduct] = useState<Product | null>(null);
 
+  // Close modal on Escape key
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      setActiveModalProduct(null);
+    }
+  }, []);
+
+  // Lock body scroll and attach Escape key listener when modal is open
+  useEffect(() => {
+    if (activeModalProduct) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [activeModalProduct, handleKeyDown]);
+
   // Filter products based on search term
   const filteredProducts = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
@@ -391,7 +412,7 @@ export default function ProductsSection() {
   }, [filteredProducts, isExpanded, searchQuery]);
 
   return (
-    <section id="products" className="py-20 px-4 sm:px-6 relative bg-linear-to-b from-[#F3F0DF]/40 via-white to-[#F3F0DF]/30 overflow-hidden">
+    <section id="products" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative bg-linear-to-b from-[#F3F0DF]/40 via-white to-[#F3F0DF]/30 overflow-hidden">
       {/* Decorative background glows */}
       <div className="absolute top-12 left-1/2 -translate-x-1/2 w-200 h-120 bg-linear-to-br from-[#B6CC9A]/20 via-primary/5 to-transparent rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
@@ -399,13 +420,13 @@ export default function ProductsSection() {
       <div className="max-w-7xl mx-auto relative z-10">
         
         {/* ── Section Header ───────────────────────────────────────────── */}
-        <div className="text-center max-w-3xl mx-auto mb-10 reveal-on-scroll">
-          <div className="inline-flex items-center gap-2 bg-[#EBF4ED] text-primary text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-primary/20 mb-3 shadow-2xs">
-            <Sparkles className="w-3.5 h-3.5 text-gold" />
-            Pictorial Product Suite
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 reveal-on-scroll">
+          <div className="inline-flex items-center gap-2 bg-[#EBF4ED] text-primary text-[11px] sm:text-xs font-bold uppercase tracking-widest px-3.5 sm:px-4 py-1.5 rounded-full border border-primary/20 mb-3 shadow-2xs">
+            <Sparkles className="w-3.5 h-3.5 text-gold shrink-0" />
+            <span>Pictorial Product Suite</span>
           </div>
 
-          <h2 className="font-bricolage font-bold text-3xl sm:text-4xl lg:text-5xl text-primary leading-tight">
+          <h2 className="font-bricolage font-bold text-2xl sm:text-4xl lg:text-5xl text-primary leading-tight tracking-tight">
             Explore India&apos;s Best{" "}
             <span className="text-gold relative inline-block">
               Financial Solutions
@@ -413,48 +434,48 @@ export default function ProductsSection() {
             </span>
           </h2>
 
-          <p className="text-xs sm:text-sm text-black/60 font-montserrat mt-2 max-w-xl mx-auto">
+          <p className="text-xs sm:text-sm text-gray-700 font-montserrat mt-2 max-w-xl mx-auto leading-relaxed">
             Visual comparison, zero jargon. Tap any product to view pre-approved offers with instant digital disbursal.
           </p>
         </div>
 
         {/* ── Pictorial Infographic 3-Step Process Strip ──────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-10 max-w-4xl mx-auto reveal-on-scroll delay-75">
-          <div className="bg-white/80 backdrop-blur-sm border border-emerald-900/10 rounded-2xl p-3.5 flex items-center gap-3 shadow-xs">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0 font-bricolage font-bold text-sm">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-3 mb-8 sm:mb-10 max-w-4xl mx-auto reveal-on-scroll delay-75">
+          <div className="bg-white/80 backdrop-blur-sm border border-emerald-900/10 rounded-2xl p-3 sm:p-3.5 flex items-center gap-3 shadow-xs">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0 font-bricolage font-bold text-xs sm:text-sm">
               01
             </div>
-            <div>
-              <p className="text-xs font-bold text-gray-900 font-bricolage">Choose Your Solution</p>
-              <p className="text-[11px] text-gray-500 font-montserrat">Loans, Cards or Health Cover</p>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-bold text-gray-900 font-bricolage leading-tight">Choose Your Solution</p>
+              <p className="text-[11px] text-gray-500 font-montserrat truncate mt-0.5">Loans, Cards or Health Cover</p>
             </div>
           </div>
 
-          <div className="bg-white/80 backdrop-blur-sm border border-emerald-900/10 rounded-2xl p-3.5 flex items-center gap-3 shadow-xs">
-            <div className="w-10 h-10 rounded-xl bg-gold/15 text-gold flex items-center justify-center shrink-0 font-bricolage font-bold text-sm">
+          <div className="bg-white/80 backdrop-blur-sm border border-emerald-900/10 rounded-2xl p-3 sm:p-3.5 flex items-center gap-3 shadow-xs">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gold/15 text-gold flex items-center justify-center shrink-0 font-bricolage font-bold text-xs sm:text-sm">
               02
             </div>
-            <div>
-              <p className="text-xs font-bold text-gray-900 font-bricolage">Soft Eligibility Match</p>
-              <p className="text-[11px] text-gray-500 font-montserrat">Zero impact on CIBIL score</p>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-bold text-gray-900 font-bricolage leading-tight">Soft Eligibility Match</p>
+              <p className="text-[11px] text-gray-500 font-montserrat truncate mt-0.5">Zero impact on CIBIL score</p>
             </div>
           </div>
 
-          <div className="bg-white/80 backdrop-blur-sm border border-emerald-900/10 rounded-2xl p-3.5 flex items-center gap-3 shadow-xs">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-700 flex items-center justify-center shrink-0 font-bricolage font-bold text-sm">
+          <div className="bg-white/80 backdrop-blur-sm border border-emerald-900/10 rounded-2xl p-3 sm:p-3.5 flex items-center gap-3 shadow-xs">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-500/15 text-emerald-700 flex items-center justify-center shrink-0 font-bricolage font-bold text-xs sm:text-sm">
               03
             </div>
-            <div>
-              <p className="text-xs font-bold text-gray-900 font-bricolage">Instant 24h Disbursal</p>
-              <p className="text-[11px] text-gray-500 font-montserrat">Direct credit to your bank account</p>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-bold text-gray-900 font-bricolage leading-tight">Instant 24h Disbursal</p>
+              <p className="text-[11px] text-gray-500 font-montserrat truncate mt-0.5">Direct credit to your bank account</p>
             </div>
           </div>
         </div>
 
-        {/* ── Sub-header Bar: Count & Instant Search Bar (Category Tabs Removed) ── */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 reveal-on-scroll delay-100">
+        {/* ── Sub-header Bar: Count & Instant Search Bar ── */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3.5 sm:gap-4 mb-6 sm:mb-8 reveal-on-scroll delay-100">
           <div className="flex items-center gap-2 text-xs font-bold text-gray-700 font-montserrat">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
             <span>Featured Solutions</span>
             <span className="text-[11px] font-semibold text-gray-400">
               ({displayedProducts.length} of {products.length})
@@ -463,18 +484,19 @@ export default function ProductsSection() {
 
           {/* Quick Search Bar */}
           <div className="relative w-full sm:w-72">
-            <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search loans, cards, insurance..."
-              className="w-full bg-white/90 backdrop-blur-md border border-gray-200/80 rounded-2xl pl-10 pr-9 py-2.5 text-xs text-gray-800 placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all font-montserrat shadow-2xs"
+              className="w-full bg-white/90 backdrop-blur-md border border-gray-200/80 rounded-2xl pl-10 pr-10 py-2.5 min-h-11 text-xs text-gray-800 placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all font-montserrat shadow-2xs"
             />
             {searchQuery && (
               <button
+                type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-600 active:scale-95 transition-all cursor-pointer"
                 aria-label="Clear search"
               >
                 <X className="w-3.5 h-3.5" />
@@ -485,7 +507,7 @@ export default function ProductsSection() {
 
         {/* ── Products Pictorial Grid (4 Flagship First) ─────────────── */}
         {displayedProducts.length === 0 ? (
-          <div className="bg-white rounded-3xl p-12 text-center border border-gray-100 shadow-sm my-8">
+          <div className="bg-white rounded-3xl p-8 sm:p-12 text-center border border-gray-100 shadow-sm my-8">
             <div className="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
               <Search className="w-6 h-6" />
             </div>
@@ -494,14 +516,15 @@ export default function ProductsSection() {
               We couldn&apos;t find any financial product matching &quot;{searchQuery}&quot;.
             </p>
             <button
+              type="button"
               onClick={() => setSearchQuery("")}
-              className="text-xs font-bold text-primary bg-[#EBF4ED] hover:bg-primary/15 px-4 py-2 rounded-xl transition-colors cursor-pointer font-montserrat"
+              className="text-xs font-bold text-primary bg-[#EBF4ED] hover:bg-primary/15 px-4 py-2.5 rounded-xl transition-colors cursor-pointer font-montserrat min-h-10"
             >
               Reset Search
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
             {displayedProducts.map((p, idx) => (
               <div
                 key={p.id}
@@ -514,7 +537,7 @@ export default function ProductsSection() {
 
                 <div>
                   {/* Card Top: Floating Badge */}
-                  <div className="flex items-center justify-between gap-2 mb-3 relative z-10 min-w-0">
+                  <div className="flex items-center justify-between gap-2 mb-2.5 relative z-10 min-w-0">
                     <span
                       className={`text-[10px] font-bold tracking-tight px-2.5 py-1 rounded-full border shadow-2xs truncate min-w-0 ${
                         badgeColors[p.badgeTone]
@@ -523,14 +546,14 @@ export default function ProductsSection() {
                       {p.badge}
                     </span>
 
-                    <span className="text-[10px] font-semibold text-gray-400 font-montserrat flex items-center gap-1 shrink-0 whitespace-nowrap">
+                    <span className="text-[10px] font-semibold text-gray-500 font-montserrat flex items-center gap-1 shrink-0 whitespace-nowrap">
                       <Clock className="w-3 h-3 text-emerald-600 shrink-0" />
                       {p.metrics.speed}
                     </span>
                   </div>
 
                   {/* ── Visual 3D Illustration Pod (The Centerpiece) ── */}
-                  <div className="relative w-full h-48 sm:h-52 bg-linear-to-b from-[#F3F0DF]/40 via-[#EBF4ED]/30 to-white rounded-2xl p-2.5 mb-3 flex items-center justify-center overflow-hidden border border-gray-100 group-hover:border-primary/20 transition-all">
+                  <div className="relative w-full h-40 xs:h-44 sm:h-48 lg:h-52 bg-linear-to-b from-[#F3F0DF]/40 via-[#EBF4ED]/30 to-white rounded-2xl p-2.5 mb-3 flex items-center justify-center overflow-hidden border border-gray-100 group-hover:border-primary/20 transition-all">
                     {/* Radial aura behind illustration */}
                     <div className="absolute inset-0 bg-radial from-[#B6CC9A]/20 via-transparent to-transparent opacity-80 group-hover:scale-110 transition-transform duration-500 pointer-events-none" />
 
@@ -539,7 +562,7 @@ export default function ProductsSection() {
                         src={p.illustration}
                         alt={p.title}
                         fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1024px) 45vw, 280px"
                         className="object-contain drop-shadow-sm group-hover:drop-shadow-md transition-all"
                         priority={idx < 4}
                       />
@@ -560,8 +583,8 @@ export default function ProductsSection() {
                   <div className="grid grid-cols-2 gap-2 mb-3">
                     <div className="bg-[#EBF4ED]/70 rounded-xl p-2.5 border border-primary/10 flex flex-col justify-center">
                       <span className="text-[9px] font-bold uppercase tracking-wider text-primary/70 flex items-center gap-0.5">
-                        <TrendingDown className="w-2.5 h-2.5 text-emerald-600" />
-                        {p.metrics.rateLabel}
+                        <TrendingDown className="w-2.5 h-2.5 text-emerald-600 shrink-0" />
+                        <span className="truncate">{p.metrics.rateLabel}</span>
                       </span>
                       <span className="text-xs sm:text-sm font-extrabold text-primary font-montserrat mt-0.5 truncate">
                         {p.metrics.rate}
@@ -569,9 +592,9 @@ export default function ProductsSection() {
                     </div>
 
                     <div className="bg-gray-50 rounded-xl p-2.5 border border-gray-100 flex flex-col justify-center">
-                      <span className="text-[9px] font-bold uppercase tracking-wider text-gray-400 flex items-center gap-0.5">
-                        <Coins className="w-2.5 h-2.5 text-gold" />
-                        {p.metrics.amountLabel}
+                      <span className="text-[9px] font-bold uppercase tracking-wider text-gray-600 flex items-center gap-0.5">
+                        <Coins className="w-2.5 h-2.5 text-gold shrink-0" />
+                        <span className="truncate">{p.metrics.amountLabel}</span>
                       </span>
                       <span className="text-xs sm:text-sm font-bold text-gray-800 font-montserrat mt-0.5 truncate">
                         {p.metrics.amount}
@@ -579,10 +602,9 @@ export default function ProductsSection() {
                     </div>
                   </div>
 
-                  
                   {/* ── Pictorial Partner Logos Avatar Stack ── */}
                   <div className="flex items-center justify-between gap-2 pt-2 border-t border-gray-100 mb-2">
-                    <div className="flex items-center -space-x-1.5 overflow-hidden">
+                    <div className="flex items-center -space-x-1.5 overflow-hidden shrink-0">
                       {p.partnerLogos.slice(0, 4).map((l, lIdx) => (
                         <div
                           key={lIdx}
@@ -594,11 +616,12 @@ export default function ProductsSection() {
                             alt={l.name}
                             fill
                             className="object-contain p-0.5"
+                            sizes="24px"
                           />
                         </div>
                       ))}
                     </div>
-                    <span className="text-[10px] font-bold text-gray-500 font-montserrat">
+                    <span className="text-[10px] font-bold text-gray-500 font-montserrat truncate">
                       {p.partnerCount}
                     </span>
                   </div>
@@ -607,19 +630,23 @@ export default function ProductsSection() {
                 {/* ── Dual Actions: Quick Specs & Apply ── */}
                 <div className="flex items-center gap-2 pt-2 relative z-10">
                   <button
+                    type="button"
                     onClick={() => setActiveModalProduct(p)}
-                    className="flex-1 text-[11px] font-semibold text-gray-700 bg-gray-100/90 hover:bg-gray-200/80 hover:text-primary py-2 px-2.5 rounded-xl transition-colors flex items-center justify-center gap-1 cursor-pointer font-montserrat"
+                    className="flex-1 min-h-10 sm:min-h-10.5 text-xs font-semibold text-gray-700 bg-gray-100/90 hover:bg-gray-200/80 hover:text-primary active:scale-95 py-2 px-2.5 rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer font-montserrat"
+                    aria-label={`View specifications for ${p.title}`}
                   >
-                    Specs
-                    <ChevronRight className="w-3 h-3 text-gray-400" />
+                    <span>Specs</span>
+                    <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
                   </button>
 
                   <button
+                    type="button"
                     onClick={() => openApplyModal(p.title, `Fast-track pre-approved application for ${p.title}`)}
-                    className="flex-1 text-[11px] font-bold text-white bg-primary hover:bg-primary/90 py-2 px-2.5 rounded-xl shadow-xs transition-all duration-200 flex items-center justify-center gap-1 group/btn cursor-pointer font-montserrat"
+                    className="flex-1 min-h-10 sm:min-h-10.5 text-xs font-bold text-white bg-primary hover:bg-primary/90 active:scale-95 py-2 px-2.5 rounded-xl shadow-xs transition-all duration-200 flex items-center justify-center gap-1 group/btn cursor-pointer font-montserrat"
+                    aria-label={`Apply online for ${p.title}`}
                   >
-                    Apply
-                    <ArrowRight className="w-3 h-3 transition-transform group-hover/btn:translate-x-0.5" />
+                    <span>Apply</span>
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5" />
                   </button>
                 </div>
 
@@ -630,13 +657,14 @@ export default function ProductsSection() {
 
         {/* ── Explore Products Button ─────────────────────────────────── */}
         {!searchQuery && filteredProducts.length > 4 && (
-          <div className="flex justify-center mb-12 reveal-on-scroll">
+          <div className="flex justify-center mb-10 sm:mb-12 reveal-on-scroll">
             {!isExpanded ? (
               <button
+                type="button"
                 onClick={() => setIsExpanded(true)}
-                className="group inline-flex items-center gap-3 bg-white hover:bg-[#EBF4ED] text-primary border-2 border-primary/25 hover:border-primary text-sm font-bold font-montserrat px-8 py-3.5 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
+                className="group inline-flex items-center gap-3 bg-white hover:bg-[#EBF4ED] text-primary border-2 border-primary/25 hover:border-primary text-xs sm:text-sm font-bold font-montserrat px-6 sm:px-8 py-3 sm:py-3.5 min-h-11 rounded-2xl shadow-sm hover:shadow-md active:scale-95 transition-all duration-300 cursor-pointer"
               >
-                <span>Explore Products</span>
+                <span>Explore All Products</span>
                 <span className="w-6 h-6 rounded-full bg-primary/10 text-primary text-xs flex items-center justify-center font-extrabold group-hover:bg-primary group-hover:text-white transition-colors">
                   +{filteredProducts.length - 4}
                 </span>
@@ -644,8 +672,9 @@ export default function ProductsSection() {
               </button>
             ) : (
               <button
+                type="button"
                 onClick={() => setIsExpanded(false)}
-                className="inline-flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold font-montserrat px-6 py-2.5 rounded-xl transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold font-montserrat px-5 sm:px-6 py-2.5 min-h-11 rounded-xl active:scale-95 transition-all cursor-pointer"
               >
                 <span>Show Less</span>
                 <ChevronUp className="w-3.5 h-3.5 text-gray-500" />
@@ -655,15 +684,15 @@ export default function ProductsSection() {
         )}
 
         {/* ── Bottom Pictorial Trust & Recommendation Banner ─────────── */}
-        <div className="bg-linear-to-r from-primary via-[#03363b] to-primary rounded-3xl p-6 sm:p-8 text-white shadow-lg flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden reveal-scale delay-150">
+        <div className="bg-linear-to-r from-primary via-[#03363b] to-primary rounded-3xl p-5 sm:p-8 text-white shadow-lg flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden reveal-scale delay-150">
           <div className="absolute right-0 top-0 w-80 h-80 bg-gold/15 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 max-w-xl text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-semibold text-[#B6CC9A] mb-2.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-gold" />
-              100% Free • Soft Match • No Impact on CIBIL Score
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-white/15 backdrop-blur-md px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-semibold text-[#B6CC9A] mb-2.5 max-w-full leading-normal">
+              <ShieldCheck className="w-3.5 h-3.5 text-gold shrink-0" />
+              <span className="truncate">100% Free • Soft Match • No Impact on CIBIL Score</span>
             </div>
-            <h3 className="font-bricolage font-bold text-xl sm:text-2xl text-white">
+            <h3 className="font-bricolage font-bold text-lg sm:text-2xl text-white leading-tight">
               Not sure which product matches your profile?
             </h3>
             <p className="text-white/75 text-xs font-montserrat mt-1.5 leading-relaxed">
@@ -671,19 +700,20 @@ export default function ProductsSection() {
             </p>
           </div>
 
-          <div className="relative z-10 flex sm:flex-row flex-col gap-2.5 w-full lg:w-auto shrink-0">
+          <div className="relative z-10 flex flex-col sm:flex-row gap-2.5 w-full lg:w-auto shrink-0">
             <a
               href="#emi-calculator"
-              className="border-2 border-white/40 hover:bg-white/10 text-white text-xs font-bold px-5 py-3 rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer whitespace-nowrap font-montserrat"
+              className="border-2 border-white/40 hover:bg-white/10 active:scale-95 text-white text-xs font-bold px-5 py-3 min-h-11 rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer whitespace-nowrap font-montserrat"
             >
               Calculate EMI
             </a>
             <button
+              type="button"
               onClick={() => openApplyModal("General Pre-Approved Offers", "Instant eligibility check across 50+ partner banks.")}
-              className="bg-gold hover:bg-gold/90 text-white text-xs font-bold px-6 py-3 rounded-xl flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer whitespace-nowrap font-montserrat"
+              className="bg-gold hover:bg-gold/90 active:scale-95 text-white text-xs font-bold px-5 sm:px-6 py-3 min-h-11 rounded-xl flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer whitespace-nowrap font-montserrat"
             >
-              Check Pre-Approved Offers
-              <ArrowRight className="w-3.5 h-3.5" />
+              <span>Check Pre-Approved Offers</span>
+              <ArrowRight className="w-3.5 h-3.5 shrink-0" />
             </button>
           </div>
         </div>
@@ -692,100 +722,125 @@ export default function ProductsSection() {
 
       {/* ── Pictorial Specification Modal ────────────────────────────── */}
       {activeModalProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fadeIn">
-          <div className="bg-white rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto p-5 sm:p-7 shadow-2xl relative border border-gray-100 animate-scaleUp">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-fadeIn"
+          onClick={() => setActiveModalProduct(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-product-title"
+        >
+          <div
+            className="bg-white rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto p-4 sm:p-7 shadow-2xl relative border border-gray-100 animate-scaleUp"
+            onClick={(e) => e.stopPropagation()}
+          >
             
             {/* Close Button */}
             <button
+              type="button"
               onClick={() => setActiveModalProduct(null)}
-              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 transition-colors cursor-pointer z-10"
+              className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gray-100 hover:bg-gray-200 active:scale-95 flex items-center justify-center text-gray-600 transition-all cursor-pointer z-10"
               aria-label="Close dialog"
             >
               <X className="w-4 h-4" />
             </button>
 
             {/* Modal Header with 3D Illustration */}
-            <div className="flex items-center gap-4 mb-5 pr-8">
-              <div className="relative w-16 h-16 rounded-2xl bg-linear-to-b from-[#F3F0DF] to-white p-1 border border-gray-200/80 shadow-xs shrink-0 overflow-hidden">
+            <div className="flex items-center gap-3.5 sm:gap-4 mb-4 sm:mb-5 pr-8">
+              <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-linear-to-b from-[#F3F0DF] to-white p-1 border border-gray-200/80 shadow-xs shrink-0 overflow-hidden">
                 <Image
                   src={activeModalProduct.illustration}
                   alt={activeModalProduct.title}
                   fill
                   className="object-contain"
+                  sizes="64px"
                 />
               </div>
-              <div>
+              <div className="min-w-0 flex-1">
                 <span
-                  className={`inline-block text-[10px] font-bold tracking-tight px-2.5 py-0.5 rounded-full border mb-1 ${
+                  className={`inline-block text-[10px] font-bold tracking-tight px-2.5 py-0.5 rounded-full border mb-1 truncate max-w-full ${
                     badgeColors[activeModalProduct.badgeTone]
                   }`}
                 >
                   {activeModalProduct.badge}
                 </span>
-                <h3 className="font-bricolage font-bold text-xl text-gray-900 leading-tight">
+                <h3 id="modal-product-title" className="font-bricolage font-bold text-lg sm:text-xl text-gray-900 leading-tight truncate">
                   {activeModalProduct.title}
                 </h3>
-                <p className="text-xs text-gray-500 font-montserrat">
+                <p className="text-xs text-gray-500 font-montserrat truncate mt-0.5">
                   {activeModalProduct.tagline}
                 </p>
               </div>
             </div>
 
+            {/* Visual Tags Pills */}
+            {activeModalProduct.visualTags && activeModalProduct.visualTags.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mb-4">
+                {activeModalProduct.visualTags.map((tag, tIdx) => (
+                  <span
+                    key={tIdx}
+                    className="text-[10px] font-medium text-gray-700 bg-gray-50 border border-gray-200/80 px-2.5 py-1 rounded-lg"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+
             {/* Quick Metrics Strip */}
-            <div className="grid grid-cols-3 gap-2 bg-[#EBF4ED]/40 border border-primary/10 rounded-2xl p-3 mb-5">
-              <div>
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">
+            <div className="grid grid-cols-3 gap-2 bg-[#EBF4ED]/40 border border-primary/10 rounded-2xl p-2.5 sm:p-3 mb-4 sm:mb-5">
+              <div className="min-w-0">
+                <span className="text-[9px] sm:text-[10px] font-bold text-gray-500 uppercase tracking-wider block truncate">
                   {activeModalProduct.metrics.rateLabel}
                 </span>
-                <span className="text-xs sm:text-sm font-extrabold text-primary font-montserrat block mt-0.5">
+                <span className="text-xs sm:text-sm font-extrabold text-primary font-montserrat block mt-0.5 truncate">
                   {activeModalProduct.metrics.rate}
                 </span>
               </div>
-              <div>
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">
+              <div className="min-w-0">
+                <span className="text-[9px] sm:text-[10px] font-bold text-gray-500 uppercase tracking-wider block truncate">
                   {activeModalProduct.metrics.amountLabel}
                 </span>
-                <span className="text-xs sm:text-sm font-bold text-gray-800 font-montserrat block mt-0.5">
+                <span className="text-xs sm:text-sm font-bold text-gray-800 font-montserrat block mt-0.5 truncate">
                   {activeModalProduct.metrics.amount}
                 </span>
               </div>
-              <div>
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">
+              <div className="min-w-0">
+                <span className="text-[9px] sm:text-[10px] font-bold text-gray-500 uppercase tracking-wider block truncate">
                   Turnaround
                 </span>
-                <span className="text-xs sm:text-sm font-bold text-emerald-700 font-montserrat block mt-0.5">
+                <span className="text-xs sm:text-sm font-bold text-emerald-700 font-montserrat block mt-0.5 truncate">
                   {activeModalProduct.metrics.speed}
                 </span>
               </div>
             </div>
 
             {/* Eligibility Pictorial Grid */}
-            <div className="mb-5">
-              <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-montserrat">
-                <UserCheck className="w-3.5 h-3.5 text-primary" />
-                Eligibility Criteria
+            <div className="mb-4 sm:mb-5">
+              <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2.5 flex items-center gap-1.5 font-montserrat">
+                <UserCheck className="w-3.5 h-3.5 text-primary shrink-0" />
+                <span>Eligibility Criteria</span>
               </h4>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                <div className="bg-gray-50 p-2.5 rounded-xl border border-gray-100">
-                  <span className="text-[10px] text-gray-400 block font-medium">Age</span>
-                  <span className="text-xs font-bold text-gray-800 block mt-0.5">
+                <div className="bg-gray-50 p-2.5 rounded-xl border border-gray-100 min-w-0">
+                  <span className="text-[10px] text-gray-500 block font-medium">Age</span>
+                  <span className="text-xs font-bold text-gray-800 block mt-0.5 truncate">
                     {activeModalProduct.eligibility.minAge}
                   </span>
                 </div>
-                <div className="bg-gray-50 p-2.5 rounded-xl border border-gray-100">
-                  <span className="text-[10px] text-gray-400 block font-medium">Income</span>
-                  <span className="text-xs font-bold text-gray-800 block mt-0.5">
+                <div className="bg-gray-50 p-2.5 rounded-xl border border-gray-100 min-w-0">
+                  <span className="text-[10px] text-gray-500 block font-medium">Income</span>
+                  <span className="text-xs font-bold text-gray-800 block mt-0.5 truncate">
                     {activeModalProduct.eligibility.minIncome}
                   </span>
                 </div>
-                <div className="bg-gray-50 p-2.5 rounded-xl border border-gray-100">
-                  <span className="text-[10px] text-gray-400 block font-medium">CIBIL</span>
-                  <span className="text-xs font-bold text-emerald-700 block mt-0.5">
+                <div className="bg-gray-50 p-2.5 rounded-xl border border-gray-100 min-w-0">
+                  <span className="text-[10px] text-gray-500 block font-medium">CIBIL</span>
+                  <span className="text-xs font-bold text-emerald-700 block mt-0.5 truncate">
                     {activeModalProduct.eligibility.minCibil}
                   </span>
                 </div>
-                <div className="bg-gray-50 p-2.5 rounded-xl border border-gray-100">
-                  <span className="text-[10px] text-gray-400 block font-medium">Employment</span>
+                <div className="bg-gray-50 p-2.5 rounded-xl border border-gray-100 min-w-0">
+                  <span className="text-[10px] text-gray-500 block font-medium">Employment</span>
                   <span className="text-xs font-bold text-gray-800 block mt-0.5 truncate">
                     {activeModalProduct.eligibility.employmentType}
                   </span>
@@ -794,10 +849,10 @@ export default function ProductsSection() {
             </div>
 
             {/* Required Docs */}
-            <div className="mb-5">
-              <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1.5 font-montserrat">
-                <FileText className="w-3.5 h-3.5 text-primary" />
-                Paperless Documents Required
+            <div className="mb-4 sm:mb-5">
+              <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2 flex items-center gap-1.5 font-montserrat">
+                <FileText className="w-3.5 h-3.5 text-primary shrink-0" />
+                <span>Paperless Documents Required</span>
               </h4>
               <div className="space-y-1.5">
                 {activeModalProduct.requiredDocs.map((doc, idx) => (
@@ -810,10 +865,10 @@ export default function ProductsSection() {
             </div>
 
             {/* Key Advantages */}
-            <div className="mb-5">
-              <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1.5 font-montserrat">
-                <Layers className="w-3.5 h-3.5 text-gold" />
-                Key Highlights
+            <div className="mb-4 sm:mb-5">
+              <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2 flex items-center gap-1.5 font-montserrat">
+                <Layers className="w-3.5 h-3.5 text-gold shrink-0" />
+                <span>Key Highlights</span>
               </h4>
               <ul className="space-y-1.5">
                 {activeModalProduct.featuresList.map((feat, idx) => (
@@ -826,8 +881,8 @@ export default function ProductsSection() {
             </div>
 
             {/* Partner Lenders */}
-            <div className="mb-6">
-              <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1.5 font-montserrat">
+            <div className="mb-5 sm:mb-6">
+              <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2 flex items-center gap-1.5 font-montserrat">
                 Top Partner Lenders
               </h4>
               <div className="flex flex-wrap gap-2 items-center">
@@ -837,7 +892,7 @@ export default function ProductsSection() {
                     className="flex items-center gap-1.5 bg-gray-50 px-2.5 py-1.5 rounded-xl border border-gray-200/80 shadow-2xs"
                   >
                     <div className="relative w-5 h-5 rounded-full overflow-hidden shrink-0">
-                      <Image src={bank.logo} alt={bank.name} fill className="object-contain" />
+                      <Image src={bank.logo} alt={bank.name} fill className="object-contain" sizes="20px" />
                     </div>
                     <span className="text-xs font-semibold text-gray-800 font-montserrat">{bank.name}</span>
                   </div>
@@ -848,20 +903,22 @@ export default function ProductsSection() {
             {/* Modal Actions */}
             <div className="flex gap-2.5 pt-3 border-t border-gray-100">
               <button
+                type="button"
                 onClick={() => setActiveModalProduct(null)}
-                className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold py-3 rounded-xl transition-colors cursor-pointer font-montserrat"
+                className="flex-1 min-h-11 bg-gray-100 hover:bg-gray-200 active:scale-95 text-gray-700 text-xs font-bold py-2.5 sm:py-3 rounded-xl transition-all cursor-pointer font-montserrat"
               >
                 Close
               </button>
               <button
+                type="button"
                 onClick={() => {
                   const prod = activeModalProduct;
                   setActiveModalProduct(null);
                   openApplyModal(prod.title, prod.tagline);
                 }}
-                className="flex-1 bg-primary hover:bg-primary/90 text-white text-xs font-bold py-3 rounded-xl text-center shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer font-montserrat"
+                className="flex-1 min-h-11 bg-primary hover:bg-primary/90 active:scale-95 text-white text-xs font-bold py-2.5 sm:py-3 rounded-xl text-center shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer font-montserrat"
               >
-                Apply Online <ArrowRight className="w-3.5 h-3.5" />
+                <span>Apply Online</span> <ArrowRight className="w-3.5 h-3.5 shrink-0" />
               </button>
             </div>
 

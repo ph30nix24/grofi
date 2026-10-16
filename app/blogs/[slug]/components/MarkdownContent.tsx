@@ -409,7 +409,7 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
     blocks[0].text.length > 10;
 
   return (
-    <div className="space-y-5 text-gray-700 font-montserrat text-base sm:text-lg leading-relaxed">
+    <div className="space-y-5 text-gray-700 font-montserrat text-base sm:text-lg leading-relaxed w-full min-w-0 max-w-full wrap-break-word">
       {blocks.map((block, idx) => {
         // Skip duplicate H1 at the very beginning of the post body
         if (idx === 0 && shouldSkipFirstH1) {
@@ -422,7 +422,7 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
               <h2
                 key={idx}
                 id={getSlugId(block.text)}
-                className="text-2xl sm:text-3xl font-extrabold font-bricolage text-[#02282C] pt-8 pb-1 tracking-tight border-b border-gray-200/80 mt-10 first:mt-0"
+                className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-extrabold font-bricolage text-[#02282C] pt-6 sm:pt-8 pb-1 tracking-tight border-b border-gray-200/80 mt-8 sm:mt-10 first:mt-0 wrap-break-word"
               >
                 {renderInline(block.text)}
               </h2>
@@ -433,7 +433,7 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
               <h3
                 key={idx}
                 id={getSlugId(block.text)}
-                className="text-xl sm:text-2xl font-bold font-bricolage text-[#02282C] pt-6 pb-1 tracking-tight mt-8"
+                className="text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-bold font-bricolage text-[#02282C] pt-5 sm:pt-6 pb-1 tracking-tight mt-6 sm:mt-8 wrap-break-word"
               >
                 {renderInline(block.text)}
               </h3>
@@ -444,7 +444,7 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
               <h4
                 key={idx}
                 id={getSlugId(block.text)}
-                className="text-lg sm:text-xl font-bold font-bricolage text-primary pt-4 mt-6"
+                className="text-lg xs:text-xl sm:text-2xl lg:text-3xl font-bold font-bricolage text-primary pt-4 mt-5 sm:mt-6 wrap-break-word"
               >
                 {renderInline(block.text)}
               </h4>
@@ -455,7 +455,7 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
               <h5
                 key={idx}
                 id={getSlugId(block.text)}
-                className="text-base sm:text-lg font-bold font-bricolage text-gray-900 pt-2 mt-4"
+                className="text-base xs:text-lg sm:text-xl font-bold font-bricolage text-gray-900 pt-2 mt-4 wrap-break-word"
               >
                 {renderInline(block.text)}
               </h5>
@@ -465,7 +465,7 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
             return (
               <div
                 key={idx}
-                className="text-base sm:text-lg font-bold font-bricolage text-[#02282C] mt-6 mb-2 flex items-center gap-2"
+                className="text-base xs:text-lg sm:text-xl font-bold font-bricolage text-[#02282C] mt-5 sm:mt-6 mb-2 flex items-center gap-2 wrap-break-word"
               >
                 <span className="w-1.5 h-4 rounded-full bg-gold shrink-0" />
                 <span>{renderInline(block.text)}</span>
@@ -478,7 +478,7 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
             return (
               <div
                 key={idx}
-                className={`my-6 p-4 sm:p-5 rounded-2xl border ${
+                className={`my-5 sm:my-6 p-4 sm:p-5 rounded-2xl border ${
                   isWarning
                     ? "bg-amber-50/80 border-amber-300 text-amber-950"
                     : isTip
@@ -486,17 +486,17 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
                     : "bg-[#F4F2EC] border-primary/20 text-gray-900"
                 }`}
               >
-                <div className="flex items-center gap-2 font-bold font-bricolage text-xs sm:text-sm uppercase tracking-wider mb-1.5">
+                <div className="flex items-center gap-2 font-bold font-bricolage text-xs sm:text-sm md:text-base uppercase tracking-wider mb-1.5">
                   {isTip ? (
-                    <Lightbulb className="w-4 h-4 text-emerald-600" />
+                    <Lightbulb className="w-4 h-4 text-emerald-600 shrink-0" />
                   ) : isWarning ? (
-                    <AlertCircle className="w-4 h-4 text-amber-600" />
+                    <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
                   ) : (
-                    <Info className="w-4 h-4 text-primary" />
+                    <Info className="w-4 h-4 text-primary shrink-0" />
                   )}
                   <span>{block.title}</span>
                 </div>
-                <div className="text-sm sm:text-base leading-relaxed">
+                <div className="text-sm sm:text-base lg:text-lg leading-relaxed wrap-break-word">
                   {renderInline(block.text)}
                 </div>
               </div>
@@ -505,45 +505,47 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
 
           case "table":
             return (
-              <div
-                key={idx}
-                className="my-8 overflow-x-auto rounded-2xl border border-gray-200/90 shadow-2xs"
-              >
-                <table className="w-full text-left text-xs sm:text-sm font-montserrat">
-                  <thead className="bg-[#02474D] text-white">
-                    <tr>
-                      {block.headers.map((h, hIdx) => (
-                        <th
-                          key={hIdx}
-                          className="px-4 sm:px-5 py-3.5 font-bold font-bricolage tracking-wide"
-                        >
-                          {h}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-100 bg-white">
-                    {block.rows.map((row, rIdx) => (
-                      <tr
-                        key={rIdx}
-                        className={
-                          rIdx % 2 === 0
-                            ? "bg-white hover:bg-gray-50/60"
-                            : "bg-[#FDFBF7] hover:bg-gray-50/60"
-                        }
-                      >
-                        {row.map((cell, cIdx) => (
-                          <td
-                            key={cIdx}
-                            className="px-4 sm:px-5 py-3 text-gray-700 leading-normal"
+              <div key={idx} className="my-6 sm:my-8">
+                <div className="overflow-x-auto rounded-2xl border border-gray-200/90 shadow-2xs scrollbar-hidden">
+                  <table className="w-full min-w-120 text-left text-xs sm:text-sm md:text-base font-montserrat">
+                    <thead className="bg-[#02474D] text-white">
+                      <tr>
+                        {block.headers.map((h, hIdx) => (
+                          <th
+                            key={hIdx}
+                            className="px-3.5 sm:px-5 py-3 font-bold font-bricolage tracking-wide whitespace-nowrap text-xs sm:text-sm md:text-base"
                           >
-                            {renderInline(cell)}
-                          </td>
+                            {h}
+                          </th>
                         ))}
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100 bg-white">
+                      {block.rows.map((row, rIdx) => (
+                        <tr
+                          key={rIdx}
+                          className={
+                            rIdx % 2 === 0
+                              ? "bg-white hover:bg-gray-50/60"
+                              : "bg-[#FDFBF7] hover:bg-gray-50/60"
+                          }
+                        >
+                          {row.map((cell, cIdx) => (
+                            <td
+                              key={cIdx}
+                              className="px-3.5 sm:px-5 py-2.5 sm:py-3 text-gray-700 leading-normal text-xs sm:text-sm md:text-base"
+                            >
+                              {renderInline(cell)}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p className="sm:hidden text-[11px] text-gray-400 text-right mt-1.5 font-montserrat">
+                  Swipe table to view more &rarr;
+                </p>
               </div>
             );
 
@@ -551,7 +553,7 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
             return (
               <ul
                 key={idx}
-                className="my-4 space-y-2.5 pl-5 sm:pl-7 list-disc marker:text-gold text-base sm:text-lg text-gray-700 font-normal leading-relaxed"
+                className="my-4 space-y-2.5 pl-4 sm:pl-7 list-disc marker:text-gold text-base sm:text-lg text-gray-700 font-normal leading-relaxed wrap-break-word"
               >
                 {block.items.map((item, itemIdx) => (
                   <li key={itemIdx} className="pl-1">
@@ -565,7 +567,7 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
             return (
               <ol
                 key={idx}
-                className="my-4 space-y-2.5 pl-5 sm:pl-7 list-decimal marker:text-primary font-medium text-base sm:text-lg text-gray-700 leading-relaxed"
+                className="my-4 space-y-2.5 pl-4 sm:pl-7 list-decimal marker:text-primary font-medium text-base sm:text-lg text-gray-700 leading-relaxed wrap-break-word"
               >
                 {block.items.map((item, itemIdx) => (
                   <li key={itemIdx} className="pl-1 font-normal text-gray-700">
@@ -579,7 +581,7 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
             return (
               <blockquote
                 key={idx}
-                className="border-l-4 border-gold bg-[#FDFBF7] p-4 sm:p-5 rounded-r-2xl my-6 text-gray-800 italic text-base sm:text-lg shadow-2xs"
+                className="border-l-4 border-gold bg-[#FDFBF7] p-4 sm:p-5 rounded-r-2xl my-6 text-gray-800 italic text-base sm:text-lg shadow-2xs wrap-break-word"
               >
                 {renderInline(block.text)}
               </blockquote>
@@ -603,7 +605,7 @@ export default function MarkdownContent({ content }: MarkdownContentProps) {
             return (
               <p
                 key={idx}
-                className="text-base sm:text-lg text-gray-700 font-normal leading-relaxed my-3"
+                className="text-base sm:text-lg text-gray-700 font-normal leading-relaxed my-3 wrap-break-word"
               >
                 {renderInline(block.text)}
               </p>

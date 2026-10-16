@@ -70,14 +70,14 @@ export default function LoanStickyNav({ lender }: LoanStickyNavProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-between gap-4">
         
         {/* Horizontal Scrollable Nav Links */}
-        <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto scrollbar-hidden py-3 text-xs font-semibold">
+        <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto scrollbar-hidden py-2.5 sm:py-3 text-xs font-semibold -mx-4 px-4 sm:mx-0 sm:px-0">
           {NAV_ITEMS.map((item) => {
             const isActive = activeSection === item.id;
             return (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`px-3 py-1.5 rounded-full whitespace-nowrap transition-all cursor-pointer ${
+                className={`px-3 py-1.5 min-h-[34px] flex items-center rounded-full whitespace-nowrap transition-all cursor-pointer ${
                   isActive
                     ? "bg-primary text-white shadow-2xs font-bold"
                     : "text-gray-600 hover:text-gray-950 hover:bg-gray-100"

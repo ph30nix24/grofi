@@ -228,12 +228,16 @@ export default function InstantLoanHeroForm() {
             {/* Range Slider */}
             <input
               type="range"
+              aria-label="Instant Cash Needed"
               min={10000}
               max={2500000}
               step={10000}
               value={loanAmount}
               onChange={(e) => setLoanAmount(Number(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+              style={{
+                background: `linear-gradient(to right, #02474D 0%, #02474D ${Math.min(100, Math.max(0, ((loanAmount - 10000) / (2500000 - 10000)) * 100))}%, #E2E8F0 ${Math.min(100, Math.max(0, ((loanAmount - 10000) / (2500000 - 10000)) * 100))}%, #E2E8F0 100%)`,
+              }}
+              className="custom-range-slider"
             />
 
             {/* Quick chips */}

@@ -98,6 +98,7 @@ export default function PersonalLoanEmiCalculator() {
 
                 <input
                   type="range"
+                  aria-label="Personal Loan Amount"
                   min={50000}
                   max={5000000}
                   step={25000}
@@ -147,15 +148,16 @@ export default function PersonalLoanEmiCalculator() {
 
                 <input
                   type="range"
+                  aria-label="Interest Rate"
                   min={9.99}
                   max={26.0}
                   step={0.1}
                   value={interestRate}
                   onChange={(e) => setInterestRate(Number(e.target.value))}
                   style={{
-                    background: `linear-gradient(to right, #02474D 0%, #02474D ${((interestRate - 9.99) / (26.0 - 9.99)) * 100}%, #E2E8F0 ${((interestRate - 9.99) / (26.0 - 9.99)) * 100}%, #E2E8F0 100%)`,
+                    background: `linear-gradient(to right, #B69226 0%, #B69226 ${((interestRate - 9.99) / (26.0 - 9.99)) * 100}%, #E2E8F0 ${((interestRate - 9.99) / (26.0 - 9.99)) * 100}%, #E2E8F0 100%)`,
                   }}
-                  className="custom-range-slider"
+                  className="custom-range-slider custom-range-slider-gold"
                 />
 
                 <div className="flex justify-between text-[11px] font-semibold text-gray-400 font-montserrat mt-1">
@@ -196,15 +198,16 @@ export default function PersonalLoanEmiCalculator() {
 
                 <input
                   type="range"
+                  aria-label="Loan Tenure"
                   min={1}
                   max={7}
                   step={1}
                   value={tenureYears}
                   onChange={(e) => setTenureYears(Number(e.target.value))}
                   style={{
-                    background: `linear-gradient(to right, #02474D 0%, #02474D ${((tenureYears - 1) / (7 - 1)) * 100}%, #E2E8F0 ${((tenureYears - 1) / (7 - 1)) * 100}%, #E2E8F0 100%)`,
+                    background: `linear-gradient(to right, #059669 0%, #059669 ${((tenureYears - 1) / (7 - 1)) * 100}%, #E2E8F0 ${((tenureYears - 1) / (7 - 1)) * 100}%, #E2E8F0 100%)`,
                   }}
-                  className="custom-range-slider"
+                  className="custom-range-slider custom-range-slider-emerald"
                 />
 
                 <div className="flex justify-between text-[11px] font-semibold text-gray-400 font-montserrat mt-1">
@@ -339,27 +342,27 @@ export default function PersonalLoanEmiCalculator() {
                 <Info className="w-4 h-4 text-primary" />
                 Year-by-Year Amortization Schedule
               </h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs font-montserrat">
+              <div className="overflow-x-auto -mx-2 px-2 sm:mx-0 sm:px-0">
+                <table className="w-full min-w-130 text-left text-xs font-montserrat">
                   <thead>
                     <tr className="border-b border-gray-300 text-gray-500 font-bold uppercase tracking-wider">
-                      <th className="py-2.5 px-3">Year</th>
-                      <th className="py-2.5 px-3">Principal Paid</th>
-                      <th className="py-2.5 px-3">Interest Paid</th>
-                      <th className="py-2.5 px-3">Total Paid in Year</th>
-                      <th className="py-2.5 px-3">Outstanding Balance</th>
+                      <th className="py-2.5 px-3 whitespace-nowrap">Year</th>
+                      <th className="py-2.5 px-3 whitespace-nowrap">Principal Paid</th>
+                      <th className="py-2.5 px-3 whitespace-nowrap">Interest Paid</th>
+                      <th className="py-2.5 px-3 whitespace-nowrap">Total Paid in Year</th>
+                      <th className="py-2.5 px-3 whitespace-nowrap">Outstanding Balance</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 text-gray-700">
                     {calculation.yearlyBreakdown.map((row) => (
                       <tr key={row.year} className="hover:bg-white transition-colors">
-                        <td className="py-2.5 px-3 font-bold text-gray-900">Year {row.year}</td>
-                        <td className="py-2.5 px-3 font-semibold text-primary">₹{formatINR(row.principalPaid)}</td>
-                        <td className="py-2.5 px-3 font-semibold text-amber-800">₹{formatINR(row.interestPaid)}</td>
-                        <td className="py-2.5 px-3 font-bold text-gray-900">
+                        <td className="py-2.5 px-3 font-bold text-gray-900 whitespace-nowrap">Year {row.year}</td>
+                        <td className="py-2.5 px-3 font-semibold text-primary whitespace-nowrap">₹{formatINR(row.principalPaid)}</td>
+                        <td className="py-2.5 px-3 font-semibold text-amber-800 whitespace-nowrap">₹{formatINR(row.interestPaid)}</td>
+                        <td className="py-2.5 px-3 font-bold text-gray-900 whitespace-nowrap">
                           ₹{formatINR(row.principalPaid + row.interestPaid)}
                         </td>
-                        <td className="py-2.5 px-3 font-medium text-gray-500">₹{formatINR(row.balance)}</td>
+                        <td className="py-2.5 px-3 font-medium text-gray-500 whitespace-nowrap">₹{formatINR(row.balance)}</td>
                       </tr>
                     ))}
                   </tbody>
