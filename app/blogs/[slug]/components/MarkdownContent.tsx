@@ -295,7 +295,10 @@ function parseMarkdownBlocks(rawContent: string): MarkdownBlock[] {
       lines[i].trim() !== "---" &&
       !lines[i].trim().startsWith("![") &&
       !lines[i].trim().startsWith("<img") &&
-      !/^\*\*\s*(.+?)\s*\*\*:?$/.test(lines[i].trim())
+      !(
+        /^\*\*\s*(.+?)\s*\*\*:?$/.test(lines[i].trim()) &&
+        lines[i].trim().length < 160
+      )
     ) {
       pLines.push(lines[i].trim());
       i++;
@@ -306,6 +309,14 @@ function parseMarkdownBlocks(rawContent: string): MarkdownBlock[] {
         type: "p",
         text: pLines.join(" "),
       });
+    } else {
+      // Safety net: if the line failed every previous block check and the paragraph condition,
+      // consume it as a plain paragraph to guarantee progress and prevent an infinite loop.
+      blocks.push({
+        type: "p",
+        text: lines[i].trim(),
+      });
+      i++;
     }
   }
 

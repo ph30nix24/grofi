@@ -16,6 +16,7 @@ import {
   CheckCircle2,
   SlidersHorizontal,
   Compass,
+  Loader2,
 } from "lucide-react";
 import { BlogItem } from "./type";
 import BlogCard from "./BlogCard";
@@ -52,6 +53,7 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<"newest" | "oldest" | "readTime" | "title">("newest");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [featuredFetching, setFeaturedFetching] = useState(false);
 
   // Newsletter state
   const [newsletterEmail, setNewsletterEmail] = useState("");
@@ -231,9 +233,13 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
           </div>
 
           <div className="group relative bg-white rounded-2xl sm:rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden grid grid-cols-1 lg:grid-cols-12 w-full min-w-0 max-w-full">
+            {featuredFetching && (
+              <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-primary via-gold to-primary animate-pulse z-20" />
+            )}
             {/* Visual Header / Graphic (6 cols) */}
             <Link
               href={`/blogs/${featuredBlog.slug}`}
+              onClick={() => setFeaturedFetching(true)}
               className="lg:col-span-6 relative aspect-video xs:aspect-[16/10] lg:aspect-auto min-h-50 xs:min-h-[240px] lg:min-h-90 w-full min-w-0 max-w-full block overflow-hidden shrink-0"
             >
               <BlogImage
@@ -277,7 +283,7 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
 
                 {/* Title */}
                 <h3 className="text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-extrabold font-bricolage text-[#02282C] group-hover:text-primary transition-colors leading-tight mb-3 sm:mb-4 wrap-break-word w-full min-w-0">
-                  <Link href={`/blogs/${featuredBlog.slug}`}>
+                  <Link href={`/blogs/${featuredBlog.slug}`} onClick={() => setFeaturedFetching(true)}>
                     {featuredBlog.title}
                   </Link>
                 </h3>
@@ -325,10 +331,20 @@ export default function BlogExplorer({ initialBlogs }: BlogExplorerProps) {
 
                 <Link
                   href={`/blogs/${featuredBlog.slug}`}
+                  onClick={() => setFeaturedFetching(true)}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-primary hover:bg-[#03363b] text-white px-5 py-3 sm:py-2.5 rounded-xl font-bold text-sm sm:text-base transition-all shadow-2xs hover:shadow-md touch-manipulation active:scale-[0.99] shrink-0"
                 >
-                  <span>Read Full Guide</span>
-                  <ArrowRight className="w-4 h-4 shrink-0" />
+                  {featuredFetching ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin text-white shrink-0" />
+                      <span>Fetching Guide...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Read Full Guide</span>
+                      <ArrowRight className="w-4 h-4 shrink-0" />
+                    </>
+                  )}
                 </Link>
               </div>
             </div>

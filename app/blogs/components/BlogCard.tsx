@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { Clock, Calendar, ArrowRight, Tag } from "lucide-react";
+import { Clock, Calendar, ArrowRight, Tag, Loader2 } from "lucide-react";
 import { BlogItem } from "./type";
 import BlogImage from "./BlogImage";
 
@@ -31,14 +31,23 @@ export default function BlogCard({
   viewMode = "grid",
   onSelectTag,
 }: BlogCardProps) {
+  const [isFetching, setIsFetching] = useState(false);
   const formattedDate = formatDate(blog.createdAt);
+
+  const handleNavigate = () => {
+    setIsFetching(true);
+  };
 
   if (viewMode === "list") {
     return (
-      <article className="group bg-white rounded-2xl border border-gray-200/80 shadow-2xs hover:shadow-md hover:border-primary/30 transition-all duration-300 overflow-hidden flex flex-col md:flex-row font-montserrat w-full min-w-0 max-w-full">
+      <article className="group relative bg-white rounded-2xl border border-gray-200/80 shadow-2xs hover:shadow-md hover:border-primary/30 transition-all duration-300 overflow-hidden flex flex-col md:flex-row font-montserrat w-full min-w-0 max-w-full">
+        {isFetching && (
+          <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-primary via-gold to-primary animate-pulse z-20" />
+        )}
         {/* Image / Graphic */}
         <Link
           href={`/blogs/${blog.slug}`}
+          onClick={handleNavigate}
           className="relative w-full md:w-72 lg:w-80 h-48 md:h-auto shrink-0 overflow-hidden block min-w-0"
         >
           <BlogImage
@@ -81,7 +90,7 @@ export default function BlogCard({
 
             {/* Title */}
             <h2 className="text-lg xs:text-xl sm:text-2xl font-bold font-bricolage text-[#02282C] group-hover:text-primary transition-colors line-clamp-2 mb-2 leading-snug wrap-break-word">
-              <Link href={`/blogs/${blog.slug}`} className="focus:outline-hidden">
+              <Link href={`/blogs/${blog.slug}`} onClick={handleNavigate} className="focus:outline-hidden">
                 {blog.title}
               </Link>
             </h2>
@@ -129,10 +138,20 @@ export default function BlogCard({
 
             <Link
               href={`/blogs/${blog.slug}`}
+              onClick={handleNavigate}
               className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-primary group-hover:text-gold transition-colors py-1 px-2.5 min-h-11 touch-manipulation shrink-0"
             >
-              <span>Read Guide</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              {isFetching ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin text-primary shrink-0" />
+                  <span>Fetching...</span>
+                </>
+              ) : (
+                <>
+                  <span>Read Guide</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 shrink-0" />
+                </>
+              )}
             </Link>
           </div>
         </div>
@@ -142,10 +161,14 @@ export default function BlogCard({
 
   // Grid view (Default)
   return (
-    <article className="group bg-white rounded-2xl border border-gray-200/80 shadow-2xs hover:shadow-md hover:border-primary/30 transition-all duration-300 overflow-hidden flex flex-col font-montserrat h-full w-full min-w-0 max-w-full">
+    <article className="group relative bg-white rounded-2xl border border-gray-200/80 shadow-2xs hover:shadow-md hover:border-primary/30 transition-all duration-300 overflow-hidden flex flex-col font-montserrat h-full w-full min-w-0 max-w-full">
+      {isFetching && (
+        <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-primary via-gold to-primary animate-pulse z-20" />
+      )}
       {/* Image / Thematic Graphic */}
       <Link
         href={`/blogs/${blog.slug}`}
+        onClick={handleNavigate}
         className="relative aspect-video w-full overflow-hidden block min-w-0"
       >
         <BlogImage
@@ -186,7 +209,7 @@ export default function BlogCard({
 
           {/* Title */}
           <h2 className="text-base xs:text-lg sm:text-xl font-bold font-bricolage text-[#02282C] group-hover:text-primary transition-colors line-clamp-2 mb-2 leading-snug wrap-break-word">
-            <Link href={`/blogs/${blog.slug}`} className="focus:outline-hidden">
+            <Link href={`/blogs/${blog.slug}`} onClick={handleNavigate} className="focus:outline-hidden">
               {blog.title}
             </Link>
           </h2>
@@ -234,10 +257,20 @@ export default function BlogCard({
 
           <Link
             href={`/blogs/${blog.slug}`}
+            onClick={handleNavigate}
             className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-primary group-hover:text-gold transition-colors py-1 px-2.5 min-h-11 touch-manipulation shrink-0"
           >
-            <span>Read</span>
-            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+            {isFetching ? (
+              <>
+                <Loader2 className="w-3.5 h-3.5 animate-spin text-primary shrink-0" />
+                <span>Fetching...</span>
+              </>
+            ) : (
+              <>
+                <span>Read</span>
+                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 shrink-0" />
+              </>
+            )}
           </Link>
         </div>
       </div>
