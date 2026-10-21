@@ -23,9 +23,9 @@ export default function EmiDonutChart({
   const interestStroke = (interestPercent / 100) * circumference;
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-5 sm:gap-6">
+    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 w-full max-w-full">
       {/* SVG Donut Ring with Gradients */}
-      <div className="relative w-32 h-32 sm:w-36 sm:h-36 flex items-center justify-center shrink-0">
+      <div className="relative w-28 h-28 sm:w-36 sm:h-36 flex items-center justify-center shrink-0">
         <svg
           className="w-full h-full -rotate-90"
           viewBox="0 0 160 160"
@@ -35,7 +35,7 @@ export default function EmiDonutChart({
           <defs>
             <linearGradient id="emiPrincipalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#34D399" />
-              <stop offset="100%" stopColor="#059669" />
+              <stop offset="100%" stopColor="#10B981" />
             </linearGradient>
             <linearGradient id="emiInterestGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#FBBF24" />
@@ -48,7 +48,7 @@ export default function EmiDonutChart({
             cx="80"
             cy="80"
             r={radius}
-            stroke="rgba(255, 255, 255, 0.12)"
+            stroke="rgba(255, 255, 255, 0.08)"
             strokeWidth="16"
             fill="transparent"
           />
@@ -84,29 +84,29 @@ export default function EmiDonutChart({
 
         {/* Center Percentage Display */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
-          <span className="text-[10px] uppercase tracking-wider text-emerald-200/70 font-bold font-montserrat">
-            Principal
+          <span className="text-[9px] uppercase tracking-wider text-emerald-300 font-bold font-montserrat">
+            PRINCIPAL
           </span>
-          <span className="text-xl sm:text-2xl font-extrabold font-bricolage text-white">
+          <span className="text-xl sm:text-3xl font-extrabold font-bricolage text-white tracking-tight">
             {principalPercent}%
           </span>
         </div>
       </div>
 
       {/* Adjacent Legend & Stat Cards */}
-      <div className="w-full flex-1 grid grid-cols-2 sm:grid-cols-1 gap-2.5 sm:gap-2.5">
+      <div className="w-full flex-1 flex flex-col gap-2 sm:gap-2.5 max-w-full">
         {/* Principal Stat */}
-        <div className="bg-white/[0.07] hover:bg-white/12 border border-white/10 rounded-xl p-2.5 sm:p-3 transition-colors">
-          <div className="flex items-center justify-between mb-1">
-            <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-white/80 font-montserrat font-medium truncate">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0 shadow-2xs" />
+        <div className="bg-[#044D45]/70 hover:bg-[#044D45]/90 border border-[#086359]/60 rounded-xl p-2.5 sm:p-3 transition-colors max-w-full">
+          <div className="flex items-center justify-between mb-0.5 sm:mb-1">
+            <div className="flex items-center gap-1.5 text-xs text-emerald-200/90 font-montserrat font-medium truncate">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0 shadow-2xs" />
               <span className="truncate">Principal ({principalPercent}%)</span>
             </div>
           </div>
-          <p className="font-bricolage font-bold text-white text-sm sm:text-base lg:text-lg truncate">
+          <p className="font-bricolage font-extrabold text-white text-sm sm:text-lg truncate">
             ₹ {formatINR(amount)}
           </p>
-          <div className="w-full h-1 bg-white/10 rounded-full mt-1.5 overflow-hidden">
+          <div className="w-full h-1 bg-white/10 rounded-full mt-1 sm:mt-1.5 overflow-hidden">
             <div
               style={{ width: `${principalPercent}%` }}
               className="h-full bg-emerald-400 rounded-full transition-all duration-500"
@@ -115,17 +115,17 @@ export default function EmiDonutChart({
         </div>
 
         {/* Interest Stat */}
-        <div className="bg-white/[0.07] hover:bg-white/12 border border-white/10 rounded-xl p-2.5 sm:p-3 transition-colors">
-          <div className="flex items-center justify-between mb-1">
-            <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-white/80 font-montserrat font-medium truncate">
-              <span className="w-2.5 h-2.5 rounded-full bg-gold shrink-0 shadow-2xs" />
+        <div className="bg-[#044D45]/70 hover:bg-[#044D45]/90 border border-[#086359]/60 rounded-xl p-2.5 sm:p-3 transition-colors max-w-full">
+          <div className="flex items-center justify-between mb-0.5 sm:mb-1">
+            <div className="flex items-center gap-1.5 text-xs text-amber-200/90 font-montserrat font-medium truncate">
+              <span className="w-2 h-2 rounded-full bg-gold shrink-0 shadow-2xs" />
               <span className="truncate">Interest ({interestPercent}%)</span>
             </div>
           </div>
-          <p className="font-bricolage font-bold text-gold text-sm sm:text-base lg:text-lg truncate">
+          <p className="font-bricolage font-extrabold text-gold text-sm sm:text-lg truncate">
             ₹ {formatINR(totalInterest)}
           </p>
-          <div className="w-full h-1 bg-white/10 rounded-full mt-1.5 overflow-hidden">
+          <div className="w-full h-1 bg-white/10 rounded-full mt-1 sm:mt-1.5 overflow-hidden">
             <div
               style={{ width: `${interestPercent}%` }}
               className="h-full bg-gold rounded-full transition-all duration-500"

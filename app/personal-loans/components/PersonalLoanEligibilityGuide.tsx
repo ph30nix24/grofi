@@ -14,7 +14,7 @@ export default function PersonalLoanEligibilityGuide() {
   const [profileType, setProfileType] = useState<"salaried" | "selfEmployed">("salaried");
 
   return (
-    <section className="py-14 sm:py-20 bg-white border-t border-gray-200/60 font-montserrat">
+    <section className="py-14 sm:py-20 bg-white border-t border-gray-200/60 font-montserrat" id="personal-loan-eligibility">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

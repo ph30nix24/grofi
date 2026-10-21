@@ -1,0 +1,1110 @@
+[
+  {
+    "id": "idfc-first-millennia",
+    "name": "IDFC FIRST Millennia Credit Card",
+    "issuer": "IDFC Bank",
+    "logo": "/partners-logos/idfc-logo.webp",
+    "cardImage": "/cards/idfc-first-millennia.webp",
+    "network": "Visa",
+    "category": [
+      "all",
+      "entry-level",
+      "popular",
+      "lifestyle",
+      "dining"
+    ],
+    "description": "The IDFC FIRST Millennia Credit Card is an accessible, zero-maintenance starter product designed for young professionals and digital spenders. Issued unconditionally Lifetime Free with zero annual or renewal charges, it features reward points that never expire, dynamic interest rates starting from 9% p.a., and up to 10X reward acceleration on incremental monthly spends.",
+    "categoryLabel": "Young Lifestyle & Online Rewards",
+    "badge": "Most Popular Lifetime Free Card",
+    "popularRank": 1,
+    "joiningFee": "Nil (Lifetime Free)",
+    "annualFee": "Nil (Lifetime Free)",
+    "feeWaiver": "Lifetime Free unconditionally",
+    "forexMarkup": "3.50% + GST",
+    "rewardRate": {
+      "base": "3X Reward Points per ₹150 spent on offline and generic retail (0.5% return)",
+      "headline": "Up to 10X reward points (incremental spends > ₹20k & birthday) with never-expiring points",
+      "pointValue": "₹0.25 (direct statement credit or merchant redemption)",
+      "accelerated": "6X Reward Points per ₹150 on online purchases (1.0% return); 10X Reward Points per ₹150 on monthly spends crossing ₹20,000 and on birthdays (1.67% return)",
+      "rewardCurrency": "IDFC FIRST Reward Points"
+    },
+    "loungeAccess": {
+      "domestic": "4 complimentary railway lounge visits per quarter across India",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "₹25,000/month",
+      "employmentType": "Salaried or Self-Employed",
+      "minCreditScore": 710
+    },
+    "welcomeBenefits": [
+      "Gift voucher worth ₹500 upon spending ₹15,000 or more within 30 days of card setup.",
+      "5% cashback (up to ₹1,000) on the transaction value of the first EMI transaction within 30 days."
+    ],
+    "keyHighlights": [
+      "100% Lifetime Free card with zero annual or renewal charges forever.",
+      "Reward points that never expire and carry zero redemption convenience fees.",
+      "25% discount on movie tickets on District / Paytm mobile app (up to ₹100 once a month)."
+    ],
+    "pros": [
+      "Unconditional Lifetime Free proposition with zero annual maintenance fees.",
+      "Reward points never expire and convert easily to statement credit.",
+      "Low APR interest rates starting from 9% p.a. (0.75% per month) based on credit profile."
+    ],
+    "cons": [
+      "No airport lounge access (railway lounges only).",
+      "10X acceleration requires spending over ₹20,000 in a monthly billing cycle.",
+      "Standard 3.50% foreign exchange markup."
+    ],
+    "bestFor": "First-time cardholders, millennials, and online shoppers wanting a reliable, fee-free daily driver.",
+    "editorialVerdict": "IDFC FIRST Bank's signature retail workhorse; its zero-fee structure, never-expiring points, and low starting interest rates make it a reliable entry-level card.",
+    "createdAt": "2026-09-17T11:40:51.495Z",
+    "updatedAt": "2026-09-25T12:08:43.191Z"
+  },
+  {
+    "id": "idfc-first-wow",
+    "name": "IDFC FIRST WOW! Credit Card (FD-Backed)",
+    "issuer": "IDFC Bank",
+    "logo": "/partners-logos/idfc-logo.webp",
+    "cardImage": "/cards/idfc-first-wow.webp",
+    "network": "Visa",
+    "category": [
+      "all",
+      "entry-level",
+      "travel",
+      "popular",
+      "cashback"
+    ],
+    "description": "The IDFC FIRST WOW! Credit Card is a secured credit card that provides true 0.00% foreign exchange markup without credit checks or income documents. Backed 100% by an IDFC FIRST Bank Fixed Deposit starting from ₹2,000, it enables students, travelers, and credit builders to rebuild their CIBIL score while saving on international card swipes.",
+    "categoryLabel": "Secured & Zero-Forex Travel",
+    "badge": "Best Secured Card in India",
+    "popularRank": 2,
+    "joiningFee": "Nil (Lifetime Free)",
+    "annualFee": "Nil (Lifetime Free)",
+    "feeWaiver": "Lifetime Free unconditionally",
+    "forexMarkup": "0.00% (Zero Forex Markup)",
+    "rewardRate": {
+      "base": "1 Reward Point per ₹150 spent on general retail",
+      "headline": "0% Forex markup + 4X reward points on all spends backed by a Fixed Deposit",
+      "pointValue": "₹0.25",
+      "accelerated": "4X Reward Points on all purchases without category restrictions",
+      "rewardCurrency": "IDFC FIRST Reward Points"
+    },
+    "loungeAccess": {
+      "domestic": "Not available",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "No income verification required (Secured against ₹2,00, Fixed Deposit)",
+      "employmentType": "Students, Freelancers, Homemakers, or New-to-Credit Borrowers",
+      "minCreditScore": 0
+    },
+    "welcomeBenefits": [
+      "Guaranteed 100% digital issuance with zero income proof, salary slips, or credit history checks."
+    ],
+    "keyHighlights": [
+      "True 0.00% zero foreign currency markup on all international transactions and websites.",
+      "Issued instantly against an IDFC FIRST Bank Fixed Deposit (minimum ₹2,000).",
+      "Credit limit assigned up to 100% of the pledged Fixed Deposit balance."
+    ],
+    "pros": [
+      "0% forex markup on an entry-level card—well-suited for students traveling abroad and overseas e-commerce.",
+      "No income proof or prior credit score required for guaranteed approval.",
+      "Underlying Fixed Deposit continues earning compounding interest rates."
+    ],
+    "cons": [
+      "Requires locking liquidity into an IDFC FIRST Bank Fixed Deposit.",
+      "No airport lounge privileges included.",
+      "Fixed deposit cannot be closed while the credit card account remains active."
+    ],
+    "bestFor": "Students studying abroad, international online shoppers, and credit builders seeking 0% forex fees.",
+    "editorialVerdict": "One of the most accessible cards in India for zero forex markup and credit building, backed by a term deposit.",
+    "createdAt": "2026-09-17T11:40:51.495Z",
+    "updatedAt": "2026-09-25T12:08:43.191Z"
+  },
+  {
+    "id": "idfc-first-select",
+    "name": "IDFC FIRST Select Credit Card",
+    "issuer": "IDFC Bank",
+    "logo": "/partners-logos/idfc-logo.webp",
+    "cardImage": "/cards/idfc-first-select.webp",
+    "network": "Visa",
+    "category": [
+      "all",
+      "lifestyle",
+      "travel",
+      "dining",
+      "popular"
+    ],
+    "description": "Targeted at corporate professionals, the IDFC FIRST Select Credit Card delivers a balanced mix of travel and lifestyle benefits with zero annual fees. It pairs domestic airport lounge access and BookMyShow movie discounts with a discounted 1.99% foreign exchange markup and never-expiring reward points.",
+    "categoryLabel": "Premium Lifestyle & Travel",
+    "badge": "Popular Mid-Tier Lifestyle",
+    "popularRank": 3,
+    "joiningFee": "Nil (Lifetime Free)",
+    "annualFee": "Nil (Lifetime Free)",
+    "feeWaiver": "Lifetime Free unconditionally",
+    "forexMarkup": "1.99% + GST",
+    "rewardRate": {
+      "base": "3X Reward Points per ₹150 on offline retail spends (0.5% return)",
+      "headline": "Up to 10X reward points + subsidized 1.99% forex markup with Lifetime Free benefits",
+      "pointValue": "₹0.25",
+      "accelerated": "6X Reward Points per ₹150 on online purchases (1.0% return); 10X Reward Points per ₹150 on incremental spends crossing ₹20,000/month (1.67% return)",
+      "rewardCurrency": "IDFC FIRST Reward Points"
+    },
+    "loungeAccess": {
+      "domestic": "4 complimentary domestic airport lounge visits per calendar year (1 per quarter)",
+      "international": "Complimentary Priority Pass membership (standard visit fees apply)",
+      "spendCondition": "Subject to spending ₹20,000 or more in the previous calendar month"
+    },
+    "eligibility": {
+      "minIncome": "₹60,000/month or ITR > ₹8,00,000/year",
+      "employmentType": "Salaried or Self-Employed",
+      "minCreditScore": 730
+    },
+    "welcomeBenefits": [
+      "Welcome gift voucher worth ₹500 upon spending ₹15,000 within 30 days.",
+      "5% cashback on the first EMI transaction within 30 days."
+    ],
+    "keyHighlights": [
+      "Subsidized 1.99% foreign exchange markup on cross-border transactions.",
+      "Buy 1 Get 1 free movie ticket on District / BookMyShow (up to ₹125 discount, twice a month).",
+      "Complimentary domestic airport lounge and railway lounge visits every quarter."
+    ],
+    "pros": [
+      "Completely Lifetime Free mid-tier card with a competitive 1.99% forex markup.",
+      "Movie ticket savings up to ₹250 monthly on BookMyShow.",
+      "Never-expiring reward points with direct cash statement redemption."
+    ],
+    "cons": [
+      "Domestic airport lounge access requires spending ₹20,000 in the previous calendar month.",
+      "International Priority Pass visits are chargeable.",
+      "10X acceleration requires exceeding the ₹20,000 monthly spending threshold."
+    ],
+    "bestFor": "Mid-to-senior corporate employees seeking domestic airport lounges, movie BOGO, and low forex fees without an annual fee.",
+    "editorialVerdict": "A practical Lifetime Free card offering airport lounges, movie savings, and a low 1.99% forex fee without ongoing maintenance charges.",
+    "createdAt": "2026-09-17T11:40:51.495Z",
+    "updatedAt": "2026-09-25T12:08:43.191Z"
+  },
+  {
+    "id": "idfc-first-wealth",
+    "name": "IDFC FIRST Wealth Credit Card",
+    "issuer": "IDFC Bank",
+    "logo": "/partners-logos/idfc-logo.webp",
+    "cardImage": "/cards/idfc-first-wealth.webp",
+    "network": "Visa",
+    "category": [
+      "all",
+      "lifestyle",
+      "travel",
+      "dining",
+      "popular"
+    ],
+    "description": "The IDFC FIRST Wealth Credit Card is the bank’s premier Lifetime Free offering for high-earning individuals. It combines 16 domestic and 16 international airport lounge/spa visits each year with complimentary golf privileges, movie ticket discounts, and a reduced 1.50% foreign exchange markup.",
+    "categoryLabel": "Affluent Travel & Golf",
+    "badge": "Best Lifetime Free Luxury Card",
+    "popularRank": 4,
+    "joiningFee": "Nil (Lifetime Free)",
+    "annualFee": "Nil (Lifetime Free)",
+    "feeWaiver": "Lifetime Free unconditionally",
+    "forexMarkup": "1.50% + GST",
+    "rewardRate": {
+      "base": "3X Reward Points per ₹150 spent on offline retail (0.5% return)",
+      "headline": "Up to 10X reward points + 1.5% low forex markup with zero annual fees",
+      "pointValue": "₹0.25",
+      "accelerated": "6X Reward Points per ₹150 on online shopping; 10X Reward Points per ₹150 on spends crossing ₹20,000/month and on birthdays",
+      "rewardCurrency": "IDFC FIRST Reward Points"
+    },
+    "loungeAccess": {
+      "domestic": "16 complimentary domestic airport lounge and spa visits per year (max 4 per quarter)",
+      "international": "16 complimentary international lounge visits per year via Priority Pass / DreamFolks (max 4 per quarter)",
+      "spendCondition": "Subject to spending ₹20,000 or more in the previous calendar month"
+    },
+    "eligibility": {
+      "minIncome": "₹1,00,000/month or ITR > ₹15,00,000/year",
+      "employmentType": "Salaried, CXOs, or Established Business Owners",
+      "minCreditScore": 750
+    },
+    "welcomeBenefits": [
+      "Welcome gift voucher worth ₹500 upon spending ₹15,000 within 30 days.",
+      "Complimentary golf rounds and lessons upon activation."
+    ],
+    "keyHighlights": [
+      "100% Lifetime Free card with a subsidized 1.50% foreign exchange markup.",
+      "32 combined domestic and international airport lounge and spa visits annually.",
+      "Buy 1 Get 1 free movie ticket on District / BookMyShow (up to ₹250 discount, twice a month)."
+    ],
+    "pros": [
+      "A Lifetime Free card in India offering comprehensive domestic and international lounge allowances.",
+      "Includes complimentary quarterly golf rounds and airport spa treatments.",
+      "Subsidized 1.5% forex fee with zero annual recurring liability."
+    ],
+    "cons": [
+      "High income barrier (typically requires ₹1 Lakh+ monthly salary or an IDFC Wealth account).",
+      "Lounge and golf benefits require spending ₹20,000 in the previous calendar month.",
+      "Base rewards rate is modest (0.5%)."
+    ],
+    "bestFor": "High earners and frequent flyers seeking extensive international lounge access and golf perks without an annual fee.",
+    "editorialVerdict": "A generous Lifetime Free credit card in India, bundling 32 lounge/spa visits with a 1.5% forex markup.",
+    "createdAt": "2026-09-17T11:40:51.495Z",
+    "updatedAt": "2026-09-25T12:08:43.191Z"
+  },
+  {
+    "id": "idfc-first-classic",
+    "name": "IDFC FIRST Classic Credit Card",
+    "issuer": "IDFC Bank",
+    "logo": "/partners-logos/idfc-logo.webp",
+    "cardImage": "/cards/idfc-first-classic.webp",
+    "network": "Visa",
+    "category": [
+      "all",
+      "entry-level",
+      "lifestyle"
+    ],
+    "description": "An entry-level, zero-fee card designed for everyday household procurement. With no annual maintenance charges, never-expiring reward points, and access to railway executive lounges, it serves as a straightforward payment tool for families and branch applicants.",
+    "categoryLabel": "Everyday Household Retail",
+    "badge": "Reliable Everyday LTF",
+    "popularRank": 5,
+    "joiningFee": "Nil (Lifetime Free)",
+    "annualFee": "Nil (Lifetime Free)",
+    "feeWaiver": "Lifetime Free unconditionally",
+    "forexMarkup": "3.50% + GST",
+    "rewardRate": {
+      "base": "3X Reward Points per ₹150 spent on offline retail (0.5% return)",
+      "headline": "Up to 10X reward points on incremental spending with zero annual fees",
+      "pointValue": "₹0.25",
+      "accelerated": "6X Reward Points per ₹150 on online transactions; 10X Reward Points per ₹150 on spends above ₹20,000/month and on birthdays",
+      "rewardCurrency": "IDFC FIRST Reward Points"
+    },
+    "loungeAccess": {
+      "domestic": "4 complimentary railway lounge visits per quarter across India",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "₹20,000/month",
+      "employmentType": "Salaried or Self-Employed",
+      "minCreditScore": 700
+    },
+    "welcomeBenefits": [
+      "Welcome gift voucher worth ₹500 upon spending ₹15,000 within 30 days.",
+      "5% cashback on the first EMI transaction within 30 days."
+    ],
+    "keyHighlights": [
+      "100% Lifetime Free card with zero annual or renewal charges.",
+      "25% discount on movie tickets on District / Paytm (up to ₹100 once a month).",
+      "Comprehensive personal accident cover of ₹2 Lakhs and lost card liability protection."
+    ],
+    "pros": [
+      "Zero annual recurring cost (Lifetime Free).",
+      "Never-expiring reward points program.",
+      "Complimentary railway lounge access across major Indian stations."
+    ],
+    "cons": [
+      "No airport lounge privileges.",
+      "Base rewards rate is modest (0.5%).",
+      "Standard 3.50% foreign exchange markup."
+    ],
+    "bestFor": "Tier 2/3 branch walk-in applicants and everyday families wanting a zero-maintenance credit card.",
+    "editorialVerdict": "An accessible entry-level card offering predictable rewards, movie discounts, and zero fees forever.",
+    "createdAt": "2026-09-17T11:40:51.495Z",
+    "updatedAt": "2026-09-25T12:08:43.191Z"
+  },
+  {
+    "id": "idfc-first-swyp",
+    "name": "FIRST SWYP Credit Card",
+    "issuer": "IDFC Bank",
+    "logo": "/partners-logos/idfc-logo.webp",
+    "cardImage": "/cards/idfc-first-swyp.webp",
+    "network": "Visa",
+    "category": [
+      "all",
+      "entry-level",
+      "lifestyle",
+      "popular",
+      "dining"
+    ],
+    "description": "A lifestyle card designed for Gen-Z spenders and digital natives managing app subscriptions, ride-hailing, and food deliveries. It offers milestone points on attainable spending slabs, fee-free EMI conversions, and a subsidized 1.50% forex fee for digital international purchases.",
+    "categoryLabel": "Gen-Z Digital Lifestyle",
+    "badge": "Best for Subscriptions & EMI",
+    "popularRank": 6,
+    "joiningFee": "₹499 + GST",
+    "annualFee": "₹499 + GST",
+    "feeWaiver": "Waived on annual retail spends of ₹1,00,000 or more",
+    "forexMarkup": "1.50% + GST",
+    "rewardRate": {
+      "base": "2X Reward Points per ₹150 spent on general retail",
+      "headline": "Up to 16X reward points on milestone spends + low 1.5% forex markup",
+      "pointValue": "₹0.25",
+      "accelerated": "Up to 16X Reward Points on monthly milestone spends; 100 to 1,000 bonus Reward Points on crossing spend slabs of ₹5,000, ₹10,000, and ₹15,000",
+      "rewardCurrency": "IDFC FIRST Reward Points"
+    },
+    "loungeAccess": {
+      "domestic": "4 complimentary domestic airport lounge visits per calendar year (1 per quarter)",
+      "international": "Not available",
+      "spendCondition": "Subject to spending ₹20,000 or more in the previous calendar month"
+    },
+    "eligibility": {
+      "minIncome": "₹25,000/month",
+      "employmentType": "Salaried, Young Professionals, or Freelancers",
+      "minCreditScore": 700
+    },
+    "welcomeBenefits": [
+      "2,000 bonus Reward Points upon spending ₹5,000 within the first 30 days.",
+      "Complimentary Lenskart Gold membership and Times Prime subscription perks."
+    ],
+    "keyHighlights": [
+      "Subsidized 1.50% foreign exchange markup for international shopping and SaaS apps.",
+      "Fee-free instant EMI conversion options on high-ticket purchases.",
+      "20% to 50% merchant discounts across Zomato, Domino’s, and OTT streaming platforms."
+    ],
+    "pros": [
+      "Affordable 1.5% forex markup on a budget lifestyle card.",
+      "Milestone reward structure rewards smaller, consistent monthly spending (₹5k–₹15k).",
+      "Domestic airport lounge access included for a ₹499 fee card."
+    ],
+    "cons": [
+      "Carries an annual fee (unlike standard Lifetime Free First cards).",
+      "Lounge access requires meeting a ₹20,000 monthly spend qualification.",
+      "Reward points conversion incurs standard redemption fees."
+    ],
+    "bestFor": "Gen-Z spenders and young professionals managing app subscriptions, food orders, and overseas digital tools.",
+    "editorialVerdict": "A youth-focused lifestyle card offering milestone bonuses, low 1.5% forex fees, and easy EMI conversion options.",
+    "createdAt": "2026-09-17T11:40:51.495Z",
+    "updatedAt": "2026-09-25T12:08:43.191Z"
+  },
+  {
+    "id": "idfc-first-power-plus",
+    "name": "IDFC FIRST HPCL Power+ Credit Card",
+    "issuer": "IDFC Bank",
+    "logo": "/partners-logos/idfc-logo.webp",
+    "cardImage": "/cards/idfc-first-power-plus.webp",
+    "network": "RuPay",
+    "category": [
+      "all",
+      "entry-level",
+      "popular",
+      "upi",
+      "lifestyle"
+    ],
+    "description": "An aggressive co-branded fuel card operating on the RuPay network. Cardholders earn up to 6.5% savings on HPCL fuel purchases via the HP Pay app alongside 5% returns on grocery store shopping, household utility bills, and FASTag recharges.",
+    "categoryLabel": "Fuel, FASTag & Utilities",
+    "badge": "Best Fuel Value-Back Card",
+    "popularRank": 7,
+    "joiningFee": "₹499 + GST",
+    "annualFee": "₹499 + GST",
+    "feeWaiver": "Waived on annual spends of ₹1,50,000 or more",
+    "forexMarkup": "3.50% + GST",
+    "rewardRate": {
+      "base": "3X Reward Points per ₹150 on generic retail transactions (0.5% return)",
+      "headline": "Up to 6.5% savings on HPCL fuel + 5% on groceries, utilities & FASTag",
+      "pointValue": "₹0.25",
+      "accelerated": "Up to 6.5% value-back (30X points) on HPCL fuel via HP Pay app; 5% savings on grocery, utility bills, and IDFC FIRST FASTag recharge",
+      "rewardCurrency": "IDFC FIRST Reward Points"
+    },
+    "loungeAccess": {
+      "domestic": "4 complimentary domestic airport lounge visits per calendar year (1 per quarter)",
+      "international": "Not available",
+      "spendCondition": "Subject to spending ₹20,000 or more in the previous calendar month"
+    },
+    "eligibility": {
+      "minIncome": "₹25,000/month",
+      "employmentType": "Salaried or Self-Employed",
+      "minCreditScore": 710
+    },
+    "welcomeBenefits": [
+      "₹500 cashback on the first HPCL fuel transaction of ₹500 or more within 30 days.",
+      "5% cashback (up to ₹1,000) on the first EMI conversion within 30 days."
+    ],
+    "keyHighlights": [
+      "Save up to 6.5% on fuel purchases at HPCL pumps nationwide.",
+      "RuPay enabled for everyday merchant UPI scan-and-pay transactions.",
+      "25% discount on movie tickets on District / Paytm (up to ₹100 once a month)."
+    ],
+    "pros": [
+      "High 6.5% return rate on fuel purchases across HPCL pumps.",
+      "Accelerated 5% rewards on groceries, utility bills, and FASTag recharges.",
+      "Welcome fuel voucher covers the joining fee completely."
+    ],
+    "cons": [
+      "Accelerated fuel savings require payments through the HP Pay app.",
+      "Monthly spend capping applies on fuel (₹10,000) and grocery/utility categories (₹2,000).",
+      "Quarterly lounge access requires meeting a ₹20,000 monthly spend threshold."
+    ],
+    "bestFor": "Daily vehicle commuters and car owners refueling frequently at HPCL petrol pumps.",
+    "editorialVerdict": "A well-rounded fuel card combining fuel savings with grocery and utility benefits on the RuPay network.",
+    "createdAt": "2026-09-17T11:40:51.495Z",
+    "updatedAt": "2026-09-25T12:08:43.191Z"
+  },
+  {
+    "id": "idfc-first-digital-rupay",
+    "name": "FIRST Digital RuPay Credit Card",
+    "issuer": "IDFC Bank",
+    "logo": "/partners-logos/idfc-logo.webp",
+    "cardImage": "/cards/idfc-first-digital-rupay.webp",
+    "network": "RuPay",
+    "category": [
+      "all",
+      "entry-level",
+      "upi",
+      "popular"
+    ],
+    "description": "The FIRST Digital RuPay Credit Card is a virtual floater card designed for existing IDFC FIRST cardholders. It links directly to the primary card’s credit line, enabling merchant QR code scan-and-pay transactions on PhonePe, Google Pay, and Paytm while earning never-expiring reward points.",
+    "categoryLabel": "Virtual UPI & Daily QR Payments",
+    "badge": "Best for UPI Micro-Spends",
+    "popularRank": 8,
+    "joiningFee": "₹199 + GST",
+    "annualFee": "₹199 + GST",
+    "feeWaiver": "Waived on annual spends of ₹25,000 or more",
+    "forexMarkup": "3.50% + GST",
+    "rewardRate": {
+      "base": "1 Reward Point per ₹150 on UPI transactions below ₹2,000",
+      "headline": "Up to 3X never-expiring reward points on merchant UPI scan & pay transactions",
+      "pointValue": "₹0.25 (up to ₹0.50 on travel portal bookings)",
+      "accelerated": "3 Reward Points per ₹150 on merchant UPI payments above ₹2,000",
+      "rewardCurrency": "IDFC FIRST Reward Points"
+    },
+    "loungeAccess": {
+      "domestic": "Not available",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "Existing IDFC FIRST Bank credit cardholder",
+      "employmentType": "Salaried or Self-Employed",
+      "minCreditScore": 700
+    },
+    "welcomeBenefits": [
+      "100% cashback (up to ₹200) across your first 4 UPI transactions (up to ₹50 each) within 15 days."
+    ],
+    "keyHighlights": [
+      "Virtual floater card linked directly to your primary IDFC FIRST credit card limit.",
+      "Connects instantly to Google Pay, PhonePe, Paytm, and BHIM for QR code scanning.",
+      "All spends count toward primary card milestone thresholds and fee waiver benefits."
+    ],
+    "pros": [
+      "Instant digital onboarding directly inside the IDFC FIRST mobile app.",
+      "Low annual fee easily waived with modest daily UPI usage.",
+      "Earns reward points on routine neighborhood grocery and vendor payments."
+    ],
+    "cons": [
+      "Purely virtual card (no physical plastic issued).",
+      "Zero airport lounge access.",
+      "P2P (peer-to-peer) transfers do not earn rewards."
+    ],
+    "bestFor": "Existing IDFC cardholders wanting a dedicated virtual RuPay card for daily QR scan-and-pay UPI transactions.",
+    "editorialVerdict": "An efficient virtual UPI add-on that lets existing cardholders link their IDFC credit limit to UPI apps with modest fee requirements.",
+    "createdAt": "2026-09-17T11:40:51.495Z",
+    "updatedAt": "2026-09-25T12:08:43.191Z"
+  },
+  {
+    "id": "idfc-first-ashva",
+    "name": "IDFC FIRST Ashva Credit Card",
+    "issuer": "IDFC Bank",
+    "logo": "/partners-logos/idfc-logo.webp",
+    "cardImage": "/cards/idfc-first-ashva.webp",
+    "network": "Visa",
+    "category": [
+      "all",
+      "travel",
+      "lifestyle",
+      "popular",
+      "dining"
+    ],
+    "description": "Crafted in precision metal, the IDFC FIRST Ashva Credit Card targets frequent flyers seeking international spending efficiency. It offers a 1.00% foreign exchange markup, up to 16 domestic lounge and spa visits per year, and comprehensive trip cancellation coverage.",
+    "categoryLabel": "Premium Metal Travel",
+    "badge": "1% Forex Metal Travel Pick",
+    "popularRank": 9,
+    "joiningFee": "₹2,999 + GST",
+    "annualFee": "₹2,999 + GST",
+    "feeWaiver": "No annual fee waiver; compensated with 7,500 Reward Points on spending ₹8,00,000 annually",
+    "forexMarkup": "1.00% + GST",
+    "rewardRate": {
+      "base": "5X Reward Points per ₹150 spent on monthly spends up to ₹20,000 (0.83% return)",
+      "headline": "Up to 10X reward points + 1% low forex markup on a crafted metal card",
+      "pointValue": "₹0.25",
+      "accelerated": "10X Reward Points per ₹150 on incremental monthly spends above ₹20,000 (1.67% return); up to 40X on flight bookings and 60X on hotel bookings via IDFC app",
+      "rewardCurrency": "IDFC FIRST Reward Points"
+    },
+    "loungeAccess": {
+      "domestic": "16 complimentary domestic airport lounge and spa visits per year (max 4 per quarter)",
+      "international": "8 complimentary international lounge visits per year via Priority Pass (max 2 per quarter)",
+      "spendCondition": "Subject to spending ₹20,000 or more in the previous calendar month"
+    },
+    "eligibility": {
+      "minIncome": "₹1,00,000/month or ITR > ₹12,00,000/year",
+      "employmentType": "Salaried or Self-Employed",
+      "minCreditScore": 740
+    },
+    "welcomeBenefits": [
+      "Up to 7,500 bonus Reward Points (2,500 on joining fee + 2,500 on month 2 and month 3 spend targets).",
+      "Flat ₹5,000 discount on luxury stays at The Postcard Hotels & Resorts."
+    ],
+    "keyHighlights": [
+      "Low 1.00% foreign exchange markup on all international transactions.",
+      "Free trip cancellation protection cover of up to ₹25,000 twice a year.",
+      "Buy 1 Get 1 free movie ticket on District app (up to ₹400 off on 2nd ticket, twice a month)."
+    ],
+    "pros": [
+      "Metal form factor with a competitive 1.0% forex fee.",
+      "Generous domestic and international lounge allowance (including airport spa access).",
+      "Up to ₹800 monthly movie ticket savings on District app."
+    ],
+    "cons": [
+      "Annual fee of ₹2,999 + GST is non-waivable.",
+      "Lounge access and golf lessons require spending ₹20,000 in the previous month.",
+      "Reward point value remains standard at ₹0.25."
+    ],
+    "bestFor": "Frequent travelers and movie enthusiasts wanting a premium metal card with a 1% forex markup.",
+    "editorialVerdict": "IDFC's premium metal travel card balances a low 1% forex fee, domestic spa/lounge access, and movie ticket discounts.",
+    "createdAt": "2026-09-17T11:40:51.495Z",
+    "updatedAt": "2026-09-25T12:08:43.191Z"
+  },
+  {
+    "id": "idfc-first-mayura",
+    "name": "IDFC FIRST Mayura Credit Card",
+    "issuer": "IDFC Bank",
+    "logo": "/partners-logos/idfc-logo.webp",
+    "cardImage": "/cards/idfc-first-mayura.webp",
+    "network": "Mastercard",
+    "category": [
+      "all",
+      "travel",
+      "lifestyle",
+      "dining",
+      "popular"
+    ],
+    "description": "The IDFC FIRST Mayura Credit Card is the bank’s top-tier travel metal card, featuring true 0.00% foreign exchange markup worldwide. It includes guest allowances on domestic airport lounges, comprehensive trip cancellation reimbursement, and high reward multipliers on travel portal bookings.",
+    "categoryLabel": "Super-Premium Metal Travel",
+    "badge": "0% Forex Luxury Metal Flagship",
+    "popularRank": 10,
+    "joiningFee": "₹5,999 + GST",
+    "annualFee": "₹5,999 + GST",
+    "feeWaiver": "No annual fee waiver; compensated with 15,000 Reward Points on spending ₹15,00,000 annually",
+    "forexMarkup": "0.00% (Zero Forex Markup)",
+    "rewardRate": {
+      "base": "5X Reward Points per ₹150 spent on monthly spends up to ₹20,000 (0.83% return)",
+      "headline": "True 0% Forex markup + up to 10X points and rich travel portal rewards on metal",
+      "pointValue": "₹0.25 (up to ₹0.50 on travel portal bookings)",
+      "accelerated": "10X Reward Points per ₹150 on incremental monthly spends above ₹20,000 (1.67% return); up to 40X on travel bookings via IDFC app; 3X points on rent and utilities",
+      "rewardCurrency": "IDFC FIRST Reward Points"
+    },
+    "loungeAccess": {
+      "domestic": "16 complimentary Indian airport lounge visits per year (max 4 per quarter, including 1 guest visit)",
+      "international": "16 complimentary international lounge visits per year via Priority Pass (max 4 per quarter)",
+      "spendCondition": "Subject to spending ₹20,000 or more in the previous calendar month"
+    },
+    "eligibility": {
+      "minIncome": "₹2,00,000/month or ITR > ₹25,00,000/year",
+      "employmentType": "Salaried, CXOs, or Established Business Owners",
+      "minCreditScore": 750
+    },
+    "welcomeBenefits": [
+      "Up to 12,000 bonus Reward Points (4,000 on joining fee + 4,000 on month 2 and month 3 spend milestones).",
+      "₹4,000 cashback on eligible transactions within the first 60 days.",
+      "Flat ₹5,000 discount on stays at The Postcard Hotels & Resorts."
+    ],
+    "keyHighlights": [
+      "True 0.00% zero foreign currency markup on all international card swipes and portals.",
+      "Free trip cancellation protection cover up to ₹50,000 twice a year.",
+      "Buy 1 Get 1 free movie ticket on District app (up to ₹500 off on 2nd ticket, twice a month)."
+    ],
+    "pros": [
+      "True 0% forex markup on a luxury metal card.",
+      "Lounge quota allows taking an accompanying guest into domestic lounges.",
+      "Generous trip cancellation cover and up to ₹1,000 monthly movie discounts."
+    ],
+    "cons": [
+      "Non-waivable annual fee of ₹5,999 + GST.",
+      "Lounge and golf perks require meeting the ₹20,000 monthly spend condition.",
+      "High income eligibility threshold (₹25 LPA+)."
+    ],
+    "bestFor": "Frequent luxury travelers and overseas spenders looking for 0% forex fees and metal card prestige.",
+    "editorialVerdict": "IDFC's flagship travel metal card, pairing true 0% forex fees with generous lounge allowances and trip cancellation cover.",
+    "createdAt": "2026-09-17T11:40:51.495Z",
+    "updatedAt": "2026-09-25T12:08:43.191Z"
+  },
+  {
+    "id": "idfc-first-power",
+    "name": "IDFC FIRST HPCL Power Credit Card",
+    "issuer": "IDFC Bank",
+    "logo": "/partners-logos/idfc-logo.webp",
+    "cardImage": "/cards/idfc-first-power.webp",
+    "network": "RuPay",
+    "category": [
+      "all",
+      "entry-level",
+      "upi"
+    ],
+    "description": "An affordable fuel card designed for two-wheeler commuters and daily drivers. Backed by RuPay for UPI payments, it provides up to 5% savings on HPCL fuel and LPG purchases with a low annual maintenance fee of ₹199 that is easily waived.",
+    "categoryLabel": "Affordable Fuel & Transit",
+    "badge": "Budget Fuel Pick",
+    "popularRank": 11,
+    "joiningFee": "₹199 + GST",
+    "annualFee": "₹199 + GST",
+    "feeWaiver": "Waived on annual spends of ₹50,000 or more",
+    "forexMarkup": "3.50% + GST",
+    "rewardRate": {
+      "base": "2X Reward Points per ₹150 on standard retail transactions",
+      "headline": "Up to 5% savings on HPCL fuel purchases and IDFC FIRST FASTag recharge",
+      "pointValue": "₹0.25",
+      "accelerated": "Up to 5% overall value-back on HPCL fuel and LPG purchases; 2.5% savings on groceries and utility payments",
+      "rewardCurrency": "IDFC FIRST Reward Points"
+    },
+    "loungeAccess": {
+      "domestic": "Not available",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "₹20,000/month",
+      "employmentType": "Salaried or Self-Employed",
+      "minCreditScore": 690
+    },
+    "welcomeBenefits": [
+      "₹250 cashback voucher on first HPCL fuel transaction of ₹250 or more within 30 days."
+    ],
+    "keyHighlights": [
+      "Affordable entry into the HPCL co-branded fuel rewards network.",
+      "RuPay enabled for merchant UPI QR code scan-and-pay payments.",
+      "Low annual renewal fee waiver mark of only ₹50,000."
+    ],
+    "pros": [
+      "Minimal ₹199 annual fee easily recovered through regular commuting.",
+      "RuPay UPI integration allows convenient micro-payments at local stores.",
+      "Welcome cashback offsets the initial joining cost."
+    ],
+    "cons": [
+      "Lower fuel value-back (5%) compared to the 6.5% rate on Power+.",
+      "Zero airport lounge access.",
+      "Monthly reward capping applies across fuel and utility categories."
+    ],
+    "bestFor": "Two-wheeler riders and modest commuters seeking lower annual fees with fuel savings and UPI convenience.",
+    "editorialVerdict": "An accessible, low-maintenance fuel companion for everyday riders and budget commuters.",
+    "createdAt": "2026-09-17T11:40:51.495Z",
+    "updatedAt": "2026-09-25T12:08:43.191Z"
+  },
+  {
+    "id": "idfc-first-earn-rupay",
+    "name": "FIRST EA₹N RuPay Credit Card (FD-Backed)",
+    "issuer": "IDFC Bank",
+    "logo": "/partners-logos/idfc-logo.webp",
+    "cardImage": "/cards/idfc-first-earn-rupay.webp",
+    "network": "RuPay",
+    "category": [
+      "all",
+      "entry-level",
+      "upi",
+      "cashback"
+    ],
+    "description": "A secured credit card designed to reward day-to-day UPI usage. Backed by an IDFC FIRST Bank Fixed Deposit starting from ₹5,000, it delivers a direct 1% cashback on merchant UPI QR code scans made through the IDFC mobile app while helping users establish credit history.",
+    "categoryLabel": "Secured UPI Cashback",
+    "badge": "1% UPI Cashback on FD",
+    "popularRank": 12,
+    "joiningFee": "Nil (Promotional ₹0 joining fee) / ₹499 + GST",
+    "annualFee": "₹499 + GST",
+    "feeWaiver": "Waived on annual spends of ₹1,00,000 or more",
+    "forexMarkup": "3.50% + GST",
+    "rewardRate": {
+      "base": "0.50% cashback on UPI transactions via third-party apps and online retail purchases",
+      "headline": "1% cashback on all UPI spends via IDFC app backed by a Fixed Deposit",
+      "pointValue": "₹1.00",
+      "accelerated": "1% direct cashback on all merchant UPI scan-and-pay transactions made through the IDFC FIRST Bank mobile app (up to ₹500/month)",
+      "rewardCurrency": "Cashback (Auto-credited)"
+    },
+    "loungeAccess": {
+      "domestic": "Not available",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "No income verification required (Secured against ₹5,000+ Fixed Deposit)",
+      "employmentType": "Students, Freelancers, Homemakers, or Credit Builders",
+      "minCreditScore": 0
+    },
+    "welcomeBenefits": [
+      "10% cashback (up to ₹250) on the first transaction within 15 days of card generation.",
+      "5% cashback (up to ₹1,000) on the first EMI conversion within 30 days."
+    ],
+    "keyHighlights": [
+      "Guaranteed 100% digital issuance backed by an FD starting from just ₹5,000.",
+      "1% cashback on UPI payments without complex points conversion tables.",
+      "25% discount on movie tickets on District / Paytm (up to ₹100 once a month)."
+    ],
+    "pros": [
+      "Guaranteed approval for beginners and students with no income proof required.",
+      "Direct 1% cashback on UPI payments where debit cards yield nothing.",
+      "Fixed deposit continues earning attractive term deposit interest rates."
+    ],
+    "cons": [
+      "Maximum UPI cashback capped at ₹500 per month.",
+      "Requires using the IDFC mobile app to unlock the full 1% cashback rate.",
+      "No airport lounge privileges included."
+    ],
+    "bestFor": "First-time credit card users and UPI spenders wanting straightforward cashback without credit score checks.",
+    "editorialVerdict": "A practical secured card that turns daily UPI QR code scans into direct cashback while building your credit score.",
+    "createdAt": "2026-09-17T11:40:51.495Z",
+    "updatedAt": "2026-09-25T12:08:43.191Z"
+  },
+  {
+    "id": "idfc-first-indigo-dual",
+    "name": "IndiGo IDFC FIRST Dual Credit Card",
+    "issuer": "IDFC Bank",
+    "logo": "/partners-logos/idfc-logo.webp",
+    "cardImage": "/cards/idfc-first-indigo-dual.webp",
+    "network": "Mastercard & RuPay (Dual Card Pack)",
+    "category": [
+      "all",
+      "travel",
+      "upi",
+      "popular",
+      "lifestyle"
+    ],
+    "description": "An innovative travel proposition that issues two cards under a single application: a premium Mastercard for global acceptance and a RuPay card for domestic UPI payments. It features true 0.00% foreign exchange markup and accelerates IndiGo BluChips accumulation on ticket purchases.",
+    "categoryLabel": "Aviation, Travel & Dual Network",
+    "badge": "Dual Network Airline Card",
+    "popularRank": 13,
+    "joiningFee": "₹4,999 + GST (Or ₹0 with minimum ₹50,000 Fixed Deposit)",
+    "annualFee": "₹4,999 + GST",
+    "feeWaiver": "No spend-based waiver; compensated with 5,000 IndiGo BluChips and meal vouchers annually",
+    "forexMarkup": "0.00% (Zero Forex Markup)",
+    "rewardRate": {
+      "base": "Earn IndiGo BluChips on all everyday retail, dining, and UPI spends",
+      "headline": "0% Forex markup + earn IndiGo BluChips with dual Mastercard & RuPay cards",
+      "pointValue": "Variable (Redeemable directly for IndiGo domestic and international flight tickets)",
+      "accelerated": "Accelerated BluChips on IndiGo flight bookings; unlock vouchers of up to 25,000 BluChips upon reaching annual spending milestones",
+      "rewardCurrency": "IndiGo BluChips"
+    },
+    "loungeAccess": {
+      "domestic": "8 complimentary domestic airport lounge visits per year (max 2 per quarter)",
+      "international": "4 complimentary international lounge visits per year via Priority Pass (max 1 per quarter)",
+      "spendCondition": "Subject to spending ₹20,000 or more in the previous calendar month"
+    },
+    "eligibility": {
+      "minIncome": "₹1,00,000/month OR secured against a ₹50,000+ Fixed Deposit",
+      "employmentType": "Salaried, Self-Employed, or FD-Backed Applicants",
+      "minCreditScore": 740
+    },
+    "welcomeBenefits": [
+      "Voucher of 5,000 IndiGo BluChips + a complimentary IndiGo in-flight meal voucher upon fee payment.",
+      "Additional 3,000 BluChips voucher on spending ₹1,00,000 within the first 90 days."
+    ],
+    "keyHighlights": [
+      "Single application delivers two cards: a premium Mastercard for global use and a RuPay card for UPI.",
+      "True 0.00% zero foreign currency markup on all international transactions.",
+      "Trip cancellation reimbursement cover of up to ₹25,000 per year."
+    ],
+    "pros": [
+      "True 0% forex markup paired with a major airline loyalty program.",
+      "Dual-network architecture provides both global acceptance and RuPay UPI functionality.",
+      "Option to skip credit history checks and get the card with a ₹50k Fixed Deposit."
+    ],
+    "cons": [
+      "Steep annual fee of ₹4,999 + GST.",
+      "BluChips carry value strictly inside the IndiGo flight booking ecosystem.",
+      "Lounge access requires meeting the monthly ₹20,000 spend condition."
+    ],
+    "bestFor": "Frequent flyers on IndiGo wanting 0% forex fees, flight meal perks, and RuPay UPI flexibility.",
+    "editorialVerdict": "An aggressive co-brand pairing 0% forex fees and flight ticket redemption with a dual Mastercard and RuPay design.",
+    "createdAt": "2026-09-17T11:40:51.495Z",
+    "updatedAt": "2026-09-25T12:08:43.191Z"
+  },
+  {
+    "id": "idfc-first-quantum-plus",
+    "name": "IDFC FIRST Quantum+ Credit Card (FD-Backed)",
+    "issuer": "IDFC Bank",
+    "logo": "/partners-logos/idfc-logo.webp",
+    "cardImage": "/cards/idfc-first-quantum-plus.webp",
+    "network": "RuPay",
+    "category": [
+      "all",
+      "entry-level",
+      "cashback",
+      "upi"
+    ],
+    "description": "A Lifetime Free secured shopping card backed by an IDFC FIRST Bank Fixed Deposit of ₹10,000 or more. Tailored for online shoppers and students, it provides up to 2% direct cashback on e-commerce transactions without requiring income documents.",
+    "categoryLabel": "Secured Shopping Cashback",
+    "badge": "2% Online Cashback on FD",
+    "popularRank": 14,
+    "joiningFee": "Nil (Lifetime Free)",
+    "annualFee": "Nil (Lifetime Free)",
+    "feeWaiver": "Lifetime Free unconditionally",
+    "forexMarkup": "3.50% + GST",
+    "rewardRate": {
+      "base": "1% cashback on online shopping up to ₹10,000, in-store retail swipes, and app UPI payments",
+      "headline": "Up to 2% cashback on online shopping and 1% on in-store spends",
+      "pointValue": "₹1.00",
+      "accelerated": "2% cashback on monthly online retail spending above ₹10,000; 1% bonus cashback on travel bookings in the IDFC app",
+      "rewardCurrency": "Cashback (Direct credit)"
+    },
+    "loungeAccess": {
+      "domestic": "Not available",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "No income verification required (Secured against ₹10,000+ Fixed Deposit)",
+      "employmentType": "Students, Freelancers, Homemakers, or New Borrowers",
+      "minCreditScore": 0
+    },
+    "welcomeBenefits": [
+      "Instant digital onboarding against an FD with zero credit check or documentation delays."
+    ],
+    "keyHighlights": [
+      "Issued against a Fixed Deposit of ₹10,000 or more with guaranteed approval.",
+      "Up to 2% direct cashback on e-commerce shopping without catalog conversion fees.",
+      "100% Lifetime Free with zero annual or renewal charges."
+    ],
+    "pros": [
+      "Lifetime Free secured card with genuine 2% online cashback.",
+      "FD continues earning compounding term deposit interest.",
+      "RuPay enabled for merchant UPI scan-and-pay transactions."
+    ],
+    "cons": [
+      "Requires locking a minimum ₹10,000 Fixed Deposit.",
+      "No airport lounge access.",
+      "Standard 3.50% foreign exchange fee."
+    ],
+    "bestFor": "E-commerce shoppers and students wanting online cashback without income documentation.",
+    "editorialVerdict": "An approachable Lifetime Free secured card rewarding online e-commerce purchases with up to 2% cashback.",
+    "createdAt": "2026-09-17T11:40:51.495Z",
+    "updatedAt": "2026-09-25T12:08:43.191Z"
+  },
+  {
+    "id": "idfc-first-wow-black",
+    "name": "FIRST WOW! Black Credit Card (FD-Backed Metal)",
+    "issuer": "IDFC Bank",
+    "logo": "/partners-logos/idfc-logo.webp",
+    "cardImage": "/cards/idfc-first-wow-black.webp",
+    "network": "Visa",
+    "category": [
+      "all",
+      "entry-level",
+      "travel",
+      "lifestyle"
+    ],
+    "description": "Crafted in black metal and backed by an IDFC FIRST Bank Fixed Deposit, this card blends premium metal aesthetics with true 0.00% foreign exchange markup. It provides international students and overseas vacationers with guaranteed approval and airport lounge privileges.",
+    "categoryLabel": "Secured Metal Travel",
+    "badge": "Metal Secured Zero-Forex Card",
+    "popularRank": 15,
+    "joiningFee": "₹2,999 + GST (Or waived against high-value Fixed Deposit)",
+    "annualFee": "Nil (Lifetime Free renewal)",
+    "feeWaiver": "Lifetime Free renewal after setup",
+    "forexMarkup": "0.00% (Zero Forex Markup)",
+    "rewardRate": {
+      "base": "1 Reward Point per ₹150 on retail retail transactions",
+      "headline": "0% Forex markup + 4X rewards on all spends delivered on a crafted metal card",
+      "pointValue": "₹0.25",
+      "accelerated": "4X Reward Points on all purchases with no category restrictions; special hotel and dining discounts",
+      "rewardCurrency": "IDFC FIRST Reward Points"
+    },
+    "loungeAccess": {
+      "domestic": "4 complimentary domestic airport lounge visits per year (1 per quarter)",
+      "international": "Not available",
+      "spendCondition": "Subject to spending ₹20,000 or more in the previous calendar month"
+    },
+    "eligibility": {
+      "minIncome": "No income verification required (Secured against higher-slab Fixed Deposit)",
+      "employmentType": "Students Traveling Abroad, Freelancers, or Affluent Credit Builders",
+      "minCreditScore": 0
+    },
+    "welcomeBenefits": [
+      "Precision-engraved black metal card form factor delivered in bespoke packaging."
+    ],
+    "keyHighlights": [
+      "True 0.00% zero foreign exchange markup on all international transactions.",
+      "Crafted in black metal and backed by an IDFC FIRST Bank Fixed Deposit.",
+      "Complimentary domestic airport lounge access each quarter."
+    ],
+    "pros": [
+      "Metal credit card aesthetics without income proof or credit score requirements.",
+      "True 0% forex markup makes it a strong companion for studying or vacationing abroad.",
+      "Backed by a high-interest term deposit."
+    ],
+    "cons": [
+      "Requires higher fixed deposit commitments than the standard WOW! card.",
+      "Lounge access requires spending ₹20,000 in the previous month.",
+      "Base reward accrual speed is modest."
+    ],
+    "bestFor": "Students traveling overseas and design-conscious users wanting a 0% forex metal card backed by a Fixed Deposit.",
+    "editorialVerdict": "Combines the zero-forex benefits of FIRST WOW! with a sleek metal card body and domestic airport lounge access.",
+    "createdAt": "2026-09-17T11:40:51.495Z",
+    "updatedAt": "2026-09-25T12:08:43.191Z"
+  },
+  {
+    "id": "idfc-first-vistara",
+    "name": "Club Vistara IDFC FIRST Credit Card",
+    "issuer": "IDFC Bank",
+    "logo": "/partners-logos/idfc-logo.webp",
+    "cardImage": "/cards/idfc-first-vistara.webp",
+    "network": "Mastercard",
+    "category": [
+      "all",
+      "travel",
+      "lifestyle"
+    ],
+    "description": "A co-branded aviation card for domestic corporate and leisure travelers. Cardholders receive complimentary Premium Economy flight ticket vouchers, Club Vistara Silver Tier status, golf games, and lounge access, offsetting the upfront joining fee.",
+    "categoryLabel": "Aviation & Airline Rewards",
+    "badge": "Airline Co-Branded Flyer",
+    "popularRank": 16,
+    "joiningFee": "₹4,999 + GST",
+    "annualFee": "₹4,999 + GST",
+    "feeWaiver": "No annual spend waiver; compensated with flight tickets upon renewal",
+    "forexMarkup": "2.99% + GST",
+    "rewardRate": {
+      "base": "2 CV Points per ₹200 spent on regular retail categories",
+      "headline": "Up to 6 CV Points per ₹200 spent + complimentary Premium Economy flight tickets",
+      "pointValue": "Up to ₹1.00 per mile (on flight award seat bookings)",
+      "accelerated": "6 CV Points per ₹200 spent on direct airline spends; 4 CV Points per ₹200 on dining and entertainment",
+      "rewardCurrency": "Club Vistara (CV) Points / Air India Flying Returns Miles"
+    },
+    "loungeAccess": {
+      "domestic": "8 complimentary domestic airport lounge visits per calendar year (2 per quarter)",
+      "international": "4 complimentary international lounge visits per calendar year via Priority Pass (1 per quarter)",
+      "spendCondition": "Subject to spending ₹20,000 or more in the previous calendar month"
+    },
+    "eligibility": {
+      "minIncome": "₹1,00,000/month or ITR > ₹12,00,000/year",
+      "employmentType": "Salaried or Self-Employed",
+      "minCreditScore": 740
+    },
+    "welcomeBenefits": [
+      "1 complimentary Premium Economy flight ticket voucher upon payment of joining fee.",
+      "Complimentary Club Vistara Silver Tier membership upgrade."
+    ],
+    "keyHighlights": [
+      "Up to 5 complimentary Premium Economy flight ticket vouchers on achieving annual spend milestones.",
+      "Complimentary golf games and golf lessons every calendar quarter.",
+      "Free flight cancellation insurance cover up to ₹10,000 twice a year."
+    ],
+    "pros": [
+      "Complimentary Premium Economy flight ticket voucher covers the ₹4,999 fee.",
+      "Strong tier status upgrade with priority baggage and boarding privileges.",
+      "Includes domestic and international airport lounge access and golf rounds."
+    ],
+    "cons": [
+      "Steep ₹4,999 annual fee with no spend-based waiver.",
+      "Domestic lounge visits require meeting the monthly ₹20,000 spend condition.",
+      "Points redemption is tied to airline award flight availability."
+    ],
+    "bestFor": "Frequent business and leisure flyers seeking complimentary flight ticket vouchers and airline tier perks.",
+    "editorialVerdict": "A rewarding co-branded airline card whose welcome flight ticket and tier status easily justify the joining fee for regular travelers.",
+    "createdAt": "2026-09-17T11:40:51.495Z",
+    "updatedAt": "2026-09-25T12:08:43.191Z"
+  },
+  {
+    "id": "idfc-first-business",
+    "name": "FIRST Business Credit Card",
+    "issuer": "IDFC Bank",
+    "logo": "/partners-logos/idfc-logo.webp",
+    "cardImage": "/cards/idfc-first-business.webp",
+    "network": "Mastercard",
+    "category": [
+      "all",
+      "business",
+      "lifestyle"
+    ],
+    "description": "Designed for small enterprises, traders, and sole proprietors, the FIRST Business Credit Card optimizes commercial cash flows. Issued Lifetime Free for enrolled MSMEs, it provides interest-free revolving credit, automated GST reporting, and domestic lounge access.",
+    "categoryLabel": "MSME & Commercial Working Capital",
+    "badge": "MSME Expense Manager",
+    "popularRank": 17,
+    "joiningFee": "Nil (Lifetime Free for enrolled business accounts)",
+    "annualFee": "Nil (Lifetime Free)",
+    "feeWaiver": "Lifetime Free unconditionally for registered MSMEs",
+    "forexMarkup": "3.50% + GST",
+    "rewardRate": {
+      "base": "3X Reward Points per ₹150 on generic business purchases (0.5% return)",
+      "headline": "Accelerated rewards on business utility, vendor supplies, and logistics",
+      "pointValue": "₹0.25",
+      "accelerated": "6X Reward Points per ₹150 on vendor software, commercial utilities, and office logistics",
+      "rewardCurrency": "IDFC FIRST Reward Points"
+    },
+    "loungeAccess": {
+      "domestic": "8 complimentary domestic airport lounge visits per calendar year (2 per quarter)",
+      "international": "Not available",
+      "spendCondition": "Subject to monthly commercial spending thresholds"
+    },
+    "eligibility": {
+      "minIncome": "Business ITR > ₹3,50,000/year",
+      "employmentType": "Sole Proprietors, Partners, or MSME Directors",
+      "minCreditScore": 710
+    },
+    "welcomeBenefits": [
+      "Up to 48 days interest-free working capital revolving window for business operations."
+    ],
+    "keyHighlights": [
+      "Integrated accounting and GST input tax credit reporting statements.",
+      "8 complimentary domestic airport lounge visits annually for business travel.",
+      "Dynamic low APR interest rates starting from 0.75% per month (9% p.a.)."
+    ],
+    "pros": [
+      "Lifetime Free commercial credit facility for registered business owners.",
+      "Helps small businesses manage vendor payouts and office utility bills.",
+      "Includes domestic airport lounge privileges."
+    ],
+    "cons": [
+      "Requires business proof (GST registration or Udyam certificate).",
+      "Standard 3.50% forex fee applies to international software purchases.",
+      "Reward catalog carries redemption processing fees."
+    ],
+    "bestFor": "Small enterprise owners, traders, and sole proprietors managing monthly supplies and commercial utilities.",
+    "editorialVerdict": "A practical commercial credit card that provides small enterprises with flexible working capital, tax tracking, and airport lounge access.",
+    "createdAt": "2026-09-17T11:40:51.495Z",
+    "updatedAt": "2026-09-25T12:08:43.191Z"
+  },
+  {
+    "id": "idfc-first-private",
+    "name": "FIRST Private Credit Card",
+    "issuer": "IDFC Bank",
+    "logo": "/partners-logos/idfc-logo.webp",
+    "cardImage": "/cards/idfc-first-private.webp",
+    "network": "Visa",
+    "category": [
+      "all",
+      "lifestyle",
+      "travel",
+      "dining"
+    ],
+    "description": "The FIRST Private Credit Card is an ultra-luxury black metal card issued strictly by invitation to high-net-worth clients and family offices. It features 0% foreign currency markup, unlimited worldwide airport lounge visits with guest entry privileges, and 0% interest on ATM cash withdrawals globally.",
+    "categoryLabel": "Ultra-Luxury Private Banking",
+    "badge": "By-Invitation Metal UHNI",
+    "popularRank": 18,
+    "joiningFee": "₹50,000 + GST",
+    "annualFee": "₹25,000 + GST",
+    "feeWaiver": "Waived for select private banking wealth relationships maintaining TRV",
+    "forexMarkup": "0.00% (Zero Forex Markup)",
+    "rewardRate": {
+      "base": "3X Reward Points per ₹150 on domestic retail transactions (0.5% return)",
+      "headline": "0% Forex markup + uncapped 10X points and 0% interest on global cash withdrawals",
+      "pointValue": "₹0.25 (up to ₹0.50 on luxury catalog and travel redemptions)",
+      "accelerated": "6X Reward Points per ₹150 on online transactions; 10X Reward Points per ₹150 on spends above ₹30,000/month; bespoke concierge redemptions",
+      "rewardCurrency": "IDFC FIRST Reward Points"
+    },
+    "loungeAccess": {
+      "domestic": "Unlimited complimentary domestic airport lounge visits for primary cardholder + 4 complimentary guest visits/year",
+      "international": "Unlimited complimentary international lounge visits globally via Priority Pass for primary cardholder + accompanying guests"
+    },
+    "eligibility": {
+      "minIncome": "By Invitation Only (Ultra-High-Net-Worth Individuals / TRV > ₹1 Crore)",
+      "employmentType": "Billionaires, Business Promoters, and Senior Corporate Leaders",
+      "minCreditScore": 780
+    },
+    "welcomeBenefits": [
+      "50,000 Reward Points redeemable up to ₹50,000 upon payment of commencement fee.",
+      "Bespoke hand-crafted metal card form factor delivered in luxury packaging."
+    ],
+    "keyHighlights": [
+      "True 0.00% zero foreign currency markup worldwide.",
+      "0% interest on ATM cash withdrawals across the globe for up to 45 days.",
+      "Free trip cancellation cover of up to ₹50,000 twice a year on flight or hotel bookings."
+    ],
+    "pros": [
+      "Unlimited worldwide airport lounge access with guest entry allowances.",
+      "True 0% forex markup and interest-free global ATM cash withdrawals.",
+      "Comprehensive ₹2.5 Crore air accident cover and VIP airport meet-and-assist services."
+    ],
+    "cons": [
+      "High commencement fee of ₹50,000 + GST.",
+      "Available strictly by invitation to ultra-high-net-worth individuals and family offices.",
+      "Requires substantial Private Wealth relationship balances with IDFC FIRST Bank."
+    ],
+    "bestFor": "Ultra-high-net-worth clients requiring unlimited global lounge access, zero forex fees, and VIP airport services.",
+    "editorialVerdict": "IDFC FIRST Bank's crown jewel, offering unlimited global lounge access, zero forex fees, and interest-free international cash withdrawals on an invitation-only metal card.",
+    "createdAt": "2026-09-17T11:40:51.495Z",
+    "updatedAt": "2026-09-25T12:08:43.191Z"
+  }
+]

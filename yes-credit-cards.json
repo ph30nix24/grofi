@@ -1,0 +1,1278 @@
+[
+  {
+    "id": "yes-bank-klick-kiwi",
+    "name": "YES Bank Klick RuPay Credit Card (via Kiwi)",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-klick-kiwi.webp",
+    "network": "RuPay",
+    "category": [
+      "all",
+      "entry-level",
+      "upi",
+      "popular",
+      "cashback"
+    ],
+    "description": "The YES Bank Klick RuPay Credit Card is a virtual credit solution tailored for the Kiwi fintech platform. Operating on the RuPay network with zero recurring fees, it delivers up to 1.5% cashback on merchant UPI QR code scans, enabling cardholders to convert daily street-side and grocery payments into direct cash savings.",
+    "categoryLabel": "Virtual UPI & Daily QR Payments",
+    "badge": "Most Used UPI Cashback Card",
+    "popularRank": 1,
+    "joiningFee": "Nil (Lifetime Free)",
+    "annualFee": "Nil (Lifetime Free)",
+    "feeWaiver": "Lifetime Free unconditionally",
+    "forexMarkup": "3.50% + GST",
+    "rewardRate": {
+      "base": "0.50% cashback on generic retail card transactions",
+      "headline": "Up to 1.5% cashback on merchant UPI QR scan & pay transactions",
+      "pointValue": "₹1.00",
+      "accelerated": "Up to 1.5% flat cashback on merchant UPI scan & pay transactions via the Kiwi app",
+      "rewardCurrency": "Kiwi Kiwis / Cashback (Direct bank transfer or statement credit)"
+    },
+    "loungeAccess": {
+      "domestic": "Up to 3 complimentary domestic airport lounge visits per year (via Kiwi Neon subscription tier)",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "₹20,000/month",
+      "employmentType": "Salaried, Freelancers, or Young Professionals",
+      "minCreditScore": 700
+    },
+    "welcomeBenefits": [
+      "Instant digital card issuance inside Kiwi app with bonus cashback drops on first 3 scan-and-pay transactions."
+    ],
+    "keyHighlights": [
+      "Purpose-built for virtual RuPay credit on UPI integration.",
+      "Direct cashback on everyday neighborhood merchant QR scans.",
+      "100% Lifetime Free with zero hidden annual maintenance charges."
+    ],
+    "pros": [
+      "Zero annual recurring cost (Lifetime Free).",
+      "Direct cashback without catalog point redemption friction.",
+      "Instant digital onboarding via video KYC."
+    ],
+    "cons": [
+      "Purely virtual card (no physical plastic card shipped).",
+      "P2P (peer-to-peer) fund transfers are excluded from cashback.",
+      "Airport lounge access requires active Kiwi Neon tier membership."
+    ],
+    "bestFor": "Everyday smartphone users looking for a dedicated zero-fee RuPay credit card for daily QR scan-and-pay payments.",
+    "editorialVerdict": "YES Bank’s highest-frequency card by daily swipes, making routine merchant UPI payments smooth and rewarding.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-select",
+    "name": "YES SELECT Credit Card",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-select.webp",
+    "network": "Visa / Mastercard",
+    "category": [
+      "all",
+      "entry-level",
+      "popular",
+      "lifestyle",
+      "dining"
+    ],
+    "description": "The foundation of YES Bank’s branch and corporate payroll portfolio, the YES SELECT Credit Card balances everyday shopping rewards with entertainment benefits. It provides double points on online retail, monthly BookMyShow ticket discounts, and domestic airport lounge access with an attainable annual fee waiver.",
+    "categoryLabel": "Everyday Shopping & Entertainment",
+    "badge": "Most Widely Held Branch Card",
+    "popularRank": 2,
+    "joiningFee": "₹599 + GST (Frequently issued Lifetime Free during promotional campaigns)",
+    "annualFee": "₹599 + GST",
+    "feeWaiver": "Waived on annual retail spends of ₹1,00,000 or more",
+    "forexMarkup": "3.00% + GST",
+    "rewardRate": {
+      "base": "4 YES Rewardz Points per ₹200 on offline retail spends (0.5% return)",
+      "headline": "8 YES Rewardz Points per ₹200 on online shopping + BOGO movie tickets",
+      "pointValue": "₹0.25",
+      "accelerated": "8 YES Rewardz Points per ₹200 on online shopping (1.0% return); 2 points per ₹200 on select utility and grocery categories",
+      "rewardCurrency": "YES Rewardz Points"
+    },
+    "loungeAccess": {
+      "domestic": "4 complimentary domestic airport lounge visits per calendar year (1 per quarter)",
+      "international": "Not available",
+      "spendCondition": "Subject to spending ₹50,000 or more in the previous calendar quarter"
+    },
+    "eligibility": {
+      "minIncome": "₹35,000/month or ITR > ₹5,00,000/year",
+      "employmentType": "Salaried or Self-Employed",
+      "minCreditScore": 710
+    },
+    "welcomeBenefits": [
+      "1,000 bonus YES Rewardz Points upon making initial retail transactions within 30 days."
+    ],
+    "keyHighlights": [
+      "Buy 1 Get 1 free movie ticket on BookMyShow (up to ₹250 discount once a month).",
+      "1% fuel surcharge waiver up to ₹250 per statement cycle across Indian fuel pumps.",
+      "Accessible fee waiver threshold at ₹1,00,000 annual spend."
+    ],
+    "pros": [
+      "Widely issued as Lifetime Free (LTF) for corporate salary account holders.",
+      "Useful BookMyShow movie BOGO discount (up to ₹3,000 annual savings).",
+      "Reward points never expire and redeem easily against flight and hotel bookings."
+    ],
+    "cons": [
+      "Lounge access requires meeting a ₹50,000 quarterly spend threshold.",
+      "Standard 3.0% forex fee.",
+      "Base offline reward rate is modest (0.5%)."
+    ],
+    "bestFor": "First-time applicants and mid-level salaried professionals wanting movie savings, online shopping rewards, and lounge access.",
+    "editorialVerdict": "YES Bank’s mass-market foundation; the default card issued across branches and corporate payroll relationships.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-virtual-rupay",
+    "name": "YES Bank Virtual RuPay Credit Card",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-virtual-rupay.webp",
+    "network": "RuPay",
+    "category": [
+      "all",
+      "entry-level",
+      "upi"
+    ],
+    "description": "The YES Bank Virtual RuPay Credit Card acts as a digital add-on for existing primary cardholders. Linked directly to the primary account’s credit limit, it enables immediate setup on UPI platforms to turn routine QR code merchant payments into reward points with zero annual charges.",
+    "categoryLabel": "Virtual UPI Floater",
+    "badge": "Virtual UPI Companion",
+    "popularRank": 3,
+    "joiningFee": "Nil (Lifetime Free for existing cardholders)",
+    "annualFee": "Nil (Lifetime Free)",
+    "feeWaiver": "Lifetime Free unconditionally",
+    "forexMarkup": "3.50% + GST",
+    "rewardRate": {
+      "base": "2 YES Rewardz Points per ₹200 on UPI transactions below ₹2,000",
+      "headline": "Earn reward points on daily merchant UPI scan & pay transactions",
+      "pointValue": "₹0.25",
+      "accelerated": "4 YES Rewardz Points per ₹200 on merchant UPI payments of ₹2,000 and above",
+      "rewardCurrency": "YES Rewardz Points"
+    },
+    "loungeAccess": {
+      "domestic": "Not available",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "Existing active YES Bank credit cardholder",
+      "employmentType": "Salaried or Self-Employed",
+      "minCreditScore": 700
+    },
+    "welcomeBenefits": [
+      "Instant digital card issuance directly inside YES Bank Iris Mobile Banking app."
+    ],
+    "keyHighlights": [
+      "Virtual floater credit card sharing the credit limit of your primary YES Bank card.",
+      "Links seamlessly to Google Pay, PhonePe, Paytm, and BHIM for QR payments.",
+      "Zero extra physical card fee or recurring maintenance charge."
+    ],
+    "pros": [
+      "Instant digital onboarding with zero physical paperwork.",
+      "100% Lifetime Free companion card.",
+      "Turns routine street-side grocery and merchant QR scans into reward points."
+    ],
+    "cons": [
+      "Purely virtual card (no physical plastic issued).",
+      "Zero airport lounge access.",
+      "Requires holding an active primary YES Bank credit card."
+    ],
+    "bestFor": "Existing YES Bank credit cardholders wanting to link their credit line to UPI apps for daily QR scan payments.",
+    "editorialVerdict": "A seamless virtual companion that lets existing YES Bank cardholders spend their credit limit via UPI QR codes at zero cost.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-ace",
+    "name": "YES ACE Credit Card",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-ace.webp",
+    "network": "Visa / Mastercard",
+    "category": [
+      "all",
+      "entry-level",
+      "popular",
+      "lifestyle",
+      "dining"
+    ],
+    "description": "An approachable starter card designed for early-career professionals and students entering the formal credit system. It accelerates rewards on e-commerce transactions, carries no redemption fees on its reward points, and provides an accessible annual fee waiver threshold of just ₹50,000.",
+    "categoryLabel": "Digital-First & Everyday Spends",
+    "badge": "Budget Online Shopper",
+    "popularRank": 4,
+    "joiningFee": "₹499 + GST",
+    "annualFee": "₹499 + GST",
+    "feeWaiver": "Waived on annual retail spends of ₹50,00, or more",
+    "forexMarkup": "3.50% + GST",
+    "rewardRate": {
+      "base": "4 YES Rewardz Points per ₹200 on offline retail spends (0.5% return)",
+      "headline": "8 YES Rewardz Points per ₹200 on online shopping with low renewal waiver",
+      "pointValue": "₹0.25",
+      "accelerated": "8 YES Rewardz Points per ₹200 on e-commerce shopping (1.0% return); 2 points per ₹200 on utilities and groceries",
+      "rewardCurrency": "YES Rewardz Points"
+    },
+    "loungeAccess": {
+      "domestic": "Not available",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "₹20,000/month",
+      "employmentType": "Salaried or Self-Employed",
+      "minCreditScore": 690
+    },
+    "welcomeBenefits": [
+      "500 bonus YES Rewardz Points upon making the first transaction within 30 days of card setup."
+    ],
+    "keyHighlights": [
+      "Double reward points on all online shopping transactions.",
+      "Low annual renewal waiver threshold of just ₹50,000.",
+      "1% fuel surcharge waiver up to ₹150 monthly across all Indian petrol pumps."
+    ],
+    "pros": [
+      "Accessible entry-level eligibility for first-time applicants.",
+      "Reward points never expire and have zero redemption convenience fees.",
+      "Easily achievable annual spend threshold for fee waiver."
+    ],
+    "cons": [
+      "No airport or railway lounge access included.",
+      "Modest base rewards on non-online purchases (0.5%).",
+      "Standard 3.50% foreign exchange fee."
+    ],
+    "bestFor": "First-time cardholders and college graduates looking for an affordable online shopping card.",
+    "editorialVerdict": "An approachable entry-level card offering double rewards on e-commerce checkouts and a very low annual spend waiver requirement.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-pop-club",
+    "name": "POP-CLUB YES Bank RuPay Credit Card",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-pop-club.webp",
+    "network": "RuPay",
+    "category": [
+      "all",
+      "entry-level",
+      "upi",
+      "cashback",
+      "popular"
+    ],
+    "description": "Developed for the modern digital consumer, this co-branded credit card provides up to 10% value-back across 500+ direct-to-consumer (D2C) brands such as mCaffeine, The Souled Store, and Sleepy Owl. Operating on RuPay, it pairs direct shopping currency with merchant UPI QR payment capabilities.",
+    "categoryLabel": "D2C E-Commerce & UPI",
+    "badge": "Best for Online D2C Brands",
+    "popularRank": 5,
+    "joiningFee": "Nil (Lifetime Free under introductory onboarding)",
+    "annualFee": "₹399 + GST",
+    "feeWaiver": "Waived on annual retail spends of ₹1,50,000 or more",
+    "forexMarkup": "3.50% + GST",
+    "rewardRate": {
+      "base": "1 POPcoin per ₹100 on standard retail transactions (0.25% return)",
+      "headline": "Up to 10% value-back on 500+ top D2C partner brands + UPI rewards",
+      "pointValue": "₹0.25 to ₹0.50 (redeemable directly on D2C checkouts and POP shopping app)",
+      "accelerated": "10 POPcoins per ₹100 spent across 500+ D2C ecosystem brands (mCaffeine, The Souled Store, Bombay Shaving Co., Sleepy Owl, etc.); 2 POPcoins per ₹100 on merchant UPI transactions",
+      "rewardCurrency": "POPcoins"
+    },
+    "loungeAccess": {
+      "domestic": "Not available",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "₹20,000/month",
+      "employmentType": "Salaried, Young Professionals, or Freelancers",
+      "minCreditScore": 700
+    },
+    "welcomeBenefits": [
+      "500 bonus POPcoins + ₹2,000 discount voucher bundle across partner lifestyle and apparel brands."
+    ],
+    "keyHighlights": [
+      "10% value-back in POPcoins across 500+ trending direct-to-consumer online brands.",
+      "RuPay enabled for daily merchant UPI scan-and-pay transactions.",
+      "POPcoins redeemable instantly as currency on partnered brand checkouts."
+    ],
+    "pros": [
+      "High reward velocity for consumers shopping on modern D2C brand websites.",
+      "RuPay network compatibility for fast daily QR scan payments.",
+      "Low annual maintenance fee easily waived with moderate shopping."
+    ],
+    "cons": [
+      "Peak reward value is tied to partner brand purchases within the POP ecosystem.",
+      "No airport lounge privileges included.",
+      "Standard 3.50% foreign exchange fee."
+    ],
+    "bestFor": "Online shoppers and Gen-Z consumers frequently purchasing apparel, grooming, and coffee from Indian D2C brands.",
+    "editorialVerdict": "A modern e-commerce co-brand capturing high daily volume across direct-to-consumer retail sites.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-paisasave",
+    "name": "Paisabazaar PaisaSave Credit Card",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-paisasave.webp",
+    "network": "RuPay",
+    "category": [
+      "all",
+      "entry-level",
+      "cashback",
+      "upi",
+      "popular"
+    ],
+    "description": "Acquired through the Paisabazaar platform, the PaisaSave Credit Card delivers flat 1% unlimited cashback on retail purchases alongside an accelerated 6% return on food delivery and travel aggregators. Issued on the RuPay network, it automatically credits savings directly against monthly card statements.",
+    "categoryLabel": "E-Commerce Cashback & UPI",
+    "badge": "Universal Online Cashback",
+    "popularRank": 6,
+    "joiningFee": "Nil (Lifetime Free under Paisabazaar promotions) / ₹499 + GST",
+    "annualFee": "₹499 + GST",
+    "feeWaiver": "Waived on annual retail spends of ₹1,00,000 or more",
+    "forexMarkup": "3.50% + GST",
+    "rewardRate": {
+      "base": "1% flat unlimited cashback on generic retail spends and merchant UPI",
+      "headline": "Up to 6% cashback on dining & travel + 1% flat unlimited cashback on retail",
+      "pointValue": "₹1.00",
+      "accelerated": "6% cashback on online dining and travel bookings via partner aggregators (capped at ₹500/month)",
+      "rewardCurrency": "Statement Cashback (Auto-credited)"
+    },
+    "loungeAccess": {
+      "domestic": "Not available",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "₹20,000/month",
+      "employmentType": "Salaried or Self-Employed",
+      "minCreditScore": 700
+    },
+    "welcomeBenefits": [
+      "₹500 cashback voucher upon completing first 3 transactions within 30 days of issuance."
+    ],
+    "keyHighlights": [
+      "Direct monthly statement cashback credit without manual redemption delays.",
+      "RuPay enabled for merchant scan-and-pay UPI transactions across India.",
+      "100% digital onboarding via Paisabazaar mobile app with instant virtual card delivery."
+    ],
+    "pros": [
+      "Combines direct statement cashback with RuPay UPI compatibility.",
+      "High 6% accelerated return rate on food delivery and flight/hotel bookings.",
+      "Frequently offered as Lifetime Free (LTF) for pre-qualified Paisabazaar users."
+    ],
+    "cons": [
+      "Monthly accelerated cashback capped at ₹500.",
+      "No airport lounge privileges included.",
+      "Excludes wallet loads, rent, and government transactions from cashback."
+    ],
+    "bestFor": "Everyday online shoppers and foodies wanting direct monthly statement cashback and UPI QR scanning.",
+    "editorialVerdict": "A high-volume fintech cashback product that converts everyday dining, travel, and UPI scans into direct cash rebates.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-finbooster",
+    "name": "FinBooster YES Bank Credit Card (via BankBazaar)",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-finbooster.webp",
+    "network": "Visa / RuPay",
+    "category": [
+      "all",
+      "entry-level",
+      "popular",
+      "lifestyle"
+    ],
+    "description": "The FinBooster Credit Card combines credit building with lifestyle spending. Issued in partnership with BankBazaar with zero annual maintenance fees, it bundles credit fitness simulators and real-time CIBIL monitoring with 5X reward points on dining and 3X points on grocery shopping.",
+    "categoryLabel": "Credit Score Tracking & Rewards",
+    "badge": "Best for Credit Score Tracking",
+    "popularRank": 7,
+    "joiningFee": "Nil (Lifetime Free under BankBazaar promotions) / ₹499 + GST",
+    "annualFee": "Nil (Lifetime Free)",
+    "feeWaiver": "Lifetime Free unconditionally on standard digital issuance",
+    "forexMarkup": "3.50% + GST",
+    "rewardRate": {
+      "base": "2 Reward Points per ₹200 on general retail spends (0.25% return)",
+      "headline": "5X points on dining + 3X on grocery and apparel with credit fitness tracking",
+      "pointValue": "₹0.25",
+      "accelerated": "5X Reward Points (10 points per ₹200) on dining; 3X Reward Points (6 points per ₹200) on grocery and apparel stores",
+      "rewardCurrency": "YES Rewardz Points"
+    },
+    "loungeAccess": {
+      "domestic": "Not available",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "₹20,000/month",
+      "employmentType": "Salaried or Self-Employed",
+      "minCreditScore": 680
+    },
+    "welcomeBenefits": [
+      "Complimentary access to BankBazaar CreditStrong credit score simulator and monthly advisory reports."
+    ],
+    "keyHighlights": [
+      "Free real-time credit score tracking and personalized advisory insights via BankBazaar.",
+      "5X points on dining and restaurant bills.",
+      "100% Lifetime Free structure with zero annual maintenance fees."
+    ],
+    "pros": [
+      "Lifetime Free card with zero recurring costs.",
+      "Includes credit score tracking and improvement simulation tools.",
+      "Solid reward acceleration on everyday dining and grocery runs."
+    ],
+    "cons": [
+      "Base retail rewards are low (0.25%).",
+      "Zero airport lounge access.",
+      "Standard 3.50% foreign exchange markup."
+    ],
+    "bestFor": "First-time borrowers looking to track, monitor, and improve their credit score while earning dining rewards.",
+    "editorialVerdict": "Heavily adopted by first-time borrowers checking their CIBIL score on BankBazaar.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-elite-plus",
+    "name": "YES ELITE+ Credit Card",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-elite-plus.webp",
+    "network": "Visa / Mastercard",
+    "category": [
+      "all",
+      "lifestyle",
+      "travel",
+      "popular",
+      "dining"
+    ],
+    "description": "A well-rounded mid-tier product designed for corporate executives, the YES ELITE+ Credit Card offers 12 domestic and 2 international Priority Pass airport lounge visits annually. It pairs up to ₹500 in monthly BookMyShow ticket discounts with a subsidized 2.50% foreign exchange markup.",
+    "categoryLabel": "Lifestyle All-Rounder",
+    "badge": "Popular Lifestyle Pick",
+    "popularRank": 8,
+    "joiningFee": "₹999 + GST",
+    "annualFee": "₹999 + GST",
+    "feeWaiver": "Waived on annual retail spends of ₹2,00,000 or more",
+    "forexMarkup": "2.50% + GST",
+    "rewardRate": {
+      "base": "6 YES Rewardz Points per ₹200 on offline retail spends (0.75% return)",
+      "headline": "12 YES Rewardz Points per ₹200 on online shopping + BookMyShow movie discounts",
+      "pointValue": "₹0.25",
+      "accelerated": "12 YES Rewardz Points per ₹200 on online purchases (1.5% return); 3 points per ₹200 on select essential categories",
+      "rewardCurrency": "YES Rewardz Points"
+    },
+    "loungeAccess": {
+      "domestic": "12 complimentary domestic airport lounge visits per calendar year (3 per quarter)",
+      "international": "2 complimentary international lounge visits per calendar year via Priority Pass",
+      "spendCondition": "Domestic visits subject to spending ₹50,000 in previous calendar quarter"
+    },
+    "eligibility": {
+      "minIncome": "₹60,000/month or ITR > ₹7,50,000/year",
+      "employmentType": "Salaried or Self-Employed",
+      "minCreditScore": 720
+    },
+    "welcomeBenefits": [
+      "1,500 bonus YES Rewardz Points upon making initial spends within 30 days."
+    ],
+    "keyHighlights": [
+      "Buy 1 Get 1 free movie ticket on BookMyShow (up to ₹250 discount, up to 2 times a month).",
+      "Subsidized 2.50% foreign exchange markup fee.",
+      "Both domestic and international airport lounge privileges included."
+    ],
+    "pros": [
+      "Up to ₹500 monthly movie ticket savings on BookMyShow.",
+      "Decent 1.5% online shopping reward rate.",
+      "Domestic airport lounge visits plus international Priority Pass access for a ₹999 fee."
+    ],
+    "cons": [
+      "Domestic lounge visits require meeting a ₹50,000 quarterly spend threshold.",
+      "Annual fee waiver requires spending ₹2 Lakhs.",
+      "Base offline reward rate is average (0.75%)."
+    ],
+    "bestFor": "Corporate professionals and moviegoers wanting regular BookMyShow discounts and domestic lounge perks.",
+    "editorialVerdict": "A solid middle-tier upgrade card widely held by experienced corporate executives.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-uni-rupay",
+    "name": "Uni YES Bank RuPay Credit Card",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-uni-rupay.webp",
+    "network": "RuPay",
+    "category": [
+      "all",
+      "entry-level",
+      "upi",
+      "cashback",
+      "popular"
+    ],
+    "description": "The Uni YES Bank RuPay Credit Card delivers straightforward cashback on modern mobile banking. Operating on the RuPay network with zero recurring fees, it provides flat 1% Uni Coins on offline card swipes and merchant UPI scans, backed by an accessible 1.00% foreign exchange markup for overseas digital subscriptions.",
+    "categoryLabel": "FinTech Rewards & UPI",
+    "badge": "1% Flat Digital Return",
+    "popularRank": 9,
+    "joiningFee": "Nil (Lifetime Free)",
+    "annualFee": "Nil (Lifetime Free)",
+    "feeWaiver": "Lifetime Free unconditionally",
+    "forexMarkup": "1.00% + GST",
+    "rewardRate": {
+      "base": "1% flat return as Uni Coins on all offline card swipes and merchant UPI scans",
+      "headline": "Flat 1% Uni Coins on all spends + low 1% forex markup on UPI",
+      "pointValue": "₹1.00 (direct 1:1 cash conversion against statement balance in Uni app)",
+      "accelerated": "Up to 3% Uni Coins on select partner brands inside the Uni app",
+      "rewardCurrency": "Uni Coins"
+    },
+    "loungeAccess": {
+      "domestic": "Not available",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "₹20,000/month",
+      "employmentType": "Young Salaried Professionals & Freelancers",
+      "minCreditScore": 710
+    },
+    "welcomeBenefits": [
+      "Instant digital card issuance inside Uni app with ₹250 welcome cashback drop."
+    ],
+    "keyHighlights": [
+      "Subsidized 1.00% foreign exchange markup on international transactions.",
+      "100% Lifetime Free on the RuPay payment network.",
+      "Transparent 1:1 cash conversion value for Uni Coins inside the app."
+    ],
+    "pros": [
+      "Zero annual recurring maintenance costs forever (Lifetime Free).",
+      "Subsidized 1% forex rate is remarkably low for an entry-level card.",
+      "Clean in-app spend tracking and instant cashback redemption."
+    ],
+    "cons": [
+      "No airport or railway lounge access.",
+      "P2P fund transfers do not earn Uni Coins.",
+      "Customer support is primarily routed through in-app chatbot channels."
+    ],
+    "bestFor": "Digital natives seeking a clean, zero-fee RuPay card with a low 1% forex fee for app subscriptions and UPI scans.",
+    "editorialVerdict": "An uncluttered fintech card that delivers flat 1% cash-equivalent returns and a rare 1% forex markup on a free card.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-marquee",
+    "name": "YES BANK MARQUÉE Credit Card",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-marquee.webp",
+    "network": "Visa Infinite / Mastercard World Elite",
+    "category": [
+      "all",
+      "lifestyle",
+      "travel",
+      "popular",
+      "dining"
+    ],
+    "description": "The YES BANK MARQUÉE Credit Card is recognized for its top-tier reward rates, delivering a flat 4.5% uncapped return on online transactions across all e-commerce merchants. Bundled with unlimited international Priority Pass visits, 24 domestic lounge visits, a 1.00% forex fee, and substantial BookMyShow ticket discounts, it is a high-value tool for affluent spenders.",
+    "categoryLabel": "Super-Premium Travel & Online Rewards",
+    "badge": "Best 4.5% Online Reward Rate",
+    "popularRank": 10,
+    "joiningFee": "₹9,999 + GST",
+    "annualFee": "₹4,999 + GST",
+    "feeWaiver": "Waived on annual retail spends of ₹10,00,000 or more",
+    "forexMarkup": "1.00% + GST",
+    "rewardRate": {
+      "base": "18 YES Rewardz Points per ₹200 on offline retail spends (2.25% return)",
+      "headline": "4.5% flat reward rate on online spends with low 1% forex markup",
+      "pointValue": "₹0.25 (redeemable for flights and hotels on YES Rewardz portal)",
+      "accelerated": "36 YES Rewardz Points per ₹200 on online retail spends across all merchants (4.5% return, monthly cap of 1,00,000 points); 10 points per ₹200 on utilities",
+      "rewardCurrency": "YES Rewardz Points"
+    },
+    "loungeAccess": {
+      "domestic": "24 complimentary domestic airport lounge visits per year (6 per quarter)",
+      "international": "Unlimited complimentary international airport lounge visits via Priority Pass / DragonPass"
+    },
+    "eligibility": {
+      "minIncome": "₹3,00,000/month or ITR > ₹24,00,000/year",
+      "employmentType": "Salaried, CXOs, or Self-Employed Business Owners",
+      "minCreditScore": 750
+    },
+    "welcomeBenefits": [
+      "60,000 YES Rewardz Points (worth ₹15,000) or 40,000 points + 1-year ET Prime subscription upon fee payment.",
+      "20,000 renewal bonus points upon annual fee payment."
+    ],
+    "keyHighlights": [
+      "Industry-leading 4.5% flat reward return on online spends without brand restrictions.",
+      "Subsidized 1.00% foreign exchange markup on international transactions.",
+      "Buy 1 Get 1 free movie tickets on BookMyShow (up to ₹800 discount per ticket, up to 3 times a month).",
+      "Unlimited international airport lounge access + 24 domestic lounge visits per year."
+    ],
+    "pros": [
+      "Unrivaled 4.5% return on online e-commerce, flight portals, and digital spends.",
+      "Welcome reward points fully cover the joining fee upfront.",
+      "Up to ₹2,400 monthly movie ticket savings on BookMyShow (₹28,800/year potential).",
+      "Competitive 1.0% forex markup for overseas trips."
+    ],
+    "cons": [
+      "High joining fee of ₹9,999 + GST.",
+      "Restricted customer base due to high salary threshold (₹3L/month).",
+      "Excludes government tax, wallet load, rent, and fuel from rewards."
+    ],
+    "bestFor": "High spenders, online shoppers, and international travelers wanting a high 4.5% online reward return and unlimited airport lounges.",
+    "editorialVerdict": "Unbeatable in rewards return, but held by an exclusive group of high earners rather than mass consumers.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-reserv",
+    "name": "YES RESERV Credit Card",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-reserv.webp",
+    "network": "Mastercard World / Visa Signature",
+    "category": [
+      "all",
+      "travel",
+      "lifestyle",
+      "popular",
+      "dining"
+    ],
+    "description": "The YES RESERV Credit Card bridges the mid-tier and ultra-luxury segments, offering a 3.0% return on online shopping and flight bookings. Complemented by a 1.75% foreign exchange markup, 18 total airport lounge visits, and complimentary quarterly golf games, it caters to regular domestic and overseas vacationers.",
+    "categoryLabel": "Premium Travel & Golf",
+    "badge": "Popular Premium Travel Pick",
+    "popularRank": 11,
+    "joiningFee": "₹2,499 + GST (Waived on spending ₹40,000 in first 30 days)",
+    "annualFee": "₹2,499 + GST",
+    "feeWaiver": "Waived on annual retail spends of ₹3,00,000 or more",
+    "forexMarkup": "1.75% + GST",
+    "rewardRate": {
+      "base": "12 YES Rewardz Points per ₹200 on offline retail (1.5% return)",
+      "headline": "3% online reward rate + 1.75% low forex markup and complimentary golf",
+      "pointValue": "₹0.25 (redeemable for flights and hotels)",
+      "accelerated": "24 YES Rewardz Points per ₹200 on online purchases (3.0% return); 6 points per ₹200 on utility and select categories",
+      "rewardCurrency": "YES Rewardz Points"
+    },
+    "loungeAccess": {
+      "domestic": "12 complimentary domestic airport lounge visits per calendar year (3 per quarter)",
+      "international": "6 complimentary international airport lounge visits per calendar year via Priority Pass",
+      "spendCondition": "No domestic spend qualification hurdle required"
+    },
+    "eligibility": {
+      "minIncome": "₹1,20,000/month or ITR > ₹15,00,000/year",
+      "employmentType": "Salaried or Self-Employed",
+      "minCreditScore": 740
+    },
+    "welcomeBenefits": [
+      "First-year fee waived on spending ₹40,000 within the first 30 days of card issuance.",
+      "Complimentary golf games and golf lessons upon activation."
+    ],
+    "keyHighlights": [
+      "Subsidized 1.75% foreign exchange markup on cross-border payments.",
+      "Buy 1 Get 1 free movie ticket on BookMyShow (up to ₹250 off on 2nd ticket, up to 2 times a month).",
+      "18 total complimentary domestic and international airport lounge visits annually."
+    ],
+    "pros": [
+      "Strong 3.0% reward return on online shopping and flight bookings.",
+      "Low 1.75% forex fee makes it practical for international travel.",
+      "First-year fee is waived by spending ₹40,000 in the first month.",
+      "Generous airport lounge allowance without quarterly spend conditions."
+    ],
+    "cons": [
+      "Renewal fee waiver requires spending ₹3,00,000 annually.",
+      "Points capped on utility spending at 750 points per statement cycle.",
+      "Non-travel catalog redemptions yield lower value per point."
+    ],
+    "bestFor": "Frequent flyers, golfers, and international vacationers looking for low forex fees, airport lounges, and 3% online rewards.",
+    "editorialVerdict": "A balanced premium card that hits the sweet spot with a 1.75% forex markup, golf perks, and lounge access.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-essence",
+    "name": "YES Essence Credit Card",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-essence.webp",
+    "network": "Visa / Mastercard",
+    "category": [
+      "all",
+      "lifestyle",
+      "dining",
+      "popular"
+    ],
+    "description": "Designed specifically for women professionals and homemakers, the YES Essence Credit Card accelerates points on apparel, beauty, groceries, and dining. It bundles preventive healthcare consultations and pathology checkup discounts with BookMyShow movie tickets and domestic airport lounge access.",
+    "categoryLabel": "Women's Lifestyle & Wellness",
+    "badge": "Best Women's Lifestyle Card",
+    "popularRank": 12,
+    "joiningFee": "₹799 + GST",
+    "annualFee": "₹799 + GST",
+    "feeWaiver": "Waived on annual retail spends of ₹1,20,000 or more",
+    "forexMarkup": "3.00% + GST",
+    "rewardRate": {
+      "base": "4 YES Rewardz Points per ₹200 on general retail spends (0.5% return)",
+      "headline": "Accelerated rewards on beauty, fashion, dining, and grocery shopping",
+      "pointValue": "₹0.25",
+      "accelerated": "16 YES Rewardz Points per ₹200 on beauty, fashion, groceries, and dining (2.0% return)",
+      "rewardCurrency": "YES Rewardz Points"
+    },
+    "loungeAccess": {
+      "domestic": "4 complimentary domestic airport lounge visits per calendar year (1 per quarter)",
+      "international": "Not available",
+      "spendCondition": "Subject to spending ₹50,000 or more in the previous calendar quarter"
+    },
+    "eligibility": {
+      "minIncome": "₹30,000/month",
+      "employmentType": "Salaried or Self-Employed Women",
+      "minCreditScore": 710
+    },
+    "welcomeBenefits": [
+      "Complimentary curated lifestyle vouchers from brands like Nykaa, Myntra, or Cult.fit upon fee payment."
+    ],
+    "keyHighlights": [
+      "Accelerated 2% value-back on beauty, cosmetics, fashion apparel, and dining runs.",
+      "Complimentary women’s preventive healthcare packages and pathology discounts.",
+      "Buy 1 Get 1 free movie ticket on BookMyShow (up to ₹200 discount once a month)."
+    ],
+    "pros": [
+      "Tailored reward multipliers covering major fashion, grocery, and cosmetic retailers.",
+      "Includes domestic airport lounge access and BookMyShow movie discounts.",
+      "Specialized wellness benefits and medical checkup allowances."
+    ],
+    "cons": [
+      "Quarterly spend condition (₹50k) required for airport lounge access.",
+      "Annual fee of ₹799 unless spend threshold is reached.",
+      "Base retail rewards on generic categories are modest."
+    ],
+    "bestFor": "Women professionals seeking lifestyle savings on apparel, cosmetics, food delivery, and preventive healthcare.",
+    "editorialVerdict": "A practical, women-centric lifestyle card providing accelerated points on fashion and beauty alongside airport lounge perks.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-wellness-plus",
+    "name": "YES BANK Wellness Plus Credit Card",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-wellness-plus.webp",
+    "network": "Visa",
+    "category": [
+      "all",
+      "lifestyle",
+      "dining"
+    ],
+    "description": "A health-focused lifestyle card created in collaboration with Aditya Birla Wellness. It provides a 3.75% return on pharmacy, medical diagnostic, and chemist purchases, paired with 12 complimentary annual gym session passes, comprehensive 25-parameter health screenings, and domestic airport lounge access.",
+    "categoryLabel": "Health & Preventive Wellness",
+    "badge": "Best for Gym & Health Checkups",
+    "popularRank": 13,
+    "joiningFee": "₹1,499 + GST",
+    "annualFee": "₹1,499 + GST",
+    "feeWaiver": "Waived on annual spends of ₹2,00,000 or more",
+    "forexMarkup": "3.50% + GST",
+    "rewardRate": {
+      "base": "6 YES Rewardz Points per ₹200 on general retail spends (0.75% return)",
+      "headline": "30 YES Rewardz Points per ₹200 on pharmacies & chemist stores + gym passes",
+      "pointValue": "₹0.25",
+      "accelerated": "30 YES Rewardz Points per ₹200 spent at pharmacies, chemist shops, and medical diagnostic centers (3.75% return)",
+      "rewardCurrency": "YES Rewardz Points"
+    },
+    "loungeAccess": {
+      "domestic": "4 complimentary domestic airport lounge visits per calendar year (1 per quarter)",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "₹35,000/month",
+      "employmentType": "Salaried or Self-Employed",
+      "minCreditScore": 710
+    },
+    "welcomeBenefits": [
+      "Complimentary 25+ parameter annual preventive health checkup package via Aditya Birla Wellness.",
+      "Complimentary 12 fitness sessions/gym visits per year via the Aditya Birla Multiply app."
+    ],
+    "keyHighlights": [
+      "High 3.75% reward return on all pharmacy, medical, and chemist purchases.",
+      "Complimentary annual health screening checkup and regular gym session passes.",
+      "4 complimentary domestic airport lounge visits per year across India."
+    ],
+    "pros": [
+      "Comprehensive wellness package (health checkups and gym sessions) outweighs the ₹1,499 annual fee.",
+      "Industry-leading 3.75% return on medical and chemist store bills.",
+      "Domestic airport lounge access included."
+    ],
+    "cons": [
+      "Gym access requires booking slots through partner app networks.",
+      "Standard 3.50% forex fee.",
+      "Rewards capped on pharmacy spends at 2,500 points per billing cycle."
+    ],
+    "bestFor": "Fitness-conscious professionals and families managing regular medical and pharmacy expenses.",
+    "editorialVerdict": "An innovative wellness lifestyle card that delivers gym passes, health checkups, and strong pharmacy savings.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-byoc",
+    "name": "YES Bank BYOC (Build Your Own Card)",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-byoc.webp",
+    "network": "Visa / Mastercard",
+    "category": [
+      "all",
+      "entry-level",
+      "cashback",
+      "lifestyle"
+    ],
+    "description": "YES Bank BYOC introduces modular customization to credit cards. Spenders can configure their own product by choosing between reward points and direct monthly statement cashback, selecting preferred accelerated merchant packs (e.g., 10% on Swiggy or Uber), and picking custom card body designs.",
+    "categoryLabel": "Customizable On-Demand Card",
+    "badge": "Build Your Own Card",
+    "popularRank": 14,
+    "joiningFee": "₹499 + GST (Base fee; customizable depending on chosen features)",
+    "annualFee": "₹499 + GST (Or customized monthly subscription)",
+    "feeWaiver": "Customized based on selected plan and annual spend volume",
+    "forexMarkup": "3.50% + GST (Can be reduced via custom plan toggles)",
+    "rewardRate": {
+      "base": "1% cashback on standard card swipes",
+      "headline": "Up to 10% cashback on your chosen merchant categories (Swiggy, Amazon, Uber, etc.)",
+      "pointValue": "₹1.00",
+      "accelerated": "Up to 10% cashback on self-selected favorite merchant packs (choose from food delivery, travel, e-commerce, or entertainment)",
+      "rewardCurrency": "Statement Cashback (Auto-credited)"
+    },
+    "loungeAccess": {
+      "domestic": "Customizable (Add-on lounge package toggleable on demand)",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "₹25,000/month",
+      "employmentType": "Salaried or Self-Employed",
+      "minCreditScore": 700
+    },
+    "welcomeBenefits": [
+      "Choice of personalized card skin design and custom welcome bonus vouchers."
+    ],
+    "keyHighlights": [
+      "Select your own cashback percentage and preferred brands during application.",
+      "Personalized metal or plastic card body with custom printed artwork.",
+      "Choose between reward points or direct monthly statement cashback."
+    ],
+    "pros": [
+      "Allows picking categories you actually spend on (e.g., 10% on food and rides).",
+      "Option to choose direct statement cashback rather than points.",
+      "Custom physical design and branding options."
+    ],
+    "cons": [
+      "Higher cashback rates carry higher monthly or annual package subscription fees.",
+      "Selected feature packs require active tracking to maintain positive ROI.",
+      "Standard forex fee applies unless premium package is activated."
+    ],
+    "bestFor": "Users who want to customize their cashback categories rather than accepting a standard bank rewards structure.",
+    "editorialVerdict": "A flexible, customizable card concept where you pay for the perks and merchant discounts you use most.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-wellness",
+    "name": "YES BANK Wellness Credit Card (Standard)",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-wellness.webp",
+    "network": "Visa",
+    "category": [
+      "all",
+      "entry-level",
+      "lifestyle"
+    ],
+    "description": "An affordable wellness solution for households managing medical expenditures. At a modest ₹499 annual fee, it delivers a 2.5% return on pharmacy and diagnostic center expenses, backed by complimentary annual preventive health checkups and 6 gym passes per year.",
+    "categoryLabel": "Budget Health & Wellness",
+    "badge": "Affordable Health Pick",
+    "popularRank": 15,
+    "joiningFee": "₹499 + GST",
+    "annualFee": "₹499 + GST",
+    "feeWaiver": "Waived on annual retail spends of ₹1,00,000 or more",
+    "forexMarkup": "3.50% + GST",
+    "rewardRate": {
+      "base": "4 YES Rewardz Points per ₹200 on general retail spends (0.5% return)",
+      "headline": "20 YES Rewardz Points per ₹200 on pharmacies and diagnostic centers",
+      "pointValue": "₹0.25",
+      "accelerated": "20 YES Rewardz Points per ₹200 on chemist stores, medical diagnostics, and pharmacies (2.5% return)",
+      "rewardCurrency": "YES Rewardz Points"
+    },
+    "loungeAccess": {
+      "domestic": "Not available",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "₹25,000/month",
+      "employmentType": "Salaried or Self-Employed",
+      "minCreditScore": 700
+    },
+    "welcomeBenefits": [
+      "Complimentary basic 20-parameter preventive health checkup package via Aditya Birla Wellness.",
+      "6 fitness sessions/gym passes per year via the Aditya Birla Multiply app."
+    ],
+    "keyHighlights": [
+      "2.5% return on medical and chemist store bills.",
+      "Complimentary basic annual health screening and gym session passes.",
+      "1% fuel surcharge waiver up to ₹150 monthly across India."
+    ],
+    "pros": [
+      "Budget-friendly ₹499 alternative to the ₹1,499 Wellness Plus card.",
+      "Free preventive health checkup package covers the annual fee.",
+      "Steady 2.5% savings on family medical and pharmacy expenses."
+    ],
+    "cons": [
+      "Zero airport lounge access.",
+      "Standard 3.50% foreign exchange markup.",
+      "Gym session passes are limited to 6 visits per year."
+    ],
+    "bestFor": "Budget-conscious individuals wanting routine pharmacy savings and basic annual health screening checkups.",
+    "editorialVerdict": "An economical wellness card that provides essential medical checkups and reliable 2.5% pharmacy savings for ₹499.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-prosperity-business",
+    "name": "YES Prosperity Business Credit Card",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-prosperity-business.webp",
+    "network": "Mastercard / Visa",
+    "category": [
+      "all",
+      "business",
+      "entry-level"
+    ],
+    "description": "Tailored for micro, small, and medium enterprise (MSME) owners and sole proprietors, this commercial card optimizes operational liquidity. It features up to 50 days of interest-free credit for vendor payouts, consolidated MIS statements for GST reconciliation, and domestic airport lounge access.",
+    "categoryLabel": "MSME & Business Working Capital",
+    "badge": "MSME Expense Manager",
+    "popularRank": 16,
+    "joiningFee": "₹999 + GST",
+    "annualFee": "₹999 + GST",
+    "feeWaiver": "Waived on annual business retail spends of ₹1,00,000 or more",
+    "forexMarkup": "3.00% + GST",
+    "rewardRate": {
+      "base": "4 YES Rewardz Points per ₹200 on general commercial spends (0.5% return)",
+      "headline": "Accelerated rewards on commercial utilities, office supplies, and telecom",
+      "pointValue": "₹0.25",
+      "accelerated": "8 YES Rewardz Points per ₹200 on office utilities, supplier logistics, and commercial bills",
+      "rewardCurrency": "YES Rewardz Points"
+    },
+    "loungeAccess": {
+      "domestic": "4 complimentary domestic airport lounge visits per calendar year (1 per quarter)",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "Business ITR > ₹3,50,000/year",
+      "employmentType": "Sole Proprietors, Small Traders, or MSME Directors",
+      "minCreditScore": 710
+    },
+    "welcomeBenefits": [
+      "Up to 50 days interest-free revolving credit cycle for business working capital management."
+    ],
+    "keyHighlights": [
+      "Consolidated monthly MIS statements formatted for GST input tax credit reconciliation.",
+      "4 complimentary domestic airport lounge visits annually for business travel.",
+      "1% fuel surcharge waiver for commercial supply and delivery vehicles."
+    ],
+    "pros": [
+      "Accessible entry-level commercial card for small business proprietors.",
+      "Low annual fee easily waived with moderate commercial utility usage.",
+      "Includes domestic airport lounge privileges."
+    ],
+    "cons": [
+      "Requires business entity credentials (GST registration or Udyam certificate).",
+      "No international lounge access.",
+      "Standard 3.0% forex fee applies to international software purchases."
+    ],
+    "bestFor": "Small business owners and sole proprietors managing routine office utilities, vendor supplies, and local business travel.",
+    "editorialVerdict": "An economical commercial card that gives small business owners flexible short-term liquidity, tax tracking, and airport lounge access.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-first-business",
+    "name": "YES First Business Credit Card",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-first-business.webp",
+    "network": "Mastercard World / Visa",
+    "category": [
+      "all",
+      "business",
+      "travel",
+      "lifestyle"
+    ],
+    "description": "A premium corporate card designed for founders, entrepreneurs, and established SME directors. It features a reduced 2.00% foreign exchange markup on international SaaS tools and advertising platforms, paired with 14 combined domestic and international airport lounge visits for executive business travel.",
+    "categoryLabel": "MSME & Commercial Working Capital",
+    "badge": "Best for Business Owners",
+    "popularRank": 17,
+    "joiningFee": "₹2,499 + GST",
+    "annualFee": "₹2,499 + GST",
+    "feeWaiver": "Waived on annual business spends of ₹3,00,000 or more",
+    "forexMarkup": "2.00% + GST",
+    "rewardRate": {
+      "base": "8 YES Rewardz Points per ₹200 on general commercial spends (1.0% return)",
+      "headline": "Accelerated rewards on business travel, software, tax, and utility bills",
+      "pointValue": "₹0.25 (up to ₹0.50 on travel portal bookings)",
+      "accelerated": "16 YES Rewardz Points per ₹200 on business flights, hotels, office utilities, and commercial subscriptions",
+      "rewardCurrency": "YES Rewardz Points"
+    },
+    "loungeAccess": {
+      "domestic": "8 complimentary domestic airport lounge visits per calendar year (2 per quarter)",
+      "international": "6 complimentary international airport lounge visits per calendar year via Priority Pass"
+    },
+    "eligibility": {
+      "minIncome": "Business ITR > ₹6,00,000/year",
+      "employmentType": "Sole Proprietors, Partners, or MSME Directors",
+      "minCreditScore": 720
+    },
+    "welcomeBenefits": [
+      "Up to 50 days interest-free working capital revolving credit window for commercial operations.",
+      "Welcome reward points voucher upon first business transaction."
+    ],
+    "keyHighlights": [
+      "Subsidized 2.00% foreign exchange markup on cross-border SaaS and tech tools.",
+      "14 combined domestic and international airport lounge visits annually for business travel.",
+      "Detailed commercial accounting MIS statements for simplified GST input credit reconciliation."
+    ],
+    "pros": [
+      "Low 2% forex fee saves on overseas software, servers, and advertising expenses.",
+      "Combined domestic and international airport lounge access.",
+      "Streamlines business expense tracking and tax documentation."
+    ],
+    "cons": [
+      "Requires business entity documentation (GST registration or Udyam certificate).",
+      "Annual renewal fee of ₹2,499 + GST unless spend threshold is reached.",
+      "Utility reward acceleration carries monthly statement limits."
+    ],
+    "bestFor": "Entrepreneurs, founders, and small business owners managing SaaS subscriptions, supplier payouts, and business travel.",
+    "editorialVerdict": "A practical commercial credit card that pairs short-term working capital with travel lounges and a low 2% forex markup.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-prosperity-rewards-plus",
+    "name": "YES Prosperity Rewards Plus Credit Card (FD-Backed)",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-prosperity-rewards-plus.webp",
+    "network": "Mastercard / Visa",
+    "category": [
+      "all",
+      "entry-level",
+      "lifestyle"
+    ],
+    "description": "A secured credit card backed by a YES Bank Fixed Deposit starting from ₹50,000. It offers guaranteed approval with zero income documentation or credit checks, assigning up to 90% of the deposit balance as a revolving credit limit to help beginners and credit repairers build an established CIBIL score.",
+    "categoryLabel": "Secured & Credit Builder",
+    "badge": "100% Guaranteed Approval",
+    "popularRank": 18,
+    "joiningFee": "Nil (Against Fixed Deposit)",
+    "annualFee": "Nil (Lifetime Free for FD relationship)",
+    "feeWaiver": "Lifetime Free unconditionally",
+    "forexMarkup": "3.50% + GST",
+    "rewardRate": {
+      "base": "2 YES Rewardz Points per ₹200 on general retail spends",
+      "headline": "Earn reward points on all spends backed by a YES Bank Fixed Deposit",
+      "pointValue": "₹0.25",
+      "accelerated": "4 YES Rewardz Points per ₹200 on dining and online shopping transactions",
+      "rewardCurrency": "YES Rewardz Points"
+    },
+    "loungeAccess": {
+      "domestic": "Not available",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "No income verification required (Secured against ₹50,000+ Fixed Deposit)",
+      "employmentType": "Students, Freelancers, Homemakers, or New Borrowers",
+      "minCreditScore": 0
+    },
+    "welcomeBenefits": [
+      "Guaranteed approval with zero salary slips, income documents, or CIBIL score checks."
+    ],
+    "keyHighlights": [
+      "Issued instantly against a YES Bank Fixed Deposit of ₹50,000 or more.",
+      "Credit limit assigned up to 85%–90% of underlying Fixed Deposit balance.",
+      "Underlying Fixed Deposit continues to earn regular term deposit interest."
+    ],
+    "pros": [
+      "100% approval rate for students, freelancers, and credit score repairers.",
+      "Reliable mechanism to establish or rebuild a damaged CIBIL score.",
+      "Reward points never expire and have zero redemption convenience fees."
+    ],
+    "cons": [
+      "Requires locking liquidity in a ₹50,000 minimum YES Bank Fixed Deposit.",
+      "Fixed deposit cannot be broken while the credit card is operational.",
+      "No airport lounge privileges included."
+    ],
+    "bestFor": "College students, freelancers, and first-time applicants needing guaranteed credit card approval with zero income proof.",
+    "editorialVerdict": "YES Bank’s secured workhorse for credit newcomers, granting guaranteed credit approval against a term deposit.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-emi",
+    "name": "YES Bank EMI Credit Card",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-emi.webp",
+    "network": "Visa / Mastercard",
+    "category": [
+      "all",
+      "entry-level",
+      "lifestyle"
+    ],
+    "description": "A structured financing card designed to prevent accidental debt accumulation. All retail transactions crossing ₹2,500 automatically split into structured, low-interest 3, 6, or 9-month installments without requiring manual requests or conversion processing fees.",
+    "categoryLabel": "Instant Auto-EMI Conversion",
+    "badge": "Auto-EMI Specialist",
+    "popularRank": 19,
+    "joiningFee": "Nil (Lifetime Free promotional offers)",
+    "annualFee": "₹499 + GST",
+    "feeWaiver": "Waived on annual retail spends of ₹1,00,000 or more",
+    "forexMarkup": "3.50% + GST",
+    "rewardRate": {
+      "base": "Standard reward points on non-EMI retail transactions",
+      "headline": "Automatic conversion of purchases over ₹2,500 into low-interest EMIs",
+      "pointValue": "₹0.25",
+      "accelerated": "Automated conversion of all retail purchases above ₹2,500 into flexible 3, 6, or 9-month EMIs without processing fees",
+      "rewardCurrency": "YES Rewardz Points"
+    },
+    "loungeAccess": {
+      "domestic": "Not available",
+      "international": "Not available"
+    },
+    "eligibility": {
+      "minIncome": "₹25,000/month",
+      "employmentType": "Salaried or Self-Employed",
+      "minCreditScore": 700
+    },
+    "welcomeBenefits": [
+      "Zero processing fee on automated EMI conversions during the first 90 days of card setup."
+    ],
+    "keyHighlights": [
+      "Automatic conversion of all purchases above ₹2,500 into low-interest monthly installments.",
+      "No manual request needed on mobile banking—installment plan triggers automatically.",
+      "Reduced interest rate schedule compared to standard revolving credit card APRs."
+    ],
+    "pros": [
+      "Prevents accidental debt traps by spreading big purchases into planned installments.",
+      "Zero processing fees on automatic installment booking.",
+      "Helps manage monthly household budgets when purchasing electronics and furniture."
+    ],
+    "cons": [
+      "Transactions above ₹2,500 cannot be paid in a single bullet bill (auto-converted to EMI).",
+      "Accumulates interest charges on all installment splits.",
+      "No airport lounge access included."
+    ],
+    "bestFor": "Consumers outfitting homes or making regular big-ticket electronics purchases on structured monthly budgets.",
+    "editorialVerdict": "A specialized financing card that takes the guesswork out of installment payments by automatically splitting larger purchases into planned EMIs.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-private",
+    "name": "YES Private Credit Card",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-private.webp",
+    "network": "Mastercard World Elite",
+    "category": [
+      "all",
+      "lifestyle",
+      "travel",
+      "dining"
+    ],
+    "description": "An invitation-only black metal card reserved for ultra-high-net-worth clients, business leaders, and family offices. It features unlimited domestic and international airport lounge access with guest entry allowances, 24/7 dedicated private banking support, and access to private aviation and yacht charters.",
+    "categoryLabel": "Ultra-Luxury Private Banking",
+    "badge": "By-Invitation Metal UHNI",
+    "popularRank": 20,
+    "joiningFee": "₹50,000 + GST",
+    "annualFee": "₹10,000 + GST",
+    "feeWaiver": "Waived for qualifying YES Bank Private Wealth relationships maintaining designated TRV",
+    "forexMarkup": "1.75% + GST",
+    "rewardRate": {
+      "base": "8 YES Rewardz Points per ₹100 on retail retail transactions (2.0% return)",
+      "headline": "8 Reward Points per ₹100 on all spends + unlimited global lounges with guest entry",
+      "pointValue": "₹0.25 (up to ₹0.50 on luxury catalog and airline mileage transfers)",
+      "accelerated": "Bespoke redemptions across private aviation, super-yacht charters, luxury hotel suites, and Michelin dining",
+      "rewardCurrency": "YES Private Points"
+    },
+    "loungeAccess": {
+      "domestic": "Unlimited complimentary domestic airport lounge visits for primary cardholder and accompanying guests",
+      "international": "Unlimited complimentary international airport lounge visits via Priority Pass for primary cardholder and accompanying guests"
+    },
+    "eligibility": {
+      "minIncome": "By Invitation Only (Ultra-High-Net-Worth Individuals / TRV > ₹1 Crore)",
+      "employmentType": "Billionaires, Business Promoters, Industrialists, and CXOs",
+      "minCreditScore": 780
+    },
+    "welcomeBenefits": [
+      "Curated ultra-luxury welcome hampers, Taj Epicure luxury hotel club memberships, and bespoke travel vouchers worth over ₹50,000."
+    ],
+    "keyHighlights": [
+      "Hand-crafted engraved metal card body issued strictly by invitation.",
+      "Unlimited domestic and international airport lounge access with guest entry allowances.",
+      "Dedicated 24/7 private wealth banker and bespoke lifestyle concierge desk."
+    ],
+    "pros": [
+      "Unlimited worldwide airport lounge access with guest privileges included.",
+      "High 2.0% base return across all transactions without restrictive category caps.",
+      "Complimentary top-tier hospitality memberships and airport meet-and-assist services."
+    ],
+    "cons": [
+      "Steep joining fee of ₹50,000 + GST.",
+      "Available strictly by personal invitation to ultra-high-net-worth clients.",
+      "Requires substantial Private Wealth relationship balances with YES Bank."
+    ],
+    "bestFor": "Ultra-high-net-worth clients requiring unlimited worldwide lounge access with guest entry and private concierge services.",
+    "editorialVerdict": "An exclusive metal private banking card with unlimited global guest lounge access, held by a small group of UHNI wealth clients.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  },
+  {
+    "id": "yes-bank-private-prime",
+    "name": "YES Private Prime Credit Card",
+    "issuer": "YES Bank",
+    "logo": "/partners-logos/yes-bank-logo.webp",
+    "cardImage": "/cards/yes-bank-private-prime.webp",
+    "network": "Mastercard World Elite",
+    "category": [
+      "all",
+      "lifestyle",
+      "travel",
+      "dining"
+    ],
+    "description": "The pinnacle of YES Bank’s private banking hierarchy, the YES Private Prime Credit Card is crafted in precision metal for billionaire family offices. It features an ultra-low 0.50% foreign exchange markup, up to 5% reward return on cross-border spending, and unlimited worldwide airport lounge access with comprehensive guest allowances.",
+    "categoryLabel": "Ultra-Luxury Private Banking",
+    "badge": "0.5% Forex Billionaire Metal",
+    "popularRank": 21,
+    "joiningFee": "₹50,000 + GST",
+    "annualFee": "₹10,000 + GST",
+    "feeWaiver": "Waived on annual retail spends of ₹25,00,000 or more",
+    "forexMarkup": "0.50% + GST",
+    "rewardRate": {
+      "base": "20 YES Rewardz Points per ₹200 on domestic retail spends (2.5% return)",
+      "headline": "40 Reward Points per ₹200 on international spends with ultra-low 0.50% forex markup",
+      "pointValue": "₹0.25 (up to ₹0.50 on luxury catalog and airline mileage transfers)",
+      "accelerated": "40 YES Rewardz Points per ₹200 on international transactions (5.0% return); bespoke redemptions across private aviation and luxury hospitality",
+      "rewardCurrency": "YES Private Reward Points"
+    },
+    "loungeAccess": {
+      "domestic": "Unlimited complimentary domestic airport lounge visits for primary cardholder and guests",
+      "international": "Unlimited complimentary international airport lounge visits via Priority Pass for primary cardholder and guests"
+    },
+    "eligibility": {
+      "minIncome": "By Invitation Only (Ultra-High-Net-Worth Individuals / TRV > ₹1 Crore)",
+      "employmentType": "Billionaires, Business Promoters, Industrialists, and Family Office Principals",
+      "minCreditScore": 780
+    },
+    "welcomeBenefits": [
+      "Oberoi Hotels & Resorts luxury e-gift vouchers worth ₹9,000 upon card onboarding.",
+      "Curated ultra-luxury welcome hampers, Taj Epicure luxury hotel memberships, and annual benefits worth ₹4 Lakhs+."
+    ],
+    "keyHighlights": [
+      "Ultra-low 0.50% foreign exchange transaction markup on all cross-border transactions.",
+      "Hand-crafted metal card body issued strictly by personal invitation.",
+      "Unlimited domestic and international airport lounge access with guest allowances."
+    ],
+    "pros": [
+      "Exceptionally low 0.50% forex markup on a top-tier private banking metal card.",
+      "Unlimited worldwide airport lounge access with comprehensive guest allowances.",
+      "High 5.0% reward return on cross-border transactions."
+    ],
+    "cons": [
+      "High joining fee of ₹50,000 + GST.",
+      "Available strictly by invitation to ultra-high-net-worth clients.",
+      "Requires substantial Private Wealth relationship balances with YES Bank."
+    ],
+    "bestFor": "Ultra-high-net-worth global travelers seeking an ultra-low 0.50% forex markup and unlimited worldwide airport lounge comfort.",
+    "editorialVerdict": "YES Bank’s most exclusive card, designed specifically for billionaire family offices and top corporate promoters.",
+    "createdAt": "2026-09-17T11:27:18.578Z",
+    "updatedAt": "2026-09-17T11:27:18.578Z"
+  }
+]
