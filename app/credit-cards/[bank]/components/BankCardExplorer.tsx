@@ -30,6 +30,7 @@ import {
   parseFeeNumber,
   getPageNumbers,
   getBankLogoUrl,
+  isFreeCard,
 } from "./constants";
 import Link from "next/link";
 
@@ -194,10 +195,10 @@ export default function BankCardExplorer({
   };
 
   return (
-    <section className="py-8 sm:py-12 md:py-16 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto w-full min-w-0 overflow-hidden">
+    <section className="py-6 sm:py-12 md:py-16 px-2.5 sm:px-6 md:px-8 max-w-7xl mx-auto w-full min-w-0 overflow-hidden">
       {/* ── Category Filter Tabs ───────────────────────────────────── */}
-      <div className="w-full min-w-0 overflow-x-auto pb-3 scrollbar-hidden -mx-4 px-4 sm:mx-0 sm:px-0">
-        <div className="flex items-center gap-2 w-max sm:w-auto sm:justify-center">
+      <div className="w-full min-w-0 overflow-x-auto pb-2.5 scrollbar-hidden -mx-2.5 px-2.5 sm:mx-0 sm:px-0">
+        <div className="flex items-center gap-1.5 sm:gap-2 w-max sm:w-auto sm:justify-center">
           {CATEGORY_TABS.map((tab) => {
             const Icon = tab.icon;
             const isActive = selectedCategory === tab.id;
@@ -209,7 +210,7 @@ export default function BankCardExplorer({
                   setSelectedCategory(tab.id);
                   setCurrentPage(1);
                 }}
-                className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 min-h-9.5 sm:min-h-10.5 rounded-xl font-montserrat text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap cursor-pointer shrink-0 shadow-2xs ${
+                className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 min-h-[34px] sm:min-h-10.5 rounded-lg sm:rounded-xl font-montserrat text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap cursor-pointer shrink-0 shadow-2xs active:scale-95 ${
                   isActive
                     ? "bg-primary text-white shadow-md shadow-primary/20"
                     : "bg-white text-gray-700 hover:text-primary hover:bg-gray-50 border border-gray-200"
@@ -231,7 +232,7 @@ export default function BankCardExplorer({
       </div>
 
       {/* ── Search, Filters & Controls Bar ─────────────────────────── */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-3.5 sm:p-4 mt-6 shadow-xs flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 sm:gap-4 w-full min-w-0">
+      <div className="bg-white rounded-xl sm:rounded-2xl border border-gray-200 p-2.5 sm:p-4 mt-4 sm:mt-6 shadow-xs flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-2.5 sm:gap-4 w-full min-w-0">
         {/* Search input inside toolbar */}
         <div className="relative flex-1 min-w-0 sm:min-w-60">
           <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -243,7 +244,7 @@ export default function BankCardExplorer({
               setCurrentPage(1);
             }}
             placeholder={`Search ${bankName} cards by name or perk...`}
-            className="w-full bg-gray-50 border border-gray-200 pl-10 pr-9 py-2.5 min-h-10 rounded-xl text-xs font-semibold text-gray-800 placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white font-montserrat"
+            className="w-full bg-gray-50 border border-gray-200 pl-9 sm:pl-10 pr-8 sm:pr-9 py-2 sm:py-2.5 min-h-[38px] sm:min-h-10 rounded-lg sm:rounded-xl text-xs font-semibold text-gray-800 placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white font-montserrat"
           />
           {searchQuery && (
             <button
@@ -251,7 +252,7 @@ export default function BankCardExplorer({
                 setSearchQuery("");
                 setCurrentPage(1);
               }}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 w-7 h-7 flex items-center justify-center rounded-full hover:bg-gray-100 cursor-pointer"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full hover:bg-gray-100 cursor-pointer"
               title="Clear search"
               aria-label="Clear search input"
             >
@@ -260,17 +261,18 @@ export default function BankCardExplorer({
           )}
         </div>
 
-        {/* Dropdown Filters Group */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 w-full lg:flex-2">
+        {/* Dropdown Filters Group (Mobile: 2 columns for Fee + Network, Sort full width) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 w-full lg:flex-2">
           {/* Annual Fee Filter */}
-          <div className="relative w-full">
+          <div className="relative w-full col-span-1">
             <select
               value={selectedFee}
               onChange={(e) => {
                 setSelectedFee(e.target.value);
                 setCurrentPage(1);
               }}
-              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 min-h-10 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat pr-8"
+              aria-label="Filter by Annual Fee"
+              className="w-full bg-gray-50 border border-gray-200 rounded-lg sm:rounded-xl px-2.5 sm:px-3 py-2 sm:py-2.5 min-h-[36px] sm:min-h-10 text-[11px] sm:text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat pr-7 sm:pr-8"
             >
               {FEE_FILTERS.map((f) => (
                 <option key={f.id} value={f.id}>
@@ -278,18 +280,19 @@ export default function BankCardExplorer({
                 </option>
               ))}
             </select>
-            <ChevronDown className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           </div>
 
           {/* Network Filter */}
-          <div className="relative w-full">
+          <div className="relative w-full col-span-1">
             <select
               value={selectedNetwork}
               onChange={(e) => {
                 setSelectedNetwork(e.target.value);
                 setCurrentPage(1);
               }}
-              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 min-h-10 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat pr-8"
+              aria-label="Filter by Network"
+              className="w-full bg-gray-50 border border-gray-200 rounded-lg sm:rounded-xl px-2.5 sm:px-3 py-2 sm:py-2.5 min-h-[36px] sm:min-h-10 text-[11px] sm:text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat pr-7 sm:pr-8"
             >
               {NETWORK_FILTERS.map((n) => (
                 <option key={n.id} value={n.id}>
@@ -297,46 +300,47 @@ export default function BankCardExplorer({
                 </option>
               ))}
             </select>
-            <ChevronDown className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           </div>
 
           {/* Sort Dropdown */}
-          <div className="relative w-full">
+          <div className="relative w-full col-span-2 sm:col-span-1">
             <select
               value={sortBy}
               onChange={(e) => {
                 setSortBy(e.target.value as "popular" | "fee-asc" | "fee-desc" | "name-asc");
                 setCurrentPage(1);
               }}
-              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 min-h-10 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat pr-8"
+              aria-label="Sort Cards"
+              className="w-full bg-gray-50 border border-gray-200 rounded-lg sm:rounded-xl px-2.5 sm:px-3 py-2 sm:py-2.5 min-h-[36px] sm:min-h-10 text-[11px] sm:text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat pr-7 sm:pr-8"
             >
               <option value="popular">Popularity &amp; Rank</option>
               <option value="fee-asc">Annual Fee: Low to High</option>
               <option value="fee-desc">Annual Fee: High to Low</option>
               <option value="name-asc">Card Name (A - Z)</option>
             </select>
-            <ChevronDown className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           </div>
         </div>
 
         {/* Right Toolbar: View Toggle & Clear Filters */}
-        <div className="flex items-center justify-between sm:justify-end gap-3 pt-2.5 lg:pt-0 border-t lg:border-t-0 border-gray-100">
-          <div className="flex items-center bg-gray-100 p-1 rounded-xl shrink-0">
+        <div className="flex items-center justify-between sm:justify-end gap-2.5 sm:gap-3 pt-2 lg:pt-0 border-t lg:border-t-0 border-gray-100">
+          <div className="flex items-center bg-gray-100 p-0.5 sm:p-1 rounded-lg sm:rounded-xl shrink-0">
             <button
               onClick={() => setViewMode("grid")}
-              className={`p-2 min-h-9 min-w-9 flex items-center justify-center rounded-lg transition-all cursor-pointer ${
+              className={`p-1.5 sm:p-2 min-h-[32px] min-w-[32px] sm:min-h-9 sm:min-w-9 flex items-center justify-center rounded-md sm:rounded-lg transition-all cursor-pointer ${
                 viewMode === "grid"
                   ? "bg-white text-primary shadow-xs font-bold"
                   : "text-gray-500 hover:text-gray-900"
               }`}
-              title="Grid View"
-              aria-label="Grid View"
+              title="2-Column Grid (Default)"
+              aria-label="2-Column Grid View"
             >
-              <LayoutGrid className="w-4 h-4" />
+              <LayoutGrid className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
             <button
               onClick={() => setViewMode("list")}
-              className={`p-2 min-h-9 min-w-9 flex items-center justify-center rounded-lg transition-all cursor-pointer ${
+              className={`p-1.5 sm:p-2 min-h-[32px] min-w-[32px] sm:min-h-9 sm:min-w-9 flex items-center justify-center rounded-md sm:rounded-lg transition-all cursor-pointer ${
                 viewMode === "list"
                   ? "bg-white text-primary shadow-xs font-bold"
                   : "text-gray-500 hover:text-gray-900"
@@ -344,26 +348,93 @@ export default function BankCardExplorer({
               title="List View"
               aria-label="List View"
             >
-              <List className="w-4 h-4" />
+              <List className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
           </div>
 
           {isFiltersActive && (
             <button
               onClick={clearAllFilters}
-              className="py-2 px-3 min-h-9 text-xs font-bold text-red-600 hover:bg-red-50 rounded-xl border border-red-200 transition-colors flex items-center gap-1 font-montserrat cursor-pointer whitespace-nowrap shrink-0 active:scale-95"
+              className="py-1.5 sm:py-2 px-2.5 sm:px-3 min-h-[32px] sm:min-h-9 text-[11px] sm:text-xs font-bold text-red-600 hover:bg-red-50 rounded-lg sm:rounded-xl border border-red-200 transition-colors flex items-center gap-1 font-montserrat cursor-pointer whitespace-nowrap shrink-0 active:scale-95"
             >
-              <X className="w-3.5 h-3.5" />
+              <X className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
               <span>Reset</span>
             </button>
           )}
         </div>
       </div>
 
+      {/* ── Quick Filter Pills for Instant Mobile/Desktop Scanning ── */}
+      <div className="flex items-center gap-1.5 sm:gap-2 mt-2.5 sm:mt-3 overflow-x-auto pb-1 scrollbar-hidden">
+        <span className="text-[10px] sm:text-xs font-semibold text-gray-400 font-montserrat uppercase tracking-wider shrink-0 flex items-center gap-1">
+          Quick:
+        </span>
+        <button
+          onClick={() => {
+            setSelectedFee(selectedFee === "free" ? "all" : "free");
+            setCurrentPage(1);
+          }}
+          className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold font-montserrat transition-all shrink-0 cursor-pointer ${
+            selectedFee === "free"
+              ? "bg-emerald-700 text-white shadow-2xs font-bold"
+              : "bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200/60"
+          }`}
+        >
+          Lifetime Free (₹0)
+        </button>
+        <button
+          onClick={() => {
+            setSelectedNetwork(selectedNetwork === "rupay" ? "all" : "rupay");
+            setCurrentPage(1);
+          }}
+          className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold font-montserrat transition-all shrink-0 cursor-pointer ${
+            selectedNetwork === "rupay"
+              ? "bg-primary text-white shadow-2xs font-bold"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200"
+          }`}
+        >
+          RuPay / UPI
+        </button>
+        <button
+          onClick={() => {
+            setSelectedCategory(selectedCategory === "cashback" ? "all" : "cashback");
+            setCurrentPage(1);
+          }}
+          className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold font-montserrat transition-all shrink-0 cursor-pointer ${
+            selectedCategory === "cashback"
+              ? "bg-primary text-white shadow-2xs font-bold"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200"
+          }`}
+        >
+          Cashback
+        </button>
+        <button
+          onClick={() => {
+            setSelectedCategory(selectedCategory === "travel" ? "all" : "travel");
+            setCurrentPage(1);
+          }}
+          className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold font-montserrat transition-all shrink-0 cursor-pointer ${
+            selectedCategory === "travel"
+              ? "bg-primary text-white shadow-2xs font-bold"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200"
+          }`}
+        >
+          Airport Lounge
+        </button>
+        {isFiltersActive && (
+          <button
+            onClick={clearAllFilters}
+            className="text-[11px] text-red-600 hover:text-red-700 underline font-semibold font-montserrat shrink-0 ml-1 cursor-pointer"
+          >
+            Clear all
+          </button>
+        )}
+      </div>
+
       {/* ── Results Count & Feedback ───────────────────────────────── */}
       <div ref={cardsTopRef} className="scroll-mt-6" />
-      <div className="flex flex-wrap items-center justify-between gap-3 mt-5 text-xs text-gray-600 font-montserrat">
-        <p className="font-medium">
+      <div className="flex flex-wrap items-center justify-between gap-2 mt-4 text-xs text-gray-600 font-montserrat">
+        <p className="font-medium text-[11px] sm:text-xs">
           Showing{" "}
           <strong className="text-gray-900 font-bold">
             {sortedCards.length > 0 ? startIndex + 1 : 0}–
@@ -394,71 +465,76 @@ export default function BankCardExplorer({
         )}
       </div>
 
-      {/* ── CARDS DISPLAY: GRID VIEW ───────────────────────────────── */}
+      {/* ── CARDS DISPLAY: GRID VIEW (2 AT A TIME ON MOBILE) ────────────── */}
       {viewMode === "grid" && sortedCards.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8 mt-6">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-5 lg:gap-6 mt-4 sm:mt-6">
           {paginatedCards.map((card) => {
             const isCompared = compareList.some((c) => c.id === card.id);
-            const isFree =
-              parseFeeNumber(card.annualFee) === 0 ||
-              /nil|free|₹0/i.test(card.annualFee || "") ||
-              /lifetime free/i.test(card.badge || "");
+            const isFree = isFreeCard(card);
 
             return (
               <div
                 key={card.id}
-                className="w-full bg-white rounded-2xl sm:rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1 relative"
+                className="w-full bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl border border-gray-200/90 shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group relative hover:-translate-y-1"
               >
                 {/* Top Section */}
-                <div className="p-4 sm:p-5 pb-3">
-                  <div className="flex items-center justify-between gap-2 mb-3 sm:mb-3.5">
-                    <div className="h-6 w-auto relative shrink-0">
+                <div className="p-2 sm:p-4 sm:pb-3 flex-1 flex flex-col">
+                  {/* Header: Bank Logo + Compare Action */}
+                  <div className="flex items-center justify-between gap-1 sm:gap-2 mb-2 sm:mb-3">
+                    <div className="h-4 sm:h-6 w-auto max-w-[48px] sm:max-w-[80px] relative shrink-0">
                       <Image
                         src={card.logo || bankLogoUrl}
                         alt={card.issuer}
                         width={80}
                         height={24}
-                        className="h-6 w-auto object-contain"
+                        className="h-4 sm:h-6 w-auto object-contain"
                       />
                     </div>
 
                     <button
                       onClick={() => toggleCompare(card)}
-                      className={`text-[11px] font-bold font-montserrat px-3 py-1.5 min-h-9 rounded-lg border transition-all flex items-center gap-1 cursor-pointer shrink-0 ${
+                      className={`text-[10px] sm:text-[11px] font-bold font-montserrat px-1.5 sm:px-3 py-1 sm:py-1.5 min-h-[28px] sm:min-h-9 rounded-md sm:rounded-lg border transition-all flex items-center gap-1 cursor-pointer shrink-0 ${
                         isCompared
-                          ? "bg-primary text-white border-primary"
+                          ? "bg-primary text-white border-primary shadow-xs"
                           : "bg-gray-50 text-gray-600 border-gray-200 hover:border-primary/40 hover:text-primary"
                       }`}
+                      title={isCompared ? "Remove from comparison" : "Add to comparison"}
+                      aria-label={`${isCompared ? "Remove" : "Add"} ${card.name} ${isCompared ? "from" : "to"} comparison`}
                     >
-                      <Scale className="w-3.5 h-3.5 shrink-0" />
-                      <span>{isCompared ? "Compared" : "Compare"}</span>
+                      <Scale className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
+                      <span className="hidden min-[420px]:inline">{isCompared ? "Compared" : "Compare"}</span>
+                      <span className="inline min-[420px]:hidden">{isCompared ? "✓" : "+"}</span>
                     </button>
                   </div>
 
                   {/* Card Graphic Mockup */}
-                  <div className="relative w-full aspect-[1.586/1] rounded-xl sm:rounded-2xl overflow-hidden drop-shadow-md sm:drop-shadow-lg drop-shadow-gray-100">
+                  <div className="relative w-full aspect-[1.586/1] rounded-lg sm:rounded-xl overflow-hidden drop-shadow-xs sm:drop-shadow-md bg-linear-to-b from-gray-50 to-gray-100">
                     {card.cardImage ? (
                       <Link
                         href={`/credit-cards/${bankSlug}/${card.id}`}
                         className="block relative w-full h-full"
+                        title={card.name}
                       >
                         <Image
                           src={card.cardImage}
                           alt={card.name}
                           fill
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          className="object-contain transition-transform duration-500 hover:scale-[1.03]"
+                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
+                          className="object-contain transition-transform duration-500 group-hover:scale-[1.03]"
                         />
                       </Link>
                     ) : (
                       <Link
                         href={`/credit-cards/${bankSlug}/${card.id}`}
                         className="block relative w-full h-full"
+                        title={card.name}
                       >
-                        <div className="w-full h-full bg-linear-to-tr from-primary to-[#035259] flex items-center justify-center p-4 text-white text-center">
+                        <div className="w-full h-full bg-linear-to-tr from-primary to-[#035259] flex items-center justify-center p-2.5 sm:p-4 text-white text-center">
                           <div>
-                            <CreditCardIcon className="w-9 h-9 sm:w-10 sm:h-10 mx-auto text-gold mb-2" />
-                            <p className="font-bricolage font-bold text-xs sm:text-sm">{card.name}</p>
+                            <CreditCardIcon className="w-6 h-6 sm:w-9 sm:h-9 mx-auto text-gold mb-1 sm:mb-2" />
+                            <p className="font-bricolage font-bold text-[10px] sm:text-xs leading-tight line-clamp-2">
+                              {card.name}
+                            </p>
                           </div>
                         </div>
                       </Link>
@@ -466,61 +542,65 @@ export default function BankCardExplorer({
                   </div>
 
                   {/* Badge & Title */}
-                  <div className="mt-3.5 sm:mt-4 min-w-0">
+                  <div className="mt-2 sm:mt-3 min-w-0 flex-1">
                     {card.badge && (
-                      <div className="inline-block text-[10px] font-bold text-primary bg-[#EBF4ED] px-2.5 py-0.5 rounded-full border border-primary/15 mb-1.5 sm:mb-2 truncate max-w-full">
+                      <div className="inline-block text-[9px] sm:text-[10px] font-bold text-primary bg-[#EBF4ED] px-1.5 sm:px-2 py-0.5 rounded-md border border-primary/15 mb-1 sm:mb-1.5 truncate max-w-full">
                         {card.badge}
                       </div>
                     )}
                     <Link href={`/credit-cards/${bankSlug}/${card.id}`} className="block group/title">
-                      <h3 className="font-bricolage font-bold text-base sm:text-lg text-gray-900 leading-snug line-clamp-1 group-hover/title:text-primary transition-colors">
+                      <h3 className="font-bricolage font-bold text-xs sm:text-base lg:text-lg text-gray-900 leading-snug line-clamp-2 min-h-[2.4em] sm:min-h-[2.8em] group-hover/title:text-primary transition-colors">
                         {card.name}
                       </h3>
                     </Link>
-                    <p className="text-xs text-gray-500 font-montserrat mt-0.5 truncate">
-                      {card.categoryLabel || card.issuer} • {card.network}
+                    <p className="text-[10px] sm:text-xs text-gray-500 font-montserrat mt-0.5 truncate">
+                      {card.network} {card.categoryLabel ? `• ${card.categoryLabel}` : ""}
                     </p>
                   </div>
 
-                  {/* Key Metrics Grid */}
-                  <div className="grid grid-cols-2 gap-2 mt-3 sm:mt-3.5 pt-3 border-t border-gray-100">
-                    <div className="bg-gray-50/90 rounded-xl p-2 sm:p-2.5 border border-gray-100 min-w-0">
-                      <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat truncate">
-                        Annual Fee
+                  {/* Key Metrics Grid: Annual Fee & Reward Rate */}
+                  <div className="grid grid-cols-2 gap-1 sm:gap-2 mt-2 sm:mt-3 pt-2 sm:pt-2.5 border-t border-gray-100">
+                    <div className="bg-gray-50/90 rounded-md sm:rounded-xl p-1 sm:p-2 sm:px-2.5 border border-gray-100 min-w-0">
+                      <span className="text-[8px] sm:text-[9px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat truncate">
+                        Fee
                       </span>
                       <span
-                        className={`text-xs font-bold font-montserrat block mt-0.5 truncate ${
-                          isFree ? "text-emerald-700" : "text-gray-900"
+                        className={`text-[11px] sm:text-xs font-bold font-montserrat block mt-0.5 truncate ${
+                          isFree ? "text-emerald-700 font-extrabold" : "text-gray-900"
                         }`}
                       >
                         {card.annualFee || "Nil"}
                       </span>
                     </div>
-                    <div className="bg-gray-50/90 rounded-xl p-2 sm:p-2.5 border border-gray-100 min-w-0">
-                      <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat truncate">
-                        Reward Rate
+                    <div className="bg-gray-50/90 rounded-md sm:rounded-xl p-1 sm:p-2 sm:px-2.5 border border-gray-100 min-w-0">
+                      <span className="text-[8px] sm:text-[9px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat truncate">
+                        Rewards
                       </span>
-                      <span className="text-xs font-bold text-emerald-700 font-montserrat block mt-0.5 truncate">
+                      <span className="text-[11px] sm:text-xs font-bold text-emerald-700 font-montserrat block mt-0.5 truncate">
                         {card.rewardRate?.headline
-                          ? card.rewardRate.headline.slice(0, 26)
+                          ? card.rewardRate.headline.slice(0, 18)
                           : "Up to 5% Rewards"}
                       </span>
                     </div>
                   </div>
 
-                  {/* Top Highlights */}
-                  <div className="mt-3 pt-3 border-t border-gray-100">
-                    <ul className="space-y-1.5">
+                  {/* Top Highlights (1 on mobile, 2 on tablet/desktop) */}
+                  <div className="mt-2 sm:mt-2.5 pt-2 border-t border-gray-100">
+                    <ul className="space-y-1 sm:space-y-1.5">
                       {(card.keyHighlights && card.keyHighlights.length > 0
                         ? card.keyHighlights.slice(0, 2)
-                        : [card.description?.slice(0, 60) || "Reward points on all spends"]
+                        : [card.description?.slice(0, 50) || "Top privileges on all card spends"]
                       ).map((perk, i) => (
                         <li
                           key={i}
-                          className="flex items-start gap-1.5 text-xs text-gray-600 font-montserrat"
+                          className={`items-start gap-1 sm:gap-1.5 text-gray-600 font-montserrat ${
+                            i > 0 ? "hidden sm:flex" : "flex"
+                          }`}
                         >
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                          <span className="line-clamp-1 text-[11px] leading-tight min-w-0 flex-1">{perk}</span>
+                          <CheckCircle2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                          <span className="line-clamp-1 text-[10px] sm:text-[11px] leading-tight min-w-0 flex-1">
+                            {perk}
+                          </span>
                         </li>
                       ))}
                     </ul>
@@ -528,13 +608,7 @@ export default function BankCardExplorer({
                 </div>
 
                 {/* Footer Actions */}
-                <div className="p-3 sm:p-4 bg-gray-50/80 border-t border-gray-100 flex items-center gap-2">
-                  <button
-                    onClick={() => setSelectedCardForModal(card)}
-                    className="flex-1 min-h-10.5 text-xs font-bold text-primary bg-white hover:bg-primary/5 py-2.5 px-3 rounded-xl border border-primary/20 transition-all text-center cursor-pointer font-montserrat shadow-2xs"
-                  >
-                    Details
-                  </button>
+                <div className="p-2 sm:p-3 sm:pb-3.5 bg-gray-50/80 border-t border-gray-100 flex flex-col gap-1.5 sm:gap-2">
                   <button
                     onClick={() =>
                       openApplyModal(
@@ -542,10 +616,17 @@ export default function BankCardExplorer({
                         `${card.issuer} • ${card.badge || card.categoryLabel || "Credit Card"}`
                       )
                     }
-                    className="flex-1 min-h-10.5 text-xs font-bold text-white bg-primary hover:bg-primary/90 py-2.5 px-3 rounded-xl shadow-md transition-all flex items-center justify-center gap-1 group/btn cursor-pointer font-montserrat"
+                    className="w-full min-h-[34px] sm:min-h-10 text-[11px] sm:text-xs font-bold text-white bg-primary hover:bg-primary/90 py-1.5 sm:py-2.5 px-2 rounded-lg sm:rounded-xl shadow-xs transition-all flex items-center justify-center gap-1 group/btn cursor-pointer font-montserrat active:scale-[0.98]"
                   >
-                    <span>Apply</span>
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1" />
+                    <span>Apply Now</span>
+                    <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 transition-transform group-hover/btn:translate-x-0.5" />
+                  </button>
+
+                  <button
+                    onClick={() => setSelectedCardForModal(card)}
+                    className="w-full min-h-[26px] sm:min-h-8 text-[10px] sm:text-xs font-semibold text-primary bg-white hover:bg-primary/5 py-1 px-2 rounded-lg sm:rounded-xl border border-primary/20 transition-all text-center cursor-pointer font-montserrat shadow-2xs"
+                  >
+                    Card Details
                   </button>
                 </div>
               </div>
@@ -556,26 +637,24 @@ export default function BankCardExplorer({
 
       {/* ── CARDS DISPLAY: LIST VIEW ───────────────────────────────── */}
       {viewMode === "list" && sortedCards.length > 0 && (
-        <div className="flex flex-col gap-4 mt-6">
+        <div className="flex flex-col gap-3.5 sm:gap-4 mt-5 sm:mt-6">
           {paginatedCards.map((card) => {
             const isCompared = compareList.some((c) => c.id === card.id);
-            const isFree =
-              parseFeeNumber(card.annualFee) === 0 ||
-              /nil|free|₹0/i.test(card.annualFee || "") ||
-              /lifetime free/i.test(card.badge || "");
+            const isFree = isFreeCard(card);
 
             return (
               <div
                 key={card.id}
-                className="bg-white rounded-2xl sm:rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-lg transition-all p-4 sm:p-6 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 sm:gap-6"
+                className="bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl border border-gray-200/90 shadow-2xs hover:shadow-lg transition-all p-3 sm:p-5 lg:p-6 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3.5 sm:gap-6"
               >
                 {/* Left: Thumbnail */}
-                <div className="w-full sm:w-48 md:w-56 shrink-0">
-                  <div className="relative w-full aspect-[1.586/1] rounded-xl sm:rounded-2xl overflow-hidden drop-shadow-md">
+                <div className="w-full sm:w-44 md:w-56 shrink-0">
+                  <div className="relative w-full aspect-[1.586/1] rounded-lg sm:rounded-xl overflow-hidden drop-shadow-xs bg-linear-to-b from-gray-50 to-gray-100">
                     {card.cardImage ? (
                       <Link
                         href={`/credit-cards/${bankSlug}/${card.id}`}
                         className="block relative w-full h-full"
+                        title={card.name}
                       >
                         <Image
                           src={card.cardImage}
@@ -589,6 +668,7 @@ export default function BankCardExplorer({
                       <Link
                         href={`/credit-cards/${bankSlug}/${card.id}`}
                         className="block relative w-full h-full"
+                        title={card.name}
                       >
                         <div className="w-full h-full bg-linear-to-tr from-primary to-[#035259] flex items-center justify-center text-white p-3 text-center">
                           <p className="font-bricolage font-bold text-xs">{card.name}</p>
@@ -617,7 +697,7 @@ export default function BankCardExplorer({
                   </div>
 
                   <Link href={`/credit-cards/${bankSlug}/${card.id}`} className="block group/title">
-                    <h3 className="font-bricolage font-bold text-lg sm:text-xl text-gray-900 leading-snug group-hover/title:text-primary transition-colors">
+                    <h3 className="font-bricolage font-bold text-base sm:text-xl text-gray-900 leading-snug group-hover/title:text-primary transition-colors">
                       {card.name}
                     </h3>
                   </Link>
@@ -627,29 +707,29 @@ export default function BankCardExplorer({
                       "Earn accelerated rewards, milestone privileges, and fuel surcharge waivers on all card transactions."}
                   </p>
 
-                  <div className="mt-3 flex flex-wrap gap-1.5 sm:gap-2">
+                  <div className="mt-2.5 sm:mt-3 flex flex-wrap gap-1.5 sm:gap-2">
                     {(card.keyHighlights || []).slice(0, 3).map((perk, i) => (
                       <span
                         key={i}
-                        className="inline-flex items-center gap-1 text-[11px] text-gray-700 bg-gray-50 border border-gray-100 px-2 sm:px-2.5 py-1 rounded-lg font-montserrat max-w-full"
+                        className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] text-gray-700 bg-gray-50 border border-gray-100 px-2 sm:px-2.5 py-1 rounded-lg font-montserrat max-w-full"
                       >
                         <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
-                        <span className="truncate max-w-45 sm:max-w-60">{perk}</span>
+                        <span className="truncate max-w-40 sm:max-w-60">{perk}</span>
                       </span>
                     ))}
                   </div>
                 </div>
 
                 {/* Right: Fees & Action Buttons */}
-                <div className="w-full md:w-64 shrink-0 flex flex-col justify-between pt-4 md:pt-0 border-t md:border-t-0 md:border-l border-gray-100 md:pl-6">
-                  <div className="grid grid-cols-2 gap-2 mb-4">
+                <div className="w-full md:w-60 shrink-0 flex flex-col justify-between pt-3 md:pt-0 border-t md:border-t-0 md:border-l border-gray-100 md:pl-5">
+                  <div className="grid grid-cols-2 gap-2 mb-3">
                     <div className="min-w-0">
                       <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider block font-montserrat truncate">
                         Annual Fee
                       </span>
                       <span
                         className={`text-xs font-bold font-montserrat block mt-0.5 truncate ${
-                          isFree ? "text-emerald-700" : "text-gray-900"
+                          isFree ? "text-emerald-700 font-extrabold" : "text-gray-900"
                         }`}
                       >
                         {card.annualFee || "Nil"}
@@ -665,7 +745,7 @@ export default function BankCardExplorer({
                     </div>
                   </div>
 
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-1.5 sm:gap-2">
                     <button
                       onClick={() =>
                         openApplyModal(
@@ -673,7 +753,7 @@ export default function BankCardExplorer({
                           `${card.issuer} • ${card.badge || "Credit Card"}`
                         )
                       }
-                      className="w-full min-h-10.5 text-xs font-bold text-white bg-primary hover:bg-primary/90 py-2.5 px-4 rounded-xl shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer font-montserrat"
+                      className="w-full min-h-[36px] sm:min-h-10 text-xs font-bold text-white bg-primary hover:bg-primary/90 py-2 sm:py-2.5 px-3 rounded-lg sm:rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer font-montserrat active:scale-[0.98]"
                     >
                       <span>Apply Online</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -682,22 +762,22 @@ export default function BankCardExplorer({
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => setSelectedCardForModal(card)}
-                        className="flex-1 min-h-10 text-xs font-bold text-primary bg-white hover:bg-gray-50 py-2 px-3 rounded-xl border border-gray-200 transition-colors font-montserrat text-center cursor-pointer shadow-2xs"
+                        className="flex-1 min-h-[32px] sm:min-h-9 text-xs font-bold text-primary bg-white hover:bg-gray-50 py-1.5 px-2.5 rounded-lg sm:rounded-xl border border-gray-200 transition-colors font-montserrat text-center cursor-pointer shadow-2xs"
                       >
-                        View Details
+                        Details
                       </button>
 
                       <button
                         onClick={() => toggleCompare(card)}
-                        className={`min-h-10 min-w-10 p-2 rounded-xl border transition-colors cursor-pointer shrink-0 flex items-center justify-center ${
+                        className={`min-h-[32px] min-w-[32px] sm:min-h-9 sm:min-w-9 p-1.5 sm:p-2 rounded-lg sm:rounded-xl border transition-colors cursor-pointer shrink-0 flex items-center justify-center ${
                           isCompared
-                            ? "bg-primary text-white border-primary"
+                            ? "bg-primary text-white border-primary shadow-xs"
                             : "bg-white text-gray-500 border-gray-200 hover:text-primary"
                         }`}
-                        title="Compare"
+                        title={isCompared ? "Remove from comparison" : "Compare"}
                         aria-label="Compare"
                       >
-                        <Scale className="w-4 h-4" />
+                        <Scale className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       </button>
                     </div>
                   </div>

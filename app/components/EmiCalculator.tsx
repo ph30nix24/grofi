@@ -999,7 +999,7 @@ export default function EmiCalculator() {
 
           </div>
         </div>
-
+np
         {/* ── Collapsible Yearly Amortization Schedule ─────────────────── */}
         {showAmortization && (
           <AmortizationTable
