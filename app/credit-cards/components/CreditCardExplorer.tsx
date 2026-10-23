@@ -385,7 +385,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                     setSelectedCategory(tab.id);
                     setVisibleCount(12);
                   }}
-                  className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 min-h-[34px] sm:min-h-10.5 rounded-lg sm:rounded-xl font-montserrat text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap cursor-pointer shrink-0 shadow-2xs active:scale-95 ${isActive
+                  className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 min-h-8.5 sm:min-h-10.5 rounded-lg sm:rounded-xl font-montserrat text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap cursor-pointer shrink-0 shadow-2xs active:scale-95 ${isActive
                     ? "bg-primary text-white shadow-md shadow-primary/20"
                     : "bg-white text-gray-700 hover:text-primary hover:bg-gray-50 border border-gray-200"
                     }`}
@@ -423,7 +423,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                     setVisibleCount(12);
                   }}
                   aria-label="Filter by Issuing Bank"
-                  className="w-full bg-gray-50 border border-gray-200 rounded-lg sm:rounded-xl px-2.5 sm:px-3 py-2 sm:py-2.5 min-h-[36px] sm:min-h-10 text-[11px] sm:text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat pr-7 sm:pr-8"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-lg sm:rounded-xl px-2.5 sm:px-3 py-2 sm:py-2.5 min-h-9 sm:min-h-10 text-[11px] sm:text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat pr-7 sm:pr-8"
                 >
                   <option value="all">All Banks ({initialCards.length})</option>
                   {uniqueBanks.map(([issuer, count]) => (
@@ -449,7 +449,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                     setVisibleCount(12);
                   }}
                   aria-label="Filter by Annual Fee"
-                  className="w-full bg-gray-50 border border-gray-200 rounded-lg sm:rounded-xl px-2.5 sm:px-3 py-2 sm:py-2.5 min-h-[36px] sm:min-h-10 text-[11px] sm:text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat pr-7 sm:pr-8"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-lg sm:rounded-xl px-2.5 sm:px-3 py-2 sm:py-2.5 min-h-9 sm:min-h-10 text-[11px] sm:text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat pr-7 sm:pr-8"
                 >
                   {FEE_FILTERS.map((f) => (
                     <option key={f.id} value={f.id}>
@@ -474,7 +474,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                     setVisibleCount(12);
                   }}
                   aria-label="Filter by Card Network"
-                  className="w-full bg-gray-50 border border-gray-200 rounded-lg sm:rounded-xl px-2.5 sm:px-3 py-2 sm:py-2.5 min-h-[36px] sm:min-h-10 text-[11px] sm:text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat pr-7 sm:pr-8"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-lg sm:rounded-xl px-2.5 sm:px-3 py-2 sm:py-2.5 min-h-9 sm:min-h-10 text-[11px] sm:text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat pr-7 sm:pr-8"
                 >
                   {NETWORK_FILTERS.map((n) => (
                     <option key={n.id} value={n.id}>
@@ -499,7 +499,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                     setVisibleCount(12);
                   }}
                   aria-label="Sort Cards"
-                  className="w-full bg-gray-50 border border-gray-200 rounded-lg sm:rounded-xl px-2.5 sm:px-3 py-2 sm:py-2.5 min-h-[36px] sm:min-h-10 text-[11px] sm:text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat pr-7 sm:pr-8"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-lg sm:rounded-xl px-2.5 sm:px-3 py-2 sm:py-2.5 min-h-9 sm:min-h-10 text-[11px] sm:text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white appearance-none cursor-pointer font-montserrat pr-7 sm:pr-8"
                 >
                   <option value="popular">Most Popular</option>
                   <option value="fee-asc">Fee: Low to High</option>
@@ -517,7 +517,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
             <div className="flex items-center bg-gray-100 p-0.5 sm:p-1 rounded-lg sm:rounded-xl">
               <button
                 onClick={() => setViewMode("grid")}
-                className={`p-1.5 sm:p-2 min-h-[32px] min-w-[32px] sm:min-h-9 sm:min-w-9 flex items-center justify-center rounded-md sm:rounded-lg transition-all cursor-pointer ${viewMode === "grid" ? "bg-white text-primary shadow-xs font-bold" : "text-gray-500 hover:text-gray-900"
+                className={`p-1.5 sm:p-2 min-h-8 min-w-8 sm:min-h-9 sm:min-w-9 flex items-center justify-center rounded-md sm:rounded-lg transition-all cursor-pointer ${viewMode === "grid" ? "bg-white text-primary shadow-xs font-bold" : "text-gray-500 hover:text-gray-900"
                   }`}
                 title="2-Column Grid (Default)"
                 aria-label="2-Column Grid View"
@@ -526,7 +526,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
               </button>
               <button
                 onClick={() => setViewMode("list")}
-                className={`p-1.5 sm:p-2 min-h-[32px] min-w-[32px] sm:min-h-9 sm:min-w-9 flex items-center justify-center rounded-md sm:rounded-lg transition-all cursor-pointer ${viewMode === "list" ? "bg-white text-primary shadow-xs font-bold" : "text-gray-500 hover:text-gray-900"
+                className={`p-1.5 sm:p-2 min-h-8 min-w-8 sm:min-h-9 sm:min-w-9 flex items-center justify-center rounded-md sm:rounded-lg transition-all cursor-pointer ${viewMode === "list" ? "bg-white text-primary shadow-xs font-bold" : "text-gray-500 hover:text-gray-900"
                   }`}
                 title="List View"
                 aria-label="List View"
@@ -539,7 +539,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
             {isFiltersActive && (
               <button
                 onClick={clearAllFilters}
-                className="py-1.5 sm:py-2 px-2.5 sm:px-3 min-h-[32px] sm:min-h-9 text-[11px] sm:text-xs font-bold text-red-600 hover:bg-red-50 rounded-lg sm:rounded-xl border border-red-200 transition-colors flex items-center gap-1 font-montserrat cursor-pointer whitespace-nowrap active:scale-95"
+                className="py-1.5 sm:py-2 px-2.5 sm:px-3 min-h-8 sm:min-h-9 text-[11px] sm:text-xs font-bold text-red-600 hover:bg-red-50 rounded-lg sm:rounded-xl border border-red-200 transition-colors flex items-center gap-1 font-montserrat cursor-pointer whitespace-nowrap active:scale-95"
               >
                 <X className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                 <span>Reset</span>
@@ -661,7 +661,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
 
                     {/* Bank Row & Compare Checkbox */}
                     <div className="flex items-center justify-between gap-1 sm:gap-2 mb-2 sm:mb-3">
-                      <div className="h-4 sm:h-6 w-auto max-w-[48px] sm:max-w-[80px] relative shrink-0">
+                      <div className="h-4 sm:h-6 w-auto max-w-12 sm:max-w-20 relative shrink-0">
                         <Image
                           src={card.logo}
                           alt={card.issuer}
@@ -674,7 +674,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                       {/* Compare toggle */}
                       <button
                         onClick={() => toggleCompare(card)}
-                        className={`text-[10px] sm:text-[11px] font-bold font-montserrat px-1.5 sm:px-3 py-1 sm:py-1.5 min-h-[28px] sm:min-h-9 rounded-md sm:rounded-lg border transition-all flex items-center gap-1 cursor-pointer shrink-0 ${isCompared
+                        className={`text-[10px] sm:text-[11px] font-bold font-montserrat px-1.5 sm:px-3 py-1 sm:py-1.5 min-h-7 sm:min-h-9 rounded-md sm:rounded-lg border transition-all flex items-center gap-1 cursor-pointer shrink-0 ${isCompared
                           ? "bg-primary text-white border-primary shadow-xs"
                           : "bg-gray-50 text-gray-600 border-gray-200 hover:border-primary/40 hover:text-primary"
                           }`}
@@ -782,14 +782,14 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                       onClick={() =>
                         openApplyModal(card.name, `${card.issuer} • ${card.badge || card.categoryLabel || "Credit Card"}`)
                       }
-                      className="w-full min-h-[34px] sm:min-h-10 text-[11px] sm:text-xs font-bold text-white bg-primary hover:bg-primary/90 py-1.5 sm:py-2.5 px-2 rounded-lg sm:rounded-xl shadow-xs transition-all flex items-center justify-center gap-1 group/btn cursor-pointer font-montserrat active:scale-[0.98]"
+                      className="w-full min-h-8.5 sm:min-h-10 text-[11px] sm:text-xs font-bold text-white bg-primary hover:bg-primary/90 py-1.5 sm:py-2.5 px-2 rounded-lg sm:rounded-xl shadow-xs transition-all flex items-center justify-center gap-1 group/btn cursor-pointer font-montserrat active:scale-[0.98]"
                     >
                       <span>Apply Now</span>
                       <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 transition-transform group-hover/btn:translate-x-0.5" />
                     </button>
                     <button
                       onClick={() => setSelectedCardForModal(card)}
-                      className="w-full min-h-[26px] sm:min-h-8 text-[10px] sm:text-xs font-semibold text-primary bg-white hover:bg-primary/5 py-1 px-2 rounded-lg sm:rounded-xl border border-primary/20 transition-all text-center cursor-pointer font-montserrat shadow-2xs"
+                      className="w-full min-h-6.5 sm:min-h-8 text-[10px] sm:text-xs font-semibold text-primary bg-white hover:bg-primary/5 py-1 px-2 rounded-lg sm:rounded-xl border border-primary/20 transition-all text-center cursor-pointer font-montserrat shadow-2xs"
                     >
                       Card Details
                     </button>
@@ -901,7 +901,7 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                         onClick={() =>
                           openApplyModal(card.name, `${card.issuer} • ${card.badge || "Credit Card"}`)
                         }
-                        className="w-full min-h-[36px] sm:min-h-10 text-xs font-bold text-white bg-primary hover:bg-primary/90 py-2 sm:py-2.5 px-3 rounded-lg sm:rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer font-montserrat active:scale-[0.98]"
+                        className="w-full min-h-9 sm:min-h-10 text-xs font-bold text-white bg-primary hover:bg-primary/90 py-2 sm:py-2.5 px-3 rounded-lg sm:rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer font-montserrat active:scale-[0.98]"
                       >
                         <span>Apply Online</span>
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -910,14 +910,14 @@ export default function CreditCardExplorer({ initialCards }: { initialCards: Car
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => setSelectedCardForModal(card)}
-                          className="flex-1 min-h-[32px] sm:min-h-9 text-xs font-bold text-primary bg-white hover:bg-gray-50 py-1.5 px-2.5 rounded-lg sm:rounded-xl border border-gray-200 transition-colors font-montserrat text-center cursor-pointer shadow-2xs"
+                          className="flex-1 min-h-8 sm:min-h-9 text-xs font-bold text-primary bg-white hover:bg-gray-50 py-1.5 px-2.5 rounded-lg sm:rounded-xl border border-gray-200 transition-colors font-montserrat text-center cursor-pointer shadow-2xs"
                         >
                           Details
                         </button>
 
                         <button
                           onClick={() => toggleCompare(card)}
-                          className={`min-h-[32px] min-w-[32px] sm:min-h-9 sm:min-w-9 p-1.5 sm:p-2 rounded-lg sm:rounded-xl border transition-colors cursor-pointer shrink-0 flex items-center justify-center ${isCompared
+                          className={`min-h-8 min-w-8 sm:min-h-9 sm:min-w-9 p-1.5 sm:p-2 rounded-lg sm:rounded-xl border transition-colors cursor-pointer shrink-0 flex items-center justify-center ${isCompared
                             ? "bg-primary text-white border-primary shadow-xs"
                             : "bg-white text-gray-500 border-gray-200 hover:text-primary"
                             }`}

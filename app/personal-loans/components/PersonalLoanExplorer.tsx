@@ -22,6 +22,7 @@ import {
   LayoutGrid,
   List,
   RotateCcw,
+  Scale,
 } from "lucide-react";
 import { PersonalLoanLender } from "./type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
@@ -218,18 +219,18 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
     selectedLoanAmount !== "all";
 
   return (
-    <section id="lenders-list-section" className="py-12 sm:py-16 bg-[#FDFBF7] font-montserrat">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="lenders-list-section" className="py-8 sm:py-16 bg-[#FDFBF7] font-montserrat">
+      <div className="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8">
         
         {/* Section Title */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <div className="inline-flex items-center gap-1.5 bg-[#EBF4ED] text-primary border border-primary/20 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2">
-              <Building2 className="w-3.5 h-3.5 text-gold" />
-              Verified Lender Marketplace
+            <div className="inline-flex items-center gap-1.5 bg-[#EBF4ED] text-primary border border-primary/20 px-3 sm:px-3.5 py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2">
+              <Building2 className="w-3.5 h-3.5 text-gold shrink-0" />
+              <span>Verified Lender Marketplace</span>
             </div>
-            <h2 className="font-bricolage font-bold text-2xl sm:text-4xl text-gray-900 tracking-tight">
-              Compare & Apply for <span className="text-primary">Personal Loans</span>
+            <h2 className="font-bricolage font-bold text-xl sm:text-4xl text-gray-900 tracking-tight">
+              Compare &amp; Apply for <span className="text-primary">Personal Loans</span>
             </h2>
             <p className="mt-1 text-xs sm:text-sm text-gray-600">
               Showing {totalItems > 0 ? `${startIndex + 1}–${endIndex} of ${totalItems}` : "0"} partner lenders
@@ -240,23 +241,23 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
           {/* View Mode Toggle */}
           <div className="flex items-center gap-2 self-start md:self-end">
             <span className="text-xs font-bold text-gray-600 mr-1 hidden sm:inline">View:</span>
-            <div className="bg-gray-100 p-1 rounded-xl flex items-center gap-1 border border-gray-200">
+            <div className="bg-gray-100 p-0.5 sm:p-1 rounded-lg sm:rounded-xl flex items-center gap-1 border border-gray-200">
               <button
                 onClick={() => setViewMode("grid")}
-                className={`p-1.5 rounded-lg text-xs font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                className={`p-1.5 rounded-md sm:rounded-lg text-xs font-bold flex items-center gap-1 transition-all cursor-pointer ${
                   viewMode === "grid"
                     ? "bg-white text-primary shadow-xs"
                     : "text-gray-500 hover:text-gray-900"
                 }`}
-                title="Grid Card View"
+                title="2-Column Grid (Default)"
                 aria-label="Grid view"
               >
-                <LayoutGrid className="w-4 h-4" />
+                <LayoutGrid className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 <span className="hidden sm:inline">Cards</span>
               </button>
               <button
                 onClick={() => setViewMode("list")}
-                className={`p-1.5 rounded-lg text-xs font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                className={`p-1.5 rounded-md sm:rounded-lg text-xs font-bold flex items-center gap-1 transition-all cursor-pointer ${
                   viewMode === "list"
                     ? "bg-white text-primary shadow-xs"
                     : "text-gray-500 hover:text-gray-900"
@@ -264,7 +265,7 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                 title="List View"
                 aria-label="List view"
               >
-                <List className="w-4 h-4" />
+                <List className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 <span className="hidden sm:inline">List</span>
               </button>
             </div>
@@ -272,7 +273,7 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
         </div>
 
         {/* Category Pills Navigation */}
-        <div className="flex gap-2 pb-2 overflow-x-auto scrollbar-hidden mb-6">
+        <div className="flex gap-1.5 sm:gap-2 pb-2 overflow-x-auto scrollbar-hidden mb-4 sm:mb-6 -mx-2.5 px-2.5 sm:mx-0 sm:px-0">
           {categoryTabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = selectedCategory === tab.id;
@@ -283,26 +284,26 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                   setSelectedCategory(tab.id);
                   setCurrentPage(1);
                 }}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer shrink-0 ${
+                className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2.5 min-h-8.5 sm:min-h-10 rounded-lg sm:rounded-2xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer shrink-0 active:scale-95 ${
                   isActive
                     ? "bg-primary text-white shadow-md shadow-primary/20 scale-[1.02]"
                     : "bg-white text-gray-700 border border-gray-200 hover:border-gray-300 hover:bg-gray-50"
                 }`}
               >
-                <Icon className={`w-4 h-4 ${isActive ? "text-gold" : "text-gray-500"}`} />
+                <Icon className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isActive ? "text-gold" : "text-gray-500"}`} />
                 <span>{tab.label}</span>
               </button>
             );
           })}
         </div>
 
-        {/* Filter & Search Bar */}
-        <div className="bg-white rounded-3xl p-4 sm:p-5 border border-gray-200/90 shadow-sm mb-8 space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 items-center">
+        {/* Filter & Search Bar: 2x2 grid on mobile, 12 cols on desktop */}
+        <div className="bg-white rounded-xl sm:rounded-3xl p-3 sm:p-5 border border-gray-200/90 shadow-sm mb-6 sm:mb-8 space-y-3 sm:space-y-4">
+          <div className="grid grid-cols-2 lg:grid-cols-12 gap-2 sm:gap-3 items-center">
             
             {/* Search Input */}
-            <div className="sm:col-span-2 lg:col-span-4 relative">
-              <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <div className="col-span-2 lg:col-span-4 relative">
+              <Search className="w-4 h-4 text-gray-400 absolute left-3 sm:left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 value={searchQuery}
@@ -311,7 +312,7 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                   setCurrentPage(1);
                 }}
                 placeholder="Search bank name, NBFC, or features..."
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-10 pr-9 py-2.5 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/10 transition-all"
+                className="w-full bg-gray-50 border border-gray-200 rounded-lg sm:rounded-xl pl-9 sm:pl-10 pr-8 sm:pr-9 py-2 sm:py-2.5 min-h-9.5 sm:min-h-10 text-xs sm:text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/10 transition-all font-montserrat"
               />
               {searchQuery && (
                 <button
@@ -319,7 +320,7 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                     setSearchQuery("");
                     setCurrentPage(1);
                   }}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1 cursor-pointer"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full hover:bg-gray-100 cursor-pointer"
                   aria-label="Clear search query"
                 >
                   <X className="w-3.5 h-3.5" />
@@ -327,51 +328,54 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
               )}
             </div>
 
-            {/* Bank Type Dropdown (2 Cols) */}
-            <div className="sm:col-span-1 lg:col-span-2 relative">
+            {/* Bank Type Dropdown */}
+            <div className="col-span-1 lg:col-span-2 relative">
               <select
                 value={selectedBankType}
                 onChange={(e) => {
                   setSelectedBankType(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white transition-all appearance-none cursor-pointer"
+                aria-label="Filter by Bank Type"
+                className="w-full bg-gray-50 border border-gray-200 rounded-lg sm:rounded-xl px-2.5 sm:px-3 py-2 sm:py-2.5 min-h-9 sm:min-h-10 text-[11px] sm:text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white transition-all appearance-none cursor-pointer pr-7 sm:pr-8"
               >
                 <option value="all">All Bank Types</option>
                 <option value="private">Private Banks</option>
                 <option value="psu">PSU Banks</option>
                 <option value="nbfc">NBFCs</option>
               </select>
-              <ChevronDown className="w-3.5 h-3.5 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
 
-            {/* Min Loan Limit (2 Cols) */}
-            <div className="sm:col-span-1 lg:col-span-2 relative">
+            {/* Min Loan Limit */}
+            <div className="col-span-1 lg:col-span-2 relative">
               <select
                 value={selectedLoanAmount}
                 onChange={(e) => {
                   setSelectedLoanAmount(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white transition-all appearance-none cursor-pointer"
+                aria-label="Filter by Loan Amount"
+                className="w-full bg-gray-50 border border-gray-200 rounded-lg sm:rounded-xl px-2.5 sm:px-3 py-2 sm:py-2.5 min-h-9 sm:min-h-10 text-[11px] sm:text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white transition-all appearance-none cursor-pointer pr-7 sm:pr-8"
               >
                 <option value="all">Any Loan Amount</option>
-                <option value="30">Min ₹30 Lakhs Limit</option>
-                <option value="40">Min ₹40 Lakhs Limit</option>
-                <option value="50">Min ₹50 Lakhs Limit</option>
+                <option value="30">Min ₹30L Limit</option>
+                <option value="40">Min ₹40L Limit</option>
+                <option value="50">Min ₹50L Limit</option>
               </select>
-              <ChevronDown className="w-3.5 h-3.5 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
 
-            {/* Min CIBIL (2 Cols) */}
-            <div className="sm:col-span-1 lg:col-span-2 relative">
+            {/* Min CIBIL */}
+            <div className="col-span-1 lg:col-span-2 relative">
               <select
                 value={selectedMinCibil}
                 onChange={(e) => {
                   setSelectedMinCibil(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white transition-all appearance-none cursor-pointer"
+                aria-label="Filter by CIBIL Score"
+                className="w-full bg-gray-50 border border-gray-200 rounded-lg sm:rounded-xl px-2.5 sm:px-3 py-2 sm:py-2.5 min-h-9 sm:min-h-10 text-[11px] sm:text-xs font-semibold text-gray-800 focus:outline-none focus:border-primary focus:bg-white transition-all appearance-none cursor-pointer pr-7 sm:pr-8"
               >
                 <option value="all">Any CIBIL Score</option>
                 <option value="650">CIBIL 650+</option>
@@ -379,11 +383,11 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                 <option value="720">CIBIL 720+</option>
                 <option value="750">CIBIL 750+</option>
               </select>
-              <ChevronDown className="w-3.5 h-3.5 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
 
-            {/* Sort Dropdown (2 Cols) */}
-            <div className="sm:col-span-1 lg:col-span-2 relative">
+            {/* Sort Dropdown */}
+            <div className="col-span-1 lg:col-span-2 relative">
               <select
                 value={sortBy}
                 onChange={(e) => {
@@ -397,15 +401,16 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                   );
                   setCurrentPage(1);
                 }}
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-xs font-bold text-gray-800 focus:outline-none focus:border-primary focus:bg-white transition-all appearance-none cursor-pointer"
+                aria-label="Sort Lenders"
+                className="w-full bg-gray-50 border border-gray-200 rounded-lg sm:rounded-xl px-2.5 sm:px-3 py-2 sm:py-2.5 min-h-9 sm:min-h-10 text-[11px] sm:text-xs font-bold text-gray-800 focus:outline-none focus:border-primary focus:bg-white transition-all appearance-none cursor-pointer pr-7 sm:pr-8"
               >
-                <option value="rate-asc">Lowest Interest Rate</option>
-                <option value="amount-desc">Highest Loan Limit</option>
-                <option value="emi-asc">Lowest Starting EMI</option>
+                <option value="rate-asc">Lowest Rate</option>
+                <option value="amount-desc">Highest Limit</option>
+                <option value="emi-asc">Lowest EMI</option>
                 <option value="speed-asc">Fastest Disbursal</option>
-                <option value="rating-desc">Highest User Rating</option>
+                <option value="rating-desc">Highest Rating</option>
               </select>
-              <ArrowUpDown className="w-3.5 h-3.5 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <ArrowUpDown className="w-3.5 h-3.5 text-gray-400 absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
 
           </div>
@@ -452,26 +457,26 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
         {filteredAndSortedLenders.length > 0 ? (
           <>
             {viewMode === "grid" ? (
-              /* ── GRID CARD VIEW ── */
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              /* ── GRID CARD VIEW (2 AT A TIME ON MOBILE) ── */
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-5 lg:gap-6">
                 {paginatedLenders.map((lender) => {
                 const checked = isCompared(lender.id);
 
                 return (
                   <div
                     key={lender.id}
-                    className="bg-white rounded-3xl border border-gray-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group relative"
+                    className="bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl border border-gray-200/90 shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group relative hover:-translate-y-1"
                   >
                     {/* Top Accent Strip */}
-                    <div className="h-1.5 w-full bg-linear-to-r from-primary via-emerald-600 to-[#B69226]" />
+                    <div className="h-1 sm:h-1.5 w-full bg-linear-to-r from-primary via-emerald-600 to-[#B69226]" />
 
-                    <div className="p-5 sm:p-6">
+                    <div className="p-2.5 sm:p-5 flex-1 flex flex-col">
                       
-                      {/* Card Header: Logo, Badges, Compare Checkbox */}
-                      <div className="flex items-start justify-between gap-3 mb-4">
+                      {/* Card Header: Logo, Badges, Compare Button */}
+                      <div className="flex items-start justify-between gap-1 sm:gap-2 mb-2 sm:mb-3.5">
                         <Link
                           href={`/personal-loans/${lender.id}`}
-                          className="w-14 h-14 rounded-2xl bg-white border border-gray-200 p-2 flex items-center justify-center shrink-0 shadow-2xs hover:border-primary transition-colors"
+                          className="w-10 h-10 sm:w-14 sm:h-14 rounded-lg sm:rounded-2xl bg-white border border-gray-200 p-1 sm:p-2 flex items-center justify-center shrink-0 shadow-2xs hover:border-primary transition-colors"
                         >
                           <Image
                             src={lender.logo}
@@ -482,24 +487,30 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                           />
                         </Link>
 
-                        <div className="flex flex-col items-end gap-1.5">
-                          {/* Compare Checkbox */}
-                          <label
-                            onClick={(e) => e.stopPropagation()}
-                            className="flex items-center gap-1.5 text-[11px] font-semibold text-gray-500 cursor-pointer select-none hover:text-primary"
+                        <div className="flex flex-col items-end gap-1">
+                          {/* Compare toggle */}
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleCompare(lender);
+                            }}
+                            className={`text-[10px] sm:text-[11px] font-bold font-montserrat px-1.5 sm:px-2.5 py-0.5 sm:py-1 min-h-6.5 sm:min-h-8 rounded-md sm:rounded-lg border transition-all flex items-center gap-1 cursor-pointer shrink-0 ${
+                              checked
+                                ? "bg-primary text-white border-primary shadow-xs"
+                                : "bg-gray-50 text-gray-600 border-gray-200 hover:border-primary/40 hover:text-primary"
+                            }`}
+                            title={checked ? "Remove from comparison" : "Add to comparison"}
+                            aria-label={`${checked ? "Remove" : "Add"} ${lender.name} ${checked ? "from" : "to"} comparison`}
                           >
-                            <input
-                              type="checkbox"
-                              checked={checked}
-                              onChange={() => toggleCompare(lender)}
-                              className="w-3.5 h-3.5 rounded text-primary focus:ring-primary accent-primary cursor-pointer"
-                            />
-                            <span>Compare</span>
-                          </label>
+                            <Scale className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
+                            <span className="hidden min-[420px]:inline">{checked ? "Compared" : "Compare"}</span>
+                            <span className="inline min-[420px]:hidden">{checked ? "✓" : "+"}</span>
+                          </button>
 
                           {/* Badge */}
                           {lender.badge && (
-                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
+                            <span className="text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-md bg-amber-50 text-amber-800 border border-amber-200 truncate max-w-20 sm:max-w-none">
                               {lender.badge}
                             </span>
                           )}
@@ -507,109 +518,111 @@ export default function PersonalLoanExplorer({ initialLenders }: PersonalLoanExp
                       </div>
 
                       {/* Bank Name & Rating */}
-                      <div className="mb-4">
+                      <div className="mb-2 sm:mb-3 flex-1">
                         <Link href={`/personal-loans/${lender.id}`} className="block group/title">
-                          <h3 className="font-bricolage font-bold text-lg sm:text-xl text-gray-900 group-hover/title:text-primary transition-colors leading-snug">
+                          <h3 className="font-bricolage font-bold text-xs sm:text-lg text-gray-900 group-hover/title:text-primary transition-colors leading-snug line-clamp-2 min-h-[2.4em] sm:min-h-[2.6em]">
                             {lender.name}
                           </h3>
                         </Link>
 
-                        <div className="flex items-center gap-2 mt-1">
-                          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-gray-100 text-gray-700">
+                        <div className="flex items-center gap-1.5 mt-0.5 sm:mt-1 flex-wrap">
+                          <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-md bg-gray-100 text-gray-700">
                             {lender.bankType || "Bank"}
                           </span>
                           {lender.rating && (
-                            <span className="flex items-center gap-1 text-xs font-bold text-gray-700 bg-amber-50/70 px-2 py-0.5 rounded-md">
-                              <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                            <span className="flex items-center gap-0.5 text-[10px] sm:text-xs font-bold text-gray-700 bg-amber-50/70 px-1.5 py-0.5 rounded-md">
+                              <Star className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-amber-400 text-amber-400" />
                               <span>{lender.rating}</span>
-                              {lender.reviewCount && (
-                                <span className="text-gray-400 font-normal">({lender.reviewCount})</span>
-                              )}
                             </span>
                           )}
                         </div>
 
-                        <p className="text-xs text-gray-500 mt-2 line-clamp-2 leading-relaxed">
+                        <p className="text-[10px] sm:text-xs text-gray-500 mt-1 line-clamp-1 sm:line-clamp-2 leading-relaxed hidden xs:block sm:block">
                           {lender.tagline}
                         </p>
                       </div>
 
-                      {/* Key Financial Metrics Matrix */}
+                      {/* Key Financial Metrics Matrix (2x2 grid) */}
                       <Link href={`/personal-loans/${lender.id}`} className="block">
-                        <div className="grid grid-cols-2 gap-2 bg-[#FDFBF7] p-3 rounded-2xl border border-gray-200/70 mb-4 hover:border-primary/30 transition-colors">
-                          <div className="p-1">
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
-                              Interest Rate
+                        <div className="grid grid-cols-2 gap-1 sm:gap-2 bg-[#FDFBF7] p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl border border-gray-200/70 mb-2 sm:mb-3 hover:border-primary/30 transition-colors">
+                          <div className="p-0.5 sm:p-1 min-w-0">
+                            <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-wider text-gray-400 block truncate">
+                              Rate
                             </span>
-                            <span className="font-bricolage font-extrabold text-sm sm:text-base text-primary block mt-0.5">
+                            <span className="font-bricolage font-extrabold text-[11px] sm:text-base text-primary block mt-0.5 truncate">
                               {typeof lender.interestRate?.min === "number" ? `${lender.interestRate.min}%${lender.interestRate.max ? ` - ${lender.interestRate.max}%` : ''}` : "Competitive"}
                             </span>
                           </div>
 
-                          <div className="p-1">
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
+                          <div className="p-0.5 sm:p-1 min-w-0">
+                            <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-wider text-gray-400 block truncate">
                               Starting EMI
                             </span>
-                            <span className="font-semibold text-xs sm:text-sm text-emerald-800 block mt-0.5">
-                              ₹{lender.startingEmiPerLakh} / Lakh
+                            <span className="font-semibold text-[10px] sm:text-sm text-emerald-800 block mt-0.5 truncate">
+                              ₹{lender.startingEmiPerLakh}/L
                             </span>
                           </div>
 
-                          <div className="p-1 border-t border-gray-200/60 pt-2">
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
-                              Max Loan Amount
+                          <div className="p-0.5 sm:p-1 border-t border-gray-200/60 pt-1 sm:pt-2 min-w-0">
+                            <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-wider text-gray-400 block truncate">
+                              Max Limit
                             </span>
-                            <span className="font-bricolage font-bold text-xs sm:text-sm text-gray-900 block mt-0.5">
+                            <span className="font-bricolage font-bold text-[10px] sm:text-xs text-gray-900 block mt-0.5 truncate">
                               {lender.maxAmount}
                             </span>
                           </div>
 
-                          <div className="p-1 border-t border-gray-200/60 pt-2">
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">
-                              Disbursal Time
+                          <div className="p-0.5 sm:p-1 border-t border-gray-200/60 pt-1 sm:pt-2 min-w-0">
+                            <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-wider text-gray-400 block truncate">
+                              Disbursal
                             </span>
-                            <span className="font-bold text-xs text-amber-800 block mt-0.5">
+                            <span className="font-bold text-[10px] sm:text-xs text-amber-800 block mt-0.5 truncate">
                               {lender.disbursalTime}
                             </span>
                           </div>
                         </div>
 
-                        {/* Top Highlights */}
-                        <div className="space-y-1.5 mb-4">
+                        {/* Top Highlights (1 on mobile, 2 on desktop) */}
+                        <div className="space-y-1 sm:space-y-1.5 mb-2 sm:mb-3">
                           {lender.features.slice(0, 2).map((feat, idx) => (
-                            <div key={idx} className="flex items-start gap-2 text-xs text-gray-600 leading-tight">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                            <div
+                              key={idx}
+                              className={`items-start gap-1 sm:gap-1.5 text-[10px] sm:text-xs text-gray-600 leading-tight ${
+                                idx > 0 ? "hidden sm:flex" : "flex"
+                              }`}
+                            >
+                              <CheckCircle2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                               <span className="line-clamp-1">{feat}</span>
                             </div>
                           ))}
                         </div>
 
                         {/* Eligibility Pill */}
-                        <div className="bg-gray-50 px-3 py-2 rounded-xl border border-gray-100 flex items-center justify-between text-[11px] text-gray-500">
-                          <span>Min CIBIL: <strong className="text-gray-800 font-bold">{lender.minCreditScore}+</strong></span>
-                          <span>Salary: <strong className="text-gray-800 font-bold">{lender.minIncome.split("(")[0]}</strong></span>
+                        <div className="bg-gray-50 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl border border-gray-100 flex items-center justify-between text-[9px] sm:text-[11px] text-gray-500">
+                          <span className="truncate">CIBIL: <strong className="text-gray-800 font-bold">{lender.minCreditScore}+</strong></span>
+                          <span className="truncate ml-1">Salary: <strong className="text-gray-800 font-bold">{lender.minIncome.split("(")[0]}</strong></span>
                         </div>
                       </Link>
 
                     </div>
 
-                    {/* Card Actions Footer */}
-                    <div className="p-4 bg-gray-50/80 border-t border-gray-100 flex items-center gap-2">
+                    {/* Card Actions Footer: Stacked on mobile, side-by-side on sm: */}
+                    <div className="p-2 sm:p-3 sm:pb-3.5 bg-gray-50/80 border-t border-gray-100 flex flex-col gap-1.5 sm:gap-2">
                       <button
                         type="button"
-                        onClick={() => setSelectedLenderForDetail(lender)}
-                        className="flex-1 text-xs font-bold text-gray-700 hover:text-primary py-2.5 px-3 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors text-center cursor-pointer"
+                        onClick={() => openApplyModal(lender.name, lender.tagline)}
+                        className="w-full bg-primary hover:bg-[#035259] text-white font-bold text-[11px] sm:text-xs min-h-8.5 sm:min-h-10 py-1.5 sm:py-2.5 px-2 rounded-lg sm:rounded-xl shadow-xs hover:shadow-md transition-all flex items-center justify-center gap-1 cursor-pointer group/btn active:scale-[0.98]"
                       >
-                        View Details
+                        <span>Apply Now</span>
+                        <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 transition-transform group-hover/btn:translate-x-0.5" />
                       </button>
 
                       <button
                         type="button"
-                        onClick={() => openApplyModal(lender.name, lender.tagline)}
-                        className="flex-1 bg-primary hover:bg-[#035259] text-white font-bold text-xs py-2.5 px-3 rounded-xl shadow-xs hover:shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer group/btn"
+                        onClick={() => setSelectedLenderForDetail(lender)}
+                        className="w-full text-[10px] sm:text-xs font-semibold text-gray-700 hover:text-primary py-1 sm:py-1.5 px-2 bg-white border border-gray-200 rounded-lg sm:rounded-xl hover:bg-gray-50 transition-colors text-center cursor-pointer min-h-6.5 sm:min-h-8 shadow-2xs"
                       >
-                        <span>Apply Now</span>
-                        <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1" />
+                        View Details
                       </button>
                     </div>
 

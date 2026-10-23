@@ -151,7 +151,7 @@ export default function SimilarCardsSection({
                       `${card.issuer} • ${card.badge || "Credit Card"}`
                     )
                   }
-                  className="w-full bg-primary hover:bg-[#035259] active:scale-95 text-white text-[11px] sm:text-xs font-bold font-montserrat min-h-[34px] sm:min-h-10 py-1.5 sm:py-2.5 px-2 rounded-lg sm:rounded-xl flex items-center justify-center gap-1 transition-all shadow-xs cursor-pointer order-1 sm:order-2"
+                  className="w-full bg-primary hover:bg-[#035259] active:scale-95 text-white text-[11px] sm:text-xs font-bold font-montserrat min-h-8.5 sm:min-h-10 py-1.5 sm:py-2.5 px-2 rounded-lg sm:rounded-xl flex items-center justify-center gap-1 transition-all shadow-xs cursor-pointer order-1 sm:order-2"
                 >
                   <span>Apply Now</span>
                   <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
@@ -159,7 +159,7 @@ export default function SimilarCardsSection({
 
                 <Link
                   href={cardHref}
-                  className="w-full text-center min-h-[26px] sm:min-h-10 py-1 sm:py-2.5 px-2 rounded-lg sm:rounded-xl border border-gray-200 sm:border-gray-200 text-[10px] sm:text-xs font-semibold sm:font-bold font-montserrat text-gray-700 hover:bg-gray-50 hover:text-primary transition-all flex items-center justify-center bg-white shadow-2xs order-2 sm:order-1"
+                  className="w-full text-center min-h-6.5 sm:min-h-10 py-1 sm:py-2.5 px-2 rounded-lg sm:rounded-xl border border-gray-200 sm:border-gray-200 text-[10px] sm:text-xs font-semibold sm:font-bold font-montserrat text-gray-700 hover:bg-gray-50 hover:text-primary transition-all flex items-center justify-center bg-white shadow-2xs order-2 sm:order-1"
                 >
                   Details
                 </Link>

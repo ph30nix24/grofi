@@ -20,6 +20,7 @@ import {
   RotateCcw,
   ShieldCheck,
   Sparkles,
+  Scale,
 } from "lucide-react";
 import { InstantLoanLender } from "./type";
 import { useApplyModal } from "@/app/context/ApplyModalContext";
@@ -216,8 +217,8 @@ export default function InstantLoanExplorer({ initialLenders }: InstantLoanExplo
   };
 
   return (
-    <section id="lenders-list-section" className="py-12 sm:py-16 bg-[#FDFBF7] font-montserrat">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="lenders-list-section" className="py-8 sm:py-16 bg-[#FDFBF7] font-montserrat">
+      <div className="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8">
         {/* Section Title */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
           <div>
@@ -288,7 +289,7 @@ export default function InstantLoanExplorer({ initialLenders }: InstantLoanExplo
         </div>
 
         {/* Filters and Search Bar Container */}
-        <div className="bg-white rounded-2xl border border-gray-200/80 p-4 shadow-xs mb-8 space-y-3">
+        <div className="bg-white rounded-2xl border border-gray-200/80 p-3 sm:p-4 shadow-xs mb-6 sm:mb-8 space-y-3">
           {/* Top Row: Search + Disbursal Speed Filter Chips */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-center">
             {/* Search Input */}
@@ -296,7 +297,7 @@ export default function InstantLoanExplorer({ initialLenders }: InstantLoanExplo
               <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-3" />
               <input
                 type="text"
-                placeholder="Search lenders (e.g. HDFC, Navi, 10s, low cibil)..."
+                placeholder="Search lenders (e.g. HDFC, Navi, 10s)..."
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
@@ -324,7 +325,7 @@ export default function InstantLoanExplorer({ initialLenders }: InstantLoanExplo
                     setSelectedSpeed(sf.id);
                     setCurrentPage(1);
                   }}
-                  className={`text-xs px-2.5 py-1.5 rounded-lg font-semibold transition-all cursor-pointer border ${
+                  className={`text-[11px] sm:text-xs px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-lg font-semibold transition-all cursor-pointer border ${
                     selectedSpeed === sf.id
                       ? "bg-amber-50 text-amber-900 border-amber-300 font-bold"
                       : "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100"
@@ -337,17 +338,17 @@ export default function InstantLoanExplorer({ initialLenders }: InstantLoanExplo
           </div>
 
           {/* Bottom Row: Dropdowns (Lender Type, Min CIBIL, Sort By, Clear) */}
-          <div className="pt-2 border-t border-gray-100 flex flex-wrap items-center gap-3 text-xs">
+          <div className="pt-2 border-t border-gray-100 grid grid-cols-2 lg:flex lg:flex-wrap items-center gap-2 sm:gap-3 text-xs">
             {/* Lender Type */}
-            <div className="flex items-center gap-1.5">
-              <span className="text-gray-500 font-medium">Institution:</span>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-1.5">
+              <span className="text-gray-500 font-medium text-[11px] sm:text-xs">Institution:</span>
               <select
                 value={selectedLenderType}
                 onChange={(e) => {
                   setSelectedLenderType(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="bg-gray-50 border border-gray-200 rounded-lg px-2.5 py-1.5 text-gray-800 font-semibold focus:outline-none focus:border-primary cursor-pointer"
+                className="w-full sm:w-auto bg-gray-50 border border-gray-200 rounded-lg px-2 sm:px-2.5 py-1.5 text-gray-800 font-semibold focus:outline-none focus:border-primary cursor-pointer text-xs"
               >
                 <option value="all">All Lenders</option>
                 <option value="bank">Banks Only</option>
@@ -357,15 +358,15 @@ export default function InstantLoanExplorer({ initialLenders }: InstantLoanExplo
             </div>
 
             {/* Min CIBIL */}
-            <div className="flex items-center gap-1.5">
-              <span className="text-gray-500 font-medium">Min CIBIL:</span>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-1.5">
+              <span className="text-gray-500 font-medium text-[11px] sm:text-xs">Min CIBIL:</span>
               <select
                 value={selectedMinCibil}
                 onChange={(e) => {
                   setSelectedMinCibil(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="bg-gray-50 border border-gray-200 rounded-lg px-2.5 py-1.5 text-gray-800 font-semibold focus:outline-none focus:border-primary cursor-pointer"
+                className="w-full sm:w-auto bg-gray-50 border border-gray-200 rounded-lg px-2 sm:px-2.5 py-1.5 text-gray-800 font-semibold focus:outline-none focus:border-primary cursor-pointer text-xs"
               >
                 <option value="all">Any Score</option>
                 <option value="600">600+ (App Friendly)</option>
@@ -376,12 +377,12 @@ export default function InstantLoanExplorer({ initialLenders }: InstantLoanExplo
             </div>
 
             {/* Sort Dropdown */}
-            <div className="flex items-center gap-1.5 sm:ml-auto">
-              <span className="text-gray-500 font-medium">Sort By:</span>
+            <div className="col-span-2 sm:col-span-1 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-1.5 sm:ml-auto">
+              <span className="text-gray-500 font-medium text-[11px] sm:text-xs">Sort By:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="bg-gray-50 border border-gray-200 rounded-lg px-2.5 py-1.5 text-gray-800 font-semibold focus:outline-none focus:border-primary cursor-pointer"
+                className="w-full sm:w-auto bg-gray-50 border border-gray-200 rounded-lg px-2 sm:px-2.5 py-1.5 text-gray-800 font-semibold focus:outline-none focus:border-primary cursor-pointer text-xs"
               >
                 <option value="speed-asc">⚡ Fastest Disbursal First</option>
                 <option value="rate-asc">📉 Lowest Interest Rate</option>
@@ -395,10 +396,10 @@ export default function InstantLoanExplorer({ initialLenders }: InstantLoanExplo
             {(searchQuery || selectedCategory !== "all" || selectedSpeed !== "all" || selectedLenderType !== "all" || selectedMinCibil !== "all" || sortBy !== "speed-asc") && (
               <button
                 onClick={resetAllFilters}
-                className="text-gray-500 hover:text-red-500 font-semibold flex items-center gap-1 transition-colors cursor-pointer ml-1"
+                className="col-span-2 sm:col-span-1 text-gray-500 hover:text-red-500 font-semibold flex items-center justify-center sm:justify-start gap-1 transition-colors cursor-pointer py-1 text-xs"
               >
                 <RotateCcw className="w-3 h-3" />
-                <span>Reset</span>
+                <span>Reset Filters</span>
               </button>
             )}
           </div>
@@ -428,22 +429,21 @@ export default function InstantLoanExplorer({ initialLenders }: InstantLoanExplo
 
         {/* GRID VIEW */}
         {viewMode === "grid" && filteredAndSortedLenders.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-5 lg:gap-6">
             {paginatedLenders.map((lender) => {
               const isCompared = compareList.some((c) => c.id === lender.id);
 
               return (
                 <div
                   key={lender.id}
-                  className="bg-white rounded-3xl border border-gray-200/80 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group hover:border-primary/30"
+                  className="bg-white rounded-2xl sm:rounded-3xl border border-gray-200/80 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group hover:border-primary/30"
                 >
-
-                  <Link href={`/personal-loans/instant-loans/${lender.id}`}>
+                  <Link href={`/personal-loans/instant-loans/${lender.id}`} className="flex-1 flex flex-col">
                     {/* Card Header */}
-                    <div className="p-5 pb-4 border-b border-gray-100">
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="flex items-center gap-3">
-                          <div className="w-13 h-13 rounded-2xl bg-white border border-gray-200 p-1.5 shadow-2xs flex items-center justify-center shrink-0">
+                    <div className="p-3 sm:p-5 pb-2.5 sm:pb-4 border-b border-gray-100">
+                      <div className="flex items-start justify-between gap-1.5 sm:gap-3">
+                        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                          <div className="w-9 h-9 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl bg-white border border-gray-200 p-1 sm:p-1.5 shadow-2xs flex items-center justify-center shrink-0">
                             <Image
                               src={lender.logo}
                               alt={lender.name}
@@ -453,88 +453,89 @@ export default function InstantLoanExplorer({ initialLenders }: InstantLoanExplo
                             />
                           </div>
 
-                          <div>
+                          <div className="min-w-0">
                             <div className="flex items-center gap-1.5">
-                              <h3 className="font-bricolage font-bold text-base text-gray-900 group-hover:text-primary transition-colors line-clamp-1">
+                              <h3 className="font-bricolage font-bold text-xs sm:text-base text-gray-900 group-hover:text-primary transition-colors line-clamp-2 min-h-[2.4em] sm:min-h-[2.6em] leading-tight">
                                 {lender.name}
                               </h3>
                             </div>
-                            <span className="text-[11px] text-gray-500 font-medium block line-clamp-1 mt-0.5">
+                            <span className="hidden sm:block text-[11px] text-gray-500 font-medium line-clamp-1 mt-0.5">
                               {lender.tagline}
                             </span>
                           </div>
                         </div>
 
                         {/* Disbursal Speed Pill */}
-                        <span className={`px-2.5 py-1 rounded-full text-[11px] font-bold border shrink-0 flex items-center gap-1 ${getSpeedBadgeColor(lender.disbursalSpeedCategory)}`}>
-                          <Clock className="w-3 h-3 text-amber-600" />
-                          <span>{lender.disbursalTime}</span>
+                        <span className={`px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-[11px] font-bold border shrink-0 flex items-center gap-0.5 sm:gap-1 ${getSpeedBadgeColor(lender.disbursalSpeedCategory)}`}>
+                          <Clock className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-600" />
+                          <span className="truncate max-w-[65px] sm:max-w-none">{lender.disbursalTime}</span>
                         </span>
                       </div>
 
                       {/* Badge & App Rating row */}
-                      <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs">
+                      <div className="mt-2 sm:mt-3 flex items-center justify-between gap-1 text-[10px] sm:text-xs">
                         {lender.badge ? (
-                          <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold border ${lender.badgeColor || "bg-amber-50 text-amber-800 border-amber-200"}`}>
+                          <span className={`px-1.5 py-0.5 rounded-md text-[9px] sm:text-[10px] font-bold border truncate ${lender.badgeColor || "bg-amber-50 text-amber-800 border-amber-200"}`}>
                             {lender.badge}
                           </span>
                         ) : (
-                          <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                          <span className="px-1.5 py-0.5 rounded-md text-[9px] sm:text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 truncate">
                             RBI Regulated
                           </span>
                         )}
 
-                        <div className="flex items-center gap-1 text-[11px] text-gray-600">
-                          <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                        <div className="flex items-center gap-1 text-[10px] sm:text-[11px] text-gray-600 shrink-0">
+                          <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
                           <span className="font-bold text-gray-900">{lender.rating.toFixed(1)}</span>
-                          <span className="text-gray-400">
+                          <span className="hidden sm:inline text-gray-400">
                             ({lender.appDownloads ? lender.appDownloads : lender.reviewCount})
                           </span>
                         </div>
                       </div>
                     </div>
+
                     {/* Card Body: Rate & Terms Matrix */}
-                    <div className="p-5 py-4 space-y-3.5 flex-1 bg-linear-to-b from-white to-[#FDFBF7]/40">
+                    <div className="p-3 sm:p-5 py-2.5 sm:py-4 space-y-2 sm:space-y-3.5 flex-1 bg-linear-to-b from-white to-[#FDFBF7]/40">
                       {/* Rate & Starting EMI Highlight */}
-                      <div className="grid grid-cols-2 gap-3 p-3 bg-gray-50/80 rounded-2xl border border-gray-100">
+                      <div className="grid grid-cols-2 gap-1.5 sm:gap-3 p-2 sm:p-3 bg-gray-50/80 rounded-xl sm:rounded-2xl border border-gray-100">
                         <div>
-                          <span className="text-[10px] uppercase font-bold text-gray-400 block tracking-wider">
+                          <span className="text-[9px] sm:text-[10px] uppercase font-bold text-gray-400 block tracking-wider truncate">
                             Interest Rate
                           </span>
-                          <span className="font-bricolage font-bold text-sm sm:text-base text-emerald-700 block">
+                          <span className="font-bricolage font-bold text-xs sm:text-base text-emerald-700 block truncate">
                             {lender.interestRate.text}
                           </span>
-                          <span className="text-[10px] text-gray-500">Monthly Reducing</span>
+                          <span className="text-[9px] sm:text-[10px] text-gray-500 hidden sm:block">Monthly Reducing</span>
                         </div>
 
                         <div>
-                          <span className="text-[10px] uppercase font-bold text-gray-400 block tracking-wider">
+                          <span className="text-[9px] sm:text-[10px] uppercase font-bold text-gray-400 block tracking-wider truncate">
                             Starting EMI
                           </span>
-                          <span className="font-bricolage font-bold text-sm sm:text-base text-gray-900 block">
+                          <span className="font-bricolage font-bold text-xs sm:text-base text-gray-900 block truncate">
                             ₹{lender.startingEmiPerLakh.toLocaleString("en-IN")}/mo
                           </span>
-                          <span className="text-[10px] text-gray-500">Per ₹1 Lakh</span>
+                          <span className="text-[9px] sm:text-[10px] text-gray-500 hidden sm:block">Per ₹1 Lakh</span>
                         </div>
                       </div>
 
                       {/* Limit, Min Income, Min CIBIL */}
-                      <div className="space-y-1.5 text-xs">
-                        <div className="flex justify-between items-center py-1 border-b border-gray-100">
-                          <span className="text-gray-500">Max Loan Limit:</span>
-                          <span className="font-bold text-primary">{lender.maxAmount}</span>
+                      <div className="grid grid-cols-2 sm:flex sm:flex-col gap-1 sm:gap-1.5 text-[10px] sm:text-xs">
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:py-1 sm:border-b sm:border-gray-100 bg-gray-50/50 sm:bg-transparent p-1.5 sm:p-0 rounded-lg sm:rounded-none">
+                          <span className="text-gray-400 sm:text-gray-500 text-[9px] sm:text-xs">Max Loan:</span>
+                          <span className="font-bold text-primary truncate">{lender.maxAmount}</span>
                         </div>
-                        <div className="flex justify-between items-center py-1 border-b border-gray-100">
-                          <span className="text-gray-500">Min CIBIL Needed:</span>
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:py-1 sm:border-b sm:border-gray-100 bg-gray-50/50 sm:bg-transparent p-1.5 sm:p-0 rounded-lg sm:rounded-none">
+                          <span className="text-gray-400 sm:text-gray-500 text-[9px] sm:text-xs">Min CIBIL:</span>
                           <span className="font-bold text-gray-800">{lender.minCreditScore}+</span>
                         </div>
-                        <div className="flex justify-between items-center py-1 border-b border-gray-100">
+                        <div className="hidden sm:flex justify-between items-center py-1 border-b border-gray-100">
                           <span className="text-gray-500">Processing Fee:</span>
                           <span className="font-medium text-gray-700 truncate max-w-42.5" title={lender.processingFee}>
                             {lender.processingFee}
                           </span>
                         </div>
-                        <div className="flex justify-between items-center py-1">
+                        <div className="hidden sm:flex justify-between items-center py-1">
                           <span className="text-gray-500">Documentation:</span>
                           <span className="font-semibold text-emerald-700 flex items-center gap-1">
                             <CheckCircle2 className="w-3 h-3" /> {lender.documentation}
@@ -542,10 +543,16 @@ export default function InstantLoanExplorer({ initialLenders }: InstantLoanExplo
                         </div>
                       </div>
 
-                      {/* Features list (top 2 bullets) */}
-                      <div className="pt-1 space-y-1.5 text-[11px] text-gray-600">
-                        {lender.features.slice(0, 2).map((feat, idx) => (
-                          <div key={idx} className="flex items-start gap-1.5">
+                      {/* Features list (top 1 on mobile, 2 on desktop) */}
+                      <div className="pt-0.5 space-y-1 text-[10px] sm:text-[11px] text-gray-600">
+                        {lender.features.slice(0, 1).map((feat, idx) => (
+                          <div key={idx} className="flex items-start gap-1">
+                            <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0 mt-0.5" />
+                            <span className="line-clamp-1">{feat}</span>
+                          </div>
+                        ))}
+                        {lender.features.slice(1, 2).map((feat, idx) => (
+                          <div key={idx} className="hidden sm:flex items-start gap-1.5">
                             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                             <span className="line-clamp-1">{feat}</span>
                           </div>
@@ -554,38 +561,41 @@ export default function InstantLoanExplorer({ initialLenders }: InstantLoanExplo
                     </div>
                   </Link>
 
-
-                  {/* Card Footer: Compare Checkbox, Details, Apply Now */}
-                  <div className="p-4 bg-gray-50/80 border-t border-gray-100 flex flex-col gap-2.5">
-                    <div className="flex items-center justify-between">
-                      {/* Compare toggle */}
-                      <label className="flex items-center gap-1.5 text-xs text-gray-600 font-semibold cursor-pointer select-none">
-                        <input
-                          type="checkbox"
-                          checked={isCompared}
-                          onChange={() => toggleCompare(lender)}
-                          className="w-3.5 h-3.5 rounded text-primary accent-primary cursor-pointer"
-                        />
-                        <span>Compare</span>
-                      </label>
+                  {/* Card Footer: Compare Toggle, Details, Apply Now */}
+                  <div className="p-2.5 sm:p-4 bg-gray-50/80 border-t border-gray-100 flex flex-col gap-1.5 sm:gap-2.5">
+                    <div className="flex items-center justify-between gap-1">
+                      {/* Compare toggle button */}
+                      <button
+                        type="button"
+                        onClick={() => toggleCompare(lender)}
+                        className={`flex items-center gap-1 text-[10px] sm:text-xs font-semibold px-2 py-1 rounded-lg border transition-colors cursor-pointer ${
+                          isCompared
+                            ? "bg-primary text-white border-primary"
+                            : "bg-white text-gray-600 border-gray-200 hover:bg-gray-100"
+                        }`}
+                      >
+                        <Scale className="w-3 h-3" />
+                        <span>{isCompared ? "Compared" : "Compare"}</span>
+                      </button>
 
                       {/* View details */}
                       <button
                         onClick={() => setSelectedLenderForDetail(lender)}
-                        className="text-xs text-primary hover:text-primary/80 font-bold hover:underline cursor-pointer"
+                        className="text-[10px] sm:text-xs text-primary hover:text-primary/80 font-bold hover:underline cursor-pointer truncate"
                       >
-                        View Details & FAQs
+                        <span className="sm:hidden">Details</span>
+                        <span className="hidden sm:inline">View Details & FAQs</span>
                       </button>
                     </div>
 
                     {/* Apply Now CTA */}
                     <button
                       onClick={() => openApplyModal(lender.name, `Instant loan with ${lender.disbursalTime} disbursal`)}
-                      className="w-full bg-primary hover:bg-[#02383d] text-white font-bold py-2.5 px-4 rounded-xl text-xs sm:text-sm shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                      className="w-full bg-primary hover:bg-[#02383d] text-white font-bold py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl text-[11px] sm:text-sm shadow-xs transition-all flex items-center justify-center gap-1 sm:gap-1.5 cursor-pointer"
                     >
-                      <Zap className="w-3.5 h-3.5 text-gold" />
-                      <span>Get Instant Cash</span>
-                      <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                      <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-gold shrink-0" />
+                      <span className="truncate">Get Instant Cash</span>
+                      <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 ml-0.5 sm:ml-1 shrink-0" />
                     </button>
                   </div>
                 </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import Image from "next/image";
 import {
   Wallet,
   Briefcase,
@@ -18,13 +17,7 @@ import {
   Info,
   TrendingDown,
   Lock,
-  Zap,
-  Minus,
-  Plus,
   RotateCcw,
-  BadgeCheck,
-  Building2,
-  Tag,
 } from "lucide-react";
 import { useApplyModal } from "../context/ApplyModalContext";
 import {
@@ -406,7 +399,7 @@ export default function EmiCalculator() {
       {/* ── Signature Grofi Ambient Background Glow ──────────────────────── */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-212.5 h-125 bg-linear-to-br from-[#B6CC9A]/15 via-primary/5 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto relative z-10 w-full max-w-full overflow-x-hidden">
+      <div className="max-w-7xl mx-auto relative z-10 w-full  overflow-x-hidden">
         
         {/* ── Section Header (100% Aligned to Grofi Aesthetic) ─────────── */}
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 reveal-on-scroll">
@@ -545,7 +538,7 @@ export default function EmiCalculator() {
           {/* ══════════════════════════════════════════════════════════════
               ── Left Column: Pixel-Perfect Calculator Controls (58%) ──
              ══════════════════════════════════════════════════════════════ */}
-          <div className="w-full lg:w-[58%] max-w-full bg-white rounded-2xl sm:rounded-[32px] p-3.5 sm:p-7 border border-[#E5E9EB] shadow-md flex flex-col gap-3.5 sm:gap-5 reveal-slide-left delay-150 overflow-hidden">
+          <div className="w-full lg:w-[58%] max-w-full bg-white rounded-2xl sm:rounded-4xl p-3.5 sm:p-7 border border-[#E5E9EB] shadow-md flex flex-col gap-3.5 sm:gap-5 reveal-slide-left delay-150 overflow-hidden">
             
             {/* 1. Category Banner Box */}
             <div className="bg-[#F2F8F4] border border-[#D4E8DC] rounded-xl sm:rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 shadow-2xs">
@@ -627,7 +620,7 @@ export default function EmiCalculator() {
 
                 <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-gray-400 font-montserrat font-medium mt-1 gap-1">
                   <span className="shrink-0">Min: {formatAmountText(activeConfig.minAmount)}</span>
-                  <span className="text-primary font-bold bg-[#EBF4ED] px-2 sm:px-3 py-0.5 rounded-full border border-[#D1E7D8] shadow-2xs text-[11px] sm:text-xs truncate max-w-[120px] sm:max-w-none text-center">
+                  <span className="text-primary font-bold bg-[#EBF4ED] px-2 sm:px-3 py-0.5 rounded-full border border-[#D1E7D8] shadow-2xs text-[11px] sm:text-xs truncate max-w-30 sm:max-w-none text-center">
                     {formatAmountText(amount)}
                   </span>
                   <span className="shrink-0 text-right">Max: {formatAmountText(activeConfig.maxAmount)}</span>
@@ -836,7 +829,7 @@ export default function EmiCalculator() {
                       ? `${activeConfig.minTenureYears} Yr`
                       : `${activeConfig.minTenureYears * 12} Mo`}
                   </span>
-                  <span className="text-primary font-bold bg-[#EBF4ED] px-2 sm:px-3 py-0.5 rounded-full border border-[#D1E7D8] shadow-2xs text-[11px] sm:text-xs truncate max-w-[130px] sm:max-w-none text-center">
+                  <span className="text-primary font-bold bg-[#EBF4ED] px-2 sm:px-3 py-0.5 rounded-full border border-[#D1E7D8] shadow-2xs text-[11px] sm:text-xs truncate max-w-32.5 sm:max-w-none text-center">
                     {tenureUnit === "years"
                       ? `${tenureYears} Yrs (${totalMonths} Mos)`
                       : `${tenureYears} Mos (${(tenureYears / 12).toFixed(1)} Yrs)`}
@@ -886,7 +879,7 @@ export default function EmiCalculator() {
           <div className="w-full lg:w-[42%] max-w-full flex flex-col gap-4 sm:gap-6 reveal-slide-right delay-200 overflow-hidden">
             
             {/* Primary Result Executive Card (Grofi Deep Forest Emerald) */}
-            <div className="bg-[#02474D] text-white rounded-2xl sm:rounded-[32px] p-4 sm:p-7 shadow-xl relative overflow-hidden flex flex-col justify-between border border-emerald-900/40 max-w-full">
+            <div className="bg-[#02474D] text-white rounded-2xl sm:rounded-4xl p-4 sm:p-7 shadow-xl relative overflow-hidden flex flex-col justify-between border border-emerald-900/40 max-w-full">
               
               {/* Header Bar */}
               <div className="relative z-10">
